@@ -1,5 +1,5 @@
 {
-  "name": "@usememos/mui",
+  "name": "@usememos/ui",
   "version": "0.1.0",
   "description": "Opinionated React UI kit with themeable CSS variables and compound APIs",
   "type": "module",
@@ -163,10 +163,10 @@
     "design-system",
     "theme"
   ],
-  "repository": "https://github.com/usememos/mui",
-  "homepage": "https://github.com/usememos/mui",
+  "repository": "https://github.com/usememos/ui",
+  "homepage": "https://github.com/usememos/ui",
   "bugs": {
-    "url": "https://github.com/usememos/mui/issues"
+    "url": "https://github.com/usememos/ui/issues"
   },
   "license": "MIT"
 }

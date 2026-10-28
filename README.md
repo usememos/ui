@@ -1,6 +1,6 @@
-# @usememos/mui
+# @usememos/ui
 
-React UI library workspace for `@usememos/mui`.
+React UI library workspace for `@usememos/ui`.
 
 ## Workspace
 

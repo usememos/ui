@@ -1,23 +1,23 @@
-# @usememos/mui
+# @usememos/ui
 
 Opinionated React UI kit with explicit CSS delivery and compound component APIs.
 
 ## Install
 
 ```bash
-pnpm add @usememos/mui react react-dom
+pnpm add @usememos/ui react react-dom
 ```
 
 Import the packaged theme once:
 
 ```tsx
-import "@usememos/mui/theme.css";
+import "@usememos/ui/theme.css";
 ```
 
 ## Compound API
 
 ```tsx
-import { Button, Dialog, Input, Select } from "@usememos/mui";
+import { Button, Dialog, Input, Select } from "@usememos/ui";
 
 <Input aria-label="Project name" placeholder="Project name" />;
 
@@ -44,19 +44,19 @@ import { Button, Dialog, Input, Select } from "@usememos/mui";
 
 ## Public Entrypoints
 
-- `@usememos/mui`
-- `@usememos/mui/theme.css`
-- `@usememos/mui/button`
-- `@usememos/mui/checkbox`
-- `@usememos/mui/dialog`
-- `@usememos/mui/dropdown-menu`
-- `@usememos/mui/input`
-- `@usememos/mui/popover`
-- `@usememos/mui/radio-group`
-- `@usememos/mui/select`
-- `@usememos/mui/separator`
-- `@usememos/mui/switch`
-- `@usememos/mui/tooltip`
+- `@usememos/ui`
+- `@usememos/ui/theme.css`
+- `@usememos/ui/button`
+- `@usememos/ui/checkbox`
+- `@usememos/ui/dialog`
+- `@usememos/ui/dropdown-menu`
+- `@usememos/ui/input`
+- `@usememos/ui/popover`
+- `@usememos/ui/radio-group`
+- `@usememos/ui/select`
+- `@usememos/ui/separator`
+- `@usememos/ui/switch`
+- `@usememos/ui/tooltip`
 
 ## Customization
 

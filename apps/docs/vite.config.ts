@@ -6,11 +6,11 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: /^@usememos\/mui$/,
+        find: /^@usememos\/ui$/,
         replacement: new URL("../../packages/react/src/index.ts", import.meta.url).pathname,
       },
       {
-        find: /^@usememos\/mui\/theme\.css$/,
+        find: /^@usememos\/ui\/theme\.css$/,
         replacement: new URL("../../packages/theme/src/theme.css", import.meta.url).pathname,
       },
     ],

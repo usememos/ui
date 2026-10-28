@@ -19,7 +19,7 @@ import {
   Separator,
   Switch,
   Tooltip,
-} from "@usememos/mui";
+} from "@usememos/ui";
 
 type ThemeMode = "light" | "dark";
 
@@ -54,55 +54,55 @@ const components: ComponentMeta[] = [
     name: "Button",
     href: "/docs/components/button",
     summary: "Action primitives with six variants and compact sizing.",
-    packageImport: 'import { Button } from "@usememos/mui";',
+    packageImport: 'import { Button } from "@usememos/ui";',
   },
   {
     name: "Dialog",
     href: "/docs/components/dialog",
     summary: "Compound overlay API with header, footer, title, and description slots.",
-    packageImport: 'import { Dialog } from "@usememos/mui";',
+    packageImport: 'import { Dialog } from "@usememos/ui";',
   },
   {
     name: "Select",
     href: "/docs/components/select",
     summary: "Base UI powered select surface with labels, groups, and item indicators.",
-    packageImport: 'import { Select } from "@usememos/mui";',
+    packageImport: 'import { Select } from "@usememos/ui";',
   },
   {
     name: "Input",
     href: "/docs/components/input",
     summary: "Native text input styled on the same form control sizing scale.",
-    packageImport: 'import { Input } from "@usememos/mui";',
+    packageImport: 'import { Input } from "@usememos/ui";',
   },
   {
     name: "Checkbox",
     href: "/docs/components/controls",
     summary: "Compact boolean control that shares the same token system as buttons and inputs.",
-    packageImport: 'import { Checkbox } from "@usememos/mui";',
+    packageImport: 'import { Checkbox } from "@usememos/ui";',
   },
   {
     name: "Switch",
     href: "/docs/components/controls",
     summary: "Binary control with a minimal visual language and token-driven state colors.",
-    packageImport: 'import { Switch } from "@usememos/mui";',
+    packageImport: 'import { Switch } from "@usememos/ui";',
   },
   {
     name: "Dropdown Menu",
     href: "/docs/components/overlays",
     summary: "Menu primitives for grouped commands, radio items, and nested actions.",
-    packageImport: 'import { DropdownMenu } from "@usememos/mui";',
+    packageImport: 'import { DropdownMenu } from "@usememos/ui";',
   },
   {
     name: "Popover",
     href: "/docs/components/overlays",
     summary: "Lightweight positioned surface for inline detail and small workflows.",
-    packageImport: 'import { Popover } from "@usememos/mui";',
+    packageImport: 'import { Popover } from "@usememos/ui";',
   },
   {
     name: "Tooltip",
     href: "/docs/components/overlays",
     summary: "Quick descriptive overlays with a small API surface.",
-    packageImport: 'import { Tooltip } from "@usememos/mui";',
+    packageImport: 'import { Tooltip } from "@usememos/ui";',
   },
 ];
 
@@ -117,11 +117,11 @@ const docsPages: Record<string, DocPage> = {
       <>
         <DocSection title="Install">
           <CodeBlock
-            code={`pnpm add @usememos/mui react react-dom`}
+            code={`pnpm add @usememos/ui react react-dom`}
             language="bash"
           />
           <CodeBlock
-            code={`import "@usememos/mui/theme.css";\nimport { Button, Dialog, Select } from "@usememos/mui";`}
+            code={`import "@usememos/ui/theme.css";\nimport { Button, Dialog, Select } from "@usememos/ui";`}
             language="tsx"
           />
         </DocSection>
@@ -302,7 +302,7 @@ const docsPages: Record<string, DocPage> = {
         </DocSection>
         <DocSection title="Import">
           <CodeBlock
-            code={`import { Select } from "@usememos/mui";`}
+            code={`import { Select } from "@usememos/ui";`}
             language="tsx"
           />
         </DocSection>
@@ -322,7 +322,7 @@ const docsPages: Record<string, DocPage> = {
         </DocSection>
         <DocSection title="Import">
           <CodeBlock
-            code={`import { Input } from "@usememos/mui";\n\n<Input aria-label="Project name" placeholder="Project name" />\n<Input size="sm" aria-label="Slug" placeholder="memo-ui" />`}
+            code={`import { Input } from "@usememos/ui";\n\n<Input aria-label="Project name" placeholder="Project name" />\n<Input size="sm" aria-label="Slug" placeholder="memo-ui" />`}
             language="tsx"
           />
         </DocSection>
@@ -409,7 +409,7 @@ function SiteHeader({
     <header className="site-header">
       <Link className="site-logo" to="/">
         <span>usememos</span>
-        <strong>/mui</strong>
+        <strong>/ui</strong>
       </Link>
       <nav className="site-nav" aria-label="Primary">
         {primaryNav.map((item) => {
@@ -431,7 +431,7 @@ function SiteHeader({
       <div className="site-actions">
         <a
           className="site-link"
-          href="https://github.com/usememos/mui"
+          href="https://github.com/usememos/ui"
           rel="noreferrer"
           target="_blank"
         >
@@ -456,7 +456,7 @@ function HomePage() {
             Token-first components with a cleaner surface than a giant theme object.
           </h1>
           <p className="hero__copy">
-            usememos/mui wraps Base UI primitives with a shared CSS token layer,
+            usememos/ui wraps Base UI primitives with a shared CSS token layer,
             a compact compound API, and a visual system that stays easy to override.
           </p>
           <div className="hero__actions">
@@ -526,7 +526,7 @@ function HomePage() {
           <h2>Import the CSS once, then compose the pieces you need.</h2>
         </div>
         <CodeBlock
-          code={`pnpm add @usememos/mui react react-dom\n\nimport "@usememos/mui/theme.css";\nimport { Button, Dialog } from "@usememos/mui";`}
+          code={`pnpm add @usememos/ui react react-dom\n\nimport "@usememos/ui/theme.css";\nimport { Button, Dialog } from "@usememos/ui";`}
           language="bash"
         />
       </section>
@@ -865,7 +865,7 @@ function OverlayPreview() {
       </DocSection>
       <DocSection title="Import">
         <CodeBlock
-          code={`import { DropdownMenu, Popover, Tooltip } from "@usememos/mui";`}
+          code={`import { DropdownMenu, Popover, Tooltip } from "@usememos/ui";`}
           language="tsx"
         />
       </DocSection>

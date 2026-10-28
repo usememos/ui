@@ -1,5 +1,5 @@
 {
-  "name": "@usememos/mui-primitives",
+  "name": "@usememos/ui-primitives",
   "private": true,
   "type": "module",
   "peerDependencies": {

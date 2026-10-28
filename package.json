@@ -1,14 +1,14 @@
 {
-  "name": "mui-monorepo",
+  "name": "ui-monorepo",
   "private": true,
   "scripts": {
-    "build": "pnpm --filter @usememos/mui build && pnpm --filter @usememos/docs build",
-    "typecheck": "pnpm --filter @usememos/mui typecheck && pnpm --filter @usememos/docs typecheck",
+    "build": "pnpm --filter @usememos/ui build && pnpm --filter @usememos/docs build",
+    "typecheck": "pnpm --filter @usememos/ui typecheck && pnpm --filter @usememos/docs typecheck",
     "test": "pnpm exec vitest run",
     "test:browser": "pnpm exec vitest run --project browser",
     "test:unit": "pnpm exec vitest run --project unit",
     "docs": "pnpm --filter @usememos/docs dev",
-    "check:packages": "pnpm --filter @usememos/mui build && pnpm --filter @usememos/mui check:package"
+    "check:packages": "pnpm --filter @usememos/ui build && pnpm --filter @usememos/ui check:package"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.4",

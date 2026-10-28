@@ -1,4 +1,4 @@
-import "@usememos/mui/theme.css";
+import "@usememos/ui/theme.css";
 
 import React from "react";
 import ReactDOM from "react-dom/client";

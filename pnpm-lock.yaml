@@ -68,7 +68,7 @@ importers:
       '@fontsource-variable/manrope':
         specifier: ^5.2.7
         version: 5.2.8
-      '@usememos/mui':
+      '@usememos/ui':
         specifier: workspace:*
         version: link:../../packages/react
       react:

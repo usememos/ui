@@ -3,7 +3,7 @@
   "compilerOptions": {
     "types": ["vite/client"],
     "paths": {
-      "@usememos/mui": ["../../packages/react/src/index.ts"]
+      "@usememos/ui": ["../../packages/react/src/index.ts"]
     }
   },
   "include": ["src", "vite.config.ts", "src/vite-env.d.ts"]
