@@ -1,0 +1,70 @@
+# Publishes @usememos/ui to npm. Run it by hand from the Actions tab
+# ("Release", "Run workflow") on main. The version follows memos' CalVer
+# (usememos discussion 6351): year.month.n, where n counts the releases
+# that month on npm from 0. The first release in October 2026 is 26.10.0,
+# the next 26.10.1; the first in April 2027 is 27.4.0. Releases are not
+# tagged in git, and there are no canary or release candidate builds.
+# Authenticates with npm trusted publishing (OIDC), like usememos/editor: no
+# token or secret. The package's npm settings must list this repository and
+# release.yml as a trusted publisher.
+name: Release
+
+on:
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.17.1
+      - uses: actions/setup-node@v4
+        with:
+          # Trusted publishing needs npm 11.5.1 or later, which ships with Node 24.
+          node-version: 24
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Work out the version
+        run: |
+          if [ "$GITHUB_REF" != "refs/heads/main" ]; then
+            echo "Run this workflow on main"
+            exit 1
+          fi
+          month=$(date -u +%y.%-m)
+          # Fails the run if npm cannot be read, rather than guess a version.
+          # A package that is not on npm yet has no versions.
+          if ! versions=$(npm view @usememos/ui versions --json 2>/dev/null); then
+            if echo "$versions" | grep -q '"E404"'; then
+              versions='[]'
+            else
+              echo "$versions"
+              exit 1
+            fi
+          fi
+          # The highest n already on npm for this month, or -1 if none.
+          last=$(echo "$versions" | MONTH=$month node -e '
+            const list = [].concat(JSON.parse(require("fs").readFileSync(0, "utf8")));
+            const prefix = process.env.MONTH + ".";
+            const ns = list.filter((v) => v.startsWith(prefix) && /^\d+$/.test(v.slice(prefix.length)));
+            console.log(Math.max(-1, ...ns.map((v) => Number(v.slice(prefix.length)))));
+          ')
+          version="$month.$((last + 1))"
+          echo "Publishing $version"
+          npm pkg set version="$version" --prefix packages/react
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      - run: pnpm check:packages
+      - run: npm publish --access public
+        working-directory: packages/react
