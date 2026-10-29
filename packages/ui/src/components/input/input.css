@@ -1,0 +1,44 @@
+/* Input and Textarea: flat surface with an edge; the background never changes. See docs/components/input.md. */
+.mu-input-root {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: var(--h);
+  padding: 0 var(--px);
+  border-radius: var(--r);
+  color: var(--ink);
+  background-color: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--edge), var(--shadow-track);
+  cursor: text;
+  transition: box-shadow var(--duration-fade) var(--ease-out);
+}
+.mu-input-root:has(> .mu-input-prefix) { padding-inline-start: var(--pxi); }
+.mu-input-root:has(> .mu-input-suffix) { padding-inline-end: var(--pxi); }
+
+@media (hover: hover) {
+  .mu-input-root:hover:not(:has(> [data-disabled])) { box-shadow: inset 0 0 0 1px var(--ink-muted), var(--shadow-track); }
+}
+.mu-input-root:has(> .mu-input:focus) { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-width); }
+.mu-input-root:has(> [data-invalid]) { box-shadow: inset 0 0 0 1px var(--danger), var(--shadow-track); }
+.mu-input-root:has(> [data-disabled]) { opacity: 0.45; cursor: not-allowed; }
+
+.mu-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  color: inherit;
+  background: none;
+  font: inherit;
+  font-weight: 400;
+}
+.mu-input::placeholder { color: var(--ink-muted); opacity: 1; }
+.mu-input[data-disabled] { cursor: not-allowed; }
+
+.mu-input-prefix, .mu-input-suffix { display: flex; flex: none; align-items: center; gap: var(--space-1); color: var(--ink-muted); }

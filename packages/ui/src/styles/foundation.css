@@ -20,7 +20,7 @@
 .mu-base ::selection, .mu-base::selection { background: var(--selection); }
 
 /* Focus ring on keyboard focus only. */
-.mu-focus:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.mu-focus:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-width); }
 
 /* An invisible 44px touch target on coarse pointers, without changing the visual size. */
 .mu-hit { position: relative; }

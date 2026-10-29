@@ -1,0 +1,40 @@
+/* RadioGroup and Radio: round wells; the chosen one is a flat primary circle with a dot. See docs/components/radio-group.md. */
+.mu-radio-group { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+.mu-radio-group[data-orientation="horizontal"] { flex-direction: row; flex-wrap: wrap; gap: var(--space-3) var(--space-4); }
+/* A legend in a horizontal group takes its own line above the radios. */
+.mu-radio-group[data-orientation="horizontal"] > .mu-fieldset-legend { flex-basis: 100%; }
+
+.mu-radio {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--box);
+  height: var(--box);
+  border-radius: var(--radius-full);
+  background-color: var(--well);
+  box-shadow: inset 0 0 0 1px var(--edge), var(--shadow-track);
+  cursor: pointer;
+  transition-property: background-color, box-shadow, scale;
+  transition-duration: var(--duration-press);
+  transition-timing-function: var(--ease-out);
+}
+.mu-radio[data-checked] { background-color: var(--primary); box-shadow: none; }
+.mu-radio[data-invalid] { box-shadow: inset 0 0 0 1px var(--danger), var(--shadow-track); }
+.mu-radio:active:not([data-disabled], [data-readonly]) { scale: 0.94; }
+.mu-radio[data-disabled] { opacity: 0.45; cursor: not-allowed; }
+
+.mu-radio-indicator {
+  width: calc(var(--box) / 2.5);
+  height: calc(var(--box) / 2.5);
+  border-radius: var(--radius-full);
+  background-color: var(--on-primary);
+  transition: opacity var(--duration-fade) var(--ease-out) var(--duration-press), scale var(--duration-fade) var(--ease-out) var(--duration-press);
+}
+.mu-radio-indicator[data-starting-style], .mu-radio-indicator[data-ending-style] { opacity: 0; scale: 0.4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mu-radio:active:not([data-disabled], [data-readonly]) { scale: none; }
+  .mu-radio-indicator[data-starting-style], .mu-radio-indicator[data-ending-style] { scale: none; }
+}

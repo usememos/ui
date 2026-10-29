@@ -62,6 +62,7 @@ Buttons, inputs and badges are never pills.
 | `control-lg` | 40px | lg control height |
 | `inset` | 2px | Well-to-key inset at every size |
 | `hit-area` | 44px | Minimum touch target on `pointer: coarse`, added invisibly around a control |
+| `focus-width` | 2px | Width and offset of the focus ring |
 | `icon-sm` | 14px | Icons in sm controls |
 | `icon-md` | 16px | Icons in md controls and nav rows |
 | `icon-lg` | 20px | Icons in lg controls |

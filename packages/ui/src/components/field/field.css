@@ -1,0 +1,23 @@
+/* Field and Fieldset: a control with its label, description and error. See docs/components/field.md. */
+.mu-field-root { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+
+.mu-field-label { color: var(--ink); }
+.mu-field-item { display: flex; }
+/* A Checkbox, Switch or Radio inside the label sits beside its text. */
+.mu-field-label:has(> .mu-checkbox, > .mu-switch, > .mu-radio) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 400;
+  cursor: pointer;
+}
+.mu-field-label[data-disabled] { opacity: 0.45; cursor: not-allowed; }
+
+.mu-field-description { margin: 0; color: var(--ink-muted); }
+.mu-field-root[data-invalid] > .mu-field-description { display: none; }
+
+.mu-field-error { display: flex; align-items: flex-start; gap: var(--space-1); color: var(--danger); }
+.mu-field-error > .mu-icon { --icon: var(--icon-sm); margin-block: calc((1lh - var(--icon-sm)) / 2); }
+
+.mu-fieldset-root { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; margin: 0; padding: 0; border: 0; }
+.mu-fieldset-legend { margin-bottom: var(--space-1); padding: 0; color: var(--ink); }

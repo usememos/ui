@@ -1,0 +1,36 @@
+/* Checkbox: an empty well, or a flat primary square with a check. See docs/components/checkbox.md. */
+.mu-checkbox {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--box);
+  height: var(--box);
+  border-radius: var(--radius-sm);
+  color: var(--on-primary);
+  background-color: var(--well);
+  box-shadow: inset 0 0 0 1px var(--edge), var(--shadow-track);
+  cursor: pointer;
+  transition-property: background-color, box-shadow, scale;
+  transition-duration: var(--duration-press);
+  transition-timing-function: var(--ease-out);
+}
+.mu-checkbox[data-checked], .mu-checkbox[data-indeterminate] { background-color: var(--primary); box-shadow: none; }
+.mu-checkbox[data-invalid] { box-shadow: inset 0 0 0 1px var(--danger), var(--shadow-track); }
+.mu-checkbox:active:not([data-disabled], [data-readonly]) { scale: 0.94; }
+.mu-checkbox[data-disabled] { opacity: 0.45; cursor: not-allowed; }
+
+.mu-checkbox-indicator { display: flex; transition: opacity var(--duration-fade) var(--ease-out) var(--duration-press), scale var(--duration-fade) var(--ease-out) var(--duration-press); }
+.mu-checkbox-indicator[data-starting-style], .mu-checkbox-indicator[data-ending-style] { opacity: 0; scale: 0.6; }
+.mu-checkbox-indicator > svg {
+  width: calc(var(--box) - 2 * var(--inset));
+  height: calc(var(--box) - 2 * var(--inset));
+  stroke-width: 2;
+}
+.mu-checkbox-indicator > svg * { vector-effect: non-scaling-stroke; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mu-checkbox:active:not([data-disabled], [data-readonly]) { scale: none; }
+  .mu-checkbox-indicator[data-starting-style], .mu-checkbox-indicator[data-ending-style] { scale: none; }
+}

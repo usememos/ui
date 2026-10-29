@@ -1,0 +1,40 @@
+/* Switch: a pill well with a round knob; the well fills with primary when on. See docs/components/switch.md. */
+.mu-switch {
+  --switch-h: calc(var(--box) + var(--inset));
+  --switch-w: calc(var(--switch-h) * 1.7);
+  --knob: calc(var(--switch-h) - 2 * var(--inset));
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  box-sizing: border-box;
+  width: var(--switch-w);
+  height: var(--switch-h);
+  padding: var(--inset);
+  border-radius: var(--radius-full);
+  background-color: var(--well);
+  box-shadow: inset 0 0 0 1px var(--edge), var(--shadow-track);
+  cursor: pointer;
+  transition: background-color var(--duration-settle) var(--ease-settle), box-shadow var(--duration-settle) var(--ease-settle);
+}
+.mu-switch[data-checked] { background-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); }
+.mu-switch[data-invalid] { box-shadow: inset 0 0 0 1px var(--danger), var(--shadow-track); }
+.mu-switch[data-disabled] { opacity: 0.45; cursor: not-allowed; }
+
+.mu-switch-thumb {
+  display: block;
+  width: var(--knob);
+  height: var(--knob);
+  border-radius: var(--radius-full);
+  background-color: var(--key);
+  background-image: linear-gradient(180deg, var(--key-sheen), transparent 60%);
+  box-shadow: var(--shadow-key);
+  transition: translate var(--duration-settle) var(--ease-settle), scale var(--duration-press) var(--ease-out), background-color var(--duration-settle) var(--ease-settle);
+}
+.mu-switch-thumb[data-checked] { translate: calc(var(--switch-w) - var(--switch-h)) 0; background-color: var(--on-primary); }
+.mu-switch:active:not([data-disabled], [data-readonly]) > .mu-switch-thumb { scale: 1.1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mu-switch-thumb { transition-property: background-color; }
+  .mu-switch:active:not([data-disabled], [data-readonly]) > .mu-switch-thumb { scale: none; }
+}

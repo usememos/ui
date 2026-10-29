@@ -40,8 +40,8 @@ Components follow the [API conventions](../building.md#api-conventions): parts w
 | One of 2 or 3 options, with room to show them | RadioGroup |
 | One of a short list | Select |
 | One of a long list, or typing to find | Combobox |
-| On/off in a toolbar, or stacking filters | Toggle, or ToggleGroup `type="multiple"` |
-| One of several views or filters on the same page | ToggleGroup `type="single"` |
+| On/off in a toolbar, or stacking filters | Toggle, or ToggleGroup with `multiple` |
+| One of several views or filters on the same page | ToggleGroup without `multiple` |
 | Sections of a page | Tabs |
 | A list of actions for one thing | Menu |
 | A few controls that belong to one thing | Popover |

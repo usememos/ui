@@ -2,21 +2,29 @@
 
 A switch turns a setting on or off immediately. It is a pill-shaped well with a round knob, and the well fills with `primary` when on.
 
+## Example
+
+```tsx
+import { Field, Switch } from "@usememos/ui";
+
+<Field.Root>
+  <Field.Label>
+    <Switch checked={publicByDefault} onCheckedChange={save} /> Make new notes public
+  </Field.Label>
+</Field.Root>
+```
+
 ## Props
 
 ```ts
-interface SwitchProps {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  onCheckedChange?: (checked: boolean) => void;
-  label?: React.ReactNode;
-  "aria-label"?: string;
-  size?: Size;
-  disabled?: boolean;
+interface SwitchProps extends BaseSwitch.Root.Props {
+  size?: Size; // 18, 20, 22px tall
 }
 ```
 
-Provide `label` or `aria-label`.
+`Switch` wraps Base UI's [Switch](https://base-ui.com/react/components/switch) root with its thumb built in, so its props (`checked`, `defaultChecked`, `onCheckedChange`, `disabled`, `name`) pass through.
+
+Name it with a `Field.Label` around it, or `aria-label`.
 
 ## Guidelines
 
