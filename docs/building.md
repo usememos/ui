@@ -22,13 +22,30 @@ import "@usememos/ui/styles.css";
 
 `tokens.css` defines every token on `:root`, on a shadow root's `:host`, and on any element with the `mu-root` class. `styles.css` holds the foundation classes and every component's styles.
 
+Every token is a custom property named `--mu-<token>`, so the `surface` token is `var(--mu-surface)`. The prefix keeps the tokens apart from an app's own variables and from those of a CSS framework.
+
+### Cascade layer
+
+Both stylesheets sit in one [cascade layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) named `mu`. Unlayered CSS always wins over layered CSS, so an app's own rules override a component without a specificity fight: a `className` on a `Button` that sets `width` wins over the button's own rule.
+
+When the app also puts its CSS in layers, declare the order once, before any import, so that `mu` comes after resets and before the app's components and utilities. For an app on Tailwind CSS v4:
+
+```css
+@layer theme, base, mu, components, utilities;
+@import "tailwindcss";
+@import "@usememos/ui/tokens.css";
+@import "@usememos/ui/styles.css";
+```
+
+Without that line, the layer seen first is the weakest. A reset loaded after `styles.css` would then override the components.
+
 ## Scoping inside a host page
 
 Inside another page (the web clipper, an embed), mount the UI under a `.mu-root` element or inside a shadow root, so neither side's styles leak into the other. The package has no global selectors beyond `:root`, `:host` and `.mu-root`.
 
 ## Choosing a theme
 
-Set `data-theme="light" | "dark" | "contrast"` on the root element or on any `.mu-root`. Without the attribute the tokens are Light. The app, not the package, reads `prefers-color-scheme` and the user's saved choice. See [Color](color.md#themes).
+Set `data-theme="light" | "dark" | "contrast"` on the root element or on any `.mu-root`. Without the attribute the tokens are Light. The app, not the package, reads `prefers-color-scheme` and the user's saved choice. See [Color](color.md#themes). An app can add its own themes on top of these three; see [App themes](color.md#app-themes).
 
 ## Class names
 

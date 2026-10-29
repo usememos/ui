@@ -39,6 +39,25 @@ Set `data-theme="light" | "dark" | "contrast"` on the root element, or on any `.
 
 The package does not read `prefers-color-scheme` itself. The app does, so that a saved preference wins over the system setting. Dark sets `color-scheme: dark`, so native scrollbars and form controls follow.
 
+### App themes
+
+An app can offer more themes than the three the package ships, such as a warm Paper theme in memos. An app theme is a rule that sets the tokens under its own `data-theme` value:
+
+```css
+[data-theme="paper"] {
+  color-scheme: light;
+  --mu-canvas: #f5ede4;
+  --mu-surface: #fbf6f0;
+  /* every other color token, and the five shadow tokens */
+}
+```
+
+- Set every color token in the table below and the five shadow tokens in [Depth](depth.md). A token the theme leaves out keeps its Light value, so a partial theme mixes two palettes.
+- Keep the rules on this page: `primary` stays ink, not a brand hue; `accent` is only for focus, links and selection; status colors only for status.
+- The app owns the theme's contrast. Check in the app's own tests that every text and background pair named in the Usage column below keeps 4.5:1 or more. The package's tests and screenshots cover only Light, Dark and High contrast.
+- The tokens sit in the `mu` [cascade layer](building.md#cascade-layer), so an unlayered app theme wins over them at any specificity.
+- An app theme is a choice the user makes. It is not a way to restyle the package per product: an app's default theme is Light or Dark.
+
 ## Color tokens
 
 | Token | Light | Dark | High contrast | Usage |

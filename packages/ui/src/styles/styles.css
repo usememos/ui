@@ -5,7 +5,7 @@
  *
  * Everything sits in the `mu` cascade layer, so an app's own CSS and its
  * utility classes override a component without a specificity fight. See
- * docs/building.md#loading-the-styles.
+ * docs/building.md#loading-the-css.
  */
 @import "./foundation.css" layer(mu);
 @import "../components/spinner/spinner.css" layer(mu);
