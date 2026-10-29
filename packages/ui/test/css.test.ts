@@ -1,5 +1,7 @@
 // Rules for every stylesheet the package ships: scoped class names, and no
 // raw values in component styles (docs/building.md, AGENTS.md).
+import { join } from 'node:path';
+import { build } from 'esbuild';
 import { describe, expect, it } from 'vitest';
 import foundationCss from '../src/styles/foundation.css?raw';
 import stylesCss from '../src/styles/styles.css?raw';
@@ -63,6 +65,31 @@ describe('stylesheets', () => {
   for (const [path, css] of Object.entries(componentCss)) {
     it(`${path} uses tokens, not raw values`, () => {
       expect(findRawValues(css)).toEqual([]);
+    });
+  }
+});
+
+/** The top-level rules of a stylesheet: everything between braces at depth 0. */
+function topLevelRules(css: string) {
+  const out: string[] = [];
+  let depth = 0;
+  let start = 0;
+  for (let i = 0; i < css.length; i++) {
+    if (css[i] === '{' && depth++ === 0) out.push(css.slice(start, i).trim());
+    if (css[i] === '}' && --depth === 0) start = i + 1;
+  }
+  return out;
+}
+
+describe('published stylesheets', () => {
+  // Built as scripts/build.mjs builds them: an app's utility classes and own rules must beat every component rule.
+  for (const file of ['tokens.css', 'styles.css']) {
+    it(`${file} keeps every rule in the mu cascade layer`, async () => {
+      const result = await build({ entryPoints: [join(__dirname, '../src/styles', file)], bundle: true, minify: true, write: false, logLevel: 'silent' });
+      const css = result.outputFiles[0]?.text ?? '';
+      const rules = topLevelRules(stripComments(css));
+      expect(rules.length).toBeGreaterThan(0);
+      expect(rules.filter((rule) => rule !== '@layer mu')).toEqual([]);
     });
   }
 });

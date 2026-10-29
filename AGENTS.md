@@ -64,7 +64,7 @@ The tests enforce part of this: `inventory.test.ts` fails when a component folde
   - `src/components/<name>/`: one folder per component, with its stylesheet
   - `scripts/build.mjs`: the build (esbuild, then `tsc` for the declarations, then `llms.txt` and `llms-full.txt` from `docs/` by `scripts/llms.mjs`)
   - `test/`: Vitest tests: tokens and docs in sync, color contrast, CSS rules, the inventory, component behavior
-- `playground/`: the test page. It renders every component section and the foundations, in the theme and size given by `?theme=` and `?size=`. The browser tests and screenshots run against its build. It is a test fixture, not a site for people to browse
+- `playground/`: the test page. It renders every component section and the foundations, in the theme and size given by `?theme=` and `?size=`. The browser tests and screenshots run against its build. It is a test fixture, not a site for people to browse. `playground/interop.html` loads the components inside an app-like stylesheet (its own variables, a reset layer, utility classes, an app theme) for `e2e/interop.spec.ts`.
 - `e2e/`: Playwright browser tests
 - `docs/`: the design system docs. They also ship in the package as `llms.txt` and `llms-full.txt`, for agents in apps
 

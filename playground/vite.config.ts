@@ -20,6 +20,8 @@ export default defineConfig({
     minify: false,
     cssMinify: false,
     rollupOptions: {
+      // index.html renders every component; interop.html loads them inside an app's CSS.
+      input: { index: src('index.html'), interop: src('interop.html') },
       // lucide-react marks its modules "use client", which only means something to server components.
       onwarn(warning, warn) {
         if (warning.code !== 'MODULE_LEVEL_DIRECTIVE') warn(warning);

@@ -1,0 +1,37 @@
+/*
+ * A stand-in for an app's stylesheet, loaded the way docs/building.md says.
+ * The app has its own variables with the names ui used before the --mu-
+ * prefix, a reset in a base layer, a utility class in a later layer, an
+ * unlayered rule and an app theme. e2e/interop.spec.ts checks that each one
+ * does what an app expects. It is not part of the package.
+ */
+@layer theme, base, mu, components, utilities;
+@import "@usememos/ui/tokens.css";
+@import "@usememos/ui/styles.css";
+
+@layer theme {
+  :root { --primary: rgb(255, 0, 0); --accent: rgb(255, 0, 0); --overlay: rgb(255, 0, 0); --radius-md: 99px; --font-sans: serif; --space-3: 99px; }
+}
+
+@layer base {
+  *, ::before, ::after { box-sizing: border-box; margin: 0; padding: 0; border: 0 solid; }
+  button { background-color: transparent; color: inherit; font: inherit; border-radius: 0; }
+}
+
+@layer utilities {
+  .w-full { width: 100%; }
+  .px-8 { padding-inline: 32px; }
+}
+
+/* Unlayered, with no specificity at all: it still wins over the component. */
+:where(.app-tall) { height: 48px; }
+
+/* An app theme: a user's choice, like Paper in memos (docs/color.md#app-themes). */
+[data-theme="paper"] {
+  --mu-canvas: rgb(245, 237, 228);
+  --mu-surface: rgb(251, 246, 240);
+  --mu-primary: rgb(60, 40, 30);
+}
+
+body { background: var(--mu-canvas); }
+.app { display: grid; gap: 16px; padding: 24px; }
