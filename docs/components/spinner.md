@@ -1,15 +1,26 @@
 # Spinner
 
-A spinner says that something short is in progress. It is a 1.5px ring in `currentColor` with one gap, turning once every 0.8s.
+A spinner says that something short is in progress. It is a ring in `currentColor` with one gap, at the icon stroke width of its size, turning once every `duration-spin` (0.8s).
+
+## Example
+
+```tsx
+import { Spinner } from "@usememos/ui";
+
+<Spinner label="Loading notes" />
+```
 
 ## Props
 
 ```ts
-interface SpinnerProps {
-  size?: Size;    // 14, 16, 20px
+interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
+  size?: Size;    // 14, 16, 20px; defaults to the surrounding Root's size, else md
   label?: string; // for screen readers, default "Loading"
+  render?: React.ReactElement; // plus Base UI's render prop
 }
 ```
+
+It renders a `<span role="status">` named by `label`.
 
 ## Guidelines
 

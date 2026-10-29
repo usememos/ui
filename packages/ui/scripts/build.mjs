@@ -21,7 +21,9 @@ await build({
   entryPoints: [src('index.ts')],
   outfile: join(dist, 'index.js'),
   jsx: 'automatic',
-  external: ['react', 'react/*', 'react-dom'],
+  // Components use hooks, so React Server Components must load them as client code.
+  banner: { js: "'use client';" },
+  external: ['react', 'react/*', 'react-dom', 'lucide-react', '@base-ui/react', '@base-ui/react/*'],
 });
 
 // tokens.css and styles.css ship separately, so an app can load the tokens alone.

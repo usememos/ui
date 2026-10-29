@@ -10,7 +10,8 @@
     "build": "npm run build -w @usememos/ui",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "test:e2e": "playwright test --project=chromium"
+    "test:e2e": "playwright test --project=chromium",
+    "test:visual": "playwright test --project=visual"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",

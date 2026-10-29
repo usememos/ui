@@ -1,0 +1,22 @@
+/* Skeleton: a well block that shimmers. See docs/components/skeleton.md. */
+.mu-skeleton {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--lh);
+  border-radius: var(--radius-sm);
+  background-color: var(--well);
+  background-image: linear-gradient(90deg, transparent 0%, var(--hover) 50%, transparent 100%);
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: mu-shimmer var(--duration-shimmer) ease-in-out infinite;
+}
+.mu-skeleton-round { width: var(--h); height: var(--h); border-radius: var(--radius-full); }
+
+@keyframes mu-shimmer {
+  from { background-position: 150% 0; }
+  to { background-position: -50% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mu-skeleton { animation: none; background-image: none; }
+}

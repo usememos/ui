@@ -34,7 +34,7 @@ Components follow the [API conventions](../building.md#api-conventions): parts w
 | Need | Use |
 | --- | --- |
 | Start an action | Button |
-| Go somewhere | Link, or Button with `href` when it should look like an action |
+| Go somewhere | Link, or an anchor with `buttonClasses()` when it should look like an action |
 | A setting that saves at once | Switch |
 | An option saved with a form | Checkbox |
 | One of 2 or 3 options, with room to show them | RadioGroup |

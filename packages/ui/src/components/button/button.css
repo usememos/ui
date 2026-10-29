@@ -1,0 +1,58 @@
+/* Button: a raised key that sinks while pressed. See docs/components/button.md. */
+.mu-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  box-sizing: border-box;
+  height: var(--h);
+  margin: 0;
+  padding: 0 var(--px);
+  border: 0;
+  border-radius: var(--r);
+  color: var(--ink);
+  background-color: var(--key);
+  background-image: linear-gradient(180deg, var(--key-sheen), transparent 60%);
+  box-shadow: var(--shadow-raised);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition-property: background-color, box-shadow, color, translate;
+  transition-duration: var(--duration-press);
+  transition-timing-function: var(--ease-out);
+}
+
+/* The icon side has 2px less padding, so text and icon look centered. */
+.mu-button:has(> svg:first-child) { padding-inline-start: var(--pxi); }
+.mu-button.mu-button-icon { width: var(--h); padding: 0; }
+
+.mu-button-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+@media (hover: hover) {
+  .mu-button:hover:not([data-disabled]) { background-color: var(--key-hover); }
+  .mu-button-primary:hover:not([data-disabled]) { background-color: var(--primary-hover); }
+  .mu-button-danger:hover:not([data-disabled]) { background-color: var(--danger-key); filter: brightness(1.08); }
+  .mu-button-ghost:hover:not([data-disabled]) { background-color: var(--hover); color: var(--ink); }
+}
+
+.mu-button:active:not([data-disabled]) { translate: 0 0.5px; box-shadow: var(--shadow-pressed); }
+
+.mu-button-primary { color: var(--on-primary); background-color: var(--primary); }
+.mu-button-danger { color: var(--on-danger); background-color: var(--danger-key); }
+
+/* Ghost: flat at rest, sinks into a well while held. */
+.mu-button-ghost { color: var(--ink-muted); background-color: transparent; background-image: none; box-shadow: none; }
+.mu-button-ghost:active:not([data-disabled]) { translate: none; background-color: var(--well); box-shadow: var(--shadow-track); }
+
+.mu-button[data-disabled]:not([data-loading]) { opacity: 0.45; cursor: not-allowed; }
+
+/* Loading keeps the width: the content goes transparent (and stays named) under a centered Spinner. */
+.mu-button[data-loading] { cursor: progress; }
+.mu-button[data-loading] > :not(.mu-spinner) { opacity: 0; }
+.mu-button > .mu-spinner { position: absolute; inset: 0; margin: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mu-button:active:not([data-disabled]) { translate: none; }
+}

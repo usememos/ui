@@ -19,5 +19,7 @@ Motion makes depth feel physical: keys sink when pressed, knobs and keys settle 
 | `duration-press` | 80ms | Pointer down: keys sink, knobs grow |
 | `duration-settle` | 150ms | Knobs and keys slide on release; dialogs open |
 | `duration-fade` | 100ms | Popups open; content inside a control fades in after the key stops |
+| `duration-spin` | 800ms | One turn of a Spinner |
+| `duration-shimmer` | 1400ms | One pass of a Skeleton's shimmer |
 | `ease-settle` | `cubic-bezier(0.2, 0.9, 0.3, 1)` | Slides: hard deceleration at the end, like a light spring |
 | `ease-out` | `cubic-bezier(0.2, 0, 0, 1)` | Press and fades |

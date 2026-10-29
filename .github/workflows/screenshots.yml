@@ -1,0 +1,25 @@
+name: Screenshots
+
+# Makes the screenshot baselines for e2e/visual.spec.ts on the same Linux
+# runner CI compares them on, and uploads them as an artifact. Commit the
+# files from the artifact into e2e/__screenshots__/ after reviewing them.
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --project=visual --update-snapshots=all
+      - uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: e2e/__screenshots__
+          retention-days: 7

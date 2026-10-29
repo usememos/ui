@@ -1,0 +1,16 @@
+/* Link: accent text that underlines on hover and focus. See docs/components/link.md. */
+.mu-link {
+  color: var(--accent);
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+}
+.mu-link:hover, .mu-link:focus-visible, .mu-link-underline { text-decoration: underline; }
+/* High contrast never tells a link apart by color alone. */
+[data-theme="contrast"] .mu-link { text-decoration: underline; }
+.mu-link-muted { color: var(--ink-muted); }
+.mu-link-muted:hover { color: var(--ink); }
+
+/* The external arrow follows the text size. */
+.mu-link > .mu-icon { display: inline-block; width: 0.85em; height: 0.85em; margin-inline-start: 0.1em; vertical-align: -0.05em; }

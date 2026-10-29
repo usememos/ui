@@ -50,7 +50,8 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 3. Build it in `packages/ui/src/components/<name>/` on Base UI (`@base-ui/react`), styled only with tokens and the foundation classes, in all three sizes, all [states](docs/states.md) and all three themes. Its CSS goes in `<name>/<name>.css`, imported from `src/styles/styles.css`; the build inlines it, so the package still ships one stylesheet.
 4. Export it from `packages/ui/src/index.ts`. The package has one JS entry point.
 5. Show every variant and state in `playground/sections/<name>.tsx` and list it in `playground/sections/index.ts`.
-6. Add unit tests in `packages/ui/test/` for behavior that isn't Base UI's (controlled and uncontrolled state, `loading`, `size` through context, `render`), with `// @vitest-environment happy-dom` at the top. Add a browser test in `e2e/<name>.spec.ts` for keyboard paths, reduced motion and an axe scan.
+6. Add unit tests in `packages/ui/test/` for behavior that isn't Base UI's (controlled and uncontrolled state, `loading`, `size` through context, `render`), with `// @vitest-environment happy-dom` at the top. Add a browser test in `e2e/<name>.spec.ts` for keyboard paths, reduced motion and touch hit areas. `e2e/foundations.spec.ts` runs axe over the whole playground in every theme.
+7. Update the screenshots (below).
 
 The tests enforce part of this: `inventory.test.ts` fails when a component folder has no docs page, export or playground section, and `css.test.ts` fails on raw colors, lengths, durations or z-indexes in component CSS (only `0.5px` and `1px` lengths are allowed).
 
@@ -77,10 +78,17 @@ npm install
 npm run dev        # the playground
 npm test           # unit tests (vitest), including tokens.css against the docs
 npm run test:e2e   # browser tests (Playwright, Chromium)
+npm run test:visual  # screenshots of every playground section (compared in CI only; see below)
 npx playwright test --project=firefox --project=webkit  # the browser tests in Firefox and WebKit (needs those browsers)
 npm run typecheck
 npm run build      # the published files, in packages/ui/dist
 ```
+
+## Screenshots
+
+`e2e/visual.spec.ts` takes a screenshot of every playground section in every theme and size, and CI compares them with the baselines in `e2e/__screenshots__/`. Baselines are made on CI's Linux runner, never locally: browsers and fonts on other machines render a few pixels differently.
+
+When a change is meant to look different, run the "Screenshots" workflow on the branch (Actions, "Screenshots", "Run workflow"), look at the images in its `screenshots` artifact, and commit the ones that changed into `e2e/__screenshots__/`. Say in the commit message which components changed and why. Never update baselines just to make CI pass.
 
 ## Commit messages
 

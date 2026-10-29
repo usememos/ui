@@ -37,7 +37,11 @@
     "prepack": "npm run build"
   },
   "peerDependencies": {
+    "lucide-react": ">=1.0.0",
     "react": ">=18",
     "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@base-ui/react": "1.9.0"
   }
 }

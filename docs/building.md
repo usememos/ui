@@ -74,7 +74,7 @@ import { Ellipsis, Pin, Trash2 } from "lucide-react";
   - `pressed` + `onPressedChange`, or `defaultPressed` (Toggle)
   - `open` + `onOpenChange`, or `defaultOpen` (Menu, Dialog, AlertDialog, Popover, Tooltip, Collapsible, Select, Combobox)
 - **`icon`** takes a Lucide element (`icon={<Pin />}`), never a string name.
-- **`render`** on every component and part swaps the rendered element, as in Base UI. Use it for links that look like buttons (`<Button render={<a href="/docs" />}>Open docs</Button>`) and for custom triggers.
+- **`render`** on every component and part swaps the rendered element, as in Base UI: a router's link in `Link`, a Button as a `Menu.Trigger`. Base UI doesn't render links through Button; a link that looks like a button is an anchor with `buttonClasses()` (see [Button](components/button.md#links-that-look-like-buttons)).
 - **`className` and `style`** pass through to the part's element, after our classes.
 - **Accessible names.** A control without a visible label takes `aria-label`. Icon-only controls always do.
 - **`tone`**: `"neutral" | "success" | "warning" | "danger"` on status components (Badge, toasts).
@@ -83,7 +83,7 @@ import { Ellipsis, Pin, Trash2 } from "lucide-react";
 
 ### Styling hooks
 
-- Every part has a class `mu-<component>-<part>` (`mu-menu-popup`, `mu-menu-item`), plus `mu-<component>` on single components.
+- Every part has a class `mu-<component>-<part>` (`mu-menu-popup`, `mu-menu-item`), plus `mu-<component>` on single components. Variants are classes too (`mu-button-primary`, `mu-badge-success`), so `buttonClasses()` can style any element.
 - State is styled through Base UI's data attributes (`data-highlighted`, `data-checked`, `data-pressed`, `data-disabled`, `data-open`, `data-starting-style`, `data-ending-style`), never through extra classes.
 
 ### Toasts

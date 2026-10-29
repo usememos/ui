@@ -1,16 +1,26 @@
 # Skeleton
 
-A skeleton holds the place of content that is still loading. It is a `well` block that shimmers once every 1.4s.
+A skeleton holds the place of content that is still loading. It is a `well` block that shimmers once every `duration-shimmer` (1.4s).
+
+## Example
+
+```tsx
+import { Skeleton } from "@usememos/ui";
+
+<Skeleton round />
+<Skeleton width="40%" />
+<Skeleton />
+```
 
 ## Props
 
 ```ts
-interface SkeletonProps {
-  width?: number | string;
-  height?: number | string;
-  round?: boolean; // for avatars
+interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
+  width?: number | string;  // default: full width (a round one: its height)
+  height?: number | string; // default: one line of text at `size` (a round one: the control height)
+  round?: boolean;          // for avatars
   size?: Size;
-  style?: React.CSSProperties;
+  render?: React.ReactElement;
 }
 ```
 

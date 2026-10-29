@@ -1,0 +1,19 @@
+/* Avatar: a circle with a photo, or initials on a well. See docs/components/avatar.md. */
+.mu-avatar-root {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: var(--h);
+  height: var(--h);
+  border-radius: var(--radius-full);
+  color: var(--ink-muted);
+  background-color: var(--well);
+  vertical-align: middle;
+  user-select: none;
+}
+
+.mu-avatar-image { width: 100%; height: 100%; object-fit: cover; }
+.mu-avatar-fallback { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }

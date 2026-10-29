@@ -151,6 +151,8 @@
   --duration-press: 80ms;
   --duration-settle: 150ms;
   --duration-fade: 100ms;
+  --duration-spin: 800ms;
+  --duration-shimmer: 1400ms;
   --ease-settle: cubic-bezier(0.2, 0.9, 0.3, 1);
   --ease-out: cubic-bezier(0.2, 0, 0, 1);
   --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;

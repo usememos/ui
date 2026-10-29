@@ -1,0 +1,16 @@
+/* Kbd: a tiny raised key, 20px tall. See docs/components/kbd.md. */
+.mu-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: calc(var(--control-sm) - 2 * var(--inset));
+  height: calc(var(--control-sm) - 2 * var(--inset));
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  color: var(--ink-muted);
+  background-color: var(--key);
+  background-image: linear-gradient(180deg, var(--key-sheen), transparent 60%);
+  box-shadow: var(--shadow-raised);
+  white-space: nowrap;
+}

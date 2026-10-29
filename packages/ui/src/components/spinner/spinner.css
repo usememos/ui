@@ -1,0 +1,16 @@
+/* Spinner: a ring in currentColor with one gap. See docs/components/spinner.md. */
+.mu-spinner {
+  display: inline-block;
+  flex: none;
+  box-sizing: border-box;
+  width: var(--icon);
+  height: var(--icon);
+  border: var(--icon-stroke) solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--radius-full);
+  animation: mu-spin var(--duration-spin) linear infinite;
+}
+
+@keyframes mu-spin {
+  to { rotate: 1turn; }
+}
