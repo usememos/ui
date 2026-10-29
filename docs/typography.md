@@ -1,0 +1,52 @@
+# Typography
+
+## Rules
+
+- Inter for everything, smoothed with antialiasing. Below 20px use the text optical size. From 20px up use the display optical size.
+- Controls and labels are weight 500. Running text is 400. Headings are 600.
+- Control text scales with the control size: 12px at sm, 14px at md, 16px at lg.
+- `body-sm` (13px) is for dense secondary text. `label-xs` (11px) is for kbd and counts inside badges only.
+- Reading text (`Prose`) is 15px on a 24px line. `sm` prose is 14px on a 22px line, for dense lists.
+- Letter spacing is 0 up to 20px, −0.01em for `heading-2` and `heading-1`, and −0.02em for `display`.
+- Use `font-variant-numeric: tabular-nums` wherever numbers change or line up: counts, times, tables.
+- Hierarchy comes from text color (`ink`, `ink-muted`) before size or weight. Selected and unselected states never change weight, so labels don't shift.
+
+## Fonts
+
+| Family | Stack |
+| --- | --- |
+| `--font-sans` | `Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` |
+| `--font-display` | `Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` |
+
+The package ships Inter variable as a local `woff2` and never loads a remote font. The fallback stack starts with `system-ui`.
+
+## Scale
+
+### Text (`--font-sans`)
+
+| Style | Size / line | Weight | Usage |
+| --- | --- | --- | --- |
+| `label-xs` | 11 / 16px | 500 | Kbd and counts inside badges only. Never running text |
+| `caption` | 12 / 16px | 400 | Metadata, timestamps, helper text. In `ink-muted` |
+| `label-sm` | 12 / 16px | 500 | Labels inside sm controls |
+| `body-sm` | 13 / 18px | 400 | Dense secondary text: toast descriptions, sm menu rows, dense table cells |
+| `body` | 14 / 20px | 400 | Default running text in app UI |
+| `label` | 14 / 20px | 500 | Labels inside md controls, nav rows, buttons. The default control text |
+| `body-lg` | 16 / 24px | 400 | Reading text on marketing pages and other long-form copy |
+| `label-lg` | 16 / 24px | 500 | Labels inside lg controls |
+
+### Headings (`--font-display`)
+
+| Style | Size / line | Weight | Letter spacing | Optical size | Usage |
+| --- | --- | --- | --- | --- | --- |
+| `title` | 18 / 28px | 600 | 0 | text | Section titles inside panels; dialog titles; empty-state titles |
+| `heading-3` | 20 / 28px | 600 | 0 | 20 | Page sub-heads |
+| `heading-2` | 24 / 32px | 600 | −0.01em | 24 | Page titles in an app |
+| `heading-1` | 32 / 40px | 600 | −0.01em | 32 | Marketing and onboarding headings |
+| `display` | 40 / 48px | 600 | −0.02em | 32 | Hero headline on a website only |
+
+Each style is also a class of the same name (`.caption`, `.heading-2`), which sets the family, size, line height, weight and, where listed, letter spacing and `font-variation-settings: 'opsz' <n>`.
+
+## Prose
+
+Rendered content (notes, comments, changelogs, website pages) uses the `Prose` styles, not the scale above. See [Prose](components/prose.md).

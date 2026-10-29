@@ -1,6 +1,6 @@
 # @usememos/ui
 
-React UI library workspace for `@usememos/ui`.
+The Memos UI design system: shared tokens, components and patterns for memos, the website, the web clipper and future usememos projects. See [`docs/`](docs/README.md) for the system and [`AGENTS.md`](AGENTS.md) for how to work in this repo.
 
 ## Workspace
 
@@ -35,5 +35,6 @@ Publishing uses npm trusted publishing, so there is no npm token. On npmjs.com, 
 
 ## Reference Docs
 
-- [Design system](docs/DESIGN_SYSTEM.md): core foundations, tokens, primitives, accessibility gates, governance, and migration rules.
-- [Package usage](packages/react/README.md): public entrypoints, examples, and consumer setup.
+- [Design system](docs/README.md): principles, color, depth, typography, layout, motion, states, icons, components and patterns.
+- [AGENTS.md](AGENTS.md): rules and workflow for people and coding agents working in this repo.
+- [Package usage](packages/react/README.md): public entrypoints, examples, and consumer setup for the current package.
