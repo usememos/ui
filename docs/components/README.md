@@ -21,7 +21,7 @@ Pages are reference for agents: short, imperative, no narrative. Every page has 
 5. **Rules.** Imperative bullets: when to use it, what to use instead, required labels, keyboard behavior.
 6. **Style.** Bullets for building the component: tokens, sizes, states and motion.
 
-Components follow the [API conventions](../building.md#api-conventions): parts with Base UI's names, no data props. Pages that still list `items` or `options`, or still use the old prose format, were written before these rules and are rewritten when their component is built.
+Components follow the [API conventions](../building.md#api-conventions): parts with Base UI's names, no data props.
 
 ## Left out on purpose
 

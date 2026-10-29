@@ -145,6 +145,7 @@
   --content-width: 720px;
   --sidebar-width: 240px;
   --menu-width: 200px;
+  --list-height: 240px;
   --popover-width: 280px;
   --tooltip-width: 240px;
   --toast-width: 360px;
@@ -163,4 +164,5 @@
   --ease-out: cubic-bezier(0.2, 0, 0, 1);
   --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-display: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }

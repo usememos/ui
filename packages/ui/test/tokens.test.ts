@@ -90,7 +90,7 @@ describe('tokens.css', () => {
 
   it('matches the font stacks in docs/typography.md', () => {
     const rows = tableRows(typographyDocs).filter(([name]) => name?.startsWith('`--'));
-    expect(rows).toHaveLength(2);
+    expect(rows).toHaveLength(3);
     for (const [name, stack] of rows) {
       expect(normalize(staticRule.get(unquote(name)) ?? ''), name).toBe(normalize(stack ?? ''));
     }

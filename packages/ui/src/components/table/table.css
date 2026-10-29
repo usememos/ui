@@ -1,0 +1,29 @@
+/* Table: rows separated by line, with no boxes or stripes. See docs/components/table.md. */
+.mu-table-scroll { overflow-x: auto; max-width: 100%; }
+.mu-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  text-align: start;
+}
+
+.mu-table-head, .mu-table-cell { padding: 0 var(--px); text-align: start; vertical-align: middle; }
+
+.mu-table-head {
+  height: var(--h);
+  color: var(--ink-muted);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line);
+}
+.mu-table-cell { padding-block: calc((var(--h) - var(--lh)) / 2 + var(--space-1)); }
+.mu-table-body > .mu-table-row + .mu-table-row > .mu-table-cell { border-top: 1px solid var(--line); }
+.mu-table-body > .mu-table-row:hover > .mu-table-cell { background-color: var(--hover); }
+
+/* A control in a cell (a ghost Menu trigger) overlaps the cell's padding, so rows keep their height. */
+.mu-table-cell > .mu-button { margin-block: calc((var(--lh) - var(--h)) / 2); vertical-align: top; }
+
+.mu-table-num { text-align: end; }
+.mu-table-muted { color: var(--ink-muted); }
+
+.mu-table-caption { caption-side: bottom; padding: var(--space-2) var(--px) 0; color: var(--ink-muted); text-align: start; }

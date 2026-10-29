@@ -4,6 +4,8 @@ import { AvatarSection } from './avatar';
 import { BadgeSection } from './badge';
 import { ButtonSection } from './button';
 import { CheckboxSection } from './checkbox';
+import { CollapsibleSection } from './collapsible';
+import { ComboboxSection } from './combobox';
 import { DialogSection } from './dialog';
 import { FieldSection } from './field';
 import { InputSection } from './input';
@@ -11,12 +13,14 @@ import { KbdSection } from './kbd';
 import { LinkSection } from './link';
 import { MenuSection } from './menu';
 import { PopoverSection } from './popover';
+import { ProseSection } from './prose';
 import { RadioGroupSection } from './radio-group';
 import { SelectSection } from './select';
 import { SeparatorSection } from './separator';
 import { SkeletonSection } from './skeleton';
 import { SpinnerSection } from './spinner';
 import { SwitchSection } from './switch';
+import { TableSection } from './table';
 import { TabsSection } from './tabs';
 import { TextareaSection } from './textarea';
 import { ToastSection } from './toast';
@@ -46,8 +50,10 @@ export const sections: { name: string; title: string; Section: ComponentType<Sec
   { name: 'checkbox', title: 'Checkbox', Section: CheckboxSection },
   { name: 'switch', title: 'Switch', Section: SwitchSection },
   { name: 'select', title: 'Select', Section: SelectSection },
+  { name: 'combobox', title: 'Combobox', Section: ComboboxSection },
   { name: 'radio-group', title: 'RadioGroup', Section: RadioGroupSection },
   { name: 'tabs', title: 'Tabs', Section: TabsSection },
+  { name: 'collapsible', title: 'Collapsible', Section: CollapsibleSection },
   { name: 'dialog', title: 'Dialog and AlertDialog', Section: DialogSection },
   { name: 'popover', title: 'Popover', Section: PopoverSection },
   { name: 'tooltip', title: 'Tooltip', Section: TooltipSection },
@@ -58,4 +64,6 @@ export const sections: { name: string; title: string; Section: ComponentType<Sec
   { name: 'separator', title: 'Separator', Section: SeparatorSection },
   { name: 'spinner', title: 'Spinner', Section: SpinnerSection },
   { name: 'skeleton', title: 'Skeleton', Section: SkeletonSection },
+  { name: 'table', title: 'Table', Section: TableSection },
+  { name: 'prose', title: 'Prose', Section: ProseSection },
 ];

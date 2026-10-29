@@ -97,7 +97,8 @@ export const Item = forwardRef<HTMLDivElement, ItemProps>(function SelectItem({ 
       {icon}
       <BaseSelect.ItemText className="mu-select-item-text">{children}</BaseSelect.ItemText>
       <span className="mu-select-indicator">
-        <BaseSelect.ItemIndicator render={<Check aria-hidden />} />
+        {/* The empty children replace Base UI's default "✔️" text inside the svg. */}
+        <BaseSelect.ItemIndicator render={<Check aria-hidden />}>{null}</BaseSelect.ItemIndicator>
       </span>
     </BaseSelect.Item>
   );

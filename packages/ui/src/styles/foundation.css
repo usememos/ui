@@ -28,6 +28,9 @@
 .mu-base { font-family: var(--font-sans); font-size: var(--fs, 14px); line-height: var(--lh, 20px); font-weight: 500; letter-spacing: 0; color: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-tap-highlight-color: transparent; }
 .mu-base ::selection, .mu-base::selection { background: var(--selection); }
 
+/* Text for screen readers only, such as the head of a column of row actions. */
+.mu-visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
 /* Focus ring on keyboard focus only. */
 .mu-focus:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-width); }
 
@@ -55,3 +58,7 @@
 .mu-heading-2 { font-family: var(--font-display); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; font-variation-settings: "opsz" 24; }
 .mu-heading-1 { font-family: var(--font-display); font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -0.01em; font-variation-settings: "opsz" 32; }
 .mu-display { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -0.02em; font-variation-settings: "opsz" 32; }
+
+/* Prose sizes: reading text is larger than UI text. prose.css sets the rest. See docs/components/prose.md. */
+.mu-prose { --prose-fs: 15px; --prose-lh: 24px; --prose-h1: 20px; --prose-h1-lh: 28px; --prose-h2: 17px; --prose-h2-lh: 24px; --prose-head: 12px; --prose-head-lh: 16px; }
+.mu-prose-sm { --prose-fs: 14px; --prose-lh: 22px; }

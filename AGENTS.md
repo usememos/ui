@@ -63,13 +63,13 @@ The tests enforce part of this: `inventory.test.ts` fails when a component folde
   - `src/styles/styles.css`: imports `foundation.css` (size rows, depth, focus, icons, type scale) and each component's stylesheet; published as one file, `@usememos/ui/styles.css`
   - `src/components/<name>/`: one folder per component, with its stylesheet
   - `src/fonts/`: Inter variable (SIL Open Font License, `OFL.txt`), shipped next to `tokens.css`
-  - `scripts/build.mjs`: the build (esbuild, then `tsc` for the declarations)
+  - `scripts/build.mjs`: the build (esbuild, then `tsc` for the declarations, then `llms.txt` and `llms-full.txt` from `docs/` by `scripts/llms.mjs`)
   - `test/`: Vitest tests: tokens and docs in sync, color contrast, CSS rules, the inventory, component behavior
 - `playground/`: the test page. It renders every component section and the foundations, in the theme and size given by `?theme=` and `?size=`. The browser tests and screenshots run against its build. It is a test fixture, not a site for people to browse
 - `e2e/`: Playwright browser tests
-- `docs/`: the design system docs
+- `docs/`: the design system docs. They also ship in the package as `llms.txt` and `llms-full.txt`, for agents in apps
 
-Dependencies are deliberately few, and the dev tools match the editor's versions. Add a dependency only when code uses it: `@base-ui/react` arrives with the first component, and `lucide-react` becomes a peer dependency with the first component that draws a built-in glyph. `lucide-react` is already a dev dependency for the playground. Pin dev dependencies to exact versions.
+Dependencies are deliberately few, and the dev tools match the editor's versions. Add a dependency only when code uses it. `@base-ui/react` is the one dependency, pinned exactly; `react`, `react-dom` and `lucide-react` are peer dependencies. Pin dev dependencies to exact versions.
 
 ## Commands
 

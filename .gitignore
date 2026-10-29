@@ -5,4 +5,7 @@ playwright-report
 # Copied from the repo root by the build.
 packages/ui/README.md
 packages/ui/LICENSE
+# Made from docs/ by the build.
+packages/ui/llms.txt
+packages/ui/llms-full.txt
 .claude/settings.local.json

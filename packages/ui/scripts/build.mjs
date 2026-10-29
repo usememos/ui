@@ -5,6 +5,7 @@ import { copyFileSync, existsSync, readdirSync, readFileSync, rmSync, statSync, 
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
+import { buildLlms } from './llms.mjs';
 
 const pkg = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(pkg, 'dist');
@@ -39,6 +40,11 @@ addExtensions(join(dist, 'types'));
 
 // npm packs README and LICENSE from the package folder; both live at the repo root.
 for (const file of ['README.md', 'LICENSE']) copyFileSync(join(pkg, '../..', file), join(pkg, file));
+
+// The docs for agents in apps: an index and every page in one file, at the package root.
+const llms = buildLlms(join(pkg, '../../docs'));
+writeFileSync(join(pkg, 'llms.txt'), llms.index);
+writeFileSync(join(pkg, 'llms-full.txt'), llms.full);
 
 /**
  * tsc keeps relative imports as written (`./size`). Rewrite them to the

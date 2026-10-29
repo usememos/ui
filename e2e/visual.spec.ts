@@ -12,6 +12,7 @@ const options = { animations: 'disabled', maxDiffPixelRatio: 0.002 } as const;
 const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (page: Page) => Locator }[] = [
   { name: 'menu', open: (page) => page.locator('#menu').getByRole('button', { name: 'More actions' }).click(), shot: (page) => page.getByRole('menu') },
   { name: 'menu-checkbox', open: (page) => page.locator('#menu').getByRole('button', { name: 'View' }).click(), shot: (page) => page.getByRole('menu') },
+  { name: 'combobox', open: (page) => page.getByRole('combobox', { name: 'Tag', exact: true }).fill('de'), shot: (page) => page.locator('.mu-combobox-popup') },
   { name: 'select', open: (page) => page.locator('#select').getByRole('combobox').nth(1).click(), shot: (page) => page.locator('.mu-select-popup') },
   { name: 'popover', open: (page) => page.locator('#popover').getByRole('button', { name: 'Share' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'tooltip', open: (page) => page.locator('#tooltip').getByRole('button', { name: 'Archive' }).focus(), shot: (page) => page.locator('.mu-tooltip-popup') },

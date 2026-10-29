@@ -74,6 +74,7 @@ Buttons, inputs and badges are never pills.
 | `content-width` | 720px | Maximum width of a reading column: a timeline, a settings form, an article |
 | `sidebar-width` | 240px | Width of a fixed navigation sidebar from `breakpoint-md` up |
 | `menu-width` | 200px | Minimum width of a menu or select list |
+| `list-height` | 240px | Maximum height of a combobox list before it scrolls |
 | `popover-width` | 280px | Default width of a popover |
 | `tooltip-width` | 240px | Maximum width of a tooltip |
 | `toast-width` | 360px | Width of a toast from `breakpoint-sm` up |

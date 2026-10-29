@@ -1,0 +1,13 @@
+/* Collapsible: a ghost trigger with a turning chevron, and content that fades in under it. See docs/components/collapsible.md. */
+/* The label lines up with the content; the key bleeds out to the left. */
+.mu-button.mu-collapsible-trigger { margin-inline-start: calc(-1 * var(--px)); padding-inline-end: var(--pxi); }
+.mu-collapsible-chevron { color: var(--ink-muted); transition: rotate var(--duration-settle) var(--ease-settle); }
+.mu-collapsible-trigger[data-panel-open] > .mu-collapsible-chevron { rotate: 180deg; }
+
+.mu-collapsible-panel { transition: opacity var(--duration-fade) var(--ease-out), translate var(--duration-fade) var(--ease-out); }
+.mu-collapsible-panel[data-starting-style], .mu-collapsible-panel[data-ending-style] { opacity: 0; translate: 0 var(--space-1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mu-collapsible-chevron { transition: none; }
+  .mu-collapsible-panel[data-starting-style], .mu-collapsible-panel[data-ending-style] { translate: none; }
+}

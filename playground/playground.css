@@ -3,7 +3,7 @@ body { margin: 0; background: var(--canvas); color: var(--ink); font-family: var
 .pg-main { max-width: 960px; margin: 0 auto; padding: var(--space-6); display: grid; gap: var(--space-12); }
 .pg-section { display: grid; gap: var(--space-4); }
 .pg-section > h2 { margin: 0; }
-.pg-section h3 { margin: var(--space-2) 0 0; color: var(--ink-muted); }
+.pg-section h3:not(.mu-prose *) { margin: var(--space-2) 0 0; color: var(--ink-muted); }
 .pg-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
 .pg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--space-3); }
 .pg-swatch { display: grid; gap: var(--space-1); }

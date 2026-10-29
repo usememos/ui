@@ -20,7 +20,9 @@
     "*.css"
   ],
   "files": [
-    "dist"
+    "dist",
+    "llms.txt",
+    "llms-full.txt"
   ],
   "types": "./dist/types/index.d.ts",
   "exports": {

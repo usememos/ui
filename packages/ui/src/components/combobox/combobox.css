@@ -1,0 +1,63 @@
+/* Combobox: an Input that filters a list below it as people type. See docs/components/combobox.md. */
+.mu-input-root.mu-combobox-input-root { padding-inline-end: calc(var(--pxi) - var(--space-1)); }
+.mu-combobox-trigger {
+  display: grid;
+  place-items: center;
+  width: calc(var(--icon) + var(--space-2));
+  height: calc(var(--icon) + var(--space-2));
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--ink-muted);
+  background: none;
+  cursor: pointer;
+}
+.mu-combobox-trigger:hover:not([data-disabled]) { color: var(--ink); }
+.mu-combobox-trigger[data-disabled] { cursor: not-allowed; }
+
+.mu-combobox-popup {
+  box-sizing: border-box;
+  width: var(--anchor-width);
+  min-width: var(--menu-width);
+  max-width: var(--available-width);
+  outline: 0;
+}
+.mu-combobox-list {
+  box-sizing: border-box;
+  max-height: min(var(--list-height), var(--available-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-1);
+  scroll-padding-block: var(--space-1);
+  outline: 0;
+}
+.mu-combobox-list[data-empty] { padding: 0; }
+
+.mu-combobox-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  box-sizing: border-box;
+  height: var(--h);
+  padding: 0 var(--px);
+  border-radius: calc(var(--radius-xl) - var(--space-1));
+  color: var(--ink);
+  font-weight: 400;
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+  outline: 0;
+}
+.mu-combobox-item:has(> svg:first-child) { padding-inline-start: var(--pxi); }
+.mu-combobox-item > svg { color: var(--ink-muted); }
+.mu-combobox-item[data-highlighted] { background-color: var(--hover); }
+.mu-combobox-item[data-disabled] { opacity: 0.45; }
+.mu-combobox-item-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.mu-combobox-indicator { display: grid; flex: none; place-items: center; width: var(--icon); height: var(--icon); margin-inline-start: var(--space-2); color: var(--ink); }
+
+/* Base UI keeps Empty mounted so screen readers hear it; it only takes room when it has text. */
+.mu-combobox-empty:not(:empty) { padding: var(--space-3) var(--space-4); color: var(--ink-muted); }
+
+.mu-combobox-group-label { padding: var(--space-2) var(--px) var(--space-1); color: var(--ink-muted); }
+.mu-combobox-separator { height: 1px; margin: var(--space-1) calc(-1 * var(--space-1)); background-color: var(--line); }

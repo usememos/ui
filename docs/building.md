@@ -37,6 +37,7 @@ Set `data-theme="light" | "dark" | "contrast"` on the root element or on any `.m
 - The depth classes `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` apply a whole depth role. Use them for new parts before writing new shadows. See [Depth](depth.md).
 - `mu-prose` styles rendered content. See [Prose](components/prose.md).
 - `mu-icon` applies icon size and stroke rules outside a component.
+- `mu-visually-hidden` hides text visually but keeps it for screen readers.
 
 ## API conventions
 

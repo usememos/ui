@@ -27,3 +27,7 @@
 @import "../components/select/select.css";
 @import "../components/dialog/dialog.css";
 @import "../components/toast/toast.css";
+@import "../components/combobox/combobox.css";
+@import "../components/collapsible/collapsible.css";
+@import "../components/table/table.css";
+@import "../components/prose/prose.css";

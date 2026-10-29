@@ -17,8 +17,9 @@
 | --- | --- |
 | `--font-sans` | `Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` |
 | `--font-display` | `Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` |
+| `--font-mono` | `ui-monospace, "SF Mono", Menlo, Consolas, monospace` |
 
-The package ships Inter variable (upright and italic) as local `woff2` files, declared in `tokens.css`, and never loads a remote font. The fallback stack starts with `system-ui`.
+The package ships Inter variable (upright and italic) as local `woff2` files, declared in `tokens.css`, and never loads a remote font. The fallback stack starts with `system-ui`. Code in [Prose](components/prose.md) uses the platform's monospace font; no mono font ships.
 
 ## Scale
 
