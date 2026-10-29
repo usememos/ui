@@ -26,6 +26,8 @@ import '@usememos/ui/styles.css';
 
 Use tokens through their variables (`var(--mu-ink)`, `var(--mu-space-4)`), never as copied values.
 
+Both stylesheets sit in the `mu` cascade layer, so the app's own CSS overrides them without a specificity fight. If the app uses layers too (Tailwind CSS does), declare the order first; see [Loading the CSS](docs/building.md#cascade-layer).
+
 Then build screens from the components. `lucide-react` is a peer dependency: icons are passed to components as elements.
 
 ```tsx
