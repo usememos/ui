@@ -29,11 +29,10 @@ await build({
 
 // tokens.css and styles.css ship separately, so an app can load the tokens alone.
 // styles.css imports foundation.css and each component's stylesheet; esbuild
-// inlines them. The Inter files that tokens.css points at keep their names.
+// inlines them.
 for (const file of ['tokens.css', 'styles.css']) {
-  await build({ ...shared, entryPoints: [src(`styles/${file}`)], outfile: join(dist, file), sourcemap: false, loader: { '.woff2': 'file' }, assetNames: '[name]' });
+  await build({ ...shared, entryPoints: [src(`styles/${file}`)], outfile: join(dist, file), sourcemap: false });
 }
-copyFileSync(src('fonts/OFL.txt'), join(dist, 'OFL.txt'));
 
 execFileSync('npx', ['tsc', '-p', join(pkg, 'tsconfig.build.json')], { stdio: 'inherit' });
 addExtensions(join(dist, 'types'));

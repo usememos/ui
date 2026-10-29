@@ -16,11 +16,10 @@ for (const theme of themes) {
   });
 }
 
-test('loads Inter from the package', async ({ page }) => {
+test('loads no web fonts: text uses the system UI font', async ({ page }) => {
   await open(page);
-  expect(await page.evaluate(() => document.fonts.check('500 14px Inter'))).toBe(true);
-  const loaded = await page.evaluate(() => [...document.fonts].filter((font) => font.family.replace(/"/g, '') === 'Inter' && font.status === 'loaded').length);
-  expect(loaded).toBeGreaterThan(0);
+  expect(await page.evaluate(() => document.fonts.size)).toBe(0);
+  expect(await page.locator('main').evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/^system-ui,/);
 });
 
 test('sizes set the control height', async ({ page }) => {

@@ -4,7 +4,7 @@ import { expect, type Page } from '@playwright/test';
 export const themes = ['light', 'dark', 'contrast'] as const;
 export type Theme = (typeof themes)[number];
 
-/** Opens the playground in a theme and size, with Inter loaded. */
+/** Opens the playground in a theme and size, once fonts are ready. */
 export async function open(page: Page, { theme = 'light', size = 'md', hash = '' }: { theme?: Theme; size?: 'sm' | 'md' | 'lg'; hash?: string } = {}) {
   await page.goto(`/?theme=${theme}&size=${size}${hash}`);
   await page.evaluate(() => document.fonts.ready);

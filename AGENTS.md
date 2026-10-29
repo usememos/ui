@@ -62,7 +62,6 @@ The tests enforce part of this: `inventory.test.ts` fails when a component folde
   - `src/styles/tokens.css`: every token, published as `@usememos/ui/tokens.css`
   - `src/styles/styles.css`: imports `foundation.css` (size rows, depth, focus, icons, type scale) and each component's stylesheet; published as one file, `@usememos/ui/styles.css`
   - `src/components/<name>/`: one folder per component, with its stylesheet
-  - `src/fonts/`: Inter variable (SIL Open Font License, `OFL.txt`), shipped next to `tokens.css`
   - `scripts/build.mjs`: the build (esbuild, then `tsc` for the declarations, then `llms.txt` and `llms-full.txt` from `docs/` by `scripts/llms.mjs`)
   - `test/`: Vitest tests: tokens and docs in sync, color contrast, CSS rules, the inventory, component behavior
 - `playground/`: the test page. It renders every component section and the foundations, in the theme and size given by `?theme=` and `?size=`. The browser tests and screenshots run against its build. It is a test fixture, not a site for people to browse

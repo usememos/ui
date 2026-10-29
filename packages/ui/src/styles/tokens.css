@@ -8,9 +8,6 @@
  * "dark" or "contrast" on any element switches its subtree.
  */
 
-/* Inter variable, shipped with the package (SIL Open Font License, see fonts/OFL.txt). */
-@font-face { font-family: Inter; font-style: normal; font-weight: 100 900; font-display: swap; src: url("../fonts/InterVariable.woff2") format("woff2"); }
-@font-face { font-family: Inter; font-style: italic; font-weight: 100 900; font-display: swap; src: url("../fonts/InterVariable-Italic.woff2") format("woff2"); }
 
 :where(:root, :host, .mu-root:not([data-theme] *)),
 [data-theme="light"] {
@@ -162,7 +159,7 @@
   --duration-shimmer: 1400ms;
   --ease-settle: cubic-bezier(0.2, 0.9, 0.3, 1);
   --ease-out: cubic-bezier(0.2, 0, 0, 1);
-  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }

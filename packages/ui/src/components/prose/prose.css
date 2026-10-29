@@ -17,7 +17,7 @@
 .mu-prose > :first-child { margin-top: 0; }
 .mu-prose > :last-child { margin-bottom: 0; }
 
-.mu-prose h1 { font-size: var(--prose-h1); line-height: var(--prose-h1-lh); font-variation-settings: "opsz" 20; }
+.mu-prose h1 { font-size: var(--prose-h1); line-height: var(--prose-h1-lh); }
 .mu-prose h2 { font-size: var(--prose-h2); line-height: var(--prose-h2-lh); }
 .mu-prose :where(h3, h4, h5, h6) { font-size: var(--prose-fs); line-height: var(--prose-lh); }
 

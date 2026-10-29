@@ -54,10 +54,10 @@
 .mu-body-lg { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 400; }
 .mu-label-lg { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 500; }
 .mu-title { font-family: var(--font-display); font-size: 18px; line-height: 28px; font-weight: 600; }
-.mu-heading-3 { font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600; font-variation-settings: "opsz" 20; }
-.mu-heading-2 { font-family: var(--font-display); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; font-variation-settings: "opsz" 24; }
-.mu-heading-1 { font-family: var(--font-display); font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -0.01em; font-variation-settings: "opsz" 32; }
-.mu-display { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -0.02em; font-variation-settings: "opsz" 32; }
+.mu-heading-3 { font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600; }
+.mu-heading-2 { font-family: var(--font-display); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; }
+.mu-heading-1 { font-family: var(--font-display); font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -0.01em; }
+.mu-display { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -0.02em; }
 
 /* Prose sizes: reading text is larger than UI text. prose.css sets the rest. See docs/components/prose.md. */
 .mu-prose { --prose-fs: 15px; --prose-lh: 24px; --prose-h1: 20px; --prose-h1-lh: 28px; --prose-h2: 17px; --prose-h2-lh: 24px; --prose-head: 12px; --prose-head-lh: 16px; }

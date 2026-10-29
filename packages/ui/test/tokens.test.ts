@@ -103,19 +103,18 @@ describe('foundation.css', () => {
   it('has a class for every type style in docs/typography.md', () => {
     const rows = tableRows(typographyDocs).filter(([name]) => !name?.startsWith('`--'));
     expect(rows).toHaveLength(13);
-    for (const [name = '', sizes = '', weight, spacing, opticalSize] of rows) {
+    for (const row of rows) {
+      const [name = '', sizes = '', weight, spacing] = row;
       const style = unquote(name);
       const [size, line] = sizes.replace('px', '').split('/').map((part) => `${part.trim()}px`);
       const declarations = rule(styleRules, `.mu-${style}`);
       expect(declarations.get('font-size'), style).toBe(size);
       expect(declarations.get('line-height'), style).toBe(line);
       expect(declarations.get('font-weight'), style).toBe(weight);
-      // Headings also list letter spacing (with a typographic minus) and optical size.
-      if (opticalSize !== undefined && /^(text|\d+)$/.test(opticalSize)) {
-        expect(declarations.get('letter-spacing') ?? '0', style).toBe(spacing?.replace('−', '-'));
-        const opsz = declarations.get('font-variation-settings');
-        expect(opsz ? opsz.replace(/\D/g, '') : 'text', style).toBe(opticalSize);
-      }
+      // Heading rows have five cells: they also list letter spacing, with a typographic minus.
+      if (row.length === 5) expect(declarations.get('letter-spacing') ?? '0', style).toBe(spacing?.replace('−', '-'));
+      // System fonts have no shared variation axes, so no style sets any.
+      expect(declarations.has('font-variation-settings'), style).toBe(false);
     }
   });
 });

@@ -18,7 +18,7 @@ It is not a general-purpose UI library for outside developers. Components are ge
 | [Principles and voice](principles.md) | The taste in six rules, and how interface text is written |
 | [Color](color.md) | Color roles, every color token in Light, Dark and High contrast, and how themes are chosen |
 | [Depth](depth.md) | The tactile model: recessed, key, raised, popup and flat; shadow tokens |
-| [Typography](typography.md) | Inter, the type scale and text rules |
+| [Typography](typography.md) | The system font, the type scale and text rules |
 | [Size, spacing and layout](layout.md) | Control sizes, the 4px scale, radius, layout widths, breakpoints and layers |
 | [Motion](motion.md) | Press, settle and fade timing, and reduced motion |
 | [States](states.md) | Hover, pressed, loading, disabled, invalid and focus |
@@ -36,5 +36,5 @@ It is not a general-purpose UI library for outside developers. Components are ge
 - **One quiet hue.** `accent` is a quiet blue used only for focus rings, links and text selection, never as a fill.
 - **Status colors only for status.** Green means success, amber means warning, red means danger or error. None of them is used for emphasis.
 - **Lucide icons** at a fixed screen-pixel stroke: 1.5px at md and lg, 1.25px at sm and in badges.
-- **Inter** for all text, shipped as a local variable font.
+- **The system UI font** for all text. The package ships no font files.
 - **Dense, on a 4px grid.** Controls are 32px tall by default.

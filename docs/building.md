@@ -9,7 +9,7 @@ How the package is put together and how products use it.
 - **One npm package**, `@usememos/ui`, used by every product. ESM only, React 18 and 19, one JS entry point and two stylesheets.
 - **Plain CSS on tokens.** Components are styled with CSS that reads token variables. Product code uses tokens through their CSS variables (`var(--well)`) and never copies raw values.
 - **Lucide icons** from `lucide-react`. See [Icons](icons.md).
-- **Inter variable** shipped as a local `woff2`. No remote fonts.
+- **No fonts.** Text uses the system UI font; nothing is downloaded.
 
 ## Loading the CSS
 
@@ -20,7 +20,7 @@ import "@usememos/ui/tokens.css";
 import "@usememos/ui/styles.css";
 ```
 
-`tokens.css` defines every token on `:root`, on a shadow root's `:host`, and on any element with the `mu-root` class, and declares the Inter font faces. The font files ship next to it. `styles.css` holds the foundation classes and every component's styles.
+`tokens.css` defines every token on `:root`, on a shadow root's `:host`, and on any element with the `mu-root` class. `styles.css` holds the foundation classes and every component's styles.
 
 ## Scoping inside a host page
 
