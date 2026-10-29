@@ -20,7 +20,7 @@ import "@usememos/ui/tokens.css";
 import "@usememos/ui/styles.css";
 ```
 
-`tokens.css` defines every token on `:root`, on a shadow root's `:host`, and on any element with the `mu-root` class. `styles.css` holds the foundation classes and every component's styles.
+`tokens.css` defines every token on `:root`, on a shadow root's `:host`, and on any element with the `mu-root` class, and declares the Inter font faces. The font files ship next to it. `styles.css` holds the foundation classes and every component's styles.
 
 ## Scoping inside a host page
 
@@ -39,20 +39,61 @@ Set `data-theme="light" | "dark" | "contrast"` on the root element or on any `.m
 
 ## API conventions
 
-These hold across every component. Each [component page](components/README.md) lists its props.
+Components follow the conventions of established React libraries (Base UI, Radix, React Aria), not the needs of one product. Each [component page](components/README.md) lists its parts and their props.
 
-- **`size`**: `"sm" | "md" | "lg"`, default `"md"`. One prop sets height, padding, text, icon size and radius together.
-- **Controlled or uncontrolled.** Stateful components take a value and its change handler, or a default:
+### Parts
+
+A component made of more than one element is a namespace of styled parts. Part names are Base UI's, so anyone who knows Base UI knows the anatomy:
+
+```tsx
+import { Menu, Button } from "@usememos/ui";
+import { Ellipsis, Pin, Trash2 } from "lucide-react";
+
+<Menu.Root>
+  <Menu.Trigger render={<Button variant="ghost" icon={<Ellipsis />} aria-label="More actions" />} />
+  <Menu.Popup align="end">
+    <Menu.Item icon={<Pin />}>Pin</Menu.Item>
+    <Menu.Separator />
+    <Menu.Item icon={<Trash2 />} danger>Delete</Menu.Item>
+  </Menu.Popup>
+</Menu.Root>
+```
+
+- **Base UI's names.** `Root`, `Trigger`, `Popup`, `Item`, `Title`, `Description`, `Close`, `Panel` and so on. No shadcn names (`DropdownMenuContent`, `CardHeader`).
+- **One `Popup` per overlay.** Base UI's `Portal`, `Positioner` and `Backdrop` are folded into our `Popup`. It takes the positioning props (`side`, `align`, `sideOffset`, `alignOffset`, `collisionPadding`) and Base UI's portal `container`, and draws the backdrop where the component has one (Dialog).
+- **Indicators are built in.** The check in a menu or select item, the chevron in a select trigger and the knob in a switch render by themselves. See [built-in glyphs](icons.md#built-in-glyphs).
+- **One element, one component.** Button, Input, Textarea, Badge, Kbd, Separator, Spinner, Skeleton, Link, Checkbox, Switch and Toggle are single components, not namespaces.
+- **No data props.** Collections are built from parts (`Menu.Item`, `Select.Item`, `Tabs.Tab`), not passed as `items` or `options` arrays.
+
+### Props
+
+- **`size`**: `"sm" | "md" | "lg"`, default `"md"`. One prop sets height, padding, text, icon size and radius together. On a namespace, set it on `Root`; every part reads it from context.
+- **Controlled or uncontrolled**, with Base UI's prop names:
   - `value` + `onValueChange`, or `defaultValue` (Select, Combobox, Tabs, ToggleGroup, RadioGroup)
-  - `checked` + `onCheckedChange`, or `defaultChecked` (Checkbox, Switch)
+  - `checked` + `onCheckedChange`, or `defaultChecked` (Checkbox, Switch, Menu.CheckboxItem)
   - `pressed` + `onPressedChange`, or `defaultPressed` (Toggle)
-  - `open` + `onOpenChange`, or `defaultOpen` (Menu, Dialog, Popover, Collapsible, Select)
+  - `open` + `onOpenChange`, or `defaultOpen` (Menu, Dialog, AlertDialog, Popover, Tooltip, Collapsible, Select, Combobox)
 - **`icon`** takes a Lucide element (`icon={<Pin />}`), never a string name.
+- **`render`** on every component and part swaps the rendered element, as in Base UI. Use it for links that look like buttons (`<Button render={<a href="/docs" />}>Open docs</Button>`) and for custom triggers.
+- **`className` and `style`** pass through to the part's element, after our classes.
 - **Accessible names.** A control without a visible label takes `aria-label`. Icon-only controls always do.
-- **`tone`**: `"neutral" | "success" | "warning" | "danger"` on status components (Toast, Badge).
+- **`tone`**: `"neutral" | "success" | "warning" | "danger"` on status components (Badge, toasts).
 - **`variant`** is for Button only: `"primary" | "neutral" | "ghost" | "danger"`.
-- **Native props pass through** on components that render one native element (Button, Input, Textarea, Link).
-- **`render` for links.** A component that can render as a link (Button's `href`) uses Base UI's `render` prop underneath.
+- **Native props pass through** to the element a component or part renders.
+
+### Styling hooks
+
+- Every part has a class `mu-<component>-<part>` (`mu-menu-popup`, `mu-menu-item`), plus `mu-<component>` on single components.
+- State is styled through Base UI's data attributes (`data-highlighted`, `data-checked`, `data-pressed`, `data-disabled`, `data-open`, `data-starting-style`, `data-ending-style`), never through extra classes.
+
+### Toasts
+
+Wrap the app in `Toast.Provider`, render `Toast.Viewport` once, and create toasts with Base UI's manager:
+
+```tsx
+const toast = Toast.useToastManager();
+toast.add({ title: "Note archived", type: "success" });
+```
 
 ## Shared styles for content
 

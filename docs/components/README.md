@@ -10,6 +10,18 @@
 | Overlays | [Dialog](dialog.md) (and its sheet form), [Popover](popover.md), [Tooltip](tooltip.md), [Toast](toast.md) |
 | Display | [Avatar](avatar.md), [Badge](badge.md), [Kbd](kbd.md), [Separator](separator.md), [Spinner](spinner.md), [Skeleton](skeleton.md), [Table](table.md), [Prose](prose.md), plus [Lucide icons](../icons.md) |
 
+## Page template
+
+Every component page has the same sections:
+
+1. **Title and summary.** One paragraph: what it is for and what it looks like.
+2. **Example.** One complete, copyable example of the common case.
+3. **Parts.** One row per part: name, the Base UI part it wraps, what it renders. Skip for single-element components.
+4. **Props.** A TypeScript block per part, only for props we add or change. Say "plus Base UI's `<Part>` props" for the rest.
+5. **Guidelines.** When to use it, sizes, states, keyboard behavior, and what to use instead.
+
+Components follow the [API conventions](../building.md#api-conventions): parts with Base UI's names, no data props. Pages whose Props section still lists `items` or `options` were written before that rule and are rewritten when their component is built.
+
 ## Left out on purpose
 
 - **Card.** Content is grouped by spacing, headings and separators, not boxes.

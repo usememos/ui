@@ -18,7 +18,7 @@
 | `--font-sans` | `Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` |
 | `--font-display` | `Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` |
 
-The package ships Inter variable as a local `woff2` and never loads a remote font. The fallback stack starts with `system-ui`.
+The package ships Inter variable (upright and italic) as local `woff2` files, declared in `tokens.css`, and never loads a remote font. The fallback stack starts with `system-ui`.
 
 ## Scale
 

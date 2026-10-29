@@ -8,7 +8,7 @@ Notes for people and coding agents. See `README.md` for usage and [`docs/`](docs
 
 The docs in `docs/` describe the target system and are the source of truth. The package in `packages/ui` is being built from them: it ships the tokens (`tokens.css`) and foundation classes (`styles.css`) today, and components are added one at a time following their pages in `docs/components/`. When code and docs disagree, change the code toward the docs, or, if the docs are wrong, change the docs in the same commit.
 
-`packages/ui/test/tokens.test.ts` checks that `tokens.css` and the type classes in `styles.css` match the token tables in the docs. Change a token in both places at once.
+`packages/ui/test/tokens.test.ts` checks that `tokens.css` and the type classes in `foundation.css` match the token tables in the docs, and `contrast.test.ts` checks the 4.5:1 text contrast promised in [Color](docs/color.md). Change a token in both places at once.
 
 ## Read before changing anything visual
 
@@ -28,6 +28,8 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 
 - **Generic only.** Components never know about a product's domain (notes, memos, clips). Product screens are built from components and [patterns](docs/patterns.md).
 - **Base UI for behavior.** Focus, keyboard, ARIA, portals and positioning come from Base UI. Don't hand-roll them.
+- **Follow established libraries, not one product.** A component's parts, props and behavior follow Base UI and other popular libraries. A product's special case is solved in that product.
+- **Parts, not data props.** Multi-element components are namespaces of parts with Base UI's names (`Menu.Root`, `Menu.Trigger`, `Menu.Popup`, `Menu.Item`). Portal, Positioner and Backdrop fold into one `Popup`. No `items` or `options` arrays. See [API conventions](docs/building.md#api-conventions).
 - **No shadcn.** No shadcn dependency, no copied shadcn code, and no shadcn-compatible names (`card`, `muted`, `destructive`, `foreground`, `secondary`, `ring` and so on). Use the token names in [Color](docs/color.md).
 - **Tokens only.** Use `var(--token)` for every color, shadow, radius, space, size, duration, easing and z-index. No raw values in component CSS.
 - **Ink, not a hue.** `primary` (near-black in Light, near-white in Dark) is the only emphasis. `accent` (quiet blue) is only for focus, links and selection, never a fill. `success`, `warning` and `danger` are only for status.
@@ -44,28 +46,38 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 ## Adding or changing a component
 
 1. Check the [inventory](docs/components/README.md). If a screen needs something new, confirm no existing component or pattern covers it.
-2. Write or update the component's page in `docs/components/` (summary, props, guidelines) and the inventory table.
-3. Build it in `packages/ui/src/components/<name>/` on Base UI (`@base-ui/react`), styled only with tokens and the foundation classes, in all three sizes, all [states](docs/states.md) and all three themes. Its CSS goes into `styles.css`; there are no per-component CSS entry points.
+2. Write or update the component's page in `docs/components/`, following the [page template](docs/components/README.md#page-template), and the inventory table.
+3. Build it in `packages/ui/src/components/<name>/` on Base UI (`@base-ui/react`), styled only with tokens and the foundation classes, in all three sizes, all [states](docs/states.md) and all three themes. Its CSS goes in `<name>/<name>.css`, imported from `src/styles/styles.css`; the build inlines it, so the package still ships one stylesheet.
 4. Export it from `packages/ui/src/index.ts`. The package has one JS entry point.
-5. Add tests for behavior that isn't Base UI's (controlled and uncontrolled state, `loading`, sizes).
+5. Show every variant and state in `playground/sections/<name>.tsx` and list it in `playground/sections/index.ts`.
+6. Add unit tests in `packages/ui/test/` for behavior that isn't Base UI's (controlled and uncontrolled state, `loading`, `size` through context, `render`), with `// @vitest-environment happy-dom` at the top. Add a browser test in `e2e/<name>.spec.ts` for keyboard paths, reduced motion and an axe scan.
+
+The tests enforce part of this: `inventory.test.ts` fails when a component folder has no docs page, export or playground section, and `css.test.ts` fails on raw colors, lengths, durations or z-indexes in component CSS (only `0.5px` and `1px` lengths are allowed).
 
 ## Workspace
 
 - `packages/ui`: the published package, `@usememos/ui`. ESM only, for React 18 or later.
   - `src/index.ts`: the one JS entry point
   - `src/styles/tokens.css`: every token, published as `@usememos/ui/tokens.css`
-  - `src/styles/styles.css`: foundation classes and component styles, published as `@usememos/ui/styles.css`
+  - `src/styles/styles.css`: imports `foundation.css` (size rows, depth, focus, icons, type scale) and each component's stylesheet; published as one file, `@usememos/ui/styles.css`
+  - `src/components/<name>/`: one folder per component, with its stylesheet
+  - `src/fonts/`: Inter variable (SIL Open Font License, `OFL.txt`), shipped next to `tokens.css`
   - `scripts/build.mjs`: the build (esbuild, then `tsc` for the declarations)
-  - `test/`: Vitest tests
+  - `test/`: Vitest tests: tokens and docs in sync, color contrast, CSS rules, the inventory, component behavior
+- `playground/`: a Vite page with every component and the foundations, with theme and size switches. The browser tests run against its build
+- `e2e/`: Playwright browser tests
 - `docs/`: the design system docs
 
-Dependencies are deliberately few, and the dev tools match the editor's versions. Add a dependency only when code uses it: `@base-ui/react` and `lucide-react` (as a peer dependency) arrive with the first component. Pin dev dependencies to exact versions.
+Dependencies are deliberately few, and the dev tools match the editor's versions. Add a dependency only when code uses it: `@base-ui/react` arrives with the first component, and `lucide-react` becomes a peer dependency with the first component that draws a built-in glyph. `lucide-react` is already a dev dependency for the playground. Pin dev dependencies to exact versions.
 
 ## Commands
 
 ```sh
 npm install
+npm run dev        # the playground
 npm test           # unit tests (vitest), including tokens.css against the docs
+npm run test:e2e   # browser tests (Playwright, Chromium)
+npx playwright test --project=firefox --project=webkit  # the browser tests in Firefox and WebKit (needs those browsers)
 npm run typecheck
 npm run build      # the published files, in packages/ui/dist
 ```
