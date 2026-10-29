@@ -3,7 +3,7 @@
 # (usememos discussion 6351): year.month.n, where n counts the releases
 # that month on npm from 0. The first release in October 2026 is 26.10.0,
 # the next 26.10.1; the first in April 2027 is 27.4.0. Releases are not
-# tagged in git, and there are no canary or release candidate builds.
+# tagged in git, and there are no release candidates.
 # Authenticates with npm trusted publishing (OIDC), like usememos/editor: no
 # token or secret. The package's npm settings must list this repository and
 # release.yml as a trusted publisher.
@@ -18,20 +18,19 @@ env:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     permissions:
       contents: read
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           # Trusted publishing needs npm 11.5.1 or later, which ships with Node 24.
           node-version: 24
-          cache: pnpm
+          cache: npm
           registry-url: https://registry.npmjs.org
-      - run: pnpm install --frozen-lockfile
+      # Before the version is set, so package.json still matches the lockfile.
+      - run: npm ci
       - name: Work out the version
         run: |
           if [ "$GITHUB_REF" != "refs/heads/main" ]; then
@@ -40,15 +39,7 @@ jobs:
           fi
           month=$(date -u +%y.%-m)
           # Fails the run if npm cannot be read, rather than guess a version.
-          # A package that is not on npm yet has no versions.
-          if ! versions=$(npm view @usememos/ui versions --json 2>/dev/null); then
-            if echo "$versions" | grep -q '"E404"'; then
-              versions='[]'
-            else
-              echo "$versions"
-              exit 1
-            fi
-          fi
+          versions=$(npm view @usememos/ui versions --json)
           # The highest n already on npm for this month, or -1 if none.
           last=$(echo "$versions" | MONTH=$month node -e '
             const list = [].concat(JSON.parse(require("fs").readFileSync(0, "utf8")));
@@ -58,9 +49,8 @@ jobs:
           ')
           version="$month.$((last + 1))"
           echo "Publishing $version"
-          npm pkg set version="$version" --prefix packages/ui
-      - run: pnpm typecheck
-      - run: pnpm test
-      - run: pnpm check
-      - run: npm publish --access public
-        working-directory: packages/ui
+          npm pkg set version="$version" -w @usememos/ui
+      - run: npm run typecheck
+      - run: npm test
+      # prepack runs the build.
+      - run: npm publish -w @usememos/ui --access public

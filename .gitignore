@@ -1,7 +1,8 @@
-node_modules/
-dist/
-*.tsbuildinfo
-*.log
-.DS_Store
-coverage/
-.vitest-attachments/
+node_modules
+dist
+test-results
+playwright-report
+# Copied from the repo root by the build.
+packages/ui/README.md
+packages/ui/LICENSE
+.claude/settings.local.json

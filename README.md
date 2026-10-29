@@ -1,32 +1,46 @@
 # @usememos/ui
 
-The Memos UI design system: shared tokens, components and patterns for memos, the website, the web clipper and future usememos projects. See [`docs/`](docs/README.md) for the system and [`AGENTS.md`](AGENTS.md) for how to work in this repo.
+The Memos UI design system: tokens, foundation styles and React components for memos, the website, the web clipper and future usememos projects.
 
-## Workspace
+- Calm, dense and tactile: pure grays, ink for emphasis, and a little depth that shows what holds a value and what you can press.
+- Light, Dark and High contrast themes, all from CSS custom properties.
+- One package, `@usememos/ui`. ESM only, for React 18 or later, with behavior from [Base UI](https://base-ui.com) as components are added.
 
-- `packages/ui`: the published package, `@usememos/ui`
-- `docs/`: the design system docs, the source of truth for the package
+Status: early. The package ships the tokens and foundation styles; components are being built from their specs in [docs/components](docs/components/README.md). Versions follow memos' CalVer (`26.10.0`, `26.10.1`) and do not signal breaking changes, so pin an exact version. [docs/](docs/README.md) is the design system and the source of truth for the package.
 
-## Development
+## Use it
 
-```bash
-pnpm install
-pnpm typecheck
-pnpm test        # includes a check that tokens.css matches the docs
-pnpm build
-pnpm check       # build, then lint the published package (publint, attw)
+```sh
+npm install @usememos/ui
 ```
 
-## Releasing
+Load the tokens first, then the styles:
 
-Versions follow the same CalVer as memos ([discussion](https://github.com/orgs/usememos/discussions/6351)) and `@usememos/editor`: `year.month.n`, where `n` counts the releases that month from 0. The first release in October 2026 is `26.10.0`, the second `26.10.1`, and the first in April 2027 is `27.4.0`. `version` in `packages/ui/package.json` stays `0.0.0` in the repo.
+```ts
+import '@usememos/ui/tokens.css';
+import '@usememos/ui/styles.css';
+```
 
-To release, open Actions, pick "Release" and choose "Run workflow" on main. The workflow (`.github/workflows/release.yml`) works out the version from today's date (UTC) and the versions already on npm, runs the typecheck, tests and package checks, and publishes to npm under the `latest` tag. There are no canary builds, release candidates, git tags, GitHub releases or release notes. The version does not signal breaking changes, so apps should pin an exact version.
+- `tokens.css` defines every token as a CSS custom property on `:root`, on a shadow root's `:host`, and on any `.mu-root` element.
+- `styles.css` holds the foundation classes (`mu-s-md`, `mu-raised`, `mu-recessed`, `mu-key`, `mu-popup`, `mu-icon`, the `mu-` type scale) and the component styles.
 
-Publishing uses npm trusted publishing, so there is no npm token. On npmjs.com, the `@usememos/ui` package settings list `usememos/ui` and `release.yml` under "Trusted Publisher".
+Use tokens through their variables (`var(--ink)`, `var(--space-4)`), never as copied values.
 
-## Reference Docs
+### Themes
 
-- [Design system](docs/README.md): principles, color, depth, typography, layout, motion, states, icons, components and patterns.
-- [AGENTS.md](AGENTS.md): rules and workflow for people and coding agents working in this repo.
-- [Package README](packages/ui/README.md): installing and loading the package.
+Set `data-theme="light"`, `"dark"` or `"contrast"` on the root element, or on any element to theme its subtree. Without the attribute the tokens are Light. The package does not read `prefers-color-scheme`; the app does, so a saved preference can win over the system setting.
+
+### Inside another page
+
+In a browser extension or an embed, mount the UI under a `.mu-root` element or inside a shadow root. The package has no global selectors beyond `:root`, `:host` and `.mu-root`.
+
+## Develop
+
+```sh
+npm install
+npm test           # unit tests (vitest), including tokens.css against the docs
+npm run typecheck
+npm run build      # the published files, in packages/ui/dist
+```
+
+See [AGENTS.md](AGENTS.md) for the rules, the workflow and releasing.

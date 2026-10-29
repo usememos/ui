@@ -1,6 +1,6 @@
 # Working in this repo
 
-Notes for people and coding agents. See `README.md` for setup and releasing, and [`docs/`](docs/README.md) for the design system.
+Notes for people and coding agents. See `README.md` for usage and [`docs/`](docs/README.md) for the design system. The repo is set up like [usememos/editor](https://github.com/usememos/editor): when a tooling or layout question comes up, do what the editor does.
 
 ## What this repo is
 
@@ -51,23 +51,23 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 
 ## Workspace
 
-- `packages/ui`: the published package, `@usememos/ui`. ESM only, React 18 and 19, built with tsdown.
+- `packages/ui`: the published package, `@usememos/ui`. ESM only, for React 18 or later.
   - `src/index.ts`: the one JS entry point
   - `src/styles/tokens.css`: every token, published as `@usememos/ui/tokens.css`
   - `src/styles/styles.css`: foundation classes and component styles, published as `@usememos/ui/styles.css`
+  - `scripts/build.mjs`: the build (esbuild, then `tsc` for the declarations)
   - `test/`: Vitest tests
 - `docs/`: the design system docs
 
-Dependencies are deliberately few. Add one only when code uses it: `@base-ui/react` and `lucide-react` (as a peer dependency) arrive with the first component. Pin dev dependencies to exact versions.
+Dependencies are deliberately few, and the dev tools match the editor's versions. Add a dependency only when code uses it: `@base-ui/react` and `lucide-react` (as a peer dependency) arrive with the first component. Pin dev dependencies to exact versions.
 
 ## Commands
 
 ```sh
-pnpm install
-pnpm typecheck
-pnpm test        # Vitest, including the tokens-match-docs check
-pnpm build       # packages/ui/dist
-pnpm check       # build, then publint and attw on the packed package
+npm install
+npm test           # unit tests (vitest), including tokens.css against the docs
+npm run typecheck
+npm run build      # the published files, in packages/ui/dist
 ```
 
 ## Commit messages
@@ -92,4 +92,8 @@ docs: describe the Memos UI design system
 
 ## Releasing
 
-See [Releasing](README.md#releasing) in the README.
+Versions follow the same CalVer as memos ([discussion](https://github.com/orgs/usememos/discussions/6351)) and `@usememos/editor`: `year.month.n`, where `n` counts the releases that month from 0. The release workflow picks the version from today's date (UTC) and the versions already on npm. The first release in October 2026 is `26.10.0`, the second `26.10.1`, and the first in April 2027 is `27.4.0`. `version` in `packages/ui/package.json` stays `0.0.0` in the repo.
+
+To release, run `/release` in Claude Code (the skill in `.agents/skills/release/` checks CI and what will ship, then starts the workflow and reports the version), or open Actions, pick "Release" and choose "Run workflow" on main. The workflow (`.github/workflows/release.yml`) works out the version, runs the typecheck and tests, and publishes to npm under the `latest` tag. There are no release candidates, git tags, GitHub releases or release notes. The version does not signal breaking changes, so apps should pin an exact version, and commits marked with `!` show what breaks.
+
+Publishing uses npm trusted publishing, as `usememos/editor` does, so there is no npm token. On npmjs.com, the `@usememos/ui` package settings list `usememos/ui` and `release.yml` under "Trusted Publisher".
