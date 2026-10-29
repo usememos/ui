@@ -8,9 +8,9 @@
   box-sizing: border-box;
   width: var(--h);
   height: var(--h);
-  border-radius: var(--radius-full);
-  color: var(--ink-muted);
-  background-color: var(--well);
+  border-radius: var(--mu-radius-full);
+  color: var(--mu-ink-muted);
+  background-color: var(--mu-well);
   vertical-align: middle;
   user-select: none;
 }

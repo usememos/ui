@@ -56,7 +56,7 @@ describe('stylesheets', () => {
       'length: 4px',
       'z-index: 10',
     ]);
-    expect(findRawValues('.mu-x { height: var(--h); border: 1px solid var(--edge); translate: 0 0.5px; opacity: 0.45; scale: 1.1; transition: opacity var(--duration-fade) var(--ease-out); }')).toEqual([]);
+    expect(findRawValues('.mu-x { height: var(--h); border: 1px solid var(--mu-edge); translate: 0 0.5px; opacity: 0.45; scale: 1.1; transition: opacity var(--mu-duration-fade) var(--mu-ease-out); }')).toEqual([]);
     expect(findRawValues('@media (max-width: 639px) { .mu-x { width: 100%; } }')).toEqual([]);
   });
 

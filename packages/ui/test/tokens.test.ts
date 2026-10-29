@@ -50,19 +50,25 @@ const themeRule: Record<Theme, Map<string, string>> = {
 const staticRule = rule(tokenRules, ':where(:root,:host,.mu-root)');
 
 describe('tokens.css', () => {
+  it('prefixes every custom property with --mu-', () => {
+    const names = [...stripComments(tokensCss).matchAll(/(--[\w-]+)\s*:/g)].map(([, name = '']) => name);
+    expect(names.length).toBeGreaterThan(70);
+    expect(names.filter((name) => !name.startsWith('--mu-'))).toEqual([]);
+  });
+
   it('matches the color tokens in docs/color.md', () => {
     const rows = tableRows(colorDocs);
     expect(rows.length).toBeGreaterThan(20);
     for (const [name, light, dark, contrast] of rows) {
-      const token = `--${unquote(name)}`;
+      const token = `--mu-${unquote(name)}`;
       const expected: Record<Theme, string | undefined> = { light, dark, contrast };
       for (const theme of themes) {
         expect(normalize(themeRule[theme].get(token) ?? ''), `${token} in ${theme}`).toBe(normalize(expected[theme] ?? ''));
       }
     }
-    const documented = new Set(rows.map(([name]) => `--${unquote(name)}`));
+    const documented = new Set(rows.map(([name]) => `--mu-${unquote(name)}`));
     for (const theme of themes) {
-      const colors = [...themeRule[theme].keys()].filter((name) => name.startsWith('--') && !name.startsWith('--shadow-'));
+      const colors = [...themeRule[theme].keys()].filter((name) => name.startsWith('--mu-') && !name.startsWith('--mu-shadow-'));
       expect(colors.filter((name) => !documented.has(name)), `undocumented colors in ${theme}`).toEqual([]);
     }
   });
@@ -71,7 +77,7 @@ describe('tokens.css', () => {
     const headings: Record<Theme, string> = { light: 'Light', dark: 'Dark', contrast: 'High contrast' };
     for (const theme of themes) {
       const block = depthDocs.match(new RegExp(`### ${headings[theme]}\\n\\n\`\`\`css\\n([\\s\\S]*?)\`\`\``))?.[1] ?? '';
-      const shadows = [...block.matchAll(/(--shadow-[\w-]+):\s*([^;]+);/g)];
+      const shadows = [...block.matchAll(/(--mu-shadow-[\w-]+):\s*([^;]+);/g)];
       expect(shadows, theme).toHaveLength(5);
       for (const [, name = '', value = ''] of shadows) {
         expect(normalize(themeRule[theme].get(name) ?? ''), `${name} in ${theme}`).toBe(normalize(value));
@@ -83,7 +89,7 @@ describe('tokens.css', () => {
     const rows = [...tableRows(layoutDocs), ...tableRows(motionDocs)];
     expect(rows.length).toBeGreaterThan(30);
     for (const [name, value] of rows) {
-      const token = `--${unquote(name)}`;
+      const token = `--mu-${unquote(name)}`;
       expect(normalize(staticRule.get(token) ?? ''), token).toBe(normalize(value ?? ''));
     }
   });

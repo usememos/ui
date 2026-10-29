@@ -1,14 +1,14 @@
 /* Layout for the test page only. It is not part of the package. */
-body { margin: 0; background: var(--canvas); color: var(--ink); font-family: var(--font-sans); }
-.pg-main { max-width: 960px; margin: 0 auto; padding: var(--space-6); display: grid; gap: var(--space-12); }
-.pg-section { display: grid; gap: var(--space-4); }
+body { margin: 0; background: var(--mu-canvas); color: var(--mu-ink); font-family: var(--mu-font-sans); }
+.pg-main { max-width: 960px; margin: 0 auto; padding: var(--mu-space-6); display: grid; gap: var(--mu-space-12); }
+.pg-section { display: grid; gap: var(--mu-space-4); }
 .pg-section > h2 { margin: 0; }
-.pg-section h3:not(.mu-prose *) { margin: var(--space-2) 0 0; color: var(--ink-muted); }
-.pg-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
-.pg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--space-3); }
-.pg-swatch { display: grid; gap: var(--space-1); }
-.pg-swatch > span:first-child { height: 40px; border-radius: var(--radius-md); box-shadow: inset 0 0 0 1px var(--line); }
-.pg-box { width: 120px; height: 56px; display: grid; place-items: center; border-radius: var(--radius-lg); }
-.pg-well { width: 120px; height: 32px; padding: var(--inset); box-sizing: border-box; border-radius: var(--radius-md); display: flex; }
-.pg-well > span { flex: 1; border-radius: var(--radius-sm); display: grid; place-items: center; }
+.pg-section h3:not(.mu-prose *) { margin: var(--mu-space-2) 0 0; color: var(--mu-ink-muted); }
+.pg-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-4); }
+.pg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--mu-space-3); }
+.pg-swatch { display: grid; gap: var(--mu-space-1); }
+.pg-swatch > span:first-child { height: 40px; border-radius: var(--mu-radius-md); box-shadow: inset 0 0 0 1px var(--mu-line); }
+.pg-box { width: 120px; height: 56px; display: grid; place-items: center; border-radius: var(--mu-radius-lg); }
+.pg-well { width: 120px; height: 32px; padding: var(--mu-inset); box-sizing: border-box; border-radius: var(--mu-radius-md); display: flex; }
+.pg-well > span { flex: 1; border-radius: var(--mu-radius-sm); display: grid; place-items: center; }
 .pg-control { height: var(--h); padding: 0 var(--px); display: inline-flex; align-items: center; gap: var(--gap); border-radius: var(--r); }

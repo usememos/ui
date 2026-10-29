@@ -7,8 +7,8 @@
   height: var(--icon);
   border: var(--icon-stroke) solid currentColor;
   border-top-color: transparent;
-  border-radius: var(--radius-full);
-  animation: mu-spin var(--duration-spin) linear infinite;
+  border-radius: var(--mu-radius-full);
+  animation: mu-spin var(--mu-duration-spin) linear infinite;
 }
 
 @keyframes mu-spin {

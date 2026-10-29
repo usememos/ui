@@ -24,7 +24,7 @@ import '@usememos/ui/styles.css';
 - `tokens.css` defines every token as a CSS custom property on `:root`, on a shadow root's `:host`, and on any `.mu-root` element.
 - `styles.css` holds the foundation classes (`mu-s-md`, `mu-raised`, `mu-recessed`, `mu-key`, `mu-popup`, `mu-icon`, the `mu-` type scale) and the component styles.
 
-Use tokens through their variables (`var(--ink)`, `var(--space-4)`), never as copied values.
+Use tokens through their variables (`var(--mu-ink)`, `var(--mu-space-4)`), never as copied values.
 
 Then build screens from the components. `lucide-react` is a peer dependency: icons are passed to components as elements.
 

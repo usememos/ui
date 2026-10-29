@@ -4,7 +4,7 @@ import type { SectionProps } from '.';
 /** Markdown as a renderer outputs it: plain elements, GFM task lists and tables. */
 export function ProseSection({ size }: SectionProps) {
   return (
-    <Prose size={size === 'sm' ? 'sm' : 'md'} style={{ maxWidth: 'var(--content-width)' }}>
+    <Prose size={size === 'sm' ? 'sm' : 'md'} style={{ maxWidth: 'var(--mu-content-width)' }}>
       <h1>Weekly review</h1>
       <p>
         A short note on what moved this week. The <a href="#prose">sync bug</a> is fixed, and <strong>exports</strong> now keep <em>attachments</em>. Run{' '}

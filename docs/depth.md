@@ -15,10 +15,10 @@ The default taste is "Light, tactile": restrained depth where depth shows behavi
 Each depth class applies a whole role in one class. Use them for new parts before writing new shadows.
 
 ```css
-.mu-recessed { background-color: var(--well); box-shadow: inset 0 0 0 1px var(--edge), var(--shadow-track); }
-.mu-raised   { background-color: var(--key); background-image: linear-gradient(180deg, var(--key-sheen), rgba(255,255,255,0) 60%); box-shadow: var(--shadow-raised); }
-.mu-key      { background-color: var(--key); background-image: linear-gradient(180deg, var(--key-sheen), rgba(255,255,255,0) 60%); box-shadow: var(--shadow-key); }
-.mu-popup    { background: var(--surface); box-shadow: var(--shadow-pop); border-radius: var(--radius-xl); }
+.mu-recessed { background-color: var(--mu-well); box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track); }
+.mu-raised   { background-color: var(--mu-key); background-image: linear-gradient(180deg, var(--mu-key-sheen), rgba(255,255,255,0) 60%); box-shadow: var(--mu-shadow-raised); }
+.mu-key      { background-color: var(--mu-key); background-image: linear-gradient(180deg, var(--mu-key-sheen), rgba(255,255,255,0) 60%); box-shadow: var(--mu-shadow-key); }
+.mu-popup    { background: var(--mu-surface); box-shadow: var(--mu-shadow-pop); border-radius: var(--mu-radius-xl); }
 ```
 
 ## Rules
@@ -44,29 +44,29 @@ Each depth class applies a whole role in one class. Use them for new parts befor
 ### Light
 
 ```css
---shadow-track: inset 0 1px 2px rgba(0,0,0,0.10);
---shadow-key: 0 1px 2px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(0,0,0,0.05);
---shadow-raised: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.12);
---shadow-pressed: inset 0 1px 3px rgba(0,0,0,0.22), 0 0 0 0.5px rgba(0,0,0,0.12);
---shadow-pop: 0 8px 24px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+--mu-shadow-track: inset 0 1px 2px rgba(0,0,0,0.10);
+--mu-shadow-key: 0 1px 2px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(0,0,0,0.05);
+--mu-shadow-raised: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.12);
+--mu-shadow-pressed: inset 0 1px 3px rgba(0,0,0,0.22), 0 0 0 0.5px rgba(0,0,0,0.12);
+--mu-shadow-pop: 0 8px 24px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
 ```
 
 ### Dark
 
 ```css
---shadow-track: inset 0 1px 2px rgba(0,0,0,0.55), inset 0 -0.5px 0 rgba(255,255,255,0.06);
---shadow-key: 0 1px 2px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.10);
---shadow-raised: inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.25), 0 0 0 0.5px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.5);
---shadow-pressed: inset 0 1px 3px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(0,0,0,0.6);
---shadow-pop: 0 8px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.06);
+--mu-shadow-track: inset 0 1px 2px rgba(0,0,0,0.55), inset 0 -0.5px 0 rgba(255,255,255,0.06);
+--mu-shadow-key: 0 1px 2px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.10);
+--mu-shadow-raised: inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.25), 0 0 0 0.5px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.5);
+--mu-shadow-pressed: inset 0 1px 3px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(0,0,0,0.6);
+--mu-shadow-pop: 0 8px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.06);
 ```
 
 ### High contrast
 
 ```css
---shadow-track: 0 0 0 0 rgba(0,0,0,0);
---shadow-key: 0 0 0 1px #6b6b6b;
---shadow-raised: 0 0 0 1px #000000;
---shadow-pressed: inset 0 0 0 2px #000000;
---shadow-pop: 0 0 0 1px #000000;
+--mu-shadow-track: 0 0 0 0 rgba(0,0,0,0);
+--mu-shadow-key: 0 0 0 1px #6b6b6b;
+--mu-shadow-raised: 0 0 0 1px #000000;
+--mu-shadow-pressed: inset 0 0 0 2px #000000;
+--mu-shadow-pop: 0 0 0 1px #000000;
 ```

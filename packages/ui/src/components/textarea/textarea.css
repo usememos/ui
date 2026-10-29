@@ -8,17 +8,17 @@
   padding: calc((var(--h) - var(--lh)) / 2) var(--px);
   border: 0;
   border-radius: var(--r);
-  color: var(--ink);
-  background-color: var(--surface);
-  box-shadow: inset 0 0 0 1px var(--edge), var(--shadow-track);
+  color: var(--mu-ink);
+  background-color: var(--mu-surface);
+  box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
   font-weight: 400;
   resize: vertical;
-  transition: box-shadow var(--duration-fade) var(--ease-out);
+  transition: box-shadow var(--mu-duration-fade) var(--mu-ease-out);
 }
-.mu-textarea::placeholder { color: var(--ink-muted); opacity: 1; }
+.mu-textarea::placeholder { color: var(--mu-ink-muted); opacity: 1; }
 @media (hover: hover) {
-  .mu-textarea:hover:not([data-disabled]) { box-shadow: inset 0 0 0 1px var(--ink-muted), var(--shadow-track); }
+  .mu-textarea:hover:not([data-disabled]) { box-shadow: inset 0 0 0 1px var(--mu-ink-muted), var(--mu-shadow-track); }
 }
-.mu-textarea:focus { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-width); }
-.mu-textarea[data-invalid] { box-shadow: inset 0 0 0 1px var(--danger), var(--shadow-track); }
+.mu-textarea:focus { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-width); }
+.mu-textarea[data-invalid] { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-track); }
 .mu-textarea[data-disabled] { opacity: 0.45; cursor: not-allowed; }

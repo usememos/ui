@@ -1,22 +1,22 @@
 /* Menu: actions for one thing, in a floating list. See docs/components/menu.md. */
 .mu-menu-popup {
   box-sizing: border-box;
-  min-width: var(--menu-width);
+  min-width: var(--mu-menu-width);
   max-height: var(--available-height);
   overflow-y: auto;
-  padding: var(--space-1);
+  padding: var(--mu-space-1);
   outline: 0;
 }
 
 .mu-menu-item {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--mu-space-2);
   box-sizing: border-box;
   height: var(--h);
   padding: 0 var(--px);
-  border-radius: calc(var(--radius-xl) - var(--space-1));
-  color: var(--ink);
+  border-radius: calc(var(--mu-radius-xl) - var(--mu-space-1));
+  color: var(--mu-ink);
   font-weight: 400;
   white-space: nowrap;
   cursor: default;
@@ -24,16 +24,16 @@
   outline: 0;
 }
 .mu-menu-item:has(> svg:first-child) { padding-inline-start: var(--pxi); }
-.mu-menu-item > svg { color: var(--ink-muted); }
-.mu-menu-item[data-highlighted], .mu-menu-submenu-trigger[data-popup-open] { background-color: var(--hover); }
+.mu-menu-item > svg { color: var(--mu-ink-muted); }
+.mu-menu-item[data-highlighted], .mu-menu-submenu-trigger[data-popup-open] { background-color: var(--mu-hover); }
 .mu-menu-item[data-disabled] { opacity: 0.45; }
-.mu-menu-item-danger, .mu-menu-item-danger > svg { color: var(--danger); }
+.mu-menu-item-danger, .mu-menu-item-danger > svg { color: var(--mu-danger); }
 
 .mu-menu-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.mu-menu-shortcut { margin-inline-start: var(--space-4); color: var(--ink-muted); }
-.mu-menu-indicator { display: grid; flex: none; place-items: center; width: var(--icon); height: var(--icon); margin-inline-start: var(--space-2); }
-.mu-menu-indicator > svg { color: var(--ink); }
-.mu-menu-chevron { margin-inline-end: calc(var(--pxi) - var(--px)); color: var(--ink-muted); }
+.mu-menu-shortcut { margin-inline-start: var(--mu-space-4); color: var(--mu-ink-muted); }
+.mu-menu-indicator { display: grid; flex: none; place-items: center; width: var(--icon); height: var(--icon); margin-inline-start: var(--mu-space-2); }
+.mu-menu-indicator > svg { color: var(--mu-ink); }
+.mu-menu-chevron { margin-inline-end: calc(var(--pxi) - var(--px)); color: var(--mu-ink-muted); }
 
-.mu-menu-group-label { padding: var(--space-2) var(--px) var(--space-1); color: var(--ink-muted); }
-.mu-menu-separator { height: 1px; margin: var(--space-1) calc(-1 * var(--space-1)); background-color: var(--line); }
+.mu-menu-group-label { padding: var(--mu-space-2) var(--px) var(--mu-space-1); color: var(--mu-ink-muted); }
+.mu-menu-separator { height: 1px; margin: var(--mu-space-1) calc(-1 * var(--mu-space-1)); background-color: var(--mu-line); }

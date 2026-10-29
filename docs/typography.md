@@ -15,15 +15,15 @@
 
 | Family | Stack |
 | --- | --- |
-| `--font-sans` | `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
-| `--font-display` | `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
-| `--font-mono` | `ui-monospace, "SF Mono", Menlo, Consolas, monospace` |
+| `--mu-font-sans` | `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--mu-font-display` | `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--mu-font-mono` | `ui-monospace, "SF Mono", Menlo, Consolas, monospace` |
 
-The package ships no font files and loads no remote font: text uses the system UI font, so it looks native on each platform and costs no download. An app that wants another font sets `--font-sans` and `--font-display` after loading `tokens.css`, and loads the font itself. Code in [Prose](components/prose.md) uses the platform's monospace font.
+The package ships no font files and loads no remote font: text uses the system UI font, so it looks native on each platform and costs no download. An app that wants another font sets `--mu-font-sans` and `--mu-font-display` after loading `tokens.css`, and loads the font itself. Code in [Prose](components/prose.md) uses the platform's monospace font.
 
 ## Scale
 
-### Text (`--font-sans`)
+### Text (`--mu-font-sans`)
 
 | Style | Size / line | Weight | Usage |
 | --- | --- | --- | --- |
@@ -36,7 +36,7 @@ The package ships no font files and loads no remote font: text uses the system U
 | `body-lg` | 16 / 24px | 400 | Reading text on marketing pages and other long-form copy |
 | `label-lg` | 16 / 24px | 500 | Labels inside lg controls |
 
-### Headings (`--font-display`)
+### Headings (`--mu-font-display`)
 
 | Style | Size / line | Weight | Letter spacing | Usage |
 | --- | --- | --- | --- | --- |

@@ -1,4 +1,4 @@
 /* Separator: a 1px line. See docs/components/separator.md. */
-.mu-separator { flex: none; align-self: stretch; margin: 0; border: 0; background-color: var(--line); }
+.mu-separator { flex: none; align-self: stretch; margin: 0; border: 0; background-color: var(--mu-line); }
 .mu-separator[data-orientation="horizontal"] { height: 1px; }
 .mu-separator[data-orientation="vertical"] { width: 1px; }

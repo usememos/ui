@@ -31,7 +31,7 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 - **Follow established libraries, not one product.** A component's parts, props and behavior follow Base UI and other popular libraries. A product's special case is solved in that product.
 - **Parts, not data props.** Multi-element components are namespaces of parts with Base UI's names (`Menu.Root`, `Menu.Trigger`, `Menu.Popup`, `Menu.Item`). Portal, Positioner and Backdrop fold into one `Popup`. No `items` or `options` arrays. See [API conventions](docs/building.md#api-conventions).
 - **No shadcn.** No shadcn dependency, no copied shadcn code, and no shadcn-compatible names (`card`, `muted`, `destructive`, `foreground`, `secondary`, `ring` and so on). Use the token names in [Color](docs/color.md).
-- **Tokens only.** Use `var(--token)` for every color, shadow, radius, space, size, duration, easing and z-index. No raw values in component CSS.
+- **Tokens only.** Use `var(--mu-<token>)` for every color, shadow, radius, space, size, duration, easing and z-index. No raw values in component CSS.
 - **Ink, not a hue.** `primary` (near-black in Light, near-white in Dark) is the only emphasis. `accent` (quiet blue) is only for focus, links and selection, never a fill. `success`, `warning` and `danger` are only for status.
 - **Depth means behavior.** Recessed holds a value, raised can be pressed, popups float, everything else is flat. Text inputs are flat. Use the `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` classes before writing new shadows. See [Depth](docs/depth.md).
 - **Three themes.** Every change works in Light, Dark and High contrast (`data-theme="light" | "dark" | "contrast"`), and under `prefers-reduced-motion`.

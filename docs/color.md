@@ -23,7 +23,7 @@ Memos UI is ink on paper: pure-gray neutrals, `primary` ink for emphasis, one qu
 - Status colors appear only when there is a status. Red is for destructive actions and errors, never for emphasis.
 - `danger` is tuned for text. `danger-key` is the danger button's fill; it is darker in Dark so the button is not the loudest thing on screen.
 - Always pair a status color with a word or an icon.
-- Use tokens through their CSS variables (`var(--well)`). Never copy raw values into component or product code.
+- Use tokens through their CSS variables. Every token is a custom property with the `--mu-` prefix: the `well` token is `var(--mu-well)`. The prefix keeps the tokens apart from an app's own variables and from Tailwind's. Never copy raw values into component or product code.
 
 ## Themes
 
@@ -60,7 +60,7 @@ The package does not read `prefers-color-scheme` itself. The app does, so that a
 | `on-primary` | `#ffffff` | `#111111` | `#ffffff` | Text, icons and the switch knob on `primary` (16:1 Light, 15:1 Dark) |
 | `accent` | `oklch(0.5 0.13 255)` | `oklch(0.78 0.11 255)` | `oklch(0.42 0.14 255)` | The only hue at rest: focus rings, links, the text cursor and selection. 5.8:1 on canvas in Light. Never a fill |
 | `selection` | `rgba(40,99,171,0.18)` | `rgba(135,186,253,0.28)` | `rgba(0,75,151,0.25)` | Text selection and the selected range in an editor |
-| `focus` | `var(--accent)` | `var(--accent)` | `var(--accent)` | Focus ring: 2px outline, 2px offset, on `:focus-visible` only |
+| `focus` | `var(--mu-accent)` | `var(--mu-accent)` | `var(--mu-accent)` | Focus ring: 2px outline, 2px offset, on `:focus-visible` only |
 | `success` | `oklch(0.52 0.13 150)` | `oklch(0.78 0.14 150)` | `oklch(0.42 0.12 150)` | Success text and icons on `surface` or `success-soft` (4.6:1 or more). Always with a word or icon |
 | `success-soft` | `#e9f4ec` | `#14261a` | `#e9f4ec` | Background of success badges and toasts |
 | `warning` | `oklch(0.5 0.11 70)` | `oklch(0.8 0.13 75)` | `oklch(0.45 0.11 70)` | Warning text and icons on `surface` or `warning-soft` (5.5:1 or more) |

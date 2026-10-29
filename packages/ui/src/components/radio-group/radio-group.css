@@ -1,6 +1,6 @@
 /* RadioGroup and Radio: round wells; the chosen one is a flat primary circle with a dot. See docs/components/radio-group.md. */
-.mu-radio-group { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); }
-.mu-radio-group[data-orientation="horizontal"] { flex-direction: row; flex-wrap: wrap; gap: var(--space-3) var(--space-4); }
+.mu-radio-group { display: flex; flex-direction: column; align-items: flex-start; gap: var(--mu-space-3); }
+.mu-radio-group[data-orientation="horizontal"] { flex-direction: row; flex-wrap: wrap; gap: var(--mu-space-3) var(--mu-space-4); }
 /* A legend in a horizontal group takes its own line above the radios. */
 .mu-radio-group[data-orientation="horizontal"] > .mu-fieldset-legend { flex-basis: 100%; }
 
@@ -12,25 +12,25 @@
   box-sizing: border-box;
   width: var(--box);
   height: var(--box);
-  border-radius: var(--radius-full);
-  background-color: var(--well);
-  box-shadow: inset 0 0 0 1px var(--edge), var(--shadow-track);
+  border-radius: var(--mu-radius-full);
+  background-color: var(--mu-well);
+  box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
   cursor: pointer;
   transition-property: background-color, box-shadow, scale;
-  transition-duration: var(--duration-press);
-  transition-timing-function: var(--ease-out);
+  transition-duration: var(--mu-duration-press);
+  transition-timing-function: var(--mu-ease-out);
 }
-.mu-radio[data-checked] { background-color: var(--primary); box-shadow: none; }
-.mu-radio[data-invalid] { box-shadow: inset 0 0 0 1px var(--danger), var(--shadow-track); }
+.mu-radio[data-checked] { background-color: var(--mu-primary); box-shadow: none; }
+.mu-radio[data-invalid] { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-track); }
 .mu-radio:active:not([data-disabled], [data-readonly]) { scale: 0.94; }
 .mu-radio[data-disabled] { opacity: 0.45; cursor: not-allowed; }
 
 .mu-radio-indicator {
   width: calc(var(--box) / 2.5);
   height: calc(var(--box) / 2.5);
-  border-radius: var(--radius-full);
-  background-color: var(--on-primary);
-  transition: opacity var(--duration-fade) var(--ease-out) var(--duration-press), scale var(--duration-fade) var(--ease-out) var(--duration-press);
+  border-radius: var(--mu-radius-full);
+  background-color: var(--mu-on-primary);
+  transition: opacity var(--mu-duration-fade) var(--mu-ease-out) var(--mu-duration-press), scale var(--mu-duration-fade) var(--mu-ease-out) var(--mu-duration-press);
 }
 .mu-radio-indicator[data-starting-style], .mu-radio-indicator[data-ending-style] { opacity: 0; scale: 0.4; }
 

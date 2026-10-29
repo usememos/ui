@@ -10,25 +10,25 @@
   gap: 0;
   box-sizing: border-box;
   height: var(--h);
-  padding: var(--inset);
+  padding: var(--mu-inset);
   border-radius: var(--r);
-  background-color: var(--well);
-  box-shadow: inset 0 0 0 1px var(--edge), var(--shadow-track);
+  background-color: var(--mu-well);
+  box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
 }
 
 /* The key: drawn first, so the items paint above it. */
 .mu-segmented-key {
   position: absolute;
-  top: var(--inset);
+  top: var(--mu-inset);
   left: 0;
   width: var(--key-width);
-  height: calc(var(--h) - 2 * var(--inset));
+  height: calc(var(--h) - 2 * var(--mu-inset));
   translate: var(--key-left) 0;
-  border-radius: calc(var(--r) - var(--inset));
-  background-color: var(--key);
-  background-image: linear-gradient(180deg, var(--key-sheen), transparent 60%);
-  box-shadow: var(--shadow-key);
-  transition: translate var(--duration-settle) var(--ease-settle), width var(--duration-settle) var(--ease-settle);
+  border-radius: calc(var(--r) - var(--mu-inset));
+  background-color: var(--mu-key);
+  background-image: linear-gradient(180deg, var(--mu-key-sheen), transparent 60%);
+  box-shadow: var(--mu-shadow-key);
+  transition: translate var(--mu-duration-settle) var(--mu-ease-settle), width var(--mu-duration-settle) var(--mu-ease-settle);
 }
 .mu-toggle-group.mu-segmented:not([data-keyed]) > .mu-segmented-key { display: none; }
 .mu-tabs-indicator { --key-left: var(--active-tab-left); --key-width: var(--active-tab-width); }
@@ -43,28 +43,28 @@
   box-sizing: border-box;
   height: 100%;
   margin: 0;
-  padding: 0 calc(var(--px) - var(--inset));
+  padding: 0 calc(var(--px) - var(--mu-inset));
   border: 0;
-  border-radius: calc(var(--r) - var(--inset));
-  color: var(--ink-muted);
+  border-radius: calc(var(--r) - var(--mu-inset));
+  color: var(--mu-ink-muted);
   background: none;
   box-shadow: none;
   font: inherit;
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  transition: color var(--duration-fade) var(--ease-out);
+  transition: color var(--mu-duration-fade) var(--mu-ease-out);
 }
-.mu-segmented > .mu-toggle.mu-toggle-icon { width: calc(var(--h) - 2 * var(--inset)); padding: 0; }
+.mu-segmented > .mu-toggle.mu-toggle-icon { width: calc(var(--h) - 2 * var(--mu-inset)); padding: 0; }
 @media (hover: hover) {
-  .mu-segmented-item:hover:not([data-disabled]), .mu-segmented > .mu-toggle:hover:not([data-disabled]) { color: var(--ink); background: none; }
+  .mu-segmented-item:hover:not([data-disabled]), .mu-segmented > .mu-toggle:hover:not([data-disabled]) { color: var(--mu-ink); background: none; }
 }
-.mu-segmented-item[data-active], .mu-segmented > .mu-toggle[data-pressed], .mu-segmented > .mu-toggle:active:not([data-disabled]) { color: var(--ink); background: none; box-shadow: none; }
+.mu-segmented-item[data-active], .mu-segmented > .mu-toggle[data-pressed], .mu-segmented > .mu-toggle:active:not([data-disabled]) { color: var(--mu-ink); background: none; box-shadow: none; }
 .mu-segmented-item[data-disabled] { opacity: 0.45; cursor: not-allowed; }
 
-.mu-tabs-root { display: flex; flex-direction: column; gap: var(--space-4); }
+.mu-tabs-root { display: flex; flex-direction: column; gap: var(--mu-space-4); }
 .mu-tabs-list { align-self: flex-start; }
-.mu-tabs-panel { border-radius: var(--radius-sm); }
+.mu-tabs-panel { border-radius: var(--mu-radius-sm); }
 
 @media (prefers-reduced-motion: reduce) {
   .mu-segmented-key { transition: none; }

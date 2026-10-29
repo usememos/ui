@@ -1,21 +1,21 @@
 /* Toast: confirms that something happened, stacked at the bottom of the screen. See docs/components/toast.md. */
 .mu-toast-viewport {
   position: fixed;
-  right: var(--space-6);
-  bottom: var(--space-6);
-  z-index: var(--layer-toast);
-  width: var(--toast-width);
+  right: var(--mu-space-6);
+  bottom: var(--mu-space-6);
+  z-index: var(--mu-layer-toast);
+  width: var(--mu-toast-width);
   outline: 0;
 }
 /* Below breakpoint-sm (640px): bottom-center, full width. */
 @media (max-width: 639.98px) {
-  .mu-toast-viewport { right: var(--space-4); bottom: var(--space-4); left: var(--space-4); width: auto; }
+  .mu-toast-viewport { right: var(--mu-space-4); bottom: var(--mu-space-4); left: var(--mu-space-4); width: auto; }
 }
 
 /* Collapsed, the toasts behind peek out above the front one; hovering or focusing the viewport fans them out. */
 .mu-toast {
-  --gap: var(--space-3);
-  --peek: var(--space-2);
+  --gap: var(--mu-space-3);
+  --peek: var(--mu-space-2);
   --scale: max(0, 1 - var(--toast-index) * 0.05);
   --shrink: calc(1 - var(--scale));
   --height: var(--toast-frontmost-height, var(--toast-height));
@@ -23,7 +23,7 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  z-index: calc(var(--layer-toast) - var(--toast-index));
+  z-index: calc(var(--mu-layer-toast) - var(--toast-index));
   box-sizing: border-box;
   width: 100%;
   height: var(--height);
@@ -33,10 +33,10 @@
   user-select: none;
   outline: 0;
   transition:
-    translate var(--duration-settle) var(--ease-settle),
-    scale var(--duration-settle) var(--ease-settle),
-    opacity var(--duration-settle) var(--ease-out),
-    height var(--duration-fade) var(--ease-out);
+    translate var(--mu-duration-settle) var(--mu-ease-settle),
+    scale var(--mu-duration-settle) var(--mu-ease-settle),
+    opacity var(--mu-duration-settle) var(--mu-ease-out),
+    height var(--mu-duration-fade) var(--mu-ease-out);
 }
 .mu-toast[data-expanded] { height: var(--toast-height); translate: var(--toast-swipe-movement-x) var(--offset-y); scale: 1; }
 .mu-toast[data-starting-style], .mu-toast[data-ending-style] { translate: 0 150%; }
@@ -46,33 +46,33 @@
 .mu-toast[data-ending-style][data-swipe-direction="left"] { translate: calc(var(--toast-swipe-movement-x) - 150%) var(--offset-y); }
 .mu-toast[data-ending-style][data-swipe-direction="right"] { translate: calc(var(--toast-swipe-movement-x) + 150%) var(--offset-y); }
 .mu-toast[data-limited] { opacity: 0; }
-.mu-toast:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-width); }
+.mu-toast:focus-visible { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-width); }
 /* Keeps the stack expanded while the pointer crosses the gap between toasts. */
 .mu-toast::after { content: ""; position: absolute; top: 100%; left: 0; width: 100%; height: calc(var(--gap) + 1px); }
 
 .mu-toast-content {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-3);
+  gap: var(--mu-space-3);
   box-sizing: border-box;
   height: 100%;
-  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  padding: var(--mu-space-3) var(--mu-space-3) var(--mu-space-3) var(--mu-space-4);
   overflow: hidden;
-  transition: opacity var(--duration-settle) var(--ease-out);
+  transition: opacity var(--mu-duration-settle) var(--mu-ease-out);
 }
 .mu-toast-content[data-behind] { opacity: 0; }
 .mu-toast-content[data-expanded] { opacity: 1; }
 
-.mu-toast-icon { margin-block: calc((var(--h) - var(--icon)) / 2); color: var(--ink-muted); }
+.mu-toast-icon { margin-block: calc((var(--h) - var(--icon)) / 2); color: var(--mu-ink-muted); }
 /* Each item sits centered on a row as tall as a control, so the icon, the title and the buttons line up. */
-.mu-toast-success .mu-toast-icon { color: var(--success); }
-.mu-toast-warning .mu-toast-icon { color: var(--warning); }
-.mu-toast-danger .mu-toast-icon { color: var(--danger); }
+.mu-toast-success .mu-toast-icon { color: var(--mu-success); }
+.mu-toast-warning .mu-toast-icon { color: var(--mu-warning); }
+.mu-toast-danger .mu-toast-icon { color: var(--mu-danger); }
 
 .mu-toast-text { display: flex; flex: 1; flex-direction: column; min-width: 0; padding-block: calc((var(--h) - var(--lh)) / 2); }
-.mu-toast-title { margin: 0; color: var(--ink); }
-.mu-toast-description { margin: 0; color: var(--ink-muted); }
-.mu-toast-action, .mu-toast-close { margin-block: calc((var(--control-md) - var(--control-sm)) / 2); }
+.mu-toast-title { margin: 0; color: var(--mu-ink); }
+.mu-toast-description { margin: 0; color: var(--mu-ink-muted); }
+.mu-toast-action, .mu-toast-close { margin-block: calc((var(--mu-control-md) - var(--mu-control-sm)) / 2); }
 
 @media (prefers-reduced-motion: reduce) {
   .mu-toast { transition-property: opacity, height; }
