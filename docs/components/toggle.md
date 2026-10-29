@@ -1,6 +1,6 @@
 # Toggle
 
-A toggle turns one option on or off and shows its state by staying pressed. Off, it is flat `ink-muted`. On, it sits in a `well` with `ink` text.
+Turns one option on or off and stays pressed while on.
 
 ## Example
 
@@ -20,13 +20,15 @@ interface ToggleProps extends BaseToggle.Props {
 }
 ```
 
-`Toggle` wraps Base UI's [Toggle](https://base-ui.com/react/components/toggle), so its props (`pressed`, `defaultPressed`, `onPressedChange`, `disabled`, `value`) pass through. It renders a `<button aria-pressed>`.
+Wraps Base UI's [Toggle](https://base-ui.com/react/components/toggle): `pressed`, `defaultPressed`, `onPressedChange`, `disabled`, `value` pass through. Renders a `<button aria-pressed>`.
 
-Provide `children`, or an `icon` with `aria-label`.
+## Rules
 
-## Guidelines
-
-- Use it for formatting in a toolbar and for filters that stack ("Pinned", "Has tasks"). A clickable tag filter is a Toggle, not a Badge.
-- Inside a [ToggleGroup](toggle-group.md), a Toggle is one item; its `value` names it in the group's value.
+- Provide `children`, or an `icon` with `aria-label` and a [Tooltip](tooltip.md) with the same text.
+- Use it for toolbar formatting and stacking filters ("Pinned", "Has tasks"). A clickable tag filter is a Toggle, not a Badge.
+- Inside a [ToggleGroup](toggle-group.md), `value` names the item in the group's value.
 - For a setting that saves at once, use [Switch](switch.md). For one choice among several, use a ToggleGroup without `multiple`.
-- Icon-only toggles have a Tooltip with the same text as the `aria-label`.
+
+## Style
+
+- Off: flat `ink-muted`. On: sits in a `well` with `ink` text.

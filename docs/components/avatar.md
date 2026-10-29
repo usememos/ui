@@ -1,6 +1,6 @@
 # Avatar
 
-An avatar shows a person. It is a circle with the person's photo, or their initials in `ink-muted` on `well`.
+Shows a person.
 
 ## Example
 
@@ -18,7 +18,7 @@ import { Avatar } from "@usememos/ui";
 | Part | Base UI part | Renders |
 | --- | --- | --- |
 | `Avatar.Root` | `Avatar.Root` | The circle, a `<span>`. Takes `size` |
-| `Avatar.Image` | `Avatar.Image` | The photo, an `<img>`, shown once it has loaded |
+| `Avatar.Image` | `Avatar.Image` | The photo, an `<img>`, shown once loaded |
 | `Avatar.Fallback` | `Avatar.Fallback` | The initials, shown while there is no photo or it fails to load |
 
 ## Props
@@ -27,11 +27,15 @@ import { Avatar } from "@usememos/ui";
 interface Avatar.RootProps extends BaseAvatar.Root.Props {
   size?: Size; // 24, 32, 40px
 }
-// Avatar.Image and Avatar.Fallback take Base UI's props (src, alt, delay, render ...).
 ```
 
-## Guidelines
+`Avatar.Image` and `Avatar.Fallback` take Base UI's props (`src`, `alt`, `delay`, `render`).
+
+## Rules
 
 - Give the image an `alt` with the person's name. Initials are one or two letters, computed by the app.
-- Use `sm` in lists and comments, `md` in a sidebar, `lg` on profile pages.
-- Avatars are one of the three round shapes in the system, with radios and switches.
+- `sm` in lists and comments, `md` in a sidebar, `lg` on profile pages.
+
+## Style
+
+- A circle (one of three round shapes, with radios and switches). Initials in `ink-muted` on `well`.

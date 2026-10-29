@@ -1,6 +1,6 @@
 # Textarea
 
-A textarea takes a few lines of plain text. It looks like [Input](input.md): `surface` with an `edge`, three lines tall by default.
+Takes a few lines of plain text.
 
 ## Example
 
@@ -22,11 +22,13 @@ interface TextareaProps extends Omit<BaseField.Control.Props, "size" | "render">
 }
 ```
 
-Base UI has no textarea part, so `Textarea` renders Base UI's `Field.Control` as a `<textarea>`. Inside a [Field](field.md) it gets its label, description and validity like an Input. Native textarea props (`value`, `onChange`, `maxLength`) pass through.
+Base UI has no textarea part, so this renders Base UI's `Field.Control` as a `<textarea>`. Inside a [Field](field.md) it gets its label, description and validity. Native textarea props (`value`, `onChange`, `maxLength`) pass through.
 
-Provide a `Field.Label` or `aria-label`.
+## Rules
 
-## Guidelines
+- Provide a `Field.Label` or `aria-label`.
+- Rich content is not a textarea: use the editor (`@usememos/editor`) with [Prose](prose.md).
 
-- Rich content is not a textarea. It is the editor (`@usememos/editor`), styled with [Prose](prose.md) from the same tokens.
-- People can resize it vertically only.
+## Style
+
+- Looks like [Input](input.md). Resizes vertically only.

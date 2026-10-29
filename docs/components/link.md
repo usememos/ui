@@ -1,6 +1,6 @@
 # Link
 
-A link goes somewhere. It is `accent` text that underlines on hover: the one place the hue appears at rest.
+Goes somewhere.
 
 ## Example
 
@@ -25,8 +25,13 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 
 Provide `href` and `children`.
 
-## Guidelines
+## Rules
 
-- A link navigates; a button acts. A "Get started" that goes to a page is an anchor with [`buttonClasses()`](button.md#links-that-look-like-buttons), because it should look like an action. "View all" is a link.
-- Inside running text, use `underline="always"`, so the link isn't told apart by color alone. In High contrast every link is underlined.
-- Inside [Prose](prose.md), plain anchors get the same style without the component.
+- A link navigates; a button acts. A "Get started" that goes to a page is an anchor with [`buttonClasses()`](button.md#rules). "View all" is a link.
+- Inside running text, use `underline="always"`, so the link isn't told apart by color alone.
+- Inside [Prose](prose.md), plain anchors get this style without the component.
+
+## Style
+
+- `accent` text that underlines on hover: the one place the hue appears at rest. `muted` uses `ink-muted`.
+- High contrast underlines every link.

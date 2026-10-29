@@ -74,7 +74,7 @@ import { Ellipsis, Pin, Trash2 } from "lucide-react";
   - `pressed` + `onPressedChange`, or `defaultPressed` (Toggle)
   - `open` + `onOpenChange`, or `defaultOpen` (Menu, Dialog, AlertDialog, Popover, Tooltip, Collapsible, Select, Combobox)
 - **`icon`** takes a Lucide element (`icon={<Pin />}`), never a string name.
-- **`render`** on every component and part swaps the rendered element, as in Base UI: a router's link in `Link`, a Button as a `Menu.Trigger`. Base UI doesn't render links through Button; a link that looks like a button is an anchor with `buttonClasses()` (see [Button](components/button.md#links-that-look-like-buttons)).
+- **`render`** on every component and part swaps the rendered element, as in Base UI: a router's link in `Link`, a Button as a `Menu.Trigger`. Base UI doesn't render links through Button; a link that looks like a button is an anchor with `buttonClasses()` (see [Button](components/button.md#rules)).
 - **`className` and `style`** pass through to the part's element, after our classes.
 - **Accessible names.** A control without a visible label takes `aria-label`. Icon-only controls always do.
 - **`tone`**: `"neutral" | "success" | "warning" | "danger"` on status components (Badge, toasts).

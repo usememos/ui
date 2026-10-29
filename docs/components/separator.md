@@ -1,6 +1,6 @@
 # Separator
 
-A separator is a 1px `line` between groups of content, horizontal or vertical.
+A line between groups of content, horizontal or vertical.
 
 ## Example
 
@@ -19,9 +19,13 @@ interface SeparatorProps extends BaseSeparator.Props {
 }
 ```
 
-It wraps Base UI's [Separator](https://base-ui.com/react/components/separator): a `<div role="separator">` with `aria-orientation`. A vertical separator stretches to the height of its row.
+Wraps Base UI's [Separator](https://base-ui.com/react/components/separator): a `<div role="separator">` with `aria-orientation`.
 
-## Guidelines
+## Rules
 
 - Prefer space over lines. Use a separator only where `space-6` alone doesn't make the groups clear.
-- Menus and toolbars have their own separator parts (`Menu.Separator`).
+- In a [ToggleGroup](toggle-group.md), a vertical Separator splits clusters. Menus use `Menu.Separator`.
+
+## Style
+
+- 1px `line`. A vertical separator stretches to the height of its row.

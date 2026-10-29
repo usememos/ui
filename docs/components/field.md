@@ -1,6 +1,6 @@
 # Field and Fieldset
 
-A field gives one control its label, its description and its error, and wires them up for screen readers. A fieldset does the same for a group of checkboxes, radios or switches.
+Field gives one control its label, description and error, wired for screen readers. Fieldset groups checkboxes, radios or switches under one legend.
 
 ## Example
 
@@ -30,11 +30,11 @@ import { Checkbox, Field, Fieldset, Input } from "@usememos/ui";
 | Part | Base UI part | Renders |
 | --- | --- | --- |
 | `Field.Root` | `Field.Root` | A `<div>` around one control. Takes `size` and passes it to the control |
-| `Field.Label` | `Field.Label` | A `<label>`. Above a text control, or around a Checkbox, Switch or Radio so it sits beside the text |
-| `Field.Item` | `Field.Item` | A `<div>` around one option of a radio or checkbox group inside one field |
+| `Field.Label` | `Field.Label` | A `<label>`: above a text control, or around a Checkbox, Switch or Radio |
+| `Field.Item` | `Field.Item` | A `<div>` around one option of a radio or checkbox group in one field |
 | `Field.Description` | `Field.Description` | A `<p>` of help under the control |
-| `Field.Error` | `Field.Error` | A `<div>` with a `CircleAlert` icon and the message, shown while the field is invalid |
-| `Fieldset.Root` | `Fieldset.Root` | A `<fieldset>` around a group of fields. Takes `size` |
+| `Field.Error` | `Field.Error` | A `<div>` with a `CircleAlert` icon and the message, while the field is invalid |
+| `Fieldset.Root` | `Fieldset.Root` | A `<fieldset>`. Takes `size` |
 | `Fieldset.Legend` | `Fieldset.Legend` | The group's name |
 
 ## Props
@@ -46,17 +46,20 @@ interface Field.RootProps extends BaseField.Root.Props {
 interface Fieldset.RootProps extends BaseFieldset.Root.Props {
   size?: Size; // passed to every control inside
 }
-// The other parts take Base UI's props. Field.Error's `match` decides when it shows:
-// `true` always while invalid, or a ValidityState key such as "valueMissing".
 ```
 
-Base UI's `Field.Root` props (`name`, `invalid`, `disabled`, `validate`, `validationMode`) pass through. `invalid` comes from the app when the server rejects a value; `validate` runs on the client.
+Base UI's props pass through: `name`, `invalid`, `disabled`, `validate`, `validationMode` on `Field.Root`; `match` on `Field.Error` (`true` shows it whenever the field is invalid, or a `ValidityState` key such as `"valueMissing"`).
 
-## Guidelines
+## Rules
 
-- The label uses the `label` style (14px, 500), `space-1` above the control. The description and the error are 12px, below it.
-- An error replaces the description, turns the control's edge `danger`, and starts with a `CircleAlert` icon. Say how to fix the problem.
-- A Checkbox, Switch or Radio goes inside its `Field.Label`, so clicking the text toggles it. The label text is weight 400 there.
+- Set `invalid` from the app when the server rejects a value; use `validate` for client checks.
+- Write the error as how to fix the problem.
+- Put a Checkbox, Switch or Radio inside its `Field.Label`, so clicking the text toggles it.
 - A radio group is one field: `Field.Root` holds `Fieldset.Root render={<RadioGroup />}`, and each radio sits in a `Field.Item`. See [RadioGroup](radio-group.md).
-- Stack fields `space-4` apart. Group them with a heading or a Fieldset rather than boxes.
-- A placeholder is never the only label.
+- Stack fields `space-4` apart. Group them with a heading or a Fieldset, not boxes.
+- Never use a placeholder as the only label.
+
+## Style
+
+- Label: `label` style (14px, 500), `space-1` above the control; weight 400 when it wraps a Checkbox, Switch or Radio.
+- Description and error: 12px, below the control. The error hides the description and turns the control's edge `danger`.

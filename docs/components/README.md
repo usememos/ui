@@ -12,15 +12,16 @@
 
 ## Page template
 
-Every component page has the same sections:
+Pages are reference for agents: short, imperative, no narrative. Every page has these sections, in this order:
 
-1. **Title and summary.** One paragraph: what it is for and what it looks like.
+1. **Title and purpose.** `# Name`, then one line: what it is for.
 2. **Example.** One complete, copyable example of the common case.
 3. **Parts.** One row per part: name, the Base UI part it wraps, what it renders. Skip for single-element components.
-4. **Props.** A TypeScript block per part, only for props we add or change. Say "plus Base UI's `<Part>` props" for the rest.
-5. **Guidelines.** When to use it, sizes, states, keyboard behavior, and what to use instead.
+4. **Props.** A TypeScript block per part, only for props we add or change, then one line on which Base UI props pass through.
+5. **Rules.** Imperative bullets: when to use it, what to use instead, required labels, keyboard behavior.
+6. **Style.** Bullets for building the component: tokens, sizes, states and motion.
 
-Components follow the [API conventions](../building.md#api-conventions): parts with Base UI's names, no data props. Pages whose Props section still lists `items` or `options` were written before that rule and are rewritten when their component is built.
+Components follow the [API conventions](../building.md#api-conventions): parts with Base UI's names, no data props. Pages that still list `items` or `options`, or still use the old prose format, were written before these rules and are rewritten when their component is built.
 
 ## Left out on purpose
 

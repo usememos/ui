@@ -1,6 +1,6 @@
 # Tabs
 
-Tabs switch between sections of the same page. The tab list is a recessed well, and the selected tab is a raised key that slides to the one you pick.
+Switches between sections of the same page.
 
 ## Example
 
@@ -25,7 +25,7 @@ import { Bell, User } from "lucide-react";
 | `Tabs.Root` | `Tabs.Root` | A `<div>` around the list and panels. Takes `size` |
 | `Tabs.List` | `Tabs.List` with `Tabs.Indicator` | The well, a `<div role="tablist">`, with the sliding key built in |
 | `Tabs.Tab` | `Tabs.Tab` | One tab, a `<button role="tab">`. Takes `icon` |
-| `Tabs.Panel` | `Tabs.Panel` | The content of one tab, a `<div role="tabpanel">` |
+| `Tabs.Panel` | `Tabs.Panel` | One tab's content, a `<div role="tabpanel">` |
 
 ## Props
 
@@ -36,15 +36,18 @@ interface Tabs.RootProps extends BaseTabs.Root.Props {
 interface Tabs.TabProps extends BaseTabs.Tab.Props {
   icon?: IconElement; // before the label
 }
-// Tabs.List and Tabs.Panel take Base UI's props.
 ```
 
-Base UI's props (`value`, `defaultValue`, `onValueChange` on the root; `activateOnFocus`, `loopFocus` on the list; `value`, `disabled` on each tab; `keepMounted` on each panel) pass through.
+Base UI's props pass through: `value`, `defaultValue`, `onValueChange` on the root; `activateOnFocus`, `loopFocus` on the list; `value`, `disabled` on each tab; `keepMounted` on each panel.
 
-## Guidelines
+## Rules
 
-- Tabs and a single-choice [ToggleGroup](toggle-group.md) share one segmented well, so "one of these" always looks the same.
-- Tabs are sized to their labels, not split equally. The key re-measures when a label changes width.
-- Selected and hovered labels are `ink`; others are `ink-muted`. The weight never changes, so labels don't shift.
-- Left and Right arrow keys move between tabs. Give the list an `aria-label`.
-- Use tabs for sections of a page, not for site navigation.
+- Give the list an `aria-label`.
+- Use tabs for sections of a page, not for site navigation. For a filter or view switch, use a [ToggleGroup](toggle-group.md).
+- Left and Right arrow keys move between tabs.
+
+## Style
+
+- Shares the segmented well and sliding key with a single-choice ToggleGroup.
+- Tabs are sized to their labels. The key re-measures when a label changes width.
+- Selected and hovered labels `ink`, others `ink-muted`. Weight never changes, so labels don't shift.

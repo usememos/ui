@@ -1,6 +1,6 @@
 # Kbd
 
-A kbd shows a keyboard key in help text, menus and empty states. It is a tiny raised key, 20px tall, in 11px `ink-muted` text (`label-xs`).
+Shows one keyboard key in help text, menus and empty states.
 
 ## Example
 
@@ -14,14 +14,18 @@ import { Kbd } from "@usememos/ui";
 
 ```ts
 interface KbdProps extends React.HTMLAttributes<HTMLElement> {
-  children: React.ReactNode; // one key per Kbd: "⌘", "Enter", "/"
+  children: React.ReactNode; // one key: "⌘", "Enter", "/"
   render?: React.ReactElement;
 }
 ```
 
-It renders a `<kbd>`.
+Renders a `<kbd>`.
 
-## Guidelines
+## Rules
 
 - One key per Kbd. Put a space between the keys of a shortcut.
-- Use symbols for modifier keys on macOS (⌘ ⌥ ⇧) and words elsewhere (Ctrl, Alt, Shift).
+- Use symbols for modifiers on macOS (⌘ ⌥ ⇧) and words elsewhere (Ctrl, Alt, Shift).
+
+## Style
+
+- A tiny raised key, 20px tall, `label-xs` text in `ink-muted`.

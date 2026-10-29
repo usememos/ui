@@ -1,6 +1,6 @@
 # ToggleGroup
 
-A toggle group is a row of related [Toggles](toggle.md). With `multiple` it is a toolbar of independent on/off toggles. Without it, it is a segmented well with one sliding key: the same control as [Tabs](tabs.md), without a panel.
+A row of related [Toggles](toggle.md). With `multiple`: a toolbar of independent on/off toggles. Without: one choice among peers, the same control as [Tabs](tabs.md) without a panel.
 
 ## Example
 
@@ -26,9 +26,9 @@ import { Bold, Code, Italic } from "lucide-react";
 
 | Part | Base UI part | Renders |
 | --- | --- | --- |
-| `ToggleGroup` | `ToggleGroup` | A `<div role="group">`. Takes `size`. Without `multiple` it adds the sliding key |
+| `ToggleGroup` | `ToggleGroup` | A `<div role="group">`. Takes `size`. Without `multiple`, adds the sliding key |
 | `Toggle` | `Toggle` | One item, a `<button aria-pressed>` |
-| `Separator` | `Separator` | A hairline between clusters, `multiple` groups only |
+| `Separator` | `Separator` | A line between clusters, `multiple` groups only |
 
 ## Props
 
@@ -38,12 +38,17 @@ interface ToggleGroupProps extends BaseToggleGroup.Props {
 }
 ```
 
-Base UI's props (`value`, `defaultValue`, `onValueChange`, `multiple`, `disabled`, `orientation`, `loopFocus`) pass through. The value is always an array of the pressed toggles' `value`s, even without `multiple`.
+Base UI's props pass through: `value`, `defaultValue`, `onValueChange`, `multiple`, `disabled`, `orientation`, `loopFocus`. The value is always an array of pressed `value`s, even without `multiple`.
 
-## Guidelines
+## Rules
 
-- One rule for "selected": a single choice among peers is always a raised key in a well. An on/off state is a pressed toggle. Never mix the two in one row.
-- **Multiple:** items sit 2px apart. A vertical Separator splits clusters.
-- **Single:** use it for filters and view switches that don't change the whole page. For sections of a page, use Tabs. Base UI lets people press the chosen item to clear it; ignore an empty value, as in the example, when one item must stay chosen.
-- The key slides to the chosen item over `duration-settle` with `ease-settle`, and re-measures when an item changes width.
+- Give the group an `aria-label`.
+- A single choice among peers is a raised key in a well; an on/off state is a pressed toggle. Never mix the two in one row.
+- Without `multiple`: filters and view switches that don't change the whole page. For sections of a page, use Tabs.
+- Base UI lets people press the chosen item to clear it. When one item must stay chosen, ignore an empty value, as in the example.
 - Arrow keys move focus between items; Space or Enter presses one.
+
+## Style
+
+- `multiple`: items 2px apart.
+- Without `multiple`: a segmented well; the key slides to the chosen item over `duration-settle` with `ease-settle` and re-measures when an item changes width. Under reduced motion it jumps.
