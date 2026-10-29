@@ -1,0 +1,61 @@
+/* Dialog and AlertDialog: a panel over a dimmed backdrop; a sheet from the bottom on small screens. See docs/components/dialog.md. */
+.mu-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-overlay);
+  background-color: var(--overlay);
+  transition: opacity var(--duration-settle) var(--ease-out);
+}
+.mu-dialog-backdrop[data-starting-style], .mu-dialog-backdrop[data-ending-style] { opacity: 0; }
+
+.mu-dialog-viewport {
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-overlay);
+  display: grid;
+  place-items: safe center;
+  box-sizing: border-box;
+  padding: var(--space-6) var(--space-4);
+  overflow-y: auto;
+}
+
+.mu-dialog-popup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  box-sizing: border-box;
+  width: var(--dialog-width);
+  max-width: 100%;
+  padding: var(--space-5);
+  border-radius: var(--radius-2xl);
+  outline: 0;
+  transition: opacity var(--duration-settle) var(--ease-out), translate var(--duration-settle) var(--ease-out);
+}
+.mu-dialog-popup[data-starting-style], .mu-dialog-popup[data-ending-style] { opacity: 0; translate: 0 var(--space-1); }
+/* Room for the X at the top right. */
+.mu-dialog-popup:has(> .mu-dialog-x) > .mu-dialog-title { padding-inline-end: var(--space-6); }
+
+.mu-dialog-title { margin: 0; color: var(--ink); }
+.mu-dialog-description { margin: calc(-1 * var(--space-2)) 0 0; color: var(--ink-muted); }
+.mu-dialog-x { position: absolute; top: var(--space-4); right: var(--space-4); }
+.mu-dialog-footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-2); }
+
+/* Below breakpoint-sm (640px): a sheet that slides up from the bottom, with full-width stacked buttons. */
+@media (max-width: 639.98px) {
+  .mu-dialog-sheet { place-items: end stretch; padding: var(--space-6) 0 0; }
+  .mu-dialog-sheet > .mu-dialog-popup {
+    width: 100%;
+    padding-bottom: max(var(--space-5), env(safe-area-inset-bottom));
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+  .mu-dialog-sheet > .mu-dialog-popup[data-starting-style], .mu-dialog-sheet > .mu-dialog-popup[data-ending-style] { translate: 0 var(--space-6); }
+  .mu-dialog-sheet .mu-dialog-footer { flex-direction: column-reverse; }
+  .mu-dialog-sheet .mu-dialog-footer > * { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mu-dialog-popup[data-starting-style], .mu-dialog-popup[data-ending-style],
+  .mu-dialog-sheet > .mu-dialog-popup[data-starting-style], .mu-dialog-sheet > .mu-dialog-popup[data-ending-style] { translate: none; }
+}

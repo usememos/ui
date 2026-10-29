@@ -73,6 +73,11 @@ Buttons, inputs and badges are never pills.
 | --- | --- | --- |
 | `content-width` | 720px | Maximum width of a reading column: a timeline, a settings form, an article |
 | `sidebar-width` | 240px | Width of a fixed navigation sidebar from `breakpoint-md` up |
+| `menu-width` | 200px | Minimum width of a menu or select list |
+| `popover-width` | 280px | Default width of a popover |
+| `tooltip-width` | 240px | Maximum width of a tooltip |
+| `toast-width` | 360px | Width of a toast from `breakpoint-sm` up |
+| `dialog-width` | 440px | Default width of a dialog |
 | `breakpoint-sm` | 640px | Below this: one column, dialogs and menus become sheets, toasts sit bottom-center |
 | `breakpoint-md` | 1024px | From this: the sidebar is fixed and the content column is centered |
 
@@ -82,7 +87,7 @@ CSS custom properties can't be used in media queries, so media queries use the v
 
 | Token | Value | Usage |
 | --- | --- | --- |
-| `layer-popup` | 20 | Menus, select lists, popovers, tooltips |
+| `layer-popup` | 50 | Menus, select lists, popovers, tooltips. Equal to `layer-overlay` on purpose: the one opened last is on top, so a menu opened inside a dialog shows above it |
 | `layer-overlay` | 50 | Dialogs, sheets and their backdrops |
 | `layer-toast` | 60 | Toasts, above everything |
 

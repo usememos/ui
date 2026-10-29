@@ -21,3 +21,9 @@
 @import "../components/toggle/toggle.css";
 @import "../components/tabs/tabs.css";
 @import "../components/toggle-group/toggle-group.css";
+@import "../components/tooltip/tooltip.css";
+@import "../components/popover/popover.css";
+@import "../components/menu/menu.css";
+@import "../components/select/select.css";
+@import "../components/dialog/dialog.css";
+@import "../components/toast/toast.css";

@@ -144,9 +144,14 @@
   --icon-lg: 20px;
   --content-width: 720px;
   --sidebar-width: 240px;
+  --menu-width: 200px;
+  --popover-width: 280px;
+  --tooltip-width: 240px;
+  --toast-width: 360px;
+  --dialog-width: 440px;
   --breakpoint-sm: 640px;
   --breakpoint-md: 1024px;
-  --layer-popup: 20;
+  --layer-popup: 50;
   --layer-overlay: 50;
   --layer-toast: 60;
   --duration-press: 80ms;

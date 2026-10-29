@@ -1,20 +1,27 @@
 export type { IconElement, Size, Tone } from './types';
 
+export * as AlertDialog from './components/dialog/alert-dialog';
 export * as Avatar from './components/avatar';
 export { Badge, type BadgeProps } from './components/badge';
 export { Button, buttonClasses, type ButtonClassesOptions, type ButtonProps, type ButtonVariant } from './components/button';
 export { Checkbox, type CheckboxProps } from './components/checkbox';
+export * as Dialog from './components/dialog';
 export * as Field from './components/field';
 export * as Fieldset from './components/field/fieldset';
 export { Input, type InputProps } from './components/input';
 export { Kbd, type KbdProps } from './components/kbd';
 export { Link, type LinkProps } from './components/link';
+export * as Menu from './components/menu';
+export * as Popover from './components/popover';
 export { Radio, RadioGroup, type RadioGroupProps, type RadioProps } from './components/radio-group';
+export * as Select from './components/select';
 export { Separator, type SeparatorProps } from './components/separator';
 export { Skeleton, type SkeletonProps } from './components/skeleton';
 export { Spinner, type SpinnerProps } from './components/spinner';
 export { Switch, type SwitchProps } from './components/switch';
 export * as Tabs from './components/tabs';
 export { Textarea, type TextareaProps } from './components/textarea';
+export * as Toast from './components/toast';
 export { Toggle, type ToggleProps } from './components/toggle';
 export { ToggleGroup, type ToggleGroupProps } from './components/toggle-group';
+export * as Tooltip from './components/tooltip';

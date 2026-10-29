@@ -20,10 +20,13 @@ const rawValues: [label: string, pattern: RegExp][] = [
   ['z-index', /(?<=z-index:\s*)-?\d+/g],
 ];
 
+/** Media queries can't read custom properties, so their conditions use the breakpoint values (docs/layout.md). */
+const stripMediaConditions = (css: string) => css.replace(/@media[^{]*/g, '');
+
 function findRawValues(css: string) {
   const found: string[] = [];
   for (const [label, pattern] of rawValues) {
-    for (const [match] of stripComments(css).matchAll(pattern)) found.push(`${label}: ${match}`);
+    for (const [match] of stripMediaConditions(stripComments(css)).matchAll(pattern)) found.push(`${label}: ${match}`);
   }
   return found;
 }
@@ -54,6 +57,7 @@ describe('stylesheets', () => {
       'z-index: 10',
     ]);
     expect(findRawValues('.mu-x { height: var(--h); border: 1px solid var(--edge); translate: 0 0.5px; opacity: 0.45; scale: 1.1; transition: opacity var(--duration-fade) var(--ease-out); }')).toEqual([]);
+    expect(findRawValues('@media (max-width: 639px) { .mu-x { width: 100%; } }')).toEqual([]);
   });
 
   for (const [path, css] of Object.entries(componentCss)) {

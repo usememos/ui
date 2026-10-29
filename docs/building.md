@@ -33,6 +33,7 @@ Set `data-theme="light" | "dark" | "contrast"` on the root element or on any `.m
 ## Class names
 
 - Every class the package ships starts with `mu-`.
+- `mu-positioner` puts a popup's positioner on `layer-popup`, and `mu-popup-motion` makes a popup fade in and rise `space-1` (no rise under reduced motion).
 - The depth classes `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` apply a whole depth role. Use them for new parts before writing new shadows. See [Depth](depth.md).
 - `mu-prose` styles rendered content. See [Prose](components/prose.md).
 - `mu-icon` applies icon size and stroke rules outside a component.

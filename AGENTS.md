@@ -85,7 +85,7 @@ npm run build      # the published files, in packages/ui/dist
 
 ## Screenshots
 
-`e2e/visual.spec.ts` takes a screenshot of every playground section in every theme and size, and CI compares them with the baselines in `e2e/__screenshots__/`. Baselines are made on CI's Linux runner, never locally: browsers and fonts on other machines render a few pixels differently.
+`e2e/visual.spec.ts` takes a screenshot of every playground section, and of each overlay open (menu, select, popover, tooltip, dialog, toast), in every theme and size, and CI compares them with the baselines in `e2e/__screenshots__/`. Baselines are made on CI's Linux runner, never locally: browsers and fonts on other machines render a few pixels differently.
 
 When a change is meant to look different, run the "Screenshots" workflow on the branch (Actions, "Screenshots", "Run workflow"), look at the images in its `screenshots` artifact, and commit the ones that changed into `e2e/__screenshots__/`. Say in the commit message which components changed and why. Never update baselines just to make CI pass.
 

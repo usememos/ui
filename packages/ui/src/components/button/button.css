@@ -44,6 +44,8 @@
 
 /* Ghost: flat at rest, sinks into a well while held. */
 .mu-button-ghost { color: var(--ink-muted); background-color: transparent; background-image: none; box-shadow: none; }
+/* A ghost trigger stays highlighted while its menu or popover is open. */
+.mu-button-ghost[data-popup-open] { background-color: var(--hover); color: var(--ink); }
 .mu-button-ghost:active:not([data-disabled]) { translate: none; background-color: var(--well); box-shadow: var(--shadow-track); }
 
 .mu-button[data-disabled]:not([data-loading]) { opacity: 0.45; cursor: not-allowed; }

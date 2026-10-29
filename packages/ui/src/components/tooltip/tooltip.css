@@ -1,0 +1,15 @@
+/* Tooltip: a small primary label with an optional shortcut. See docs/components/tooltip.md. */
+.mu-tooltip-popup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  box-sizing: border-box;
+  max-width: var(--tooltip-width);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--on-primary);
+  background-color: var(--primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.mu-tooltip-shortcut { opacity: 0.65; }
