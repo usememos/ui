@@ -42,7 +42,7 @@ describe('stylesheets', () => {
   it('import every component stylesheet into styles.css', () => {
     for (const path of Object.keys(componentCss)) {
       const file = path.replace('../src/', '../');
-      expect(stylesCss, path).toContain(`@import "${file}";`);
+      expect(stylesCss, path).toContain(`@import "${file}" layer(mu);`);
     }
   });
 

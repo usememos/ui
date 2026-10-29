@@ -6,8 +6,12 @@
  * Light is the default on :root, on a shadow root's :host and on any
  * .mu-root that is not inside a themed element. data-theme="light",
  * "dark" or "contrast" on any element switches its subtree.
+ *
+ * The tokens sit in the `mu` cascade layer, like styles.css, so an app
+ * theme's rules win over them whatever their specificity.
  */
 
+@layer mu {
 
 :where(:root, :host, .mu-root:not([data-theme] *)),
 [data-theme="light"] {
@@ -162,4 +166,5 @@
   --mu-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mu-font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mu-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
 }
