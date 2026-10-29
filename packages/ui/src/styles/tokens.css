@@ -7,6 +7,11 @@
  * .mu-root that is not inside a themed element. data-theme="light",
  * "dark" or "contrast" on any element switches its subtree.
  */
+
+/* Inter variable, shipped with the package (SIL Open Font License, see fonts/OFL.txt). */
+@font-face { font-family: Inter; font-style: normal; font-weight: 100 900; font-display: swap; src: url("../fonts/InterVariable.woff2") format("woff2"); }
+@font-face { font-family: Inter; font-style: italic; font-weight: 100 900; font-display: swap; src: url("../fonts/InterVariable-Italic.woff2") format("woff2"); }
+
 :where(:root, :host, .mu-root:not([data-theme] *)),
 [data-theme="light"] {
   color-scheme: light;

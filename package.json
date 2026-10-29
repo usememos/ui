@@ -6,14 +6,29 @@
     "packages/*"
   ],
   "scripts": {
+    "dev": "vite --config playground/vite.config.ts",
     "build": "npm run build -w @usememos/ui",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:e2e": "playwright test --project=chromium"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.56.1",
     "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.9",
     "esbuild": "0.25.12",
+    "happy-dom": "20.14.5",
+    "lucide-react": "1.64.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "typescript": "5.9.3",
+    "vite": "7.1.12",
     "vitest": "3.2.4"
+  },
+  "overrides": {
+    "@axe-core/playwright": {
+      "playwright-core": "1.56.1"
+    }
   }
 }

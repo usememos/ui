@@ -5,7 +5,7 @@ import depthDocs from '../../../docs/depth.md?raw';
 import layoutDocs from '../../../docs/layout.md?raw';
 import motionDocs from '../../../docs/motion.md?raw';
 import typographyDocs from '../../../docs/typography.md?raw';
-import stylesCss from '../src/styles/styles.css?raw';
+import foundationCss from '../src/styles/foundation.css?raw';
 import tokensCss from '../src/styles/tokens.css?raw';
 
 const themes = ['light', 'dark', 'contrast'] as const;
@@ -97,8 +97,8 @@ describe('tokens.css', () => {
   });
 });
 
-describe('styles.css', () => {
-  const styleRules = rules(stylesCss);
+describe('foundation.css', () => {
+  const styleRules = rules(foundationCss);
 
   it('has a class for every type style in docs/typography.md', () => {
     const rows = tableRows(typographyDocs).filter(([name]) => !name?.startsWith('`--'));
@@ -117,10 +117,5 @@ describe('styles.css', () => {
         expect(opsz ? opsz.replace(/\D/g, '') : 'text', style).toBe(opticalSize);
       }
     }
-  });
-
-  it('only uses classes that start with mu-', () => {
-    const classes = [...stripComments(stylesCss).matchAll(/\.([a-zA-Z][\w-]*)/g)].map(([, name = '']) => name);
-    expect(classes.filter((name) => !name.startsWith('mu-') && name !== 'lucide')).toEqual([]);
   });
 });

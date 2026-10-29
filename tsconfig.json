@@ -23,9 +23,13 @@
   },
   "include": [
     "packages/*/src",
-    "packages/*/test"
+    "packages/*/test",
+    "playground",
+    "e2e"
   ],
   "exclude": [
-    "vitest.config.ts"
+    "playground/vite.config.ts",
+    "vitest.config.ts",
+    "playwright.config.ts"
   ]
 }

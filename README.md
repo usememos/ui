@@ -38,7 +38,9 @@ In a browser extension or an embed, mount the UI under a `.mu-root` element or i
 
 ```sh
 npm install
+npm run dev        # the playground
 npm test           # unit tests (vitest), including tokens.css against the docs
+npm run test:e2e   # browser tests (Playwright)
 npm run typecheck
 npm run build      # the published files, in packages/ui/dist
 ```
