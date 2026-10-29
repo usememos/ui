@@ -62,8 +62,8 @@ The tests enforce part of this: `inventory.test.ts` fails when a component folde
   - `src/styles/tokens.css`: every token, published as `@usememos/ui/tokens.css`
   - `src/styles/styles.css`: imports `foundation.css` (size rows, depth, focus, icons, type scale) and each component's stylesheet; published as one file, `@usememos/ui/styles.css`
   - `src/components/<name>/`: one folder per component, with its stylesheet
-  - `scripts/build.mjs`: the build (esbuild, then `tsc` for the declarations, then `llms.txt` and `llms-full.txt` from `docs/` by `scripts/llms.mjs`)
-  - `test/`: Vitest tests: tokens and docs in sync, color contrast, CSS rules, the inventory, component behavior
+  - `scripts/build.mjs`: the build (the JavaScript by `scripts/modules.mjs`, the stylesheets by esbuild, then `tsc` for the declarations, then `llms.txt` and `llms-full.txt` from `docs/` by `scripts/llms.mjs`). The JavaScript ships as one ES module per source file, never one bundled file, so apps' bundlers drop the components they don't import
+  - `test/`: Vitest tests: tokens and docs in sync, color contrast, CSS rules, the inventory, component behavior, and that an app importing one component bundles only that component
 - `playground/`: the test page. It renders every component section and the foundations, in the theme and size given by `?theme=` and `?size=`. The browser tests and screenshots run against its build. It is a test fixture, not a site for people to browse. `playground/interop.html` loads the components inside an app-like stylesheet (its own variables, a reset layer, utility classes, an app theme) for `e2e/interop.spec.ts`.
 - `e2e/`: Playwright browser tests
 - `docs/`: the design system docs. They also ship in the package as `llms.txt` and `llms-full.txt`, for agents in apps

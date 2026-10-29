@@ -1,4 +1,4 @@
-// Builds the published package into dist/: an ES module, the stylesheets
+// Builds the published package into dist/: the ES modules, the stylesheets
 // and type declarations. Run with `npm run build`.
 import { execFileSync } from 'node:child_process';
 import { copyFileSync, existsSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
@@ -6,6 +6,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 import { buildLlms } from './llms.mjs';
+import { buildModules } from './modules.mjs';
 
 const pkg = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(pkg, 'dist');
@@ -17,15 +18,7 @@ rmSync(dist, { recursive: true, force: true });
 // readable stack traces. An app's bundler minifies them again either way.
 const shared = { bundle: true, format: 'esm', target: 'es2022', minify: true, sourcemap: true, logLevel: 'warning' };
 
-await build({
-  ...shared,
-  entryPoints: [src('index.ts')],
-  outfile: join(dist, 'index.js'),
-  jsx: 'automatic',
-  // Components use hooks, so React Server Components must load them as client code.
-  banner: { js: "'use client';" },
-  external: ['react', 'react/*', 'react-dom', 'lucide-react', '@base-ui/react', '@base-ui/react/*'],
-});
+await buildModules(src('.'), dist);
 
 // tokens.css and styles.css ship separately, so an app can load the tokens alone.
 // styles.css imports foundation.css and each component's stylesheet; esbuild
