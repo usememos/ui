@@ -6,7 +6,6 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "vite --config playground/vite.config.ts",
     "build": "npm run build -w @usememos/ui",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",

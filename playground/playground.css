@@ -1,9 +1,5 @@
-/* Layout for the playground page only. It is not part of the package. */
+/* Layout for the test page only. It is not part of the package. */
 body { margin: 0; background: var(--canvas); color: var(--ink); font-family: var(--font-sans); }
-.pg-header { position: sticky; top: 0; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); padding: var(--space-3) var(--space-6); background: var(--canvas); border-bottom: 1px solid var(--line); }
-.pg-header h1 { margin: 0 auto 0 0; }
-.pg-header label { display: flex; align-items: center; gap: var(--space-2); color: var(--ink-muted); }
-.pg-header select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--edge); border-radius: var(--radius-md); padding: var(--space-1) var(--space-2); }
 .pg-main { max-width: 960px; margin: 0 auto; padding: var(--space-6); display: grid; gap: var(--space-12); }
 .pg-section { display: grid; gap: var(--space-4); }
 .pg-section > h2 { margin: 0; }

@@ -65,7 +65,7 @@ The tests enforce part of this: `inventory.test.ts` fails when a component folde
   - `src/fonts/`: Inter variable (SIL Open Font License, `OFL.txt`), shipped next to `tokens.css`
   - `scripts/build.mjs`: the build (esbuild, then `tsc` for the declarations)
   - `test/`: Vitest tests: tokens and docs in sync, color contrast, CSS rules, the inventory, component behavior
-- `playground/`: a Vite page with every component and the foundations, with theme and size switches. The browser tests run against its build
+- `playground/`: the test page. It renders every component section and the foundations, in the theme and size given by `?theme=` and `?size=`. The browser tests and screenshots run against its build. It is a test fixture, not a site for people to browse
 - `e2e/`: Playwright browser tests
 - `docs/`: the design system docs
 
@@ -75,7 +75,6 @@ Dependencies are deliberately few, and the dev tools match the editor's versions
 
 ```sh
 npm install
-npm run dev        # the playground
 npm test           # unit tests (vitest), including tokens.css against the docs
 npm run test:e2e   # browser tests (Playwright, Chromium)
 npm run test:visual  # screenshots of every playground section (compared in CI only; see below)
