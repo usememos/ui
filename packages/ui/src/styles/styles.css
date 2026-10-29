@@ -1,0 +1,48 @@
+/*
+ * Memos UI foundation classes: size rows, depth roles, base text, focus,
+ * touch hit areas, icons and the type scale. Load tokens.css first.
+ * Component styles are added here as components are built.
+ */
+
+/* Sizes: one class sets height, padding, type, radius, gaps and icons together. See docs/layout.md. */
+.mu-s-sm { --h: var(--control-sm); --px: var(--space-2); --pxi: 6px; --fs: 12px; --lh: 16px; --r: var(--radius-sm); --gap: var(--space-1); --icon: var(--icon-sm); --icon-stroke: 1.25px; --box: 16px; }
+.mu-s-md { --h: var(--control-md); --px: var(--space-3); --pxi: 10px; --fs: 14px; --lh: 20px; --r: var(--radius-md); --gap: 6px; --icon: var(--icon-md); --icon-stroke: 1.5px; --box: 18px; }
+.mu-s-lg { --h: var(--control-lg); --px: var(--space-4); --pxi: var(--space-3); --fs: 16px; --lh: 24px; --r: var(--radius-lg); --gap: var(--space-2); --icon: var(--icon-lg); --icon-stroke: 1.5px; --box: 20px; }
+
+/* Depth, in four roles: wells hold a state, keys can be pressed, popups float. Light comes from the top. See docs/depth.md. */
+.mu-recessed { background-color: var(--well); box-shadow: inset 0 0 0 1px var(--edge), var(--shadow-track); }
+.mu-raised { background-color: var(--key); background-image: linear-gradient(180deg, var(--key-sheen), rgba(255, 255, 255, 0) 60%); box-shadow: var(--shadow-raised); }
+.mu-key { background-color: var(--key); background-image: linear-gradient(180deg, var(--key-sheen), rgba(255, 255, 255, 0) 60%); box-shadow: var(--shadow-key); }
+.mu-popup { background: var(--surface); box-shadow: var(--shadow-pop); border-radius: var(--radius-xl); }
+
+/* Base text for every component. */
+.mu-base { font-family: var(--font-sans); font-size: var(--fs, 14px); line-height: var(--lh, 20px); font-weight: 500; letter-spacing: 0; color: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-tap-highlight-color: transparent; }
+.mu-base ::selection, .mu-base::selection { background: var(--selection); }
+
+/* Focus ring on keyboard focus only. */
+.mu-focus:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* An invisible 44px touch target on coarse pointers, without changing the visual size. */
+.mu-hit { position: relative; }
+@media (pointer: coarse) {
+  .mu-hit::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, var(--hit-area)); height: max(100%, var(--hit-area)); transform: translate(-50%, -50%); }
+}
+
+/* Icons: Lucide, sized by the control and stroked in screen pixels at every size. See docs/icons.md. */
+.mu-icon, .mu-base svg.lucide, .mu-prose svg.lucide { width: var(--icon, 16px); height: var(--icon, 16px); flex: none; display: block; stroke-width: var(--icon-stroke, 1.5px); }
+.mu-icon *, .mu-base svg.lucide *, .mu-prose svg.lucide * { vector-effect: non-scaling-stroke; }
+
+/* Type scale. See docs/typography.md. */
+.mu-label-xs { font-family: var(--font-sans); font-size: 11px; line-height: 16px; font-weight: 500; }
+.mu-caption { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 400; }
+.mu-label-sm { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 500; }
+.mu-body-sm { font-family: var(--font-sans); font-size: 13px; line-height: 18px; font-weight: 400; }
+.mu-body { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
+.mu-label { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 500; }
+.mu-body-lg { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 400; }
+.mu-label-lg { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 500; }
+.mu-title { font-family: var(--font-display); font-size: 18px; line-height: 28px; font-weight: 600; }
+.mu-heading-3 { font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600; font-variation-settings: "opsz" 20; }
+.mu-heading-2 { font-family: var(--font-display); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; font-variation-settings: "opsz" 24; }
+.mu-heading-1 { font-family: var(--font-display); font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -0.01em; font-variation-settings: "opsz" 32; }
+.mu-display { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -0.02em; font-variation-settings: "opsz" 32; }

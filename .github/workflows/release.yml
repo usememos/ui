@@ -25,8 +25,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10.17.1
       - uses: actions/setup-node@v4
         with:
           # Trusted publishing needs npm 11.5.1 or later, which ships with Node 24.
@@ -34,7 +32,6 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
       - name: Work out the version
         run: |
           if [ "$GITHUB_REF" != "refs/heads/main" ]; then
@@ -61,10 +58,9 @@ jobs:
           ')
           version="$month.$((last + 1))"
           echo "Publishing $version"
-          npm pkg set version="$version" --prefix packages/react
+          npm pkg set version="$version" --prefix packages/ui
       - run: pnpm typecheck
       - run: pnpm test
-      - run: pnpm build
-      - run: pnpm check:packages
+      - run: pnpm check
       - run: npm publish --access public
-        working-directory: packages/react
+        working-directory: packages/ui

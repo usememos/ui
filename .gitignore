@@ -1,45 +1,7 @@
 node_modules/
 dist/
-.DS_Store
-*.log
-
-# Next.js
-.next/
-out/
-
-# Build outputs
-build/
 *.tsbuildinfo
-
-# Environment files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-Thumbs.db
-
-# Temporary files
-*.tmp
-*.temp
-
-# Coverage reports
+*.log
+.DS_Store
 coverage/
-.nyc_output/
-
-# Cache directories
-.cache/
-.parcel-cache/
-storybook-static/
-
-# Vitest browser artifacts
 .vitest-attachments/
-packages/react/src/tests/__screenshots__/

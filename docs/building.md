@@ -6,18 +6,25 @@ How the package is put together and how products use it.
 
 - **React components on [Base UI](https://base-ui.com).** Base UI provides behavior: focus management, keyboard support, ARIA, portals and positioning. Memos UI provides the styling, the tokens and the component API.
 - **No shadcn.** Don't depend on shadcn, don't copy its code, and don't use shadcn-compatible names for components or tokens. Following a similar layering (unstyled behavior below, styled components above) is fine.
-- **One npm package**, `@usememos/ui`, used by every product.
+- **One npm package**, `@usememos/ui`, used by every product. ESM only, React 18 and 19, one JS entry point and two stylesheets.
 - **Plain CSS on tokens.** Components are styled with CSS that reads token variables. Product code uses tokens through their CSS variables (`var(--well)`) and never copies raw values.
 - **Lucide icons** from `lucide-react`. See [Icons](icons.md).
 - **Inter variable** shipped as a local `woff2`. No remote fonts.
 
 ## Loading the CSS
 
-Load the token stylesheet first, then the component stylesheet. Tokens are defined on `:root` and on any element with the `mu-root` class.
+Load the tokens first, then the styles:
+
+```ts
+import "@usememos/ui/tokens.css";
+import "@usememos/ui/styles.css";
+```
+
+`tokens.css` defines every token on `:root`, on a shadow root's `:host`, and on any element with the `mu-root` class. `styles.css` holds the foundation classes and every component's styles.
 
 ## Scoping inside a host page
 
-Inside another page (the web clipper, an embed), mount the UI under a `.mu-root` element or inside a shadow root, so neither side's styles leak into the other. The package has no global selectors beyond `:root` and `.mu-root`.
+Inside another page (the web clipper, an embed), mount the UI under a `.mu-root` element or inside a shadow root, so neither side's styles leak into the other. The package has no global selectors beyond `:root`, `:host` and `.mu-root`.
 
 ## Choosing a theme
 

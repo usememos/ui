@@ -4,30 +4,22 @@ The Memos UI design system: shared tokens, components and patterns for memos, th
 
 ## Workspace
 
-- `packages/react`: published package
-- `packages/primitives`: internal Base UI wrappers
-- `packages/theme`: shared CSS theme output
-- `apps/docs`: Vite docs website
+- `packages/ui`: the published package, `@usememos/ui`
+- `docs/`: the design system docs, the source of truth for the package
 
 ## Development
 
 ```bash
 pnpm install
 pnpm typecheck
-pnpm test
+pnpm test        # includes a check that tokens.css matches the docs
 pnpm build
-pnpm docs
-```
-
-Vitest browser tests use Playwright:
-
-```bash
-pnpm exec playwright install chromium
+pnpm check       # build, then lint the published package (publint, attw)
 ```
 
 ## Releasing
 
-Versions follow the same CalVer as memos ([discussion](https://github.com/orgs/usememos/discussions/6351)) and `@usememos/editor`: `year.month.n`, where `n` counts the releases that month from 0. The first release in October 2026 is `26.10.0`, the second `26.10.1`, and the first in April 2027 is `27.4.0`. `version` in `packages/react/package.json` stays `0.0.0` in the repo.
+Versions follow the same CalVer as memos ([discussion](https://github.com/orgs/usememos/discussions/6351)) and `@usememos/editor`: `year.month.n`, where `n` counts the releases that month from 0. The first release in October 2026 is `26.10.0`, the second `26.10.1`, and the first in April 2027 is `27.4.0`. `version` in `packages/ui/package.json` stays `0.0.0` in the repo.
 
 To release, open Actions, pick "Release" and choose "Run workflow" on main. The workflow (`.github/workflows/release.yml`) works out the version from today's date (UTC) and the versions already on npm, runs the typecheck, tests and package checks, and publishes to npm under the `latest` tag. There are no canary builds, release candidates, git tags, GitHub releases or release notes. The version does not signal breaking changes, so apps should pin an exact version.
 
@@ -37,4 +29,4 @@ Publishing uses npm trusted publishing, so there is no npm token. On npmjs.com, 
 
 - [Design system](docs/README.md): principles, color, depth, typography, layout, motion, states, icons, components and patterns.
 - [AGENTS.md](AGENTS.md): rules and workflow for people and coding agents working in this repo.
-- [Package usage](packages/react/README.md): public entrypoints, examples, and consumer setup for the current package.
+- [Package README](packages/ui/README.md): installing and loading the package.

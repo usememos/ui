@@ -1,0 +1,153 @@
+/*
+ * Memos UI tokens. The values and their usage are documented in docs/
+ * (color.md, depth.md, typography.md, layout.md, motion.md); a test keeps
+ * this file and the docs in sync.
+ *
+ * Light is the default on :root, on a shadow root's :host and on any
+ * .mu-root that is not inside a themed element. data-theme="light",
+ * "dark" or "contrast" on any element switches its subtree.
+ */
+:where(:root, :host, .mu-root:not([data-theme] *)),
+[data-theme="light"] {
+  color-scheme: light;
+  --canvas: #f9f9f9;
+  --surface: #ffffff;
+  --well: #e4e4e4;
+  --hover: #ededed;
+  --key: #ffffff;
+  --key-hover: #fbfbfb;
+  --key-sheen: rgba(255,255,255,0.18);
+  --edge: #d0d0d0;
+  --line: #e0e0e0;
+  --overlay: rgba(0,0,0,0.32);
+  --ink: #1a1a1a;
+  --ink-muted: #5e5e5e;
+  --primary: #1f1f1f;
+  --primary-hover: #333333;
+  --on-primary: #ffffff;
+  --accent: oklch(0.5 0.13 255);
+  --selection: rgba(40,99,171,0.18);
+  --success: oklch(0.52 0.13 150);
+  --success-soft: #e9f4ec;
+  --warning: oklch(0.5 0.11 70);
+  --warning-soft: #fbf1df;
+  --danger: oklch(0.53 0.19 27);
+  --danger-key: oklch(0.53 0.19 27);
+  --danger-soft: #fbeaea;
+  --on-danger: #ffffff;
+  --focus: var(--accent);
+  --shadow-track: inset 0 1px 2px rgba(0,0,0,0.10);
+  --shadow-key: 0 1px 2px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(0,0,0,0.05);
+  --shadow-raised: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.12);
+  --shadow-pressed: inset 0 1px 3px rgba(0,0,0,0.22), 0 0 0 0.5px rgba(0,0,0,0.12);
+  --shadow-pop: 0 8px 24px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+[data-theme="dark"] {
+  --canvas: #0f0f0f;
+  --surface: #1a1a1a;
+  --well: #262626;
+  --hover: #242424;
+  --key: #343434;
+  --key-hover: #3c3c3c;
+  --key-sheen: rgba(255,255,255,0.08);
+  --edge: #353535;
+  --line: #262626;
+  --overlay: rgba(0,0,0,0.6);
+  --ink: #ededed;
+  --ink-muted: #adadad;
+  --primary: #e6e6e6;
+  --primary-hover: #f5f5f5;
+  --on-primary: #111111;
+  --accent: oklch(0.78 0.11 255);
+  --selection: rgba(135,186,253,0.28);
+  --success: oklch(0.78 0.14 150);
+  --success-soft: #14261a;
+  --warning: oklch(0.8 0.13 75);
+  --warning-soft: #2a2112;
+  --danger: oklch(0.72 0.16 25);
+  --danger-key: oklch(0.55 0.17 25);
+  --danger-soft: #2c1616;
+  --on-danger: #ffffff;
+  --focus: var(--accent);
+  --shadow-track: inset 0 1px 2px rgba(0,0,0,0.55), inset 0 -0.5px 0 rgba(255,255,255,0.06);
+  --shadow-key: 0 1px 2px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.10);
+  --shadow-raised: inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.25), 0 0 0 0.5px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-pressed: inset 0 1px 3px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(0,0,0,0.6);
+  --shadow-pop: 0 8px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.06);
+  color-scheme: dark;
+}
+[data-theme="contrast"] {
+  color-scheme: light;
+  --canvas: #ffffff;
+  --surface: #ffffff;
+  --well: #e6e6e6;
+  --hover: #d9d9d9;
+  --key: #ffffff;
+  --key-hover: #f2f2f2;
+  --key-sheen: #ffffff00;
+  --edge: #6b6b6b;
+  --line: #6b6b6b;
+  --overlay: rgba(0,0,0,0.6);
+  --ink: #000000;
+  --ink-muted: #333333;
+  --primary: #000000;
+  --primary-hover: #262626;
+  --on-primary: #ffffff;
+  --accent: oklch(0.42 0.14 255);
+  --selection: rgba(0,75,151,0.25);
+  --success: oklch(0.42 0.12 150);
+  --success-soft: #e9f4ec;
+  --warning: oklch(0.45 0.11 70);
+  --warning-soft: #fbf1df;
+  --danger: oklch(0.45 0.18 27);
+  --danger-key: oklch(0.45 0.18 27);
+  --danger-soft: #fbeaea;
+  --on-danger: #ffffff;
+  --focus: var(--accent);
+  --shadow-track: 0 0 0 0 rgba(0,0,0,0);
+  --shadow-key: 0 0 0 1px #6b6b6b;
+  --shadow-raised: 0 0 0 1px #000000;
+  --shadow-pressed: inset 0 0 0 2px #000000;
+  --shadow-pop: 0 0 0 1px #000000;
+}
+:where(:root, :host, .mu-root) {
+  --space-0_5: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+  --control-sm: 24px;
+  --control-md: 32px;
+  --control-lg: 40px;
+  --inset: 2px;
+  --hit-area: 44px;
+  --icon-sm: 14px;
+  --icon-md: 16px;
+  --icon-lg: 20px;
+  --content-width: 720px;
+  --sidebar-width: 240px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 1024px;
+  --layer-popup: 20;
+  --layer-overlay: 50;
+  --layer-toast: 60;
+  --duration-press: 80ms;
+  --duration-settle: 150ms;
+  --duration-fade: 100ms;
+  --ease-settle: cubic-bezier(0.2, 0.9, 0.3, 1);
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}

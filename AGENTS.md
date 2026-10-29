@@ -6,7 +6,9 @@ Notes for people and coding agents. See `README.md` for setup and releasing, and
 
 `@usememos/ui` is the Memos UI design system: one shared set of tokens, components and patterns for memos (the app), the website, the web clipper and future usememos projects. It is not a general-purpose UI library for outside developers.
 
-The docs in `docs/` describe the target system and are the source of truth. The code in `packages/` predates them and is out of date in places (token names, component APIs, the shadcn-style compound parts). When code and docs disagree, change the code toward the docs, or, if the docs are wrong, change the docs first in the same commit.
+The docs in `docs/` describe the target system and are the source of truth. The package in `packages/ui` is being built from them: it ships the tokens (`tokens.css`) and foundation classes (`styles.css`) today, and components are added one at a time following their pages in `docs/components/`. When code and docs disagree, change the code toward the docs, or, if the docs are wrong, change the docs in the same commit.
+
+`packages/ui/test/tokens.test.ts` checks that `tokens.css` and the type classes in `styles.css` match the token tables in the docs. Change a token in both places at once.
 
 ## Read before changing anything visual
 
@@ -43,25 +45,29 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 
 1. Check the [inventory](docs/components/README.md). If a screen needs something new, confirm no existing component or pattern covers it.
 2. Write or update the component's page in `docs/components/` (summary, props, guidelines) and the inventory table.
-3. Build it on Base UI, styled only with tokens, in all three sizes, all [states](docs/states.md) and all three themes.
-4. Add tests for behavior that isn't Base UI's (controlled and uncontrolled state, `loading`, sizes).
+3. Build it in `packages/ui/src/components/<name>/` on Base UI (`@base-ui/react`), styled only with tokens and the foundation classes, in all three sizes, all [states](docs/states.md) and all three themes. Its CSS goes into `styles.css`; there are no per-component CSS entry points.
+4. Export it from `packages/ui/src/index.ts`. The package has one JS entry point.
+5. Add tests for behavior that isn't Base UI's (controlled and uncontrolled state, `loading`, sizes).
 
 ## Workspace
 
-- `packages/react`: the published package, `@usememos/ui`
-- `packages/primitives`: internal Base UI wrappers
-- `packages/theme`: shared CSS theme output
-- `apps/docs`: Vite docs website
+- `packages/ui`: the published package, `@usememos/ui`. ESM only, React 18 and 19, built with tsdown.
+  - `src/index.ts`: the one JS entry point
+  - `src/styles/tokens.css`: every token, published as `@usememos/ui/tokens.css`
+  - `src/styles/styles.css`: foundation classes and component styles, published as `@usememos/ui/styles.css`
+  - `test/`: Vitest tests
 - `docs/`: the design system docs
+
+Dependencies are deliberately few. Add one only when code uses it: `@base-ui/react` and `lucide-react` (as a peer dependency) arrive with the first component. Pin dev dependencies to exact versions.
 
 ## Commands
 
 ```sh
 pnpm install
 pnpm typecheck
-pnpm test        # Vitest; browser tests need: pnpm exec playwright install chromium
-pnpm build
-pnpm docs        # the docs website
+pnpm test        # Vitest, including the tokens-match-docs check
+pnpm build       # packages/ui/dist
+pnpm check       # build, then publint and attw on the packed package
 ```
 
 ## Commit messages

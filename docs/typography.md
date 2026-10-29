@@ -45,7 +45,7 @@ The package ships Inter variable as a local `woff2` and never loads a remote fon
 | `heading-1` | 32 / 40px | 600 | −0.01em | 32 | Marketing and onboarding headings |
 | `display` | 40 / 48px | 600 | −0.02em | 32 | Hero headline on a website only |
 
-Each style is also a class of the same name (`.caption`, `.heading-2`), which sets the family, size, line height, weight and, where listed, letter spacing and `font-variation-settings: 'opsz' <n>`.
+Each style is also a class with the `mu-` prefix (`.mu-caption`, `.mu-heading-2`) in `@usememos/ui/styles.css`, which sets the family, size, line height, weight and, where listed, letter spacing and `font-variation-settings: 'opsz' <n>`.
 
 ## Prose
 
