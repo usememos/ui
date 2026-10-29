@@ -36,7 +36,8 @@ test('Combobox: the chevron opens the list, which is the width of the box and at
   await expect(popup).toBeVisible();
   const [box, list] = await Promise.all([page.locator('.mu-combobox-input-root').first().boundingBox(), popup.boundingBox()]);
   expect(list!.width).toBeCloseTo(box!.width, 0);
-  expect(list!.height).toBeLessThanOrEqual(240);
+  // Rounded: layout can report a fraction of a pixel over, such as 240.00003.
+  expect(Math.round(list!.height)).toBeLessThanOrEqual(240);
 });
 
 test('Collapsible: the trigger toggles the panel and says whether it is open', async ({ page }) => {
