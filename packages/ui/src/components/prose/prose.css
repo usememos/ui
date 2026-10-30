@@ -35,7 +35,7 @@
 .mu-prose li::marker { color: var(--mu-ink-muted); }
 
 /* Task lists: a 16px checkbox in place of the bullet. Done items go ink-muted with a strike-through. */
-.mu-prose li:has(> input[type="checkbox"]:first-child) { position: relative; list-style: none; }
+.mu-prose li:where(:has(> input[type="checkbox"]:first-child)) { position: relative; list-style: none; }
 .mu-prose li > input[type="checkbox"]:first-child {
   appearance: none;
   position: absolute;
@@ -60,7 +60,7 @@
   background-color: var(--mu-on-primary);
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
 }
-.mu-prose li:has(> input[type="checkbox"]:first-child:checked) { color: var(--mu-ink-muted); text-decoration: line-through; }
+.mu-prose li:where(:has(> input[type="checkbox"]:first-child:checked)) { color: var(--mu-ink-muted); text-decoration: line-through; }
 
 /* Code. */
 .mu-prose :where(code, kbd, samp, pre) { font-family: var(--mu-font-mono); font-size: 0.875em; }

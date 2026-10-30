@@ -34,7 +34,7 @@
 }
 .mu-dialog-popup[data-starting-style], .mu-dialog-popup[data-ending-style] { opacity: 0; translate: 0 var(--mu-space-1); }
 /* Room for the X at the top right. */
-.mu-dialog-popup:has(> .mu-dialog-x) > .mu-dialog-title { padding-inline-end: var(--mu-space-6); }
+.mu-dialog-popup:where(:has(> .mu-dialog-x)) > .mu-dialog-title { padding-inline-end: var(--mu-space-6); }
 
 .mu-dialog-title { margin: 0; color: var(--mu-ink); }
 .mu-dialog-description { margin: calc(-1 * var(--mu-space-2)) 0 0; color: var(--mu-ink-muted); }

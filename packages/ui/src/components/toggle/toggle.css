@@ -21,7 +21,7 @@
   transition-duration: var(--mu-duration-press);
   transition-timing-function: var(--mu-ease-out);
 }
-.mu-toggle:has(> svg:first-child) { padding-inline-start: var(--mu-row-padding-icon); }
+.mu-toggle:where(:has(> svg:first-child)) { padding-inline-start: var(--mu-row-padding-icon); }
 .mu-toggle.mu-toggle-icon { width: var(--mu-row-height); padding: 0; }
 
 @media (hover: hover) {

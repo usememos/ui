@@ -30,7 +30,7 @@
   user-select: none;
   outline: 0;
 }
-.mu-select-item:has(> svg:first-child) { padding-inline-start: var(--mu-row-padding-icon); }
+.mu-select-item:where(:has(> svg:first-child)) { padding-inline-start: var(--mu-row-padding-icon); }
 .mu-select-item > svg { color: var(--mu-ink-muted); }
 .mu-select-item[data-highlighted] { background-color: var(--mu-hover); }
 .mu-select-item[data-disabled] { opacity: 0.45; }

@@ -25,7 +25,7 @@
 }
 
 /* The icon side has 2px less padding, so text and icon look centered. */
-.mu-button:has(> svg:first-child) { padding-inline-start: var(--mu-row-padding-icon); }
+.mu-button:where(:has(> svg:first-child)) { padding-inline-start: var(--mu-row-padding-icon); }
 .mu-button.mu-button-icon { width: var(--mu-row-height); padding: 0; }
 
 .mu-button-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }

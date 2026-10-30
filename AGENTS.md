@@ -44,6 +44,7 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 - **Lucide icons as elements** (`icon={<Pin />}`). No `size` or `strokeWidth` props: CSS sets 12/14/16px and a 1.25px (xs, sm) or 1.5px (md) screen-pixel stroke.
 - **Not in the set:** Card, Slider, Stepper, Chip, SegmentedControl, Accordion. See [what was left out](docs/components/README.md#left-out-on-purpose) and what to use instead.
 - **Scoped CSS.** Classes start with `mu-`. No global selectors beyond `:root` and `.mu-root`, so the package can mount inside a host page.
+- **Source order decides.** Inside the package a later rule beats an earlier one on the same element. Every `:has()` sits in `:where()`, so it adds no specificity. See [Writing component CSS](docs/building.md#writing-component-css).
 - **Accessibility.** Text keeps 4.5:1 contrast in every theme. Focus rings show on `:focus-visible` only. Icon-only controls have an `aria-label` and a Tooltip. Touch targets reach 44px on `pointer: coarse`.
 - **Interface text** is sentence case, starts buttons with a verb, and uses no emoji.
 
@@ -57,7 +58,7 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 6. Add unit tests in `packages/ui/test/` for behavior that isn't Base UI's (controlled and uncontrolled state, `loading`, `size` through context, `render`), with `// @vitest-environment happy-dom` at the top. Add a browser test in `e2e/<name>.spec.ts` for keyboard paths, reduced motion and touch hit areas. `e2e/foundations.spec.ts` runs axe over the whole playground in every theme.
 7. Update the screenshots (below).
 
-The tests enforce part of this: `inventory.test.ts` fails when a component folder has no docs page, export or playground section, `css.test.ts` fails on raw colors, lengths, durations or z-indexes in component CSS (only `0.5px` and `1px` lengths are allowed), `classes.test.tsx` fails when a component and its class function disagree or a public class or row variable in the docs is missing, and `tailwind.test.ts` fails when `tailwind.css` misses a token.
+The tests enforce part of this: `inventory.test.ts` fails when a component folder has no docs page, export or playground section, `css.test.ts` fails on raw colors, lengths, durations or z-indexes in component CSS (only `0.5px` and `1px` lengths are allowed), `classes.test.tsx` fails when a component and its class function disagree or a public class or row variable in the docs is missing, `tailwind.test.ts` fails when `tailwind.css` misses a token, and `cascade.test.ts` fails when a `:has()` adds specificity or an earlier rule outranks a later modifier rule. `e2e/icons.spec.ts` checks that icon-only controls center their icon in every size.
 
 ## Workspace
 

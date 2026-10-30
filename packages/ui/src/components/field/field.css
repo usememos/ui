@@ -4,7 +4,7 @@
 .mu-field-label { color: var(--mu-ink); }
 .mu-field-item { display: flex; }
 /* A Checkbox, Switch or Radio inside the label sits beside its text. */
-.mu-field-label:has(> .mu-checkbox, > .mu-switch, > .mu-radio) {
+.mu-field-label:where(:has(> .mu-checkbox, > .mu-switch, > .mu-radio)) {
   display: inline-flex;
   align-items: center;
   gap: var(--mu-space-2);

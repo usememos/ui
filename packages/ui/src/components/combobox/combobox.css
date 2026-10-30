@@ -49,7 +49,7 @@
   user-select: none;
   outline: 0;
 }
-.mu-combobox-item:has(> svg:first-child) { padding-inline-start: var(--mu-row-padding-icon); }
+.mu-combobox-item:where(:has(> svg:first-child)) { padding-inline-start: var(--mu-row-padding-icon); }
 .mu-combobox-item > svg { color: var(--mu-ink-muted); }
 .mu-combobox-item[data-highlighted] { background-color: var(--mu-hover); }
 .mu-combobox-item[data-disabled] { opacity: 0.45; }

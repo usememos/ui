@@ -63,6 +63,15 @@ An app changes only the color, shadow and font tokens. Every other token and eve
 - A size row class sets the `--mu-row-*` variables (height, padding, text, radius, gap, icon) that every part inside reads. See [Row variables](custom-components.md#row-variables).
 - Component part classes (`mu-menu-item`) are internal. An app reaches a component's look through its class function (`menuClasses()`). See [Class functions](custom-components.md#class-functions).
 
+## Writing component CSS
+
+Inside the package, source order decides which rule wins: a rule later in `styles.css` overrides an earlier one on the same element. Selector weight must not get in the way.
+
+- Put every `:has()` inside `:where()`: write `.mu-button:where(:has(> svg:first-child))`, not `.mu-button:has(> svg:first-child)`. A `:has()` takes the specificity of its argument, so the bare form scores (0,2,1) and beats a later `.mu-button.mu-button-icon` (0,2,0), whatever the order.
+- A modifier rule (a variant, an `-icon` class, a context like `.mu-segmented > .mu-toggle`) comes after the base rule it changes, and its selector weighs at least as much.
+
+`packages/ui/test/cascade.test.ts` fails when a `:has()` adds specificity, and when an earlier rule outranks a later rule that adds a class to the same element and sets the same property. `e2e/icons.spec.ts` checks the result in the browser: icon-only buttons and toggles are squares with the icon centered, in every size.
+
 ## API conventions
 
 Components follow the conventions of established React libraries (Base UI, Radix, React Aria), not the needs of one product. Each [component page](components/README.md) lists its parts and their props.

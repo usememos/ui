@@ -23,7 +23,7 @@
   user-select: none;
   outline: 0;
 }
-.mu-menu-item:has(> svg:first-child) { padding-inline-start: var(--mu-row-padding-icon); }
+.mu-menu-item:where(:has(> svg:first-child)) { padding-inline-start: var(--mu-row-padding-icon); }
 .mu-menu-item > svg { color: var(--mu-ink-muted); }
 .mu-menu-item[data-highlighted], .mu-menu-submenu-trigger[data-popup-open] { background-color: var(--mu-hover); }
 .mu-menu-item[data-disabled] { opacity: 0.45; }
