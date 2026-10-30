@@ -4,7 +4,7 @@ How the package is put together and how products use it.
 
 ## Stack
 
-- **React components on [Base UI](https://base-ui.com).** Base UI provides behavior: focus management, keyboard support, ARIA, portals and positioning. Memos UI provides the styling, the tokens and the component API.
+- **React components on [Base UI](https://base-ui.com).** Base UI provides behavior: focus management, keyboard support, ARIA, portals and positioning. Memos UI provides the styling, the tokens and the component API. `@base-ui/react` is a peer dependency at one exact version, so an app's own Base UI components share the package's copy.
 - **No shadcn.** Don't depend on shadcn, don't copy its code, and don't use shadcn-compatible names for components or tokens. Following a similar layering (unstyled behavior below, styled components above) is fine.
 - **One npm package**, `@usememos/ui`, used by every product. ESM only, React 18 and 19, one JS entry point, two stylesheets and a Tailwind CSS theme file.
 - **Plain CSS on tokens.** Components are styled with CSS that reads token variables. Product code uses tokens through their CSS variables (`var(--mu-well)`) and never copies raw values.

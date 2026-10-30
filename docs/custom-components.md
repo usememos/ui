@@ -7,7 +7,7 @@ An app always has parts the package doesn't ship and shouldn't: product parts (a
 ## Steps
 
 1. **Use a component if one fits.** Check the [inventory](components/README.md). Compose components, swap a part's element with `render`, or adjust one instance with `className` before building anything.
-2. **Behavior from Base UI.** Build anything with focus, keyboard, an open state or a popup on [`@base-ui/react`](https://base-ui.com), as the package does. Install the exact version the package depends on (`dependencies` in its `package.json`), so the app ships one copy.
+2. **Behavior from Base UI.** Build anything with focus, keyboard, an open state or a popup on [`@base-ui/react`](https://base-ui.com), as the package does. It is a peer dependency of the package at one exact version, so the app's components and the package's share one copy. Upgrade it only with the package.
 3. **Looks from a class function** when the part should look like a component: an anchor that looks like a Button, an editor that looks like a Textarea, a suggestion list that looks like a Menu. See [Class functions](#class-functions).
 4. **Otherwise, from the public classes and tokens.** Size the part with a size row class and read the [row variables](#row-variables); give it depth with a [depth class](depth.md); set text with a [type class](typography.md); color it with `var(--mu-<token>)` or the [Tailwind utilities](#tailwind-css).
 5. **Check it like a component.** It works in Light, Dark and High contrast and under reduced motion; text keeps 4.5:1 contrast; focus shows on `:focus-visible` (`mu-focus`); touch targets reach 44px (`mu-hit`); icon-only controls have an `aria-label` and a [Tooltip](components/tooltip.md).

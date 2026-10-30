@@ -73,7 +73,7 @@ The tests enforce part of this: `inventory.test.ts` fails when a component folde
 - `e2e/`: Playwright browser tests
 - `docs/`: the design system docs. They also ship in the package as `llms.txt` and `llms-full.txt`, for agents in apps
 
-Dependencies are deliberately few, and the dev tools match the editor's versions. Add a dependency only when code uses it. `@base-ui/react` is the one dependency, pinned exactly; `react`, `react-dom` and `lucide-react` are peer dependencies. Pin dev dependencies to exact versions.
+Dependencies are deliberately few, and the dev tools match the editor's versions. Add a dependency only when code uses it. The package has no dependencies, only peer dependencies: `@base-ui/react` at one exact version, so an app's own Base UI components share the package's copy, and `react`, `react-dom` and `lucide-react` as ranges. The root `package.json` pins `@base-ui/react` to the same version for development; upgrade both together. Pin dev dependencies to exact versions.
 
 ## Commands
 

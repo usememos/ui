@@ -11,8 +11,10 @@ The package ships the tokens, the foundation styles and 28 components, each with
 ## Use it
 
 ```sh
-npm install @usememos/ui
+npm install @usememos/ui @base-ui/react@1.9.0 lucide-react
 ```
+
+`@base-ui/react` is a peer dependency at the exact version the package is built and tested with, so an app that builds its own components on Base UI ships one copy. npm 7 and later install it with the package; check the version in the package's `peerDependencies` when you upgrade.
 
 Load the tokens first, then the styles:
 
@@ -66,6 +68,10 @@ function NewNote() {
 ```
 
 Components with more than one element are namespaces of parts named after Base UI's (`Menu.Root`, `Menu.Trigger`, `Menu.Popup`). Each part takes Base UI's props, plus the few listed on its docs page.
+
+### Your own components
+
+For a part the package doesn't ship, build on Base UI and reuse the package's looks: class functions such as `buttonClasses()` and `menuClasses()`, the public `mu-` classes, the `--mu-row-*` variables and the tokens. Apps on Tailwind CSS v4 also load `@usememos/ui/tailwind.css` for `bg-mu-surface` and similar utilities. See [Building your own component](docs/custom-components.md).
 
 ### For coding agents
 

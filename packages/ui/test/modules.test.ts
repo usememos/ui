@@ -63,4 +63,12 @@ describe('published modules', () => {
     const components = [...new Set(files.filter((path) => path.startsWith('components/')).map((path) => path.split('/')[1]))].sort();
     expect(components).toEqual(['menu', 'tooltip']);
   });
+
+  it("share the app's Base UI: an exact peer dependency, and no dependencies", () => {
+    const manifest = JSON.parse(readFileSync(join(pkg, 'package.json'), 'utf8'));
+    const root = JSON.parse(readFileSync(join(pkg, '../../package.json'), 'utf8'));
+    expect(manifest.dependencies).toBeUndefined();
+    expect(manifest.peerDependencies['@base-ui/react']).toMatch(/^\d+\.\d+\.\d+$/);
+    expect(root.devDependencies['@base-ui/react']).toBe(manifest.peerDependencies['@base-ui/react']);
+  });
 });
