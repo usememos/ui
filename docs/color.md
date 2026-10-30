@@ -29,7 +29,7 @@ Memos UI is ink on paper: pure-gray neutrals, `primary` ink for emphasis, one qu
 
 There are three themes: **Light** (the default), **Dark** and **High contrast**.
 
-- Colors are generated in OKLCH from a neutral base, the ink and a contrast level. A new theme means new inputs, not hand-picked values.
+- Each theme sets every color token and every shadow token to an explicit value. Nothing is derived at runtime. The package's tests check the values against the tables on this page and in [Depth](depth.md), and check the contrast promised here.
 - Dark keeps the same depth model. Wells go darker than `canvas`, keys go lighter, `key-sheen` drops to 8%, and `primary` flips to near-white with a dark `on-primary`.
 - Non-text contrast: `edge` is about 1.5:1 in Light and Dark. That is the soft border people expect from a calm interface, and it is below WCAG's 3:1 for control boundaries. High contrast raises `edge` to 5.3:1 and outlines every key. Offer High contrast wherever the theme is chosen.
 
@@ -39,9 +39,19 @@ Set `data-theme="light" | "dark" | "contrast"` on the root element, or on any `.
 
 The package does not read `prefers-color-scheme` itself. The app does, so that a saved preference wins over the system setting. Dark sets `color-scheme: dark`, so native scrollbars and form controls follow.
 
+### What an app can change
+
+An app sets only these tokens:
+
+- the 26 color tokens in the [table below](#color-tokens),
+- the five shadow tokens in [Depth](depth.md#shadow-tokens),
+- the three font tokens in [Typography](typography.md#fonts): `font-sans`, `font-display` and `font-mono`.
+
+Every other token (space, radius, sizes, layout widths, layers, motion) and every `mu-*` class rule is internal. Don't override them in an app, even though the cascade layer lets an app rule win: the products would drift apart, and the package's tests and screenshots cover only its own values. To change one element, pass `className` or `style` to that component (see [API conventions](building.md#api-conventions)).
+
 ### App themes
 
-An app can offer more themes than the three the package ships, such as a warm Paper theme in memos. An app theme is a rule that sets the tokens under its own `data-theme` value:
+An app can offer more themes than the three the package ships, such as a warm Paper theme in memos. An app theme is a rule that sets the color and shadow tokens under its own `data-theme` value:
 
 ```css
 [data-theme="paper"] {
@@ -53,6 +63,16 @@ An app can offer more themes than the three the package ships, such as a warm Pa
 ```
 
 - Set every color token in the table below and the five shadow tokens in [Depth](depth.md). A token the theme leaves out keeps its Light value, so a partial theme mixes two palettes.
+- The package exports `themeTokens`, the custom property names of those 31 tokens (`--mu-canvas` to `--mu-shadow-pop`). Check in the app's tests that its theme sets each one:
+
+  ```ts
+  import { themeTokens } from "@usememos/ui";
+  import paper from "./themes/paper.css?raw";
+
+  it("sets every theme token", () => {
+    expect(themeTokens.filter((name) => !paper.includes(`${name}:`))).toEqual([]);
+  });
+  ```
 - Keep the rules on this page: `primary` stays ink, not a brand hue; `accent` is only for focus, links and selection; status colors only for status.
 - The app owns the theme's contrast. Check in the app's own tests that every text and background pair named in the Usage column below keeps 4.5:1 or more. The package's tests and screenshots cover only Light, Dark and High contrast.
 - The tokens sit in the `mu` [cascade layer](building.md#cascade-layer), so an unlayered app theme wins over them at any specificity.

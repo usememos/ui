@@ -47,6 +47,8 @@ Inside another page (the web clipper, an embed), mount the UI under a `.mu-root`
 
 Set `data-theme="light" | "dark" | "contrast"` on the root element or on any `.mu-root`. Without the attribute the tokens are Light. The app, not the package, reads `prefers-color-scheme` and the user's saved choice. See [Color](color.md#themes). An app can add its own themes on top of these three; see [App themes](color.md#app-themes).
 
+An app changes only the color, shadow and font tokens. Every other token and every `mu-*` class rule is internal. See [What an app can change](color.md#what-an-app-can-change).
+
 ## Class names
 
 - Every class the package ships starts with `mu-`.

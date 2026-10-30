@@ -76,10 +76,20 @@ Buttons, inputs and badges are never pills.
 | `tooltip-width` | 240px | Maximum width of a tooltip |
 | `toast-width` | 360px | Width of a toast from `breakpoint-sm` up |
 | `dialog-width` | 440px | Default width of a dialog |
-| `breakpoint-sm` | 640px | Below this: one column, dialogs and menus become sheets, toasts sit bottom-center |
-| `breakpoint-md` | 1024px | From this: the sidebar is fixed and the content column is centered |
 
-CSS custom properties can't be used in media queries, so media queries use the values (`@media (min-width: 1024px)`) and name the token in a comment.
+## Breakpoints
+
+Two breakpoints. They are values, not tokens: CSS custom properties can't be used in media queries, so there is no `--mu-breakpoint-*` variable and nothing to override. Write the value in the query and name the breakpoint in a comment.
+
+| Breakpoint | Value | Usage |
+| --- | --- | --- |
+| breakpoint-sm | 640px | Below this: one column, dialogs and menus become sheets, toasts sit bottom-center |
+| breakpoint-md | 1024px | From this: the sidebar is fixed and the content column is centered |
+
+```css
+/* Below breakpoint-sm */
+@media (max-width: 639.98px) { … }
+```
 
 ## Layers
 

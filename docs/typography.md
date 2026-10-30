@@ -23,7 +23,7 @@
 | `--mu-font-display` | `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--mu-font-mono` | `ui-monospace, "SF Mono", Menlo, Consolas, monospace` |
 
-The package ships no font files and loads no remote font: text uses the system UI font, so it looks native on each platform and costs no download. An app that wants another font sets `--mu-font-sans` and `--mu-font-display` after loading `tokens.css`, and loads the font itself. Code in [Prose](components/prose.md) uses the platform's monospace font.
+The package ships no font files and loads no remote font: text uses the system UI font, so it looks native on each platform and costs no download. An app that wants another font sets `--mu-font-sans`, `--mu-font-display` or `--mu-font-mono` after loading `tokens.css`, and loads the font itself. These are the only type tokens an app may set: sizes, line heights, weights and letter spacing are fixed (see [What an app can change](color.md#what-an-app-can-change)). Code in [Prose](components/prose.md) uses `font-mono`, the platform's monospace font by default.
 
 ## Scale
 

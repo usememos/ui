@@ -75,6 +75,8 @@ The package ships `llms.txt`, an index of the docs, and `llms-full.txt`, every d
 
 Set `data-theme="light"`, `"dark"` or `"contrast"` on the root element, or on any element to theme its subtree. Without the attribute the tokens are Light. The package does not read `prefers-color-scheme`; the app does, so a saved preference can win over the system setting.
 
+An app can add its own themes and fonts by setting the color, shadow and font tokens; every other token is internal. See [What an app can change](docs/color.md#what-an-app-can-change).
+
 ### Inside another page
 
 In a browser extension or an embed, mount the UI under a `.mu-root` element or inside a shadow root. The package has no global selectors beyond `:root`, `:host` and `.mu-root`.
