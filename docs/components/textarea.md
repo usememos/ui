@@ -17,7 +17,7 @@ import { Field, Textarea } from "@usememos/ui";
 
 ```ts
 interface TextareaProps extends Omit<BaseField.Control.Props, "size" | "render"> {
-  size?: Size;
+  size?: "sm" | "md";
   rows?: number; // visible lines, default 3
 }
 ```

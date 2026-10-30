@@ -25,7 +25,7 @@ import { Collapsible } from "@usememos/ui";
 
 ```ts
 interface Collapsible.RootProps extends BaseCollapsible.Root.Props {
-  size?: Size; // the trigger's size
+  size?: "sm" | "md"; // the trigger's size
 }
 ```
 

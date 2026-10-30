@@ -15,7 +15,7 @@ import { Search } from "lucide-react";
 
 ```ts
 interface InputProps extends Omit<BaseInput.Props, "size" | "prefix"> {
-  size?: Size;
+  size?: "sm" | "md";
   prefix?: React.ReactNode;        // says what the field is: a search or link icon
   suffix?: React.ReactNode;        // one action on the value (copy, clear), or a unit
   className?: string;              // on the visible box, not the <input>

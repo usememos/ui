@@ -45,7 +45,7 @@ const tags = ["book", "design", "travel"];
 
 ```ts
 type Combobox.RootProps<Value, Multiple, Item> = BaseCombobox.Root.Props<Value, Multiple, Item> & {
-  size?: Size;
+  size?: "sm" | "md";
 };
 interface Combobox.InputProps extends BaseCombobox.Input.Props {
   icon?: IconElement | null; // default <Search />; null drops it

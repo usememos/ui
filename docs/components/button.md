@@ -42,7 +42,7 @@ Wraps Base UI's [Button](https://base-ui.com/react/components/button): `disabled
 
 ## Style
 
-- A raised key: 24 or 32px tall. `primary` is an ink key with `on-primary` text; `neutral` a `key` with a soft edge; `ghost` flat `ink-muted` with `hover` on hover; `danger` a `danger-key` with `on-danger` text.
+- A raised key: 20, 24 or 32px tall. `primary` is an ink key with `on-primary` text; `neutral` a `key` with a soft edge; `ghost` flat `ink-muted` with `hover` on hover; `danger` a `danger-key` with `on-danger` text.
 - Only an icon: square. The icon side has 2px less padding.
 - Press moves the key down 0.5px and swaps its shadow for `shadow-pressed`; a ghost button sinks into a `well`. Under reduced motion the key doesn't move; the shadow still changes.
 - `loading` keeps the width, shows a Spinner over the label, sets `aria-busy` and `aria-disabled`, ignores presses and stays focusable.

@@ -45,7 +45,7 @@ import { Ellipsis, FolderInput, Pin, Trash2 } from "lucide-react";
 
 ```ts
 interface Menu.RootProps extends BaseMenu.Root.Props {
-  size?: Size; // row height: 24, 32px
+  size?: "sm" | "md"; // row height: 24, 32px. An xs trigger still opens sm rows
 }
 interface Menu.PopupProps extends BaseMenu.Popup.Props {
   side?: Side; align?: Align; // Positioner props; default side "bottom"

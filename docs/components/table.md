@@ -54,7 +54,7 @@ No Base UI part: these are styled native table elements.
 
 ```ts
 interface Table.RootProps extends React.ComponentProps<"table"> {
-  size?: Size; // sm for dense admin lists
+  size?: "sm" | "md"; // sm for dense admin lists
 }
 interface Table.HeadProps extends React.ComponentProps<"th"> {
   num?: boolean; // right-aligned, for a column of numbers

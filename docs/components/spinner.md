@@ -14,7 +14,7 @@ import { Spinner } from "@usememos/ui";
 
 ```ts
 interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
-  size?: Size;    // 14, 16px; default: the surrounding Root's size, else md
+  size?: Size;    // 12, 14, 16px; default: the surrounding Root's size, else md
   label?: string; // for screen readers, default "Loading"
   render?: React.ReactElement;
 }

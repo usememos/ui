@@ -31,5 +31,5 @@ interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 ## Style
 
-- 20px tall, `radius-sm` (never a pill), `label-sm` text (13px, 500), optional 12px icon at a 1.25px stroke.
+- `control-xs` (20px) tall, `radius-sm` (never a pill), `label-xs` text (12px, 500), optional `icon-xs` (12px) icon at a 1.25px stroke. It lines up with xs controls.
 - `neutral`: `ink` on `well`. Status tones: their `-soft` background with full-strength text.

@@ -31,7 +31,7 @@ import { Bell, User } from "lucide-react";
 
 ```ts
 interface Tabs.RootProps extends BaseTabs.Root.Props {
-  size?: Size;
+  size?: "sm" | "md";
 }
 interface Tabs.TabProps extends BaseTabs.Tab.Props {
   icon?: IconElement; // before the label

@@ -2,14 +2,17 @@
 
 ## Control sizes
 
-Every control takes one `size` prop: `sm` or `md` (the default). There is no `lg`. The size sets every value in its row together. Never mix rows in one component.
+Every control takes one `size` prop: `xs`, `sm` or `md` (the default). There is no `lg`. The size sets every value in its row together. Never mix rows in one component.
 
 | Size | Height | Padding | Icon | Icon gap | Text | Radius | Check box |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| xs | `control-xs` 20px | 6px | 12px | 4px | 12 / 16px | `radius-sm` 4px | 14px |
 | sm | `control-sm` 24px | 8px | 14px | 4px | 13 / 18px | `radius-sm` 4px | 16px |
 | md (default) | `control-md` 32px | 12px | 16px | 6px | 14 / 20px | `radius-md` 6px | 18px |
 
 - Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding and sheets. Emphasis comes from the `primary` variant, not from a bigger control. On touch screens the hit area, not the visual size, grows.
+- Use `xs` for secondary actions beside 13px text: actions on a row or an entry, inline formatting, filters in a tight header, checkboxes in a dense list. It is the height of a Badge or a Kbd, so they line up. Don't use `xs` for forms, for navigation, or for the main action of a screen.
+- Only Button, Toggle, ToggleGroup, Checkbox, RadioGroup and Radio, Switch, Avatar, Spinner and Skeleton take `xs`. Text entry, menus, tabs and tables are too cramped at 20px, so their `size` is `sm | md`, and an `xs` inherited from a parent renders them at `sm`.
 - The icon side of a control has 2px less padding, so text and icon look centered.
 - On touch screens (`pointer: coarse`), every control gets an invisible hit area of at least `hit-area` (44px) without changing its visual size.
 
@@ -57,11 +60,13 @@ Buttons, inputs and badges are never pills.
 
 | Token | Value | Usage |
 | --- | --- | --- |
+| `control-xs` | 20px | xs control height; Badge and Kbd |
 | `control-sm` | 24px | sm control height |
 | `control-md` | 32px | Default control height |
 | `inset` | 2px | Well-to-key inset at every size |
 | `hit-area` | 44px | Minimum touch target on `pointer: coarse`, added invisibly around a control |
 | `focus-width` | 2px | Width and offset of the focus ring |
+| `icon-xs` | 12px | Icons in xs controls and badges |
 | `icon-sm` | 14px | Icons in sm controls |
 | `icon-md` | 16px | Icons in md controls and nav rows |
 

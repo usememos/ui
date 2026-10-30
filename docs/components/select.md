@@ -41,7 +41,7 @@ const visibility = { private: "Private", workspace: "Workspace", public: "Public
 
 ```ts
 type Select.RootProps<Value, Multiple> = BaseSelect.Root.Props<Value, Multiple> & {
-  size?: Size;
+  size?: "sm" | "md";
 };
 interface Select.PopupProps extends BaseSelect.Popup.Props {
   alignItemWithTrigger?: boolean; // default true: the list opens over the trigger with the chosen item on the value

@@ -41,10 +41,10 @@ import { Checkbox, Field, Fieldset, Input } from "@usememos/ui";
 
 ```ts
 interface Field.RootProps extends BaseField.Root.Props {
-  size?: Size; // passed to the control inside
+  size?: "sm" | "md"; // passed to the control inside
 }
 interface Fieldset.RootProps extends BaseFieldset.Root.Props {
-  size?: Size; // passed to every control inside
+  size?: "sm" | "md"; // passed to every control inside
 }
 ```
 
