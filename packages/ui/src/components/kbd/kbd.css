@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  min-width: calc(var(--mu-control-sm) - 2 * var(--mu-inset));
-  height: calc(var(--mu-control-sm) - 2 * var(--mu-inset));
+  min-width: var(--mu-control-xs);
+  height: var(--mu-control-xs);
   padding: 0 var(--mu-space-1);
   border-radius: var(--mu-radius-sm);
   color: var(--mu-ink-muted);

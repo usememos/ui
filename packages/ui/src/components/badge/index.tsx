@@ -16,7 +16,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge({ to
     defaultTagName: 'span',
     render,
     ref,
-    props: mergeProps<'span'>({ className: `mu-badge mu-badge-${tone} mu-base mu-s-sm`, children: (
+    props: mergeProps<'span'>({ className: `mu-badge mu-badge-${tone} mu-base mu-s-xs`, children: (
           <>
             {icon}
             {children}

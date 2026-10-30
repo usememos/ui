@@ -3,17 +3,17 @@ import { Check, ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import { forwardRef, type ReactNode } from 'react';
 import { withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
-import { SizeContext, useSize } from '../../internal/size';
+import { SizeContext, useRowSize } from '../../internal/size';
 import type { IconElement, Size } from '../../types';
 import { buttonClasses } from '../button';
 
 export type RootProps<Value, Multiple extends boolean | undefined = false> = BaseSelect.Root.Props<Value, Multiple> & {
-  size?: Size;
+  size?: Exclude<Size, 'xs'>;
 };
 
 /** Groups the trigger and the list, and holds the value. Pass `items` so `Value` shows labels, not raw values. */
 export function Root<Value, Multiple extends boolean | undefined = false>({ size, ...props }: RootProps<Value, Multiple>) {
-  const resolved = useSize(size);
+  const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
       <BaseSelect.Root {...props} />
@@ -25,7 +25,7 @@ export interface TriggerProps extends BaseSelect.Trigger.Props {}
 
 /** A neutral key that shows the value, with a chevron at the end. Holds `Value`. */
 export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function SelectTrigger({ className, children, ...props }, ref) {
-  const size = useSize();
+  const size = useRowSize();
   return (
     <BaseSelect.Trigger ref={ref} {...props} className={withClass(`mu-select-trigger ${buttonClasses({ variant: 'neutral', size })}`, className)}>
       {children}
@@ -66,7 +66,7 @@ export interface PopupProps extends BaseSelect.Popup.Props, PositionerProps {
  * item on top of the value; `alignItemWithTrigger={false}` opens it below.
  */
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(function SelectPopup({ container, className, children, ...props }, ref) {
-  const size = useSize();
+  const size = useRowSize();
   const [positioner, rest] = splitPositioner(props);
   return (
     <BaseSelect.Portal container={container}>

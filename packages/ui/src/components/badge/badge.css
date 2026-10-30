@@ -1,12 +1,11 @@
-/* Badge: a 20px tag in 13px medium text. See docs/components/badge.md. */
+/* Badge: a 20px tag in 12px medium text, as tall as an xs control. See docs/components/badge.md. */
 .mu-badge {
-  --icon: calc(var(--mu-icon-sm) - var(--mu-inset));
   display: inline-flex;
   align-items: center;
   gap: var(--mu-space-1);
   box-sizing: border-box;
-  height: calc(var(--mu-control-sm) - 2 * var(--mu-inset));
-  padding: 0 calc(var(--mu-space-1) + var(--mu-inset));
+  height: var(--mu-control-xs);
+  padding: 0 var(--px);
   border-radius: var(--mu-radius-sm);
   white-space: nowrap;
   vertical-align: middle;

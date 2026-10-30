@@ -3,7 +3,7 @@ import { Check, ChevronsUpDown, Search } from 'lucide-react';
 import { forwardRef, type CSSProperties, type ReactNode } from 'react';
 import { cx, withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
-import { SizeContext, useSize } from '../../internal/size';
+import { SizeContext, useRowSize } from '../../internal/size';
 import type { IconElement, Size } from '../../types';
 
 /** Renders the items of one group from grouped `items`, inside a Group. Base UI's part, unstyled. */
@@ -13,7 +13,7 @@ export const Collection = BaseCombobox.Collection;
 export const useFilter = BaseCombobox.useFilter;
 
 export type RootProps<Value, Multiple extends boolean | undefined = false, Item = Value> = BaseCombobox.Root.Props<Value, Multiple, Item> & {
-  size?: Size;
+  size?: Exclude<Size, 'xs'>;
 };
 
 /**
@@ -21,7 +21,7 @@ export type RootProps<Value, Multiple extends boolean | undefined = false, Item 
  * list filters as people type and `Empty` knows when nothing matches.
  */
 export function Root<Value, Multiple extends boolean | undefined = false, Item = Value>({ size, ...props }: RootProps<Value, Multiple, Item>) {
-  const resolved = useSize(size);
+  const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
       <BaseCombobox.Root {...props} />
@@ -49,7 +49,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function ComboboxI
   { icon = <Search />, triggerLabel = 'Show options', className, style, ...props },
   ref,
 ) {
-  const size = useSize();
+  const size = useRowSize();
   return (
     <BaseCombobox.InputGroup className={cx('mu-input-root mu-combobox-input-root mu-base', `mu-s-${size}`, className)} style={style}>
       {icon !== null ? <span className="mu-input-prefix">{icon}</span> : null}
@@ -82,7 +82,7 @@ export interface PopupProps extends BaseCombobox.Popup.Props, PositionerProps {
 
 /** The floating panel under the input. Holds `Empty` and `List`. */
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(function ComboboxPopup({ container, className, ...props }, ref) {
-  const size = useSize();
+  const size = useRowSize();
   const [positioner, rest] = splitPositioner(props);
   return (
     <BaseCombobox.Portal container={container}>

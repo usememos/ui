@@ -123,7 +123,7 @@ describe('foundation.css', () => {
 
   it('has a class for every type style in docs/typography.md', () => {
     const rows = tableRows(scaleDocs);
-    expect(rows).toHaveLength(7);
+    expect(rows).toHaveLength(8);
     for (const row of rows) {
       const [name = '', sizes = '', weight, spacing] = row;
       const style = unquote(name);

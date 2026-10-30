@@ -5,6 +5,7 @@
  */
 
 /* Sizes: one class sets height, padding, type, radius, gaps and icons together. See docs/layout.md. */
+.mu-s-xs { --h: var(--mu-control-xs); --px: 6px; --pxi: var(--mu-space-1); --fs: 12px; --lh: 16px; --r: var(--mu-radius-sm); --gap: var(--mu-space-1); --icon: var(--mu-icon-xs); --icon-stroke: 1.25px; --box: 14px; }
 .mu-s-sm { --h: var(--mu-control-sm); --px: var(--mu-space-2); --pxi: 6px; --fs: 13px; --lh: 18px; --r: var(--mu-radius-sm); --gap: var(--mu-space-1); --icon: var(--mu-icon-sm); --icon-stroke: 1.25px; --box: 16px; }
 .mu-s-md { --h: var(--mu-control-md); --px: var(--mu-space-3); --pxi: 10px; --fs: 14px; --lh: 20px; --r: var(--mu-radius-md); --gap: 6px; --icon: var(--mu-icon-md); --icon-stroke: 1.5px; --box: 18px; }
 
@@ -44,7 +45,8 @@
 .mu-icon *, .mu-base svg.lucide *, .mu-prose svg.lucide * { vector-effect: non-scaling-stroke; }
 
 /* Type scale. See docs/typography.md. */
-/* App UI uses four sizes and two weights; 32px is for a website hero only. */
+/* App text uses four sizes and two weights; 12px is for the labels of 20px parts only; 32px is for a website hero only. */
+.mu-label-xs { font-family: var(--mu-font-sans); font-size: 12px; line-height: 16px; font-weight: 500; }
 .mu-caption { font-family: var(--mu-font-sans); font-size: 13px; line-height: 18px; font-weight: 400; }
 .mu-label-sm { font-family: var(--mu-font-sans); font-size: 13px; line-height: 18px; font-weight: 500; }
 .mu-body { font-family: var(--mu-font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }

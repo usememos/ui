@@ -2,17 +2,17 @@ import { Field as BaseField } from '@base-ui/react/field';
 import { CircleAlert } from 'lucide-react';
 import { forwardRef } from 'react';
 import { withClass } from '../../internal/class-name';
-import { SizeContext, useSize } from '../../internal/size';
+import { SizeContext, useRowSize } from '../../internal/size';
 import type { Size } from '../../types';
 
 export interface RootProps extends BaseField.Root.Props {
   /** The size of the control inside, passed on to it. */
-  size?: Size;
+  size?: Exclude<Size, 'xs'>;
 }
 
 /** One control with its label, description and error, wired for screen readers. */
 export const Root = forwardRef<HTMLDivElement, RootProps>(function FieldRoot({ size, className, ...props }, ref) {
-  const resolved = useSize(size);
+  const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
       <BaseField.Root ref={ref} {...props} className={withClass('mu-field-root', className)} />

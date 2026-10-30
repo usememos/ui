@@ -3,17 +3,17 @@ import { Check, ChevronRight } from 'lucide-react';
 import { forwardRef, type ReactNode } from 'react';
 import { withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
-import { SizeContext, useSize } from '../../internal/size';
+import { SizeContext, useRowSize } from '../../internal/size';
 import type { IconElement, Size } from '../../types';
 
 export interface RootProps extends BaseMenu.Root.Props {
   /** Row height of every item: 24, 32 or 40px. */
-  size?: Size;
+  size?: Exclude<Size, 'xs'>;
 }
 
 /** Groups a trigger and its menu. */
 export function Root({ size, ...props }: RootProps) {
-  const resolved = useSize(size);
+  const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
       <BaseMenu.Root {...props} />
@@ -40,7 +40,7 @@ export interface PopupProps extends BaseMenu.Popup.Props, PositionerProps {
 
 /** The list of items. Also the popup of a submenu, inside `SubmenuRoot`. */
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({ container, className, ...props }, ref) {
-  const size = useSize();
+  const size = useRowSize();
   const [positioner, rest] = splitPositioner(props);
   return (
     <BaseMenu.Portal container={container}>

@@ -28,42 +28,51 @@ import { ToggleSection } from './toggle';
 import { ToggleGroupSection } from './toggle-group';
 import { TooltipSection } from './tooltip';
 
-/** Props every playground section gets: the size from `?size=`. */
-export interface SectionProps {
-  size: Size;
+/** Props every playground section gets: the size from `?size=`. Sections without xs get sm instead. */
+export interface SectionProps<S extends Size = Size> {
+  size: S;
 }
+
+/** The sizes of components without xs. */
+export type RowSize = Exclude<Size, 'xs'>;
+
+/** The size for a component without xs, such as a Field around a Checkbox: xs becomes sm. */
+export const rowSize = (size: Size): RowSize => (size === 'xs' ? 'sm' : size);
 
 /**
  * One entry per component, in inventory order. Each component's file in this
  * folder is named like its folder in packages/ui/src/components and shows
  * every variant and state.
  */
-export const sections: { name: string; title: string; Section: ComponentType<SectionProps> }[] = [
-  { name: 'button', title: 'Button', Section: ButtonSection },
-  { name: 'toggle', title: 'Toggle', Section: ToggleSection },
-  { name: 'toggle-group', title: 'ToggleGroup', Section: ToggleGroupSection },
+export const sections: (
+  | { name: string; title: string; xs: true; Section: ComponentType<SectionProps> }
+  | { name: string; title: string; xs?: false; Section: ComponentType<SectionProps<RowSize>> }
+)[] = [
+  { name: 'button', xs: true, title: 'Button', Section: ButtonSection },
+  { name: 'toggle', xs: true, title: 'Toggle', Section: ToggleSection },
+  { name: 'toggle-group', xs: true, title: 'ToggleGroup', Section: ToggleGroupSection },
   { name: 'menu', title: 'Menu', Section: MenuSection },
   { name: 'link', title: 'Link', Section: LinkSection },
   { name: 'field', title: 'Field and Fieldset', Section: FieldSection },
   { name: 'input', title: 'Input', Section: InputSection },
   { name: 'textarea', title: 'Textarea', Section: TextareaSection },
-  { name: 'checkbox', title: 'Checkbox', Section: CheckboxSection },
-  { name: 'switch', title: 'Switch', Section: SwitchSection },
+  { name: 'checkbox', xs: true, title: 'Checkbox', Section: CheckboxSection },
+  { name: 'switch', xs: true, title: 'Switch', Section: SwitchSection },
   { name: 'select', title: 'Select', Section: SelectSection },
   { name: 'combobox', title: 'Combobox', Section: ComboboxSection },
-  { name: 'radio-group', title: 'RadioGroup', Section: RadioGroupSection },
+  { name: 'radio-group', xs: true, title: 'RadioGroup', Section: RadioGroupSection },
   { name: 'tabs', title: 'Tabs', Section: TabsSection },
   { name: 'collapsible', title: 'Collapsible', Section: CollapsibleSection },
   { name: 'dialog', title: 'Dialog and AlertDialog', Section: DialogSection },
   { name: 'popover', title: 'Popover', Section: PopoverSection },
   { name: 'tooltip', title: 'Tooltip', Section: TooltipSection },
   { name: 'toast', title: 'Toast', Section: ToastSection },
-  { name: 'avatar', title: 'Avatar', Section: AvatarSection },
+  { name: 'avatar', xs: true, title: 'Avatar', Section: AvatarSection },
   { name: 'badge', title: 'Badge', Section: BadgeSection },
   { name: 'kbd', title: 'Kbd', Section: KbdSection },
   { name: 'separator', title: 'Separator', Section: SeparatorSection },
-  { name: 'spinner', title: 'Spinner', Section: SpinnerSection },
-  { name: 'skeleton', title: 'Skeleton', Section: SkeletonSection },
+  { name: 'spinner', xs: true, title: 'Spinner', Section: SpinnerSection },
+  { name: 'skeleton', xs: true, title: 'Skeleton', Section: SkeletonSection },
   { name: 'table', title: 'Table', Section: TableSection },
   { name: 'prose', title: 'Prose', Section: ProseSection },
 ];

@@ -1,3 +1,3 @@
 /* ToggleGroup: a toolbar of toggles, or one choice as a sliding key in a well (shared with Tabs). See docs/components/toggle-group.md. */
 .mu-toggle-group { display: inline-flex; align-items: center; gap: var(--mu-inset); }
-.mu-toggle-group > .mu-separator { align-self: center; height: calc(var(--h) - 2 * var(--mu-space-2)); margin-inline: var(--mu-space-1); }
+.mu-toggle-group > .mu-separator { align-self: center; height: max(var(--mu-space-2), calc(var(--h) - 2 * var(--mu-space-2))); margin-inline: var(--mu-space-1); }

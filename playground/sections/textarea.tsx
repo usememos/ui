@@ -1,7 +1,7 @@
 import { Textarea } from '@usememos/ui';
-import type { SectionProps } from '.';
+import type { RowSize, SectionProps } from '.';
 
-export function TextareaSection({ size }: SectionProps) {
+export function TextareaSection({ size }: SectionProps<RowSize>) {
   return (
     <div style={{ display: 'grid', gap: 12, maxWidth: 400 }}>
       <Textarea size={size} placeholder="What's on your mind?" aria-label="Note" />

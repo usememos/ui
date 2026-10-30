@@ -5,7 +5,7 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 import { open, themes } from './helpers';
 
-const sizes = ['sm', 'md'] as const;
+const sizes = ['xs', 'sm', 'md'] as const;
 const options = { animations: 'disabled', maxDiffPixelRatio: 0.002 } as const;
 
 /** Each overlay: how to open it, and the element to capture. */
@@ -30,12 +30,15 @@ for (const theme of themes) {
     test(`${theme} ${size}`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await open(page, { theme, size });
-      const ids = await page.locator('main > section[id]').evaluateAll((sections) => sections.map((section) => section.id));
+      // At xs, only the sections with xs: the rest render at sm, as in the sm screenshots.
+      const ids = await page.locator(size === 'xs' ? 'main > section[id][data-xs]' : 'main > section[id]').evaluateAll((sections) => sections.map((section) => section.id));
       for (const id of ids) {
         await expect(page.locator(`#${id}`), id).toHaveScreenshot(`${id}-${theme}-${size}.png`, options);
       }
     });
 
+    // Overlays have no xs: at xs they are the sm screenshots.
+    if (size === 'xs') continue;
     test(`${theme} ${size} overlays`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       for (const overlay of overlays) {

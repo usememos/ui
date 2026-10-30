@@ -1,8 +1,8 @@
 import { Button, Input } from '@usememos/ui';
 import { Copy, Search } from 'lucide-react';
-import type { SectionProps } from '.';
+import type { RowSize, SectionProps } from '.';
 
-export function InputSection({ size }: SectionProps) {
+export function InputSection({ size }: SectionProps<RowSize>) {
   return (
     <div style={{ display: 'grid', gap: 12, maxWidth: 400 }}>
       <Input size={size} placeholder="Title" aria-label="Title" />

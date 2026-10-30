@@ -1,9 +1,9 @@
 import { Combobox, Field } from '@usememos/ui';
-import type { SectionProps } from '.';
+import type { RowSize, SectionProps } from '.';
 
 const tags = ['book', 'cooking', 'design', 'finance', 'garden', 'health', 'ideas', 'journal', 'music', 'reading', 'travel', 'work'];
 
-export function ComboboxSection({ size }: SectionProps) {
+export function ComboboxSection({ size }: SectionProps<RowSize>) {
   return (
     <div style={{ display: 'grid', gap: 16, maxWidth: 240 }}>
       <Field.Root>

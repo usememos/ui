@@ -2,17 +2,17 @@ import { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible';
 import { ChevronDown } from 'lucide-react';
 import { forwardRef } from 'react';
 import { withClass } from '../../internal/class-name';
-import { SizeContext, useSize } from '../../internal/size';
+import { SizeContext, useRowSize } from '../../internal/size';
 import type { Size } from '../../types';
 import { buttonClasses } from '../button';
 
 export interface RootProps extends BaseCollapsible.Root.Props {
-  size?: Size;
+  size?: Exclude<Size, 'xs'>;
 }
 
 /** Hides content behind one trigger until people ask for it. Holds a Trigger and a Panel. */
 export const Root = forwardRef<HTMLDivElement, RootProps>(function CollapsibleRoot({ size, className, ...props }, ref) {
-  const resolved = useSize(size);
+  const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
       <BaseCollapsible.Root ref={ref} {...props} className={withClass('mu-collapsible', className)} />
@@ -24,7 +24,7 @@ export interface TriggerProps extends BaseCollapsible.Trigger.Props {}
 
 /** A ghost key with a chevron at the end that turns while the panel is open. */
 export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function CollapsibleTrigger({ className, children, ...props }, ref) {
-  const size = useSize();
+  const size = useRowSize();
   return (
     <BaseCollapsible.Trigger ref={ref} {...props} className={withClass(`mu-collapsible-trigger ${buttonClasses({ variant: 'ghost', size })}`, className)}>
       <span className="mu-button-label">{children}</span>

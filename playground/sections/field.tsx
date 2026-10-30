@@ -1,8 +1,8 @@
 import { Button, Checkbox, Field, Fieldset, Input, Switch, Textarea } from '@usememos/ui';
-import type { SectionProps } from '.';
+import type { RowSize, SectionProps } from '.';
 
 /** The form pattern: labels above controls, errors under them, actions at the end. */
-export function FieldSection({ size }: SectionProps) {
+export function FieldSection({ size }: SectionProps<RowSize>) {
   return (
     <form style={{ display: 'grid', gap: 16, maxWidth: 400 }} onSubmit={(event) => event.preventDefault()}>
       <Field.Root size={size}>

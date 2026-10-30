@@ -1,8 +1,8 @@
 import { Button, Menu } from '@usememos/ui';
 import { Archive, Copy, Ellipsis, FolderInput, Pencil, Pin, Trash2 } from 'lucide-react';
-import type { SectionProps } from '.';
+import type { RowSize, SectionProps } from '.';
 
-export function MenuSection({ size }: SectionProps) {
+export function MenuSection({ size }: SectionProps<RowSize>) {
   return (
     <div className="pg-row">
       <Menu.Root size={size}>

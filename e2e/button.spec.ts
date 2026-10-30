@@ -4,7 +4,7 @@ import { open } from './helpers';
 const save = (page: import('@playwright/test').Page) => page.locator('#button [data-variant="neutral"] button').first();
 
 test('sizes set the height', async ({ page }) => {
-  for (const [size, height] of [['sm', 24], ['md', 32]] as const) {
+  for (const [size, height] of [['xs', 20], ['sm', 24], ['md', 32]] as const) {
     await open(page, { size });
     expect((await save(page).boundingBox())?.height).toBe(height);
   }

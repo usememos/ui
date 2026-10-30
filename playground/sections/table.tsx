@@ -1,6 +1,6 @@
 import { Button, Menu, Table } from '@usememos/ui';
 import { Ellipsis } from 'lucide-react';
-import type { SectionProps } from '.';
+import type { RowSize, SectionProps } from '.';
 
 const tokens = [
   { id: 1, name: 'Backup script', created: '12 May 2026', uses: 1204 },
@@ -8,7 +8,7 @@ const tokens = [
   { id: 3, name: 'Shortcuts on iPhone', created: '28 Oct 2026', uses: 3 },
 ];
 
-export function TableSection({ size }: SectionProps) {
+export function TableSection({ size }: SectionProps<RowSize>) {
   return (
     <Table.Root size={size} style={{ maxWidth: 560 }}>
       <Table.Caption>Access tokens</Table.Caption>

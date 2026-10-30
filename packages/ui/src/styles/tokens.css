@@ -133,11 +133,13 @@
   --mu-radius-xl: 12px;
   --mu-radius-2xl: 16px;
   --mu-radius-full: 9999px;
+  --mu-control-xs: 20px;
   --mu-control-sm: 24px;
   --mu-control-md: 32px;
   --mu-inset: 2px;
   --mu-hit-area: 44px;
   --mu-focus-width: 2px;
+  --mu-icon-xs: 12px;
   --mu-icon-sm: 14px;
   --mu-icon-md: 16px;
   --mu-content-width: 720px;

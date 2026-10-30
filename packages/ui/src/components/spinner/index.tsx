@@ -5,7 +5,7 @@ import { useSize } from '../../internal/size';
 import type { Size } from '../../types';
 
 export interface SpinnerProps extends useRender.ComponentProps<'span'> {
-  /** 14, 16 or 20px. Defaults to the surrounding component's size, else md. */
+  /** 12, 14 or 16px. Defaults to the surrounding component's size, else md. */
   size?: Size;
   /** What is loading, for screen readers. */
   label?: string;

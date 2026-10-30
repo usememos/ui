@@ -1,8 +1,8 @@
 import { Tabs } from '@usememos/ui';
 import { Bell, Settings, User } from 'lucide-react';
-import type { SectionProps } from '.';
+import type { RowSize, SectionProps } from '.';
 
-export function TabsSection({ size }: SectionProps) {
+export function TabsSection({ size }: SectionProps<RowSize>) {
   return (
     <Tabs.Root size={size} defaultValue="account">
       <Tabs.List aria-label="Settings sections">

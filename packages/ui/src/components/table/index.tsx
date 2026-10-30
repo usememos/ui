@@ -1,13 +1,13 @@
 import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 import { cx } from '../../internal/class-name';
-import { SizeContext, useSize } from '../../internal/size';
+import { SizeContext, useRowSize } from '../../internal/size';
 import type { Size } from '../../types';
 
-const bodyText: Record<Size, string> = { sm: 'mu-caption', md: 'mu-body' };
+const bodyText: Record<Exclude<Size, 'xs'>, string> = { sm: 'mu-caption', md: 'mu-body' };
 
 export interface RootProps extends ComponentPropsWithoutRef<'table'> {
   /** `sm` for dense admin lists. Sets row height and cell text. */
-  size?: Size;
+  size?: Exclude<Size, 'xs'>;
 }
 
 /**
@@ -16,7 +16,7 @@ export interface RootProps extends ComponentPropsWithoutRef<'table'> {
  * to the `<table>`.
  */
 export const Root = forwardRef<HTMLTableElement, RootProps>(function TableRoot({ size, className, ...props }, ref) {
-  const resolved = useSize(size);
+  const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
       <div className="mu-table-scroll">

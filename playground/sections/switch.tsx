@@ -1,5 +1,5 @@
 import { Field, Switch } from '@usememos/ui';
-import type { SectionProps } from '.';
+import { rowSize, type SectionProps } from '.';
 
 export function SwitchSection({ size }: SectionProps) {
   return (
@@ -8,7 +8,7 @@ export function SwitchSection({ size }: SectionProps) {
       <Switch size={size} aria-label="On" defaultChecked />
       <Switch size={size} aria-label="Disabled" disabled />
       <Switch size={size} aria-label="Disabled and on" disabled defaultChecked />
-      <Field.Root size={size}>
+      <Field.Root size={rowSize(size)}>
         <Field.Label>
           <Switch defaultChecked /> Compact mode
         </Field.Label>

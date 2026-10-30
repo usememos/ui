@@ -1,7 +1,7 @@
 import { Collapsible } from '@usememos/ui';
-import type { SectionProps } from '.';
+import type { RowSize, SectionProps } from '.';
 
-export function CollapsibleSection({ size }: SectionProps) {
+export function CollapsibleSection({ size }: SectionProps<RowSize>) {
   return (
     <div style={{ display: 'grid', gap: 8, maxWidth: 360 }}>
       <Collapsible.Root size={size}>

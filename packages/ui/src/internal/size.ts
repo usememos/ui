@@ -9,3 +9,9 @@ export function useSize(size?: Size): Size {
   const inherited = useContext(SizeContext);
   return size ?? inherited ?? 'md';
 }
+
+/** useSize for components without xs: text entry, menus, tabs and tables. An xs inherited from a parent renders them at sm. */
+export function useRowSize(size?: Exclude<Size, 'xs'>): Exclude<Size, 'xs'> {
+  const resolved = useSize(size);
+  return resolved === 'xs' ? 'sm' : resolved;
+}

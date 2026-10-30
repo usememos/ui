@@ -1,11 +1,11 @@
 import { Input as BaseInput } from '@base-ui/react/input';
 import { forwardRef, type CSSProperties, type ReactNode } from 'react';
 import { cx } from '../../internal/class-name';
-import { useSize } from '../../internal/size';
+import { useRowSize } from '../../internal/size';
 import type { Size } from '../../types';
 
 export interface InputProps extends Omit<BaseInput.Props, 'size' | 'prefix' | 'className' | 'style'> {
-  size?: Size;
+  size?: Exclude<Size, 'xs'>;
   /** Says what the field is: a search or link icon. */
   prefix?: ReactNode;
   /** One action on the value (copy, clear), or a unit. */
@@ -21,7 +21,7 @@ export interface InputProps extends Omit<BaseInput.Props, 'size' | 'prefix' | 'c
  * prop go to the `<input>`; `className` and `style` go to the box around it.
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input({ size, prefix, suffix, className, style, ...props }, ref) {
-  const resolved = useSize(size);
+  const resolved = useRowSize(size);
   return (
     <span className={cx('mu-input-root mu-base', `mu-s-${resolved}`, className)} style={style}>
       {prefix !== undefined ? <span className="mu-input-prefix">{prefix}</span> : null}

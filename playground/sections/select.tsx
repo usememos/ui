@@ -1,11 +1,11 @@
 import { Field, Select } from '@usememos/ui';
 import { Globe, Lock, Users } from 'lucide-react';
-import type { SectionProps } from '.';
+import type { RowSize, SectionProps } from '.';
 
 const visibility = { private: 'Private', workspace: 'Workspace', public: 'Public' };
 const languages = { en: 'English', de: 'Deutsch', fr: 'Français', ja: '日本語', zh: '中文' };
 
-export function SelectSection({ size }: SectionProps) {
+export function SelectSection({ size }: SectionProps<RowSize>) {
   return (
     <div style={{ display: 'grid', gap: 16, maxWidth: 240 }}>
       <Field.Root>

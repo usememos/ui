@@ -25,5 +25,5 @@ test('loads no web fonts: text uses the system UI font', async ({ page }) => {
 test('sizes set the control height', async ({ page }) => {
   await open(page);
   const heights = await page.locator('#sizes .pg-control').evaluateAll((controls) => controls.map((control) => control.getBoundingClientRect().height));
-  expect(heights).toEqual([24, 32]);
+  expect(heights).toEqual([20, 24, 32]);
 });
