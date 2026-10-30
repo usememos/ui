@@ -140,7 +140,8 @@ test('Tooltip: opens at once on keyboard focus, and names the trigger', async ({
   await pin.focus();
   await page.keyboard.press('Shift+Tab');
   await page.keyboard.press('Tab');
-  const tooltip = page.locator('.mu-tooltip-popup');
+  // The previous button's tooltip may still be fading out, so look for the open one.
+  const tooltip = page.locator('.mu-tooltip-popup[data-open]');
   await expect(tooltip).toBeVisible();
   await expect(tooltip).toHaveText('Archive⌘ E');
 });
