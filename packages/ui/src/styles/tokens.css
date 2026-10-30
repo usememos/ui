@@ -117,7 +117,6 @@
   --mu-shadow-pop: 0 0 0 1px #000000;
 }
 :where(:root, :host, .mu-root) {
-  --mu-space-0_5: 2px;
   --mu-space-1: 4px;
   --mu-space-2: 8px;
   --mu-space-3: 12px;
