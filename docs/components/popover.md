@@ -32,7 +32,7 @@ import { Button, Input, Popover } from "@usememos/ui";
 
 ```ts
 interface Popover.PopupProps extends BasePopover.Popup.Props {
-  side?: Side; align?: Align; sideOffset?: number; alignOffset?: number; collisionPadding?: Padding; // Positioner props; default side "bottom", sideOffset 6
+  side?: Side; align?: Align; // Positioner props; default side "bottom"
   container?: HTMLElement | ShadowRoot | React.RefObject<HTMLElement | ShadowRoot | null> | null; // portal target
 }
 ```

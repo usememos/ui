@@ -58,4 +58,4 @@ Under `breakpoint-sm` (640px):
 - Dialogs and menus become sheets.
 - Toasts sit bottom-center.
 - Every control keeps its 44px hit area.
-- Controls stay `md`. `lg` is for marketing pages and primary actions in sheets.
+- Controls stay `md`.

@@ -33,7 +33,7 @@ interface Tooltip.TriggerProps extends BaseTooltip.Trigger.Props {
 }
 interface Tooltip.PopupProps extends BaseTooltip.Popup.Props {
   shortcut?: React.ReactNode; // after the label, at 65% opacity
-  side?: Side; align?: Align; sideOffset?: number; alignOffset?: number; collisionPadding?: Padding; // Positioner props; default side "top", sideOffset 6
+  side?: Side; align?: Align; // Positioner props; default side "top"
   container?: HTMLElement | ShadowRoot | React.RefObject<HTMLElement | ShadowRoot | null> | null; // portal target
 }
 ```

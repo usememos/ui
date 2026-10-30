@@ -45,10 +45,10 @@ import { Ellipsis, FolderInput, Pin, Trash2 } from "lucide-react";
 
 ```ts
 interface Menu.RootProps extends BaseMenu.Root.Props {
-  size?: Size; // row height: 24, 32, 40px
+  size?: Size; // row height: 24, 32px
 }
 interface Menu.PopupProps extends BaseMenu.Popup.Props {
-  side?: Side; align?: Align; sideOffset?: number; alignOffset?: number; collisionPadding?: Padding; // Positioner props; default side "bottom", sideOffset 4
+  side?: Side; align?: Align; // Positioner props; default side "bottom"
   container?: HTMLElement | ShadowRoot | React.RefObject<HTMLElement | ShadowRoot | null> | null; // portal target
 }
 interface Menu.ItemProps extends BaseMenu.Item.Props {
@@ -72,7 +72,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 ## Style
 
 - `mu-popup` with `space-1` padding, at least `menu-width` wide, scrolls when taller than the space available.
-- Rows are a control height (24, 32, 40px), text weight 400; icons in `ink-muted`; the shortcut right-aligned in `ink-muted`.
+- Rows are a control height (24 or 32px), text weight 400; icons in `ink-muted`; the shortcut right-aligned in `ink-muted`.
 - The highlighted row uses `hover`. Disabled rows fade to 45%. `danger` rows use `danger`.
 - A ghost trigger keeps its `hover` background while the menu is open.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.

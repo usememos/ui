@@ -18,7 +18,7 @@ import { Checkbox, Field } from "@usememos/ui";
 
 ```ts
 interface CheckboxProps extends BaseCheckbox.Root.Props {
-  size?: Size; // box: 16, 18, 20px
+  size?: Size; // box: 16, 18px
 }
 ```
 

@@ -57,7 +57,7 @@ Components follow the [API conventions](../building.md#api-conventions): parts w
 ## Shared types
 
 ```ts
-type Size = "sm" | "md" | "lg";
+type Size = "sm" | "md";
 type Tone = "neutral" | "success" | "warning" | "danger";
 /** A Lucide icon element, such as <Pin /> from lucide-react. Size and stroke come from the component. */
 type IconElement = React.ReactElement;

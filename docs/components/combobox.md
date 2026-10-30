@@ -54,7 +54,7 @@ interface Combobox.InputProps extends BaseCombobox.Input.Props {
   style?: React.CSSProperties; // on the box
 }
 interface Combobox.PopupProps extends BaseCombobox.Popup.Props {
-  side?: Side; align?: Align; sideOffset?: number; alignOffset?: number; collisionPadding?: Padding; // Positioner props; default side "bottom", align "start", sideOffset 4
+  side?: Side; align?: Align; // Positioner props; default side "bottom", align "start"
   container?: HTMLElement | ShadowRoot | React.RefObject<HTMLElement | ShadowRoot | null> | null; // portal target
 }
 interface Combobox.ItemProps extends BaseCombobox.Item.Props {

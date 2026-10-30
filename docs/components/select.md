@@ -45,7 +45,7 @@ type Select.RootProps<Value, Multiple> = BaseSelect.Root.Props<Value, Multiple> 
 };
 interface Select.PopupProps extends BaseSelect.Popup.Props {
   alignItemWithTrigger?: boolean; // default true: the list opens over the trigger with the chosen item on the value
-  side?: Side; align?: Align; sideOffset?: number; alignOffset?: number; collisionPadding?: Padding; // used when alignItemWithTrigger is false
+  side?: Side; align?: Align; // used when alignItemWithTrigger is false
   container?: HTMLElement | ShadowRoot | React.RefObject<HTMLElement | ShadowRoot | null> | null; // portal target
 }
 interface Select.ItemProps extends BaseSelect.Item.Props {

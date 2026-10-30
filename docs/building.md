@@ -79,14 +79,14 @@ import { Ellipsis, Pin, Trash2 } from "lucide-react";
 ```
 
 - **Base UI's names.** `Root`, `Trigger`, `Popup`, `Item`, `Title`, `Description`, `Close`, `Panel` and so on. No shadcn names (`DropdownMenuContent`, `CardHeader`).
-- **One `Popup` per overlay.** Base UI's `Portal`, `Positioner` and `Backdrop` are folded into our `Popup`. It takes the positioning props (`side`, `align`, `sideOffset`, `alignOffset`, `collisionPadding`) and Base UI's portal `container`, and draws the backdrop where the component has one (Dialog).
+- **One `Popup` per overlay.** Base UI's `Portal`, `Positioner` and `Backdrop` are folded into our `Popup`. It takes `side`, `align` and Base UI's portal `container`, and draws the backdrop where the component has one (Dialog). The gap to the trigger and the distance kept from the viewport edge are fixed by the system (4px for menus and lists, 6px for popovers and tooltips; Base UI's default edge distance), so `sideOffset`, `alignOffset` and `collisionPadding` are not props.
 - **Indicators are built in.** The check in a menu or select item, the chevron in a select trigger and the knob in a switch render by themselves. See [built-in glyphs](icons.md#built-in-glyphs).
 - **One element, one component.** Button, Input, Textarea, Badge, Kbd, Separator, Spinner, Skeleton, Link, Checkbox, Switch and Toggle are single components, not namespaces.
 - **No data props.** Collections are built from parts (`Menu.Item`, `Select.Item`, `Tabs.Tab`), not passed as `items` or `options` arrays.
 
 ### Props
 
-- **`size`**: `"sm" | "md" | "lg"`, default `"md"`. One prop sets height, padding, text, icon size and radius together. On a namespace, set it on `Root`; every part reads it from context.
+- **`size`**: `"sm" | "md"`, default `"md"`. There is no `lg`: a bigger control is not a stronger one, and apps hardly need it. One prop sets height, padding, text, icon size and radius together. On a namespace, set it on `Root`; every part reads it from context.
 - **Controlled or uncontrolled**, with Base UI's prop names:
   - `value` + `onValueChange`, or `defaultValue` (Select, Combobox, Tabs, ToggleGroup, RadioGroup)
   - `checked` + `onCheckedChange`, or `defaultChecked` (Checkbox, Switch, Menu.CheckboxItem)
@@ -123,6 +123,6 @@ toast.add({ title: "Note archived", type: "success" });
 1. A reason: a screen in a product needs it, and no existing component or pattern covers it.
 2. A generic name and API that would make sense in any of our products.
 3. Tokens only: no raw colors, sizes or shadows.
-4. All three sizes, all [states](states.md), all three themes, and reduced motion.
+4. Both sizes, all [states](states.md), all three themes, and reduced motion.
 5. Keyboard and screen reader behavior from Base UI.
 6. A page in `docs/components/` and an entry in the [inventory](components/README.md).

@@ -18,7 +18,7 @@ import { Field, Switch } from "@usememos/ui";
 
 ```ts
 interface SwitchProps extends BaseSwitch.Root.Props {
-  size?: Size; // 18, 20, 22px tall
+  size?: Size; // 18, 20px tall
 }
 ```
 

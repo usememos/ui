@@ -79,5 +79,5 @@ Every native attribute passes through.
 
 - No boxes or stripes: a `line` under the head row and between body rows. Body rows highlight with `hover`.
 - Heads: `label-sm` (13px, 500) in `ink-muted`, a control height tall.
-- Cells: `body-sm`, `body` or `body-lg` at sm, md and lg, with tabular numbers. Rows are 34, 40 or 48px; a Button in a cell overlaps the padding, so rows keep that height.
+- Cells: `caption` at sm and `body` at md, with tabular numbers. Rows are 34 or 40px; a Button in a cell overlaps the padding, so rows keep that height.
 - Cells pad `px` at the sides. Caption: `caption` in `ink-muted`, `space-2` above.

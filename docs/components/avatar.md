@@ -25,7 +25,7 @@ import { Avatar } from "@usememos/ui";
 
 ```ts
 interface Avatar.RootProps extends BaseAvatar.Root.Props {
-  size?: Size; // 24, 32, 40px
+  size?: Size; // 24, 32px
 }
 ```
 
@@ -34,7 +34,7 @@ interface Avatar.RootProps extends BaseAvatar.Root.Props {
 ## Rules
 
 - Give the image an `alt` with the person's name. Initials are one or two letters, computed by the app.
-- `sm` in lists and comments, `md` in a sidebar, `lg` on profile pages.
+- `sm` in lists and comments, `md` in a sidebar and on profile pages.
 
 ## Style
 

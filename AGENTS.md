@@ -35,10 +35,10 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 - **Ink, not a hue.** `primary` (near-black in Light, near-white in Dark) is the only emphasis. `accent` (quiet blue) is only for focus, links and selection, never a fill. `success`, `warning` and `danger` are only for status.
 - **Depth means behavior.** Recessed holds a value, raised can be pressed, popups float, everything else is flat. Text inputs are flat. Use the `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` classes before writing new shadows. See [Depth](docs/depth.md).
 - **Three themes.** Every change works in Light, Dark and High contrast (`data-theme="light" | "dark" | "contrast"`), and under `prefers-reduced-motion`.
-- **Few sizes, two weights.** Text uses the nine styles in [Typography](docs/typography.md): 13, 14, 16 and 20px in apps (32px only for a website hero), weights 400 and 500 (600 only for bold and headings inside Prose). No other size or weight without a written reason in that page.
-- **Sizes come in rows.** `size` is `sm | md | lg` (24, 32, 40px; md default) and sets height, padding, text, icon and radius together.
+- **Few sizes, two weights.** Text uses the seven styles in [Typography](docs/typography.md): 13, 14, 16 and 20px in apps (32px only for a website hero), weights 400 and 500 (600 only for bold and headings inside Prose). No other size or weight without a written reason in that page.
+- **Sizes come in rows.** `size` is `sm | md` (24, 32px; md default; there is no `lg`) and sets height, padding, text, icon and radius together.
 - **4px grid.** The only 2px value is `inset`.
-- **Lucide icons as elements** (`icon={<Pin />}`). No `size` or `strokeWidth` props: CSS sets 14/16/20px and a 1.25px (sm) or 1.5px (md, lg) screen-pixel stroke.
+- **Lucide icons as elements** (`icon={<Pin />}`). No `size` or `strokeWidth` props: CSS sets 14/16px and a 1.25px (sm) or 1.5px (md) screen-pixel stroke.
 - **Not in the set:** Card, Slider, Stepper, Chip, SegmentedControl, Accordion. See [what was left out](docs/components/README.md#left-out-on-purpose) and what to use instead.
 - **Scoped CSS.** Classes start with `mu-`. No global selectors beyond `:root` and `.mu-root`, so the package can mount inside a host page.
 - **Accessibility.** Text keeps 4.5:1 contrast in every theme. Focus rings show on `:focus-visible` only. Icon-only controls have an `aria-label` and a Tooltip. Touch targets reach 44px on `pointer: coarse`.
@@ -48,7 +48,7 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 
 1. Check the [inventory](docs/components/README.md). If a screen needs something new, confirm no existing component or pattern covers it.
 2. Write or update the component's page in `docs/components/`, following the [page template](docs/components/README.md#page-template), and the inventory table.
-3. Build it in `packages/ui/src/components/<name>/` on Base UI (`@base-ui/react`), styled only with tokens and the foundation classes, in all three sizes, all [states](docs/states.md) and all three themes. Its CSS goes in `<name>/<name>.css`, imported from `src/styles/styles.css`; the build inlines it, so the package still ships one stylesheet.
+3. Build it in `packages/ui/src/components/<name>/` on Base UI (`@base-ui/react`), styled only with tokens and the foundation classes, in both sizes, all [states](docs/states.md) and all three themes. Its CSS goes in `<name>/<name>.css`, imported from `src/styles/styles.css`; the build inlines it, so the package still ships one stylesheet.
 4. Export it from `packages/ui/src/index.ts`. The package has one JS entry point.
 5. Show every variant and state in `playground/sections/<name>.tsx` and list it in `playground/sections/index.ts`.
 6. Add unit tests in `packages/ui/test/` for behavior that isn't Base UI's (controlled and uncontrolled state, `loading`, `size` through context, `render`), with `// @vitest-environment happy-dom` at the top. Add a browser test in `e2e/<name>.spec.ts` for keyboard paths, reduced motion and touch hit areas. `e2e/foundations.spec.ts` runs axe over the whole playground in every theme.
