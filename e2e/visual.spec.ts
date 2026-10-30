@@ -5,7 +5,7 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 import { open, themes } from './helpers';
 
-const sizes = ['sm', 'md', 'lg'] as const;
+const sizes = ['sm', 'md'] as const;
 const options = { animations: 'disabled', maxDiffPixelRatio: 0.002 } as const;
 
 /** Each overlay: how to open it, and the element to capture. */

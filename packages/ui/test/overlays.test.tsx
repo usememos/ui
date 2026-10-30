@@ -83,7 +83,7 @@ describe('Menu', () => {
 describe('Select', () => {
   it('makes the trigger a neutral key with a chevron, and shows the label of the value', async () => {
     render(
-      <Select.Root size="lg" items={{ a: 'Apple', b: 'Banana' }} defaultValue="b">
+      <Select.Root size="sm" items={{ a: 'Apple', b: 'Banana' }} defaultValue="b">
         <Select.Trigger>
           <Select.Value />
         </Select.Trigger>
@@ -96,7 +96,7 @@ describe('Select', () => {
     await settle();
     const trigger = document.querySelector('.mu-select-trigger')!;
     expect(trigger.className).toContain('mu-button-neutral');
-    expect(trigger.className).toContain('mu-s-lg');
+    expect(trigger.className).toContain('mu-s-sm');
     expect(trigger.querySelector('.mu-select-value')!.textContent).toBe('Banana');
     expect(trigger.querySelector('svg.lucide-chevrons-up-down')).not.toBeNull();
   });

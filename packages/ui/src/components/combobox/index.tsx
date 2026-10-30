@@ -67,9 +67,6 @@ type PositionerProps = Pick<
   BaseCombobox.Positioner.Props,
   | 'side'
   | 'align'
-  | 'sideOffset'
-  | 'alignOffset'
-  | 'collisionPadding'
   | 'collisionAvoidance'
   | 'collisionBoundary'
   | 'sticky'
@@ -141,7 +138,7 @@ export interface GroupLabelProps extends BaseCombobox.GroupLabel.Props {}
 
 /** The name of a Group. */
 export const GroupLabel = forwardRef<HTMLDivElement, GroupLabelProps>(function ComboboxGroupLabel({ className, ...props }, ref) {
-  return <BaseCombobox.GroupLabel ref={ref} {...props} className={withClass('mu-combobox-group-label mu-label-xs', className)} />;
+  return <BaseCombobox.GroupLabel ref={ref} {...props} className={withClass('mu-combobox-group-label mu-label-sm', className)} />;
 });
 
 export interface SeparatorProps extends BaseCombobox.Separator.Props {}

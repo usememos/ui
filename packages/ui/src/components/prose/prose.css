@@ -18,8 +18,7 @@
 .mu-prose > :last-child { margin-bottom: 0; }
 
 .mu-prose h1 { font-size: var(--prose-h1); line-height: var(--prose-h1-lh); }
-.mu-prose h2 { font-size: var(--prose-h2); line-height: var(--prose-h2-lh); }
-.mu-prose :where(h3, h4, h5, h6) { font-size: var(--prose-fs); line-height: var(--prose-lh); }
+.mu-prose :where(h2, h3, h4, h5, h6) { font-size: var(--prose-h2); line-height: var(--prose-h2-lh); }
 
 .mu-prose :where(strong, b) { font-weight: 600; }
 .mu-prose del { color: var(--mu-ink-muted); }
@@ -75,7 +74,7 @@
 /* Media: never wider than the column, with radius-lg corners. */
 .mu-prose :where(img, video) { display: block; max-width: 100%; height: auto; border-radius: var(--mu-radius-lg); }
 
-/* Tables follow the Table component: rows separated by line, muted 12px headers. */
+/* Tables follow the Table component: rows separated by line, muted 13px headers. */
 .mu-prose table { display: block; width: max-content; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .mu-prose :where(th, td) { padding: var(--mu-space-2) var(--mu-space-3); text-align: start; vertical-align: top; }
 .mu-prose th { color: var(--mu-ink-muted); font-size: var(--prose-head); line-height: var(--prose-head-lh); font-weight: 500; white-space: nowrap; border-bottom: 1px solid var(--mu-line); }

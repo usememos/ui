@@ -47,9 +47,6 @@ type PositionerProps = Pick<
   BaseSelect.Positioner.Props,
   | 'side'
   | 'align'
-  | 'sideOffset'
-  | 'alignOffset'
-  | 'collisionPadding'
   | 'collisionAvoidance'
   | 'collisionBoundary'
   | 'sticky'
@@ -115,7 +112,7 @@ export interface GroupLabelProps extends BaseSelect.GroupLabel.Props {}
 
 /** The name of a Group. */
 export const GroupLabel = forwardRef<HTMLDivElement, GroupLabelProps>(function SelectGroupLabel({ className, ...props }, ref) {
-  return <BaseSelect.GroupLabel ref={ref} {...props} className={withClass('mu-select-group-label mu-label-xs', className)} />;
+  return <BaseSelect.GroupLabel ref={ref} {...props} className={withClass('mu-select-group-label mu-label-sm', className)} />;
 });
 
 export interface SeparatorProps extends BaseSelect.Separator.Props {}

@@ -2,15 +2,11 @@
 const positionerKeys = [
   'side',
   'align',
-  'sideOffset',
-  'alignOffset',
-  'collisionPadding',
   'collisionAvoidance',
   'collisionBoundary',
   'sticky',
   'anchor',
   'positionMethod',
-  'arrowPadding',
   'disableAnchorTracking',
   'alignItemWithTrigger',
 ] as const;

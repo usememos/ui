@@ -2,19 +2,19 @@ import { Bold, Pin, Search, Trash2 } from 'lucide-react';
 import colorDocs from '../docs/color.md?raw';
 import type { Size } from '@usememos/ui';
 
-const sizes: Size[] = ['sm', 'md', 'lg'];
+const sizes: Size[] = ['sm', 'md'];
 
 /** Color token names, read from the table in docs/color.md. */
 const colors = [...colorDocs.matchAll(/^\| `([\w-]+)` \|/gm)].map(([, name = '']) => name);
 
-const typeStyles = ['display', 'heading-1', 'heading-2', 'heading-3', 'title', 'label-lg', 'body-lg', 'label', 'body', 'body-sm', 'label-sm', 'caption', 'label-xs'];
+const typeStyles = ['display', 'heading', 'title', 'label', 'body', 'label-sm', 'caption'];
 
 /** Tokens, depth roles, type and icons: what every component is built from. */
 export function Foundations() {
   return (
     <>
       <section className="pg-section" id="color">
-        <h2 className="mu-heading-3">Color</h2>
+        <h2 className="mu-heading">Color</h2>
         <div className="pg-swatches">
           {colors.map((name) => (
             <div className="pg-swatch" key={name}>
@@ -26,7 +26,7 @@ export function Foundations() {
       </section>
 
       <section className="pg-section" id="depth">
-        <h2 className="mu-heading-3">Depth</h2>
+        <h2 className="mu-heading">Depth</h2>
         <div className="pg-row mu-base mu-s-md">
           <div className="pg-box mu-recessed">Recessed</div>
           <div className="pg-well mu-recessed">
@@ -39,7 +39,7 @@ export function Foundations() {
       </section>
 
       <section className="pg-section" id="type">
-        <h2 className="mu-heading-3">Type</h2>
+        <h2 className="mu-heading">Type</h2>
         {typeStyles.map((style) => (
           <div className={`mu-${style}`} key={style}>
             {style}: Write it down before it slips away
@@ -48,7 +48,7 @@ export function Foundations() {
       </section>
 
       <section className="pg-section" id="sizes">
-        <h2 className="mu-heading-3">Sizes and icons</h2>
+        <h2 className="mu-heading">Sizes and icons</h2>
         {sizes.map((size) => (
           <div className={`pg-row mu-base mu-s-${size}`} key={size}>
             <span className="pg-control mu-raised">

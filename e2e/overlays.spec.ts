@@ -39,7 +39,7 @@ test('Menu: checkbox items stay open and toggle', async ({ page }) => {
 });
 
 test('Menu: rows are a control tall at each size', async ({ page }) => {
-  for (const [size, height] of [['sm', 24], ['md', 32], ['lg', 40]] as const) {
+  for (const [size, height] of [['sm', 24], ['md', 32]] as const) {
     await open(page, { size });
     await moreActions(page).click();
     // Measured once the popup has risen into place.

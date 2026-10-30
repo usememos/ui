@@ -50,7 +50,7 @@ describe('Combobox', () => {
 
   it('portals the list, sizes its rows from the Root, and checks the chosen item', async () => {
     render(
-      <Combobox.Root size="lg" items={tags} defaultValue="design" defaultOpen>
+      <Combobox.Root size="sm" items={tags} defaultValue="design" defaultOpen>
         <Combobox.Input aria-label="Tag" />
         <Combobox.Popup side="top">
           <Combobox.Empty>No tags found</Combobox.Empty>
@@ -66,7 +66,7 @@ describe('Combobox', () => {
     );
     await settle();
     const popup = document.querySelector('.mu-combobox-popup')!;
-    expect(popup.className).toContain('mu-s-lg');
+    expect(popup.className).toContain('mu-s-sm');
     expect(popup.parentElement!.className).toContain('mu-positioner');
     expect(popup.parentElement!.getAttribute('data-side')).toBe('top');
     const items = [...popup.querySelectorAll('.mu-combobox-item')];
@@ -120,7 +120,7 @@ describe('Table', () => {
     const table = container.querySelector('table')!;
     expect(table.parentElement!.className).toBe('mu-table-scroll');
     expect(table.className).toContain('mu-s-sm');
-    expect(table.className).toContain('mu-body-sm');
+    expect(table.className).toContain('mu-caption');
     const [name, uses] = [...table.querySelectorAll('th')];
     expect(name!.getAttribute('scope')).toBe('col');
     expect(uses!.className).toContain('mu-table-num');

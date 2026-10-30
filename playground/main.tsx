@@ -10,7 +10,7 @@ import { sections } from './sections';
 type Theme = 'light' | 'dark' | 'contrast';
 
 const themes: Theme[] = ['light', 'dark', 'contrast'];
-const sizes: Size[] = ['sm', 'md', 'lg'];
+const sizes: Size[] = ['sm', 'md'];
 
 /** ?theme=dark&size=sm: the tests open the page this way. */
 function readParam<T extends string>(name: string, allowed: T[], fallback: T): T {
@@ -28,7 +28,7 @@ function App() {
     <main className="pg-main">
       {sections.map(({ name, title, Section }) => (
         <section className="pg-section" id={name} key={name}>
-          <h2 className="mu-heading-3">{title}</h2>
+          <h2 className="mu-heading">{title}</h2>
           <Section size={size} />
         </section>
       ))}

@@ -106,9 +106,13 @@ describe('tokens.css', () => {
 describe('foundation.css', () => {
   const styleRules = rules(foundationCss);
 
+  // The type styles are the tables under "## Scale", before its "Removed styles" table.
+  const scaleDocs = typographyDocs.slice(typographyDocs.indexOf('## Scale'), typographyDocs.indexOf('### Removed styles'));
+  const typeStyles = tableRows(scaleDocs).map(([name = '']) => unquote(name));
+
   it('has a class for every type style in docs/typography.md', () => {
-    const rows = tableRows(typographyDocs).filter(([name]) => !name?.startsWith('`--'));
-    expect(rows).toHaveLength(13);
+    const rows = tableRows(scaleDocs);
+    expect(rows).toHaveLength(7);
     for (const row of rows) {
       const [name = '', sizes = '', weight, spacing] = row;
       const style = unquote(name);
@@ -122,5 +126,11 @@ describe('foundation.css', () => {
       // System fonts have no shared variation axes, so no style sets any.
       expect(declarations.has('font-variation-settings'), style).toBe(false);
     }
+  });
+
+  it('has no type class beyond docs/typography.md', () => {
+    // A type class sets a fixed font size; .mu-base reads the size row's --fs instead.
+    const typeClasses = [...styleRules.keys()].filter((selector) => /^\.mu-[\w-]+$/.test(selector) && /^\d/.test(styleRules.get(selector)!.get('font-size') ?? ''));
+    expect(typeClasses.map((selector) => selector.slice(4)).sort()).toEqual([...typeStyles].sort());
   });
 });

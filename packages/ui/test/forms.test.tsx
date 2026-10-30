@@ -39,7 +39,7 @@ describe('Field', () => {
 
   it('passes a Fieldset size to every control', () => {
     const { container } = render(
-      <Fieldset.Root size="lg">
+      <Fieldset.Root size="sm">
         <Fieldset.Legend>Notifications</Fieldset.Legend>
         <Field.Root>
           <Field.Label>
@@ -53,7 +53,7 @@ describe('Field', () => {
         </Field.Root>
       </Fieldset.Root>,
     );
-    expect(container.querySelector('.mu-checkbox')!.className).toContain('mu-s-lg');
+    expect(container.querySelector('.mu-checkbox')!.className).toContain('mu-s-sm');
     expect(container.querySelector('.mu-switch')!.className).toContain('mu-s-sm');
   });
 });
@@ -123,7 +123,7 @@ describe('Switch', () => {
 describe('RadioGroup', () => {
   it('passes its size to each radio and sets the orientation', () => {
     const { container } = render(
-      <RadioGroup size="lg" orientation="horizontal" defaultValue="a" aria-label="Choice">
+      <RadioGroup size="sm" orientation="horizontal" defaultValue="a" aria-label="Choice">
         <Radio value="a" aria-label="A" />
         <Radio value="b" aria-label="B" />
       </RadioGroup>,
@@ -132,7 +132,7 @@ describe('RadioGroup', () => {
     expect(group.getAttribute('data-orientation')).toBe('horizontal');
     expect(group.getAttribute('aria-orientation')).toBe('horizontal');
     const radios = container.querySelectorAll('[role="radio"]');
-    expect([...radios].map((radio) => radio.className.includes('mu-s-lg'))).toEqual([true, true]);
+    expect([...radios].map((radio) => radio.className.includes('mu-s-sm'))).toEqual([true, true]);
     click(radios[1]!);
     expect(radios[1]!.getAttribute('aria-checked')).toBe('true');
     expect(radios[0]!.getAttribute('aria-checked')).toBe('false');
@@ -208,7 +208,7 @@ describe('ToggleGroup', () => {
 describe('Tabs', () => {
   it('builds the indicator into the list and passes the size', () => {
     const { container } = render(
-      <Tabs.Root size="lg" defaultValue="a">
+      <Tabs.Root size="sm" defaultValue="a">
         <Tabs.List aria-label="Sections">
           <Tabs.Tab value="a" icon={<Bold />}>
             A
@@ -220,7 +220,7 @@ describe('Tabs', () => {
       </Tabs.Root>,
     );
     const list = container.querySelector('[role="tablist"]')!;
-    expect(list.className).toContain('mu-s-lg');
+    expect(list.className).toContain('mu-s-sm');
     expect(list.querySelector('.mu-tabs-indicator')).not.toBeNull();
     const [a, b] = container.querySelectorAll('[role="tab"]');
     expect(a!.querySelector('svg')).not.toBeNull();

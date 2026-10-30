@@ -20,13 +20,13 @@ describe('Button', () => {
 
   it('sets the variant and size classes, and keeps the app class last', () => {
     const { container } = render(
-      <Button variant="primary" size="lg" className="app">
+      <Button variant="primary" size="sm" className="app">
         Save
       </Button>,
     );
     const classes = container.querySelector('button')!.className.split(' ');
     expect(classes).toContain('mu-button-primary');
-    expect(classes).toContain('mu-s-lg');
+    expect(classes).toContain('mu-s-sm');
     expect(classes.at(-1)).toBe('app');
   });
 
@@ -34,12 +34,12 @@ describe('Button', () => {
     const { container } = render(
       <SizeContext.Provider value="sm">
         <Button>Inherited</Button>
-        <Button size="lg">Own</Button>
+        <Button size="sm">Own</Button>
       </SizeContext.Provider>,
     );
     const [inherited, own] = container.querySelectorAll('button');
     expect(inherited!.className).toContain('mu-s-sm');
-    expect(own!.className).toContain('mu-s-lg');
+    expect(own!.className).toContain('mu-s-sm');
   });
 
   it('is square with only an icon', () => {
@@ -77,11 +77,11 @@ describe('Button', () => {
 
 describe('display components', () => {
   it('Spinner is a named status', () => {
-    const { container } = render(<Spinner size="lg" label="Loading notes" />);
+    const { container } = render(<Spinner size="sm" label="Loading notes" />);
     const spinner = container.querySelector('.mu-spinner')!;
     expect(spinner.getAttribute('role')).toBe('status');
     expect(spinner.getAttribute('aria-label')).toBe('Loading notes');
-    expect(spinner.className).toContain('mu-s-lg');
+    expect(spinner.className).toContain('mu-s-sm');
   });
 
   it('Badge sets its tone and puts the icon first', () => {
@@ -137,12 +137,12 @@ describe('display components', () => {
 
   it('Avatar sets the size on Root and shows the fallback without a photo', () => {
     const { container } = render(
-      <Avatar.Root size="lg">
+      <Avatar.Root size="sm">
         <Avatar.Fallback>JD</Avatar.Fallback>
       </Avatar.Root>,
     );
     const root = container.querySelector('.mu-avatar-root')!;
-    expect(root.className).toContain('mu-s-lg');
+    expect(root.className).toContain('mu-s-sm');
     expect(root.querySelector('.mu-avatar-fallback')?.textContent).toBe('JD');
   });
 });

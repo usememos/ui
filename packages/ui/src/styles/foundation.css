@@ -5,9 +5,8 @@
  */
 
 /* Sizes: one class sets height, padding, type, radius, gaps and icons together. See docs/layout.md. */
-.mu-s-sm { --h: var(--mu-control-sm); --px: var(--mu-space-2); --pxi: 6px; --fs: 12px; --lh: 16px; --r: var(--mu-radius-sm); --gap: var(--mu-space-1); --icon: var(--mu-icon-sm); --icon-stroke: 1.25px; --box: 16px; }
+.mu-s-sm { --h: var(--mu-control-sm); --px: var(--mu-space-2); --pxi: 6px; --fs: 13px; --lh: 18px; --r: var(--mu-radius-sm); --gap: var(--mu-space-1); --icon: var(--mu-icon-sm); --icon-stroke: 1.25px; --box: 16px; }
 .mu-s-md { --h: var(--mu-control-md); --px: var(--mu-space-3); --pxi: 10px; --fs: 14px; --lh: 20px; --r: var(--mu-radius-md); --gap: 6px; --icon: var(--mu-icon-md); --icon-stroke: 1.5px; --box: 18px; }
-.mu-s-lg { --h: var(--mu-control-lg); --px: var(--mu-space-4); --pxi: var(--mu-space-3); --fs: 16px; --lh: 24px; --r: var(--mu-radius-lg); --gap: var(--mu-space-2); --icon: var(--mu-icon-lg); --icon-stroke: 1.5px; --box: 20px; }
 
 /* Depth, in four roles: wells hold a state, keys can be pressed, popups float. Light comes from the top. See docs/depth.md. */
 .mu-recessed { background-color: var(--mu-well); box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track); }
@@ -45,20 +44,15 @@
 .mu-icon *, .mu-base svg.lucide *, .mu-prose svg.lucide * { vector-effect: non-scaling-stroke; }
 
 /* Type scale. See docs/typography.md. */
-.mu-label-xs { font-family: var(--mu-font-sans); font-size: 11px; line-height: 16px; font-weight: 500; }
-.mu-caption { font-family: var(--mu-font-sans); font-size: 12px; line-height: 16px; font-weight: 400; }
-.mu-label-sm { font-family: var(--mu-font-sans); font-size: 12px; line-height: 16px; font-weight: 500; }
-.mu-body-sm { font-family: var(--mu-font-sans); font-size: 13px; line-height: 18px; font-weight: 400; }
+/* App UI uses four sizes and two weights; 32px is for a website hero only. */
+.mu-caption { font-family: var(--mu-font-sans); font-size: 13px; line-height: 18px; font-weight: 400; }
+.mu-label-sm { font-family: var(--mu-font-sans); font-size: 13px; line-height: 18px; font-weight: 500; }
 .mu-body { font-family: var(--mu-font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
 .mu-label { font-family: var(--mu-font-sans); font-size: 14px; line-height: 20px; font-weight: 500; }
-.mu-body-lg { font-family: var(--mu-font-sans); font-size: 16px; line-height: 24px; font-weight: 400; }
-.mu-label-lg { font-family: var(--mu-font-sans); font-size: 16px; line-height: 24px; font-weight: 500; }
-.mu-title { font-family: var(--mu-font-display); font-size: 18px; line-height: 28px; font-weight: 600; }
-.mu-heading-3 { font-family: var(--mu-font-display); font-size: 20px; line-height: 28px; font-weight: 600; }
-.mu-heading-2 { font-family: var(--mu-font-display); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; }
-.mu-heading-1 { font-family: var(--mu-font-display); font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -0.01em; }
-.mu-display { font-family: var(--mu-font-display); font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -0.02em; }
+.mu-title { font-family: var(--mu-font-display); font-size: 16px; line-height: 24px; font-weight: 500; }
+.mu-heading { font-family: var(--mu-font-display); font-size: 20px; line-height: 28px; font-weight: 500; }
+.mu-display { font-family: var(--mu-font-display); font-size: 32px; line-height: 40px; font-weight: 500; letter-spacing: -0.02em; }
 
 /* Prose sizes: reading text is larger than UI text. prose.css sets the rest. See docs/components/prose.md. */
-.mu-prose { --prose-fs: 15px; --prose-lh: 24px; --prose-h1: 20px; --prose-h1-lh: 28px; --prose-h2: 17px; --prose-h2-lh: 24px; --prose-head: 12px; --prose-head-lh: 16px; }
+.mu-prose { --prose-fs: 16px; --prose-lh: 24px; --prose-h1: 20px; --prose-h1-lh: 28px; --prose-h2: 16px; --prose-h2-lh: 24px; --prose-head: 13px; --prose-head-lh: 18px; }
 .mu-prose-sm { --prose-fs: 14px; --prose-lh: 22px; }

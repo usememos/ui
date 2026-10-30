@@ -52,7 +52,7 @@ function ToastList({ closeLabel }: { closeLabel: string }) {
           <Icon className="mu-toast-icon" aria-hidden />
           <div className="mu-toast-text">
             <BaseToast.Title className="mu-toast-title mu-label" />
-            <BaseToast.Description className="mu-toast-description mu-body-sm" />
+            <BaseToast.Description className="mu-toast-description mu-caption" />
           </div>
           <BaseToast.Action className={cx('mu-toast-action', buttonClasses({ variant: 'neutral', size: 'sm' }))} />
           <BaseToast.Close className="mu-toast-close" render={<Button variant="ghost" size="sm" icon={<X />} aria-label={closeLabel} />} />

@@ -68,7 +68,7 @@ test('Collapsible: the panel only fades under reduced motion', async ({ page }) 
 });
 
 test('Table: a Menu trigger in a row does not make the row taller than its text', async ({ page }) => {
-  for (const size of ['sm', 'md', 'lg'] as const) {
+  for (const size of ['sm', 'md'] as const) {
     await open(page, { size });
     const cell = page.locator('#table tbody td').first();
     const [cellHeight, textHeight] = await cell.evaluate((element) => {

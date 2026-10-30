@@ -3,7 +3,7 @@ import { cx } from '../../internal/class-name';
 import { SizeContext, useSize } from '../../internal/size';
 import type { Size } from '../../types';
 
-const bodyText: Record<Size, string> = { sm: 'mu-body-sm', md: 'mu-body', lg: 'mu-body-lg' };
+const bodyText: Record<Size, string> = { sm: 'mu-caption', md: 'mu-body' };
 
 export interface RootProps extends ComponentPropsWithoutRef<'table'> {
   /** `sm` for dense admin lists. Sets row height and cell text. */

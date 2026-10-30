@@ -17,7 +17,7 @@ export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function Popo
 
 type PositionerProps = Pick<
   BasePopover.Positioner.Props,
-  'side' | 'align' | 'sideOffset' | 'alignOffset' | 'collisionPadding' | 'collisionAvoidance' | 'collisionBoundary' | 'sticky' | 'anchor' | 'positionMethod' | 'disableAnchorTracking'
+  'side' | 'align' | 'collisionAvoidance' | 'collisionBoundary' | 'sticky' | 'anchor' | 'positionMethod' | 'disableAnchorTracking'
 >;
 
 export interface PopupProps extends BasePopover.Popup.Props, PositionerProps {
@@ -48,7 +48,7 @@ export interface DescriptionProps extends BasePopover.Description.Props {}
 
 /** One line under the title, a `<p>`. */
 export const Description = forwardRef<HTMLParagraphElement, DescriptionProps>(function PopoverDescription({ className, ...props }, ref) {
-  return <BasePopover.Description ref={ref} {...props} className={withClass('mu-popover-description mu-body-sm', className)} />;
+  return <BasePopover.Description ref={ref} {...props} className={withClass('mu-popover-description mu-caption', className)} />;
 });
 
 export interface CloseProps extends BasePopover.Close.Props {}

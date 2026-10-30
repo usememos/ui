@@ -25,7 +25,7 @@ export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function Tool
 
 type PositionerProps = Pick<
   BaseTooltip.Positioner.Props,
-  'side' | 'align' | 'sideOffset' | 'alignOffset' | 'collisionPadding' | 'collisionAvoidance' | 'collisionBoundary' | 'sticky' | 'anchor' | 'positionMethod' | 'disableAnchorTracking'
+  'side' | 'align' | 'collisionAvoidance' | 'collisionBoundary' | 'sticky' | 'anchor' | 'positionMethod' | 'disableAnchorTracking'
 >;
 
 export interface PopupProps extends BaseTooltip.Popup.Props, PositionerProps {

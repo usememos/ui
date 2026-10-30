@@ -30,7 +30,7 @@ export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function Menu
 
 type PositionerProps = Pick<
   BaseMenu.Positioner.Props,
-  'side' | 'align' | 'sideOffset' | 'alignOffset' | 'collisionPadding' | 'collisionAvoidance' | 'collisionBoundary' | 'sticky' | 'anchor' | 'positionMethod' | 'disableAnchorTracking'
+  'side' | 'align' | 'collisionAvoidance' | 'collisionBoundary' | 'sticky' | 'anchor' | 'positionMethod' | 'disableAnchorTracking'
 >;
 
 export interface PopupProps extends BaseMenu.Popup.Props, PositionerProps {
@@ -136,7 +136,7 @@ export interface GroupLabelProps extends BaseMenu.GroupLabel.Props {}
 
 /** The name of a Group or RadioGroup. */
 export const GroupLabel = forwardRef<HTMLDivElement, GroupLabelProps>(function MenuGroupLabel({ className, ...props }, ref) {
-  return <BaseMenu.GroupLabel ref={ref} {...props} className={withClass('mu-menu-group-label mu-label-xs', className)} />;
+  return <BaseMenu.GroupLabel ref={ref} {...props} className={withClass('mu-menu-group-label mu-label-sm', className)} />;
 });
 
 export interface SeparatorProps extends BaseMenu.Separator.Props {}

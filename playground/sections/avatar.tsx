@@ -9,7 +9,7 @@ const photo = `data:image/svg+xml,${encodeURIComponent(
 export function AvatarSection({ size }: SectionProps) {
   return (
     <div className="pg-row">
-      {(['sm', 'md', 'lg'] as const).map((each) => (
+      {(['sm', 'md'] as const).map((each) => (
         <Avatar.Root size={each} key={each}>
           <Avatar.Fallback>JD</Avatar.Fallback>
         </Avatar.Root>
