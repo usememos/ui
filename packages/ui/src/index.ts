@@ -1,4 +1,5 @@
 export type { IconElement, Size, Tone } from './types';
+export { themeTokens } from './theme-tokens';
 
 export * as AlertDialog from './components/dialog/alert-dialog';
 export * as Avatar from './components/avatar';

@@ -7,6 +7,7 @@ import motionDocs from '../../../docs/motion.md?raw';
 import typographyDocs from '../../../docs/typography.md?raw';
 import foundationCss from '../src/styles/foundation.css?raw';
 import tokensCss from '../src/styles/tokens.css?raw';
+import { themeTokens } from '../src/theme-tokens';
 
 const themes = ['light', 'dark', 'contrast'] as const;
 type Theme = (typeof themes)[number];
@@ -91,6 +92,16 @@ describe('tokens.css', () => {
     for (const [name, value] of rows) {
       const token = `--mu-${unquote(name)}`;
       expect(normalize(staticRule.get(token) ?? ''), token).toBe(normalize(value ?? ''));
+    }
+  });
+
+  it('exports the color and shadow tokens as themeTokens, and every theme sets each one', () => {
+    const colors = tableRows(colorDocs).map(([name]) => `--mu-${unquote(name)}`);
+    const shadows = [...depthDocs.matchAll(/^\| `(shadow-[\w-]+)` \|/gm)].map(([, name = '']) => `--mu-${name}`);
+    expect(shadows).toHaveLength(5);
+    expect([...themeTokens]).toEqual([...colors, ...shadows]);
+    for (const theme of themes) {
+      expect(themeTokens.filter((name) => !themeRule[theme].has(name)), theme).toEqual([]);
     }
   });
 

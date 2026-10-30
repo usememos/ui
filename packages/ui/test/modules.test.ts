@@ -52,6 +52,12 @@ describe('published modules', () => {
     expect(files.filter((path) => path.startsWith('components/') && !path.startsWith('components/button/'))).toEqual([]);
   });
 
+  it('keep no component when an app imports only themeTokens', async () => {
+    const files = await bundledFiles(['themeTokens']);
+    expect(files).toContain('theme-tokens.js');
+    expect(files.filter((path) => path.startsWith('components/'))).toEqual([]);
+  });
+
   it('keep only the components an app uses through compound parts', async () => {
     const files = await bundledFiles(['Menu', 'Tooltip']);
     const components = [...new Set(files.filter((path) => path.startsWith('components/')).map((path) => path.split('/')[1]))].sort();
