@@ -47,7 +47,7 @@ An app sets only these tokens:
 - the five shadow tokens in [Depth](depth.md#shadow-tokens),
 - the three font tokens in [Typography](typography.md#fonts): `font-sans`, `font-display` and `font-mono`.
 
-Every other token (space, radius, sizes, layout widths, layers, motion) and every `mu-*` class rule is internal. Don't override them in an app, even though the cascade layer lets an app rule win: the products would drift apart, and the package's tests and screenshots cover only its own values. To change one element, pass `className` or `style` to that component (see [API conventions](building.md#api-conventions)).
+Every other token (space, radius, sizes, layout widths, layers, motion) and every `mu-*` class rule is internal. Read those tokens in app CSS (`var(--mu-space-4)`), but don't override them, even though the cascade layer lets an app rule win: the products would drift apart, and the package's tests and screenshots cover only its own values. To change one element, pass `className` or `style` to that component (see [API conventions](building.md#api-conventions)).
 
 ### App themes
 

@@ -18,14 +18,13 @@ Every control takes one `size` prop: `sm` or `md` (the default). There is no `lg
 Every spacing value comes from the 4px scale. The only exception is `inset` (2px), the gap between a well and the key inside it.
 
 - 0 inside a well.
-- 2px between items inside a cluster (a toolbar).
+- 2px (`inset`) between items inside a cluster (a toolbar).
 - 8px between controls.
 - 16px between fields.
 - 24px between groups.
 
 | Token | Value | Usage |
 | --- | --- | --- |
-| `space-0_5` | 2px | Only for insets: the gap between a well and the key inside it |
 | `space-1` | 4px | Gap between sm controls; icon to text in sm; the label-to-control gap in a field |
 | `space-2` | 8px | Gap between md controls; sm horizontal padding |
 | `space-3` | 12px | md horizontal padding |
@@ -35,6 +34,8 @@ Every spacing value comes from the 4px scale. The only exception is `inset` (2px
 | `space-8` | 32px | Gap between page regions |
 | `space-12` | 48px | Section rhythm on a website |
 | `space-16` | 64px | Hero and footer padding on a website |
+
+`space-8`, `space-12` and `space-16` are for an app's page layout. No component uses them.
 
 ## Radius
 
@@ -76,6 +77,9 @@ Buttons, inputs and badges are never pills.
 | `tooltip-width` | 240px | Maximum width of a tooltip |
 | `toast-width` | 360px | Width of a toast from `breakpoint-sm` up |
 | `dialog-width` | 440px | Default width of a dialog |
+
+- `content-width` and `sidebar-width` are suggested values for an app's page layout. No component uses them. An app that needs another width uses its own value instead of overriding the token.
+- The other widths are component defaults. To change one instance, pass `className` or `style` to it.
 
 ## Breakpoints
 
