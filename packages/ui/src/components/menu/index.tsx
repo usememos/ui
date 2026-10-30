@@ -1,10 +1,13 @@
 import { Menu as BaseMenu } from '@base-ui/react/menu';
 import { Check, ChevronRight } from 'lucide-react';
 import { forwardRef, type ReactNode } from 'react';
-import { withClass } from '../../internal/class-name';
+import { cx, withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
 import { SizeContext, useRowSize } from '../../internal/size';
 import type { IconElement, Size } from '../../types';
+import { menuClasses } from './classes';
+
+const classes = /* @__PURE__ */ menuClasses();
 
 export interface RootProps extends BaseMenu.Root.Props {
   /** Row height of every item: 24, 32 or 40px. */
@@ -45,7 +48,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({
   return (
     <BaseMenu.Portal container={container}>
       <BaseMenu.Positioner sideOffset={4} {...positioner} className="mu-positioner">
-        <BaseMenu.Popup ref={ref} {...rest} className={withClass(`mu-menu-popup mu-popup mu-popup-motion mu-base mu-s-${size}`, className)} />
+        <BaseMenu.Popup ref={ref} {...rest} className={withClass(menuClasses({ size }).popup, className)} />
       </BaseMenu.Positioner>
     </BaseMenu.Portal>
   );
@@ -64,8 +67,8 @@ function Row({ icon, shortcut, children }: RowProps) {
   return (
     <>
       {icon}
-      <span className="mu-menu-label">{children}</span>
-      {shortcut !== undefined ? <span className="mu-menu-shortcut">{shortcut}</span> : null}
+      <span className={classes.label}>{children}</span>
+      {shortcut !== undefined ? <span className={classes.shortcut}>{shortcut}</span> : null}
     </>
   );
 }
@@ -78,7 +81,7 @@ export interface ItemProps extends BaseMenu.Item.Props, RowProps {
 /** One action. */
 export const Item = forwardRef<HTMLDivElement, ItemProps>(function MenuItem({ icon, shortcut, danger = false, className, children, ...props }, ref) {
   return (
-    <BaseMenu.Item ref={ref} {...props} className={withClass(`mu-menu-item${danger ? ' mu-menu-item-danger' : ''}`, className)}>
+    <BaseMenu.Item ref={ref} {...props} className={withClass(danger ? classes.dangerItem : classes.item, className)}>
       <Row icon={icon} shortcut={shortcut}>
         {children}
       </Row>
@@ -91,7 +94,7 @@ export interface CheckboxItemProps extends BaseMenu.CheckboxItem.Props, RowProps
 /** An option that turns on or off, with a check at the end. Stays open on click. */
 export const CheckboxItem = forwardRef<HTMLDivElement, CheckboxItemProps>(function MenuCheckboxItem({ icon, shortcut, className, children, ...props }, ref) {
   return (
-    <BaseMenu.CheckboxItem ref={ref} {...props} className={withClass('mu-menu-item mu-menu-checkbox-item', className)}>
+    <BaseMenu.CheckboxItem ref={ref} {...props} className={withClass(cx(classes.item, 'mu-menu-checkbox-item'), className)}>
       <Row icon={icon} shortcut={shortcut}>
         {children}
       </Row>
@@ -114,7 +117,7 @@ export interface RadioItemProps extends BaseMenu.RadioItem.Props, RowProps {}
 /** One choice in a RadioGroup, with a check at the end when chosen. Stays open on click. */
 export const RadioItem = forwardRef<HTMLDivElement, RadioItemProps>(function MenuRadioItem({ icon, shortcut, className, children, ...props }, ref) {
   return (
-    <BaseMenu.RadioItem ref={ref} {...props} className={withClass('mu-menu-item mu-menu-radio-item', className)}>
+    <BaseMenu.RadioItem ref={ref} {...props} className={withClass(cx(classes.item, 'mu-menu-radio-item'), className)}>
       <Row icon={icon} shortcut={shortcut}>
         {children}
       </Row>
@@ -136,14 +139,14 @@ export interface GroupLabelProps extends BaseMenu.GroupLabel.Props {}
 
 /** The name of a Group or RadioGroup. */
 export const GroupLabel = forwardRef<HTMLDivElement, GroupLabelProps>(function MenuGroupLabel({ className, ...props }, ref) {
-  return <BaseMenu.GroupLabel ref={ref} {...props} className={withClass('mu-menu-group-label mu-label-sm', className)} />;
+  return <BaseMenu.GroupLabel ref={ref} {...props} className={withClass(classes.groupLabel, className)} />;
 });
 
 export interface SeparatorProps extends BaseMenu.Separator.Props {}
 
 /** A line between groups of items. */
 export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(function MenuSeparator({ className, ...props }, ref) {
-  return <BaseMenu.Separator ref={ref} {...props} className={withClass('mu-menu-separator', className)} />;
+  return <BaseMenu.Separator ref={ref} {...props} className={withClass(classes.separator, className)} />;
 });
 
 export type SubmenuRootProps = BaseMenu.SubmenuRoot.Props;
@@ -159,7 +162,7 @@ export interface SubmenuTriggerProps extends BaseMenu.SubmenuTrigger.Props {
 /** The row that opens a submenu, with a chevron at the end. */
 export const SubmenuTrigger = forwardRef<HTMLDivElement, SubmenuTriggerProps>(function MenuSubmenuTrigger({ icon, className, children, ...props }, ref) {
   return (
-    <BaseMenu.SubmenuTrigger ref={ref} {...props} className={withClass('mu-menu-item mu-menu-submenu-trigger', className)}>
+    <BaseMenu.SubmenuTrigger ref={ref} {...props} className={withClass(cx(classes.item, 'mu-menu-submenu-trigger'), className)}>
       <Row icon={icon}>{children}</Row>
       <ChevronRight className="mu-menu-chevron" aria-hidden />
     </BaseMenu.SubmenuTrigger>

@@ -3,9 +3,9 @@
   display: inline-block;
   flex: none;
   box-sizing: border-box;
-  width: var(--icon);
-  height: var(--icon);
-  border: var(--icon-stroke) solid currentColor;
+  width: var(--mu-row-icon);
+  height: var(--mu-row-icon);
+  border: var(--mu-row-icon-stroke) solid currentColor;
   border-top-color: transparent;
   border-radius: var(--mu-radius-full);
   animation: mu-spin var(--mu-duration-spin) linear infinite;

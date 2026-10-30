@@ -5,7 +5,7 @@
   gap: var(--mu-space-1);
   box-sizing: border-box;
   height: var(--mu-control-xs);
-  padding: 0 var(--px);
+  padding: 0 var(--mu-row-padding);
   border-radius: var(--mu-radius-sm);
   white-space: nowrap;
   vertical-align: middle;

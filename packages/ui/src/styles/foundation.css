@@ -4,10 +4,47 @@
  * first, then each component's stylesheet.
  */
 
-/* Sizes: one class sets height, padding, type, radius, gaps and icons together. See docs/layout.md. */
-.mu-s-xs { --h: var(--mu-control-xs); --px: 6px; --pxi: var(--mu-space-1); --fs: 12px; --lh: 16px; --r: var(--mu-radius-sm); --gap: var(--mu-space-1); --icon: var(--mu-icon-xs); --icon-stroke: 1.25px; --box: 14px; }
-.mu-s-sm { --h: var(--mu-control-sm); --px: var(--mu-space-2); --pxi: 6px; --fs: 13px; --lh: 18px; --r: var(--mu-radius-sm); --gap: var(--mu-space-1); --icon: var(--mu-icon-sm); --icon-stroke: 1.25px; --box: 16px; }
-.mu-s-md { --h: var(--mu-control-md); --px: var(--mu-space-3); --pxi: 10px; --fs: 14px; --lh: 20px; --r: var(--mu-radius-md); --gap: 6px; --icon: var(--mu-icon-md); --icon-stroke: 1.5px; --box: 18px; }
+/*
+ * Sizes: one class sets height, padding, type, radius, gaps and icons together,
+ * as the row variables that components and apps read. See docs/layout.md and
+ * docs/custom-components.md#row-variables.
+ */
+.mu-s-xs {
+  --mu-row-height: var(--mu-control-xs);
+  --mu-row-padding: 6px;
+  --mu-row-padding-icon: var(--mu-space-1);
+  --mu-row-font-size: 12px;
+  --mu-row-line-height: 16px;
+  --mu-row-radius: var(--mu-radius-sm);
+  --mu-row-gap: var(--mu-space-1);
+  --mu-row-icon: var(--mu-icon-xs);
+  --mu-row-icon-stroke: 1.25px;
+  --mu-row-check-box: 14px;
+}
+.mu-s-sm {
+  --mu-row-height: var(--mu-control-sm);
+  --mu-row-padding: var(--mu-space-2);
+  --mu-row-padding-icon: 6px;
+  --mu-row-font-size: 13px;
+  --mu-row-line-height: 18px;
+  --mu-row-radius: var(--mu-radius-sm);
+  --mu-row-gap: var(--mu-space-1);
+  --mu-row-icon: var(--mu-icon-sm);
+  --mu-row-icon-stroke: 1.25px;
+  --mu-row-check-box: 16px;
+}
+.mu-s-md {
+  --mu-row-height: var(--mu-control-md);
+  --mu-row-padding: var(--mu-space-3);
+  --mu-row-padding-icon: 10px;
+  --mu-row-font-size: 14px;
+  --mu-row-line-height: 20px;
+  --mu-row-radius: var(--mu-radius-md);
+  --mu-row-gap: 6px;
+  --mu-row-icon: var(--mu-icon-md);
+  --mu-row-icon-stroke: 1.5px;
+  --mu-row-check-box: 18px;
+}
 
 /* Depth, in four roles: wells hold a state, keys can be pressed, popups float. Light comes from the top. See docs/depth.md. */
 .mu-recessed { background-color: var(--mu-well); box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track); }
@@ -25,7 +62,7 @@
 }
 
 /* Base text for every component. */
-.mu-base { font-family: var(--mu-font-sans); font-size: var(--fs, 14px); line-height: var(--lh, 20px); font-weight: 500; letter-spacing: 0; color: var(--mu-ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-tap-highlight-color: transparent; }
+.mu-base { font-family: var(--mu-font-sans); font-size: var(--mu-row-font-size, 14px); line-height: var(--mu-row-line-height, 20px); font-weight: 500; letter-spacing: 0; color: var(--mu-ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-tap-highlight-color: transparent; }
 .mu-base ::selection, .mu-base::selection { background: var(--mu-selection); }
 
 /* Text for screen readers only, such as the head of a column of row actions. */
@@ -41,7 +78,7 @@
 }
 
 /* Icons: Lucide, sized by the control and stroked in screen pixels at every size. See docs/icons.md. */
-.mu-icon, .mu-base svg.lucide, .mu-prose svg.lucide { width: var(--icon, 16px); height: var(--icon, 16px); flex: none; display: block; stroke-width: var(--icon-stroke, 1.5px); }
+.mu-icon, .mu-base svg.lucide, .mu-prose svg.lucide { width: var(--mu-row-icon, 16px); height: var(--mu-row-icon, 16px); flex: none; display: block; stroke-width: var(--mu-row-icon-stroke, 1.5px); }
 .mu-icon *, .mu-base svg.lucide *, .mu-prose svg.lucide * { vector-effect: non-scaling-stroke; }
 
 /* Type scale. See docs/typography.md. */

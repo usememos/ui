@@ -3,11 +3,11 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
-  min-height: var(--h);
+  min-height: var(--mu-row-height);
   margin: 0;
-  padding: calc((var(--h) - var(--lh)) / 2) var(--px);
+  padding: calc((var(--mu-row-height) - var(--mu-row-line-height)) / 2) var(--mu-row-padding);
   border: 0;
-  border-radius: var(--r);
+  border-radius: var(--mu-row-radius);
   color: var(--mu-ink);
   background-color: var(--mu-surface);
   box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
@@ -17,8 +17,8 @@
 }
 .mu-textarea::placeholder { color: var(--mu-ink-muted); opacity: 1; }
 @media (hover: hover) {
-  .mu-textarea:hover:not([data-disabled]) { box-shadow: inset 0 0 0 1px var(--mu-ink-muted), var(--mu-shadow-track); }
+  .mu-textarea:hover:not([data-disabled], [aria-disabled="true"]) { box-shadow: inset 0 0 0 1px var(--mu-ink-muted), var(--mu-shadow-track); }
 }
 .mu-textarea:focus { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-width); }
-.mu-textarea[data-invalid] { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-track); }
-.mu-textarea[data-disabled] { opacity: 0.45; cursor: not-allowed; }
+.mu-textarea:is([data-invalid], [aria-invalid="true"]) { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-track); }
+.mu-textarea:is([data-disabled], [aria-disabled="true"]) { opacity: 0.45; cursor: not-allowed; }

@@ -8,22 +8,22 @@
   text-align: start;
 }
 
-.mu-table-head, .mu-table-cell { padding: 0 var(--px); text-align: start; vertical-align: middle; }
+.mu-table-head, .mu-table-cell { padding: 0 var(--mu-row-padding); text-align: start; vertical-align: middle; }
 
 .mu-table-head {
-  height: var(--h);
+  height: var(--mu-row-height);
   color: var(--mu-ink-muted);
   white-space: nowrap;
   border-bottom: 1px solid var(--mu-line);
 }
-.mu-table-cell { padding-block: calc((var(--h) - var(--lh)) / 2 + var(--mu-space-1)); }
+.mu-table-cell { padding-block: calc((var(--mu-row-height) - var(--mu-row-line-height)) / 2 + var(--mu-space-1)); }
 .mu-table-body > .mu-table-row + .mu-table-row > .mu-table-cell { border-top: 1px solid var(--mu-line); }
 .mu-table-body > .mu-table-row:hover > .mu-table-cell { background-color: var(--mu-hover); }
 
 /* A control in a cell (a ghost Menu trigger) overlaps the cell's padding, so rows keep their height. */
-.mu-table-cell > .mu-button { margin-block: calc((var(--lh) - var(--h)) / 2); vertical-align: top; }
+.mu-table-cell > .mu-button { margin-block: calc((var(--mu-row-line-height) - var(--mu-row-height)) / 2); vertical-align: top; }
 
 .mu-table-num { text-align: end; }
 .mu-table-muted { color: var(--mu-ink-muted); }
 
-.mu-table-caption { caption-side: bottom; padding: var(--mu-space-2) var(--px) 0; color: var(--mu-ink-muted); text-align: start; }
+.mu-table-caption { caption-side: bottom; padding: var(--mu-space-2) var(--mu-row-padding) 0; color: var(--mu-ink-muted); text-align: start; }

@@ -2,6 +2,9 @@ import { Popover as BasePopover } from '@base-ui/react/popover';
 import { forwardRef } from 'react';
 import { withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
+import { popoverClasses } from './classes';
+
+const classes = /* @__PURE__ */ popoverClasses();
 
 export type RootProps = BasePopover.Root.Props;
 
@@ -31,7 +34,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function PopoverPopu
   return (
     <BasePopover.Portal container={container}>
       <BasePopover.Positioner sideOffset={6} {...positioner} className="mu-positioner">
-        <BasePopover.Popup ref={ref} {...rest} className={withClass('mu-popover-popup mu-popup mu-popup-motion mu-base mu-s-md', className)} />
+        <BasePopover.Popup ref={ref} {...rest} className={withClass(classes.popup, className)} />
       </BasePopover.Positioner>
     </BasePopover.Portal>
   );
@@ -41,14 +44,14 @@ export interface TitleProps extends BasePopover.Title.Props {}
 
 /** The popover's heading, an `<h2>`. Names the popup for screen readers. */
 export const Title = forwardRef<HTMLHeadingElement, TitleProps>(function PopoverTitle({ className, ...props }, ref) {
-  return <BasePopover.Title ref={ref} {...props} className={withClass('mu-popover-title mu-label', className)} />;
+  return <BasePopover.Title ref={ref} {...props} className={withClass(classes.title, className)} />;
 });
 
 export interface DescriptionProps extends BasePopover.Description.Props {}
 
 /** One line under the title, a `<p>`. */
 export const Description = forwardRef<HTMLParagraphElement, DescriptionProps>(function PopoverDescription({ className, ...props }, ref) {
-  return <BasePopover.Description ref={ref} {...props} className={withClass('mu-popover-description mu-caption', className)} />;
+  return <BasePopover.Description ref={ref} {...props} className={withClass(classes.description, className)} />;
 });
 
 export interface CloseProps extends BasePopover.Close.Props {}

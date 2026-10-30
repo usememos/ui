@@ -140,7 +140,7 @@ describe('foundation.css', () => {
   });
 
   it('has no type class beyond docs/typography.md', () => {
-    // A type class sets a fixed font size; .mu-base reads the size row's --fs instead.
+    // A type class sets a fixed font size; .mu-base reads the size row's --mu-row-font-size instead.
     const typeClasses = [...styleRules.keys()].filter((selector) => /^\.mu-[\w-]+$/.test(selector) && /^\d/.test(styleRules.get(selector)!.get('font-size') ?? ''));
     expect(typeClasses.map((selector) => selector.slice(4)).sort()).toEqual([...typeStyles].sort());
   });

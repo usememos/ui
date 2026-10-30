@@ -11,4 +11,4 @@ body { margin: 0; background: var(--mu-canvas); color: var(--mu-ink); font-famil
 .pg-box { width: 120px; height: 56px; display: grid; place-items: center; border-radius: var(--mu-radius-lg); }
 .pg-well { width: 120px; height: 32px; padding: var(--mu-inset); box-sizing: border-box; border-radius: var(--mu-radius-md); display: flex; }
 .pg-well > span { flex: 1; border-radius: var(--mu-radius-sm); display: grid; place-items: center; }
-.pg-control { height: var(--h); padding: 0 var(--px); display: inline-flex; align-items: center; gap: var(--gap); border-radius: var(--r); }
+.pg-control { height: var(--mu-row-height); padding: 0 var(--mu-row-padding); display: inline-flex; align-items: center; gap: var(--mu-row-gap); border-radius: var(--mu-row-radius); }

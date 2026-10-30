@@ -10,8 +10,8 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: var(--box);
-  height: var(--box);
+  width: var(--mu-row-check-box);
+  height: var(--mu-row-check-box);
   border-radius: var(--mu-radius-full);
   background-color: var(--mu-well);
   box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
@@ -26,8 +26,8 @@
 .mu-radio[data-disabled] { opacity: 0.45; cursor: not-allowed; }
 
 .mu-radio-indicator {
-  width: calc(var(--box) / 2.5);
-  height: calc(var(--box) / 2.5);
+  width: calc(var(--mu-row-check-box) / 2.5);
+  height: calc(var(--mu-row-check-box) / 2.5);
   border-radius: var(--mu-radius-full);
   background-color: var(--mu-on-primary);
   transition: opacity var(--mu-duration-fade) var(--mu-ease-out) var(--mu-duration-press), scale var(--mu-duration-fade) var(--mu-ease-out) var(--mu-duration-press);

@@ -1,10 +1,10 @@
 /* Combobox: an Input that filters a list below it as people type. See docs/components/combobox.md. */
-.mu-input-root.mu-combobox-input-root { padding-inline-end: calc(var(--pxi) - var(--mu-space-1)); }
+.mu-input-root.mu-combobox-input-root { padding-inline-end: calc(var(--mu-row-padding-icon) - var(--mu-space-1)); }
 .mu-combobox-trigger {
   display: grid;
   place-items: center;
-  width: calc(var(--icon) + var(--mu-space-2));
-  height: calc(var(--icon) + var(--mu-space-2));
+  width: calc(var(--mu-row-icon) + var(--mu-space-2));
+  height: calc(var(--mu-row-icon) + var(--mu-space-2));
   margin: 0;
   padding: 0;
   border: 0;
@@ -39,8 +39,8 @@
   align-items: center;
   gap: var(--mu-space-2);
   box-sizing: border-box;
-  height: var(--h);
-  padding: 0 var(--px);
+  height: var(--mu-row-height);
+  padding: 0 var(--mu-row-padding);
   border-radius: calc(var(--mu-radius-xl) - var(--mu-space-1));
   color: var(--mu-ink);
   font-weight: 400;
@@ -49,15 +49,15 @@
   user-select: none;
   outline: 0;
 }
-.mu-combobox-item:has(> svg:first-child) { padding-inline-start: var(--pxi); }
+.mu-combobox-item:has(> svg:first-child) { padding-inline-start: var(--mu-row-padding-icon); }
 .mu-combobox-item > svg { color: var(--mu-ink-muted); }
 .mu-combobox-item[data-highlighted] { background-color: var(--mu-hover); }
 .mu-combobox-item[data-disabled] { opacity: 0.45; }
 .mu-combobox-item-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.mu-combobox-indicator { display: grid; flex: none; place-items: center; width: var(--icon); height: var(--icon); margin-inline-start: var(--mu-space-2); color: var(--mu-ink); }
+.mu-combobox-indicator { display: grid; flex: none; place-items: center; width: var(--mu-row-icon); height: var(--mu-row-icon); margin-inline-start: var(--mu-space-2); color: var(--mu-ink); }
 
 /* Base UI keeps Empty mounted so screen readers hear it; it only takes room when it has text. */
 .mu-combobox-empty:not(:empty) { padding: var(--mu-space-3) var(--mu-space-4); color: var(--mu-ink-muted); }
 
-.mu-combobox-group-label { padding: var(--mu-space-2) var(--px) var(--mu-space-1); color: var(--mu-ink-muted); }
+.mu-combobox-group-label { padding: var(--mu-space-2) var(--mu-row-padding) var(--mu-space-1); color: var(--mu-ink-muted); }
 .mu-combobox-separator { height: 1px; margin: var(--mu-space-1) calc(-1 * var(--mu-space-1)); background-color: var(--mu-line); }

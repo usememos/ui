@@ -2,28 +2,29 @@
 .mu-input-root {
   display: flex;
   align-items: center;
-  gap: var(--gap);
+  gap: var(--mu-row-gap);
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
-  height: var(--h);
-  padding: 0 var(--px);
-  border-radius: var(--r);
+  height: var(--mu-row-height);
+  padding: 0 var(--mu-row-padding);
+  border-radius: var(--mu-row-radius);
   color: var(--mu-ink);
   background-color: var(--mu-surface);
   box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
   cursor: text;
   transition: box-shadow var(--mu-duration-fade) var(--mu-ease-out);
 }
-.mu-input-root:has(> .mu-input-prefix) { padding-inline-start: var(--pxi); }
-.mu-input-root:has(> .mu-input-suffix) { padding-inline-end: var(--pxi); }
+.mu-input-root:has(> .mu-input-prefix) { padding-inline-start: var(--mu-row-padding-icon); }
+.mu-input-root:has(> .mu-input-suffix) { padding-inline-end: var(--mu-row-padding-icon); }
 
 @media (hover: hover) {
-  .mu-input-root:hover:not(:has(> [data-disabled])) { box-shadow: inset 0 0 0 1px var(--mu-ink-muted), var(--mu-shadow-track); }
+  .mu-input-root:hover:not([data-disabled], [aria-disabled="true"], :has(> [data-disabled])) { box-shadow: inset 0 0 0 1px var(--mu-ink-muted), var(--mu-shadow-track); }
 }
-.mu-input-root:has(> .mu-input:focus) { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-width); }
-.mu-input-root:has(> [data-invalid]) { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-track); }
-.mu-input-root:has(> [data-disabled]) { opacity: 0.45; cursor: not-allowed; }
+/* An app's own field, styled with inputClasses(), has no .mu-input inside: it takes focus itself or in any child, and states come as attributes on the box. */
+.mu-input-root:has(> .mu-input:focus), .mu-input-root:not(:has(> .mu-input)):focus-within { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-width); }
+.mu-input-root:is([data-invalid], [aria-invalid="true"], :has(> [data-invalid])) { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-track); }
+.mu-input-root:is([data-disabled], [aria-disabled="true"], :has(> [data-disabled])) { opacity: 0.45; cursor: not-allowed; }
 
 .mu-input {
   flex: 1;

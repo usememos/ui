@@ -1,6 +1,6 @@
 /* Switch: a pill well with a round knob; the well fills with primary when on. See docs/components/switch.md. */
 .mu-switch {
-  --switch-h: calc(var(--box) + var(--mu-inset));
+  --switch-h: calc(var(--mu-row-check-box) + var(--mu-inset));
   --switch-w: calc(var(--switch-h) * 1.7);
   --knob: calc(var(--switch-h) - 2 * var(--mu-inset));
   position: relative;

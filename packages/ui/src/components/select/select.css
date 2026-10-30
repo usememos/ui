@@ -1,5 +1,5 @@
 /* Select: a neutral key that opens a list with a check on the current value. See docs/components/select.md. */
-.mu-select-trigger { justify-content: space-between; min-width: 0; padding-inline-end: var(--pxi); text-align: start; }
+.mu-select-trigger { justify-content: space-between; min-width: 0; padding-inline-end: var(--mu-row-padding-icon); text-align: start; }
 .mu-select-value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mu-select-value[data-placeholder] { color: var(--mu-ink-muted); font-weight: 400; }
 .mu-select-icon { display: flex; flex: none; color: var(--mu-ink-muted); }
@@ -20,8 +20,8 @@
   align-items: center;
   gap: var(--mu-space-2);
   box-sizing: border-box;
-  height: var(--h);
-  padding: 0 var(--px);
+  height: var(--mu-row-height);
+  padding: 0 var(--mu-row-padding);
   border-radius: calc(var(--mu-radius-xl) - var(--mu-space-1));
   color: var(--mu-ink);
   font-weight: 400;
@@ -30,13 +30,13 @@
   user-select: none;
   outline: 0;
 }
-.mu-select-item:has(> svg:first-child) { padding-inline-start: var(--pxi); }
+.mu-select-item:has(> svg:first-child) { padding-inline-start: var(--mu-row-padding-icon); }
 .mu-select-item > svg { color: var(--mu-ink-muted); }
 .mu-select-item[data-highlighted] { background-color: var(--mu-hover); }
 .mu-select-item[data-disabled] { opacity: 0.45; }
 .mu-select-item-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.mu-select-indicator { display: grid; flex: none; place-items: center; width: var(--icon); height: var(--icon); margin-inline-start: var(--mu-space-2); color: var(--mu-ink); }
+.mu-select-indicator { display: grid; flex: none; place-items: center; width: var(--mu-row-icon); height: var(--mu-row-icon); margin-inline-start: var(--mu-space-2); color: var(--mu-ink); }
 
-.mu-select-group-label { padding: var(--mu-space-2) var(--px) var(--mu-space-1); color: var(--mu-ink-muted); }
+.mu-select-group-label { padding: var(--mu-space-2) var(--mu-row-padding) var(--mu-space-1); color: var(--mu-ink-muted); }
 .mu-select-separator { height: 1px; margin: var(--mu-space-1) calc(-1 * var(--mu-space-1)); background-color: var(--mu-line); }
 .mu-select-scroll-arrow { display: grid; place-items: center; height: var(--mu-space-4); color: var(--mu-ink-muted); }

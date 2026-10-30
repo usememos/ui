@@ -6,8 +6,8 @@
   justify-content: center;
   overflow: hidden;
   box-sizing: border-box;
-  width: var(--h);
-  height: var(--h);
+  width: var(--mu-row-height);
+  height: var(--mu-row-height);
   border-radius: var(--mu-radius-full);
   color: var(--mu-ink-muted);
   background-color: var(--mu-well);

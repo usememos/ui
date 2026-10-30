@@ -14,12 +14,12 @@
 
 /* Collapsed, the toasts behind peek out above the front one; hovering or focusing the viewport fans them out. */
 .mu-toast {
-  --gap: var(--mu-space-3);
+  --mu-row-gap: var(--mu-space-3);
   --peek: var(--mu-space-2);
   --scale: max(0, 1 - var(--toast-index) * 0.05);
   --shrink: calc(1 - var(--scale));
   --height: var(--toast-frontmost-height, var(--toast-height));
-  --offset-y: calc(var(--toast-offset-y) * -1 - var(--toast-index) * var(--gap) + var(--toast-swipe-movement-y));
+  --offset-y: calc(var(--toast-offset-y) * -1 - var(--toast-index) * var(--mu-row-gap) + var(--toast-swipe-movement-y));
   position: absolute;
   right: 0;
   bottom: 0;
@@ -48,7 +48,7 @@
 .mu-toast[data-limited] { opacity: 0; }
 .mu-toast:focus-visible { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-width); }
 /* Keeps the stack expanded while the pointer crosses the gap between toasts. */
-.mu-toast::after { content: ""; position: absolute; top: 100%; left: 0; width: 100%; height: calc(var(--gap) + 1px); }
+.mu-toast::after { content: ""; position: absolute; top: 100%; left: 0; width: 100%; height: calc(var(--mu-row-gap) + 1px); }
 
 .mu-toast-content {
   display: flex;
@@ -63,13 +63,13 @@
 .mu-toast-content[data-behind] { opacity: 0; }
 .mu-toast-content[data-expanded] { opacity: 1; }
 
-.mu-toast-icon { margin-block: calc((var(--h) - var(--icon)) / 2); color: var(--mu-ink-muted); }
+.mu-toast-icon { margin-block: calc((var(--mu-row-height) - var(--mu-row-icon)) / 2); color: var(--mu-ink-muted); }
 /* Each item sits centered on a row as tall as a control, so the icon, the title and the buttons line up. */
 .mu-toast-success .mu-toast-icon { color: var(--mu-success); }
 .mu-toast-warning .mu-toast-icon { color: var(--mu-warning); }
 .mu-toast-danger .mu-toast-icon { color: var(--mu-danger); }
 
-.mu-toast-text { display: flex; flex: 1; flex-direction: column; min-width: 0; padding-block: calc((var(--h) - var(--lh)) / 2); }
+.mu-toast-text { display: flex; flex: 1; flex-direction: column; min-width: 0; padding-block: calc((var(--mu-row-height) - var(--mu-row-line-height)) / 2); }
 .mu-toast-title { margin: 0; color: var(--mu-ink); }
 .mu-toast-description { margin: 0; color: var(--mu-ink-muted); }
 .mu-toast-action, .mu-toast-close { margin-block: calc((var(--mu-control-md) - var(--mu-control-sm)) / 2); }

@@ -35,3 +35,5 @@
 
 body { background: var(--mu-canvas); }
 .app { display: grid; gap: 16px; padding: 24px; }
+.app-custom { display: grid; justify-items: start; gap: 16px; }
+.app-bare-input { flex: 1; min-width: 0; height: 100%; background: none; outline: none; font: inherit; color: inherit; }

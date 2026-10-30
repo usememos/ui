@@ -5,8 +5,8 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: var(--box);
-  height: var(--box);
+  width: var(--mu-row-check-box);
+  height: var(--mu-row-check-box);
   border-radius: var(--mu-radius-sm);
   color: var(--mu-on-primary);
   background-color: var(--mu-well);
@@ -24,8 +24,8 @@
 .mu-checkbox-indicator { display: flex; transition: opacity var(--mu-duration-fade) var(--mu-ease-out) var(--mu-duration-press), scale var(--mu-duration-fade) var(--mu-ease-out) var(--mu-duration-press); }
 .mu-checkbox-indicator[data-starting-style], .mu-checkbox-indicator[data-ending-style] { opacity: 0; scale: 0.6; }
 .mu-checkbox-indicator > svg {
-  width: calc(var(--box) - 2 * var(--mu-inset));
-  height: calc(var(--box) - 2 * var(--mu-inset));
+  width: calc(var(--mu-row-check-box) - 2 * var(--mu-inset));
+  height: calc(var(--mu-row-check-box) - 2 * var(--mu-inset));
   stroke-width: 2;
 }
 .mu-checkbox-indicator > svg * { vector-effect: non-scaling-stroke; }
