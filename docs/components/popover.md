@@ -48,5 +48,5 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 ## Style
 
 - `mu-popup` (`surface`, `shadow-pop`, `radius-xl`), `space-4` padding, `popover-width` wide. Children stack `space-3` apart.
-- Title: `label`. Description: `body-sm` in `ink-muted`, `space-1` under the title.
+- Title: `label`. Description: `caption` in `ink-muted`, `space-1` under the title.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.

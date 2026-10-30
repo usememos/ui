@@ -6,7 +6,8 @@ How the components go together. Each product builds its screens from these patte
 
 - From `breakpoint-md` (1024px) up: a fixed sidebar of `sidebar-width` (240px). Below it, the sidebar is a sheet opened from a ghost button.
 - Content sits in a column of at most `content-width` (720px), padded `space-4` on phones and `space-6` on desktop.
-- A page header is a `heading-2` with an optional `body` line under it, and the page's one primary action at the right.
+- A page header is a `heading` with an optional `body` line under it, and the page's one primary action at the right. `heading` appears once per page.
+- Sections inside a page have a `label` title (14px, 500) with `space-6` above it and `space-2` below. Section titles are never larger than the text around them; space and grouping set them apart. A section's rows use `label` for the name and `caption` in `ink-muted` for the description.
 
 ## Form
 

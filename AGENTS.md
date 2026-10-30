@@ -35,6 +35,7 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 - **Ink, not a hue.** `primary` (near-black in Light, near-white in Dark) is the only emphasis. `accent` (quiet blue) is only for focus, links and selection, never a fill. `success`, `warning` and `danger` are only for status.
 - **Depth means behavior.** Recessed holds a value, raised can be pressed, popups float, everything else is flat. Text inputs are flat. Use the `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` classes before writing new shadows. See [Depth](docs/depth.md).
 - **Three themes.** Every change works in Light, Dark and High contrast (`data-theme="light" | "dark" | "contrast"`), and under `prefers-reduced-motion`.
+- **Few sizes, two weights.** Text uses the nine styles in [Typography](docs/typography.md): 13, 14, 16 and 20px in apps (32px only for a website hero), weights 400 and 500 (600 only for bold and headings inside Prose). No other size or weight without a written reason in that page.
 - **Sizes come in rows.** `size` is `sm | md | lg` (24, 32, 40px; md default) and sets height, padding, text, icon and radius together.
 - **4px grid.** The only 2px value is `inset`.
 - **Lucide icons as elements** (`icon={<Pin />}`). No `size` or `strokeWidth` props: CSS sets 14/16/20px and a 1.25px (sm) or 1.5px (md, lg) screen-pixel stroke.

@@ -2,14 +2,18 @@
 
 ## Rules
 
-- The platform's UI font for everything (San Francisco on Apple, Segoe UI on Windows, Roboto on Android), smoothed with antialiasing. The package ships no font files.
-- Controls and labels are weight 500. Running text is 400. Headings are 600.
-- Control text scales with the control size: 12px at sm, 14px at md, 16px at lg.
-- `body-sm` (13px) is for dense secondary text. `label-xs` (11px) is for kbd and counts inside badges only.
-- Reading text (`Prose`) is 15px on a 24px line. `sm` prose is 14px on a 22px line, for dense lists.
-- Letter spacing is 0 up to 20px, −0.01em for `heading-2` and `heading-1`, and −0.02em for `display`.
+- Use few sizes and few weights. App UI uses four sizes (13, 14, 16 and 20px) and two weights (400 and 500). Hierarchy comes from text color, spacing and grouping first, then from weight, and from size last.
+- Weight 400 is for running text and values people typed or chose. Weight 500 is for labels, controls, titles and headings. The UI uses no 600 or 700. The one exception is [Prose](components/prose.md): bold text and headings that people wrote are 600, because 500 does not read as bold in system fonts.
+- 20px (`heading`) is for the page title only, once per page. 32px (`display`) is for the hero headline on a website only, once per page. Nothing else is larger than 16px.
+- A section title inside a page or panel is `label` (14px, 500), set apart by space above it, not by a larger size. See [Page](patterns.md#page).
+- Secondary text (descriptions, helper text, metadata) is `caption` (13px) in `ink-muted`. There is no text smaller than 13px.
+- Control text scales with the control size: 13px at sm, 14px at md, 16px at lg.
+- Reading text (`Prose`) is 16px on a 24px line. `sm` prose is 14px on a 22px line, for dense lists.
+- Letter spacing is 0, except −0.02em for `display`.
 - Use `font-variant-numeric: tabular-nums` wherever numbers change or line up: counts, times, tables.
-- Hierarchy comes from text color (`ink`, `ink-muted`) before size or weight. Selected and unselected states never change weight, so labels don't shift.
+- Selected and unselected states never change weight, so labels don't shift.
+- Adding a size, a weight or a style needs a written reason in this page and the maintainer's sign-off.
+- The platform's UI font for everything (San Francisco on Apple, Segoe UI on Windows, Roboto on Android), smoothed with antialiasing. The package ships no font files.
 
 ## Fonts
 
@@ -23,31 +27,41 @@ The package ships no font files and loads no remote font: text uses the system U
 
 ## Scale
 
+Nine styles over five sizes. Each size has a 400 style for text and a 500 style for labels; the three headings are 500.
+
 ### Text (`--mu-font-sans`)
 
 | Style | Size / line | Weight | Usage |
 | --- | --- | --- | --- |
-| `label-xs` | 11 / 16px | 500 | Kbd and counts inside badges only. Never running text |
-| `caption` | 12 / 16px | 400 | Metadata, timestamps, helper text. In `ink-muted` |
-| `label-sm` | 12 / 16px | 500 | Labels inside sm controls |
-| `body-sm` | 13 / 18px | 400 | Dense secondary text: toast descriptions, sm menu rows, dense table cells |
-| `body` | 14 / 20px | 400 | Default running text in app UI |
-| `label` | 14 / 20px | 500 | Labels inside md controls, nav rows, buttons. The default control text |
-| `body-lg` | 16 / 24px | 400 | Reading text on marketing pages and other long-form copy |
+| `caption` | 13 / 18px | 400 | Secondary text: field descriptions and errors, metadata, timestamps, toast and popover descriptions, table captions, sm table cells. Usually in `ink-muted` |
+| `label-sm` | 13 / 18px | 500 | Labels inside sm controls, badges, tooltips, kbd, group labels in menus and lists, table heads |
+| `body` | 14 / 20px | 400 | Default running text in app UI; dialog descriptions |
+| `label` | 14 / 20px | 500 | Labels inside md controls, field labels, nav rows, buttons, section titles, popover and toast titles. The default control text |
+| `body-lg` | 16 / 24px | 400 | lg table cells; text on marketing pages |
 | `label-lg` | 16 / 24px | 500 | Labels inside lg controls |
 
 ### Headings (`--mu-font-display`)
 
 | Style | Size / line | Weight | Letter spacing | Usage |
 | --- | --- | --- | --- | --- |
-| `title` | 18 / 28px | 600 | 0 | Section titles inside panels; dialog titles; empty-state titles |
-| `heading-3` | 20 / 28px | 600 | 0 | Page sub-heads |
-| `heading-2` | 24 / 32px | 600 | −0.01em | Page titles in an app |
-| `heading-1` | 32 / 40px | 600 | −0.01em | Marketing and onboarding headings |
-| `display` | 40 / 48px | 600 | −0.02em | Hero headline on a website only |
+| `title` | 16 / 24px | 500 | 0 | Dialog titles; empty-state titles |
+| `heading` | 20 / 28px | 500 | 0 | The page title in an app or on a website. One per page |
+| `display` | 32 / 40px | 500 | −0.02em | The hero headline on a website. Never in an app |
 
-Each style is also a class with the `mu-` prefix (`.mu-caption`, `.mu-heading-2`) in `@usememos/ui/styles.css`, which sets the family, size, line height, weight and, where listed, letter spacing.
+Each style is also a class with the `mu-` prefix (`.mu-caption`, `.mu-heading`) in `@usememos/ui/styles.css`, which sets the family, size, line height, weight and, where listed, letter spacing.
+
+### Removed styles
+
+The scale used to have 12 sizes and 3 weights. These styles were removed; use the replacement.
+
+| Removed | Was | Use |
+| --- | --- | --- |
+| `label-xs` | 11 / 16px, 500 | `label-sm` |
+| `body-sm` | 13 / 18px, 400 | `caption` |
+| `heading-3` | 20 / 28px, 600 | `heading`, or `label` for a section title |
+| `heading-2` | 24 / 32px, 600 | `heading` |
+| `heading-1` | 32 / 40px, 600 | `display` on a website; `heading` in an app |
 
 ## Prose
 
-Rendered content (notes, comments, changelogs, website pages) uses the `Prose` styles, not the scale above. See [Prose](components/prose.md).
+Rendered content (notes, comments, changelogs, website pages) uses the `Prose` styles, not the scale above. It uses the same sizes: 16px text (14px at `sm`), 20px `h1`, 16px `h2`–`h6`, and 13px table heads. See [Prose](components/prose.md).

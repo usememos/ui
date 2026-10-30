@@ -5,7 +5,7 @@
 1. **Content first.** The interface stays gray, so people's words, tags and images are the color on the page.
 2. **Ink is the emphasis.** The primary action, a checked box and a switch that is on use `primary` (near-black in Light, near-white in Dark). There is no brand hue in controls.
 3. **Depth means behavior.** Recessed parts hold a state (wells, tracks). Raised parts can be pressed (buttons, keys, knobs). Flat parts are content, including text fields. Never add depth for decoration. See [Depth](depth.md).
-4. **Calm by default.** Hierarchy comes from text color and lightness steps, not from weight, size or extra color.
+4. **Calm by default.** Hierarchy comes from text color, lightness steps and spacing, not from weight, size or extra color. Few sizes and two weights: see [Typography](typography.md).
 5. **Dense, not cramped.** Controls are 32px tall by default, and every gap comes from the 4px scale. See [Size, spacing and layout](layout.md).
 6. **One system, many products.** Components are generic. A product's screens are built from them and from the [patterns](patterns.md); nothing in the package knows what a note or a memo is.
 

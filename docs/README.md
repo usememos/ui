@@ -37,4 +37,5 @@ It is not a general-purpose UI library for outside developers. Components are ge
 - **Status colors only for status.** Green means success, amber means warning, red means danger or error. None of them is used for emphasis.
 - **Lucide icons** at a fixed screen-pixel stroke: 1.5px at md and lg, 1.25px at sm and in badges.
 - **The system UI font** for all text. The package ships no font files.
+- **Few sizes, two weights.** App UI uses 13, 14, 16 and 20px text at weights 400 and 500. 20px is for the page title only.
 - **Dense, on a 4px grid.** Controls are 32px tall by default.

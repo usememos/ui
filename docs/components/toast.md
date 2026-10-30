@@ -53,5 +53,5 @@ Base UI's props pass through: `timeout` (default 5000ms) and `limit` (default 3)
 ## Style
 
 - `mu-popup`, `toast-width` wide, bottom-right at `space-6` from the edges; below `breakpoint-sm`, full width at `space-4`.
-- A tone icon (`Info`, `CircleCheck`, `TriangleAlert`, `CircleAlert`) in `ink-muted`, `success`, `warning` or `danger`; title in `label`; description in `body-sm` `ink-muted`; the action as a small neutral Button; the X as a small ghost Button.
+- A tone icon (`Info`, `CircleCheck`, `TriangleAlert`, `CircleAlert`) in `ink-muted`, `success`, `warning` or `danger`; title in `label`; description in `caption` `ink-muted`; the action as a small neutral Button; the X as a small ghost Button.
 - Newest in front; the ones behind peek out `space-2` above and shrink. Hover or focus fans them out `space-3` apart. Toasts slide in from below and can be swiped away. Under reduced motion they only fade.

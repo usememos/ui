@@ -62,4 +62,4 @@ Base UI's props pass through: `name`, `invalid`, `disabled`, `validate`, `valida
 ## Style
 
 - Label: `label` style (14px, 500), `space-1` above the control; weight 400 when it wraps a Checkbox, Switch or Radio.
-- Description and error: 12px, below the control. The error hides the description and turns the control's edge `danger`.
+- Description and error: `caption` (13px), below the control. The error hides the description and turns the control's edge `danger`.

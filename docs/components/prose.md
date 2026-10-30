@@ -21,7 +21,7 @@ Without React: `<div class="mu-prose">…</div>`, and `mu-prose mu-prose-sm` for
 
 ```ts
 interface ProseProps extends React.ComponentProps<"div"> {
-  size?: "sm" | "md"; // md: 15/24px for reading; sm: 14/22px for dense lists
+  size?: "sm" | "md"; // md: 16/24px for reading; sm: 14/22px for dense lists
 }
 ```
 
@@ -37,13 +37,13 @@ Every native attribute passes through.
 
 ## Style
 
-- Text: 15px on a 24px line (`sm`: 14 on 22), weight 400, `ink`. Blocks are `space-3` apart.
-- Headings: `h1` 20/28px, `h2` 17/24px, `h3`–`h6` the text size; all weight 600, with `space-5` above and `space-2` below.
+- Text: 16px on a 24px line (`sm`: 14 on 22), weight 400, `ink`. Blocks are `space-3` apart.
+- Headings: `h1` 20/28px, `h2`–`h6` 16/24px; all weight 600, with `space-5` above and `space-2` below. Bold (`strong`, `b`) is 600 too. These are the only 600s in the system: people wrote them as bold, and 500 does not read as bold in system fonts.
 - Links: `accent`, underlined at rest, because color alone does not set them apart from the text.
 - Code: `--mu-font-mono` at 0.875em on `well`. Inline code has `radius-xs`; blocks have `radius-md`, `space-3` by `space-4` padding, and scroll sideways.
 - Quotes: a 2px `edge` bar, text in `ink-muted`. Rules: a 1px `line` with `space-5` around it.
 - Lists indent `space-6`; markers are `ink-muted`. Task checkboxes are 16px, drawn like [Checkbox](checkbox.md); done items go `ink-muted` with a strike-through.
 - Images and video: never wider than the column, `radius-lg`.
-- Tables follow [Table](table.md): `line` between rows, 12px `ink-muted` heads, tabular numbers; they scroll sideways when too wide.
+- Tables follow [Table](table.md): `line` between rows, 13px `ink-muted` heads (weight 500), tabular numbers; they scroll sideways when too wide.
 - Tags: `ink-muted` on `well`, `radius-xs`. They read as words, not badges.
 - Sizes are custom properties set on `.mu-prose` in the foundation (`--prose-fs`, `--prose-lh`, heading sizes).
