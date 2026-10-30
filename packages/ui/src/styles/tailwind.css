@@ -1,0 +1,66 @@
+/*
+ * Memos UI tokens as Tailwind CSS v4 theme variables, for apps on Tailwind.
+ * Import it after tailwindcss and the package's tokens.css:
+ *
+ *   @import "tailwindcss";
+ *   @import "@usememos/ui/tokens.css";
+ *   @import "@usememos/ui/styles.css";
+ *   @import "@usememos/ui/tailwind.css";
+ *
+ * Utilities carry an mu- prefix (bg-mu-surface, text-mu-ink-muted,
+ * shadow-mu-raised, rounded-mu-md), so they never clash with an app's own
+ * colors. `inline` makes each utility read the --mu- token where it is used,
+ * so a .mu-root with its own data-theme recolors the utilities inside it.
+ * Spacing needs no mapping: Tailwind's 0.25rem step is the 4px grid.
+ * See docs/custom-components.md#tailwind-css.
+ */
+@theme inline {
+  /* Colors (docs/color.md) */
+  --color-mu-canvas: var(--mu-canvas);
+  --color-mu-surface: var(--mu-surface);
+  --color-mu-well: var(--mu-well);
+  --color-mu-hover: var(--mu-hover);
+  --color-mu-key: var(--mu-key);
+  --color-mu-key-hover: var(--mu-key-hover);
+  --color-mu-key-sheen: var(--mu-key-sheen);
+  --color-mu-edge: var(--mu-edge);
+  --color-mu-line: var(--mu-line);
+  --color-mu-overlay: var(--mu-overlay);
+  --color-mu-ink: var(--mu-ink);
+  --color-mu-ink-muted: var(--mu-ink-muted);
+  --color-mu-primary: var(--mu-primary);
+  --color-mu-primary-hover: var(--mu-primary-hover);
+  --color-mu-on-primary: var(--mu-on-primary);
+  --color-mu-accent: var(--mu-accent);
+  --color-mu-selection: var(--mu-selection);
+  --color-mu-focus: var(--mu-focus);
+  --color-mu-success: var(--mu-success);
+  --color-mu-success-soft: var(--mu-success-soft);
+  --color-mu-warning: var(--mu-warning);
+  --color-mu-warning-soft: var(--mu-warning-soft);
+  --color-mu-danger: var(--mu-danger);
+  --color-mu-danger-key: var(--mu-danger-key);
+  --color-mu-danger-soft: var(--mu-danger-soft);
+  --color-mu-on-danger: var(--mu-on-danger);
+
+  /* Shadows (docs/depth.md) */
+  --shadow-mu-track: var(--mu-shadow-track);
+  --shadow-mu-key: var(--mu-shadow-key);
+  --shadow-mu-raised: var(--mu-shadow-raised);
+  --shadow-mu-pressed: var(--mu-shadow-pressed);
+  --shadow-mu-pop: var(--mu-shadow-pop);
+
+  /* Radius (docs/layout.md) */
+  --radius-mu-xs: var(--mu-radius-xs);
+  --radius-mu-sm: var(--mu-radius-sm);
+  --radius-mu-md: var(--mu-radius-md);
+  --radius-mu-lg: var(--mu-radius-lg);
+  --radius-mu-xl: var(--mu-radius-xl);
+  --radius-mu-2xl: var(--mu-radius-2xl);
+  --radius-mu-full: var(--mu-radius-full);
+
+  /* Fonts (docs/typography.md) */
+  --font-mu-sans: var(--mu-font-sans);
+  --font-mu-display: var(--mu-font-display);
+  --font-mu-mono: var(--mu-font-mono);
+}

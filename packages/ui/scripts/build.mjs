@@ -27,6 +27,9 @@ for (const file of ['tokens.css', 'styles.css']) {
   await build({ ...shared, entryPoints: [src(`styles/${file}`)], outfile: join(dist, file), sourcemap: false });
 }
 
+// tailwind.css holds Tailwind CSS's own @theme syntax, which only an app's Tailwind build reads; it ships as written.
+copyFileSync(src('styles/tailwind.css'), join(dist, 'tailwind.css'));
+
 execFileSync('npx', ['tsc', '-p', join(pkg, 'tsconfig.build.json')], { stdio: 'inherit' });
 addExtensions(join(dist, 'types'));
 
