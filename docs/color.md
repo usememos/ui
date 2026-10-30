@@ -49,6 +49,8 @@ An app sets only these tokens:
 
 Every other token (space, radius, sizes, layout widths, layers, motion) and every `mu-*` class rule is internal. Read those tokens in app CSS (`var(--mu-space-4)`), but don't override them, even though the cascade layer lets an app rule win: the products would drift apart, and the package's tests and screenshots cover only its own values. To change one element, pass `className` or `style` to that component (see [API conventions](building.md#api-conventions)).
 
+Internal rules are not private classes. An app applies the [public classes](custom-components.md#public-classes) and the class functions to its own elements; it only never changes what they do.
+
 ### App themes
 
 An app can offer more themes than the three the package ships, such as a warm Paper theme in memos. An app theme is a rule that sets the color and shadow tokens under its own `data-theme` value:

@@ -57,6 +57,11 @@ interface Menu.ItemProps extends BaseMenu.Item.Props {
   danger?: boolean;           // destructive: red text
 }
 // CheckboxItem and RadioItem take icon and shortcut too. SubmenuTrigger takes icon.
+
+function menuClasses(options?: { size?: "sm" | "md" }): {
+  popup: string; item: string; dangerItem: string; label: string;
+  shortcut: string; separator: string; groupLabel: string;
+};
 ```
 
 Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on the root; `onClick`, `closeOnClick`, `disabled`, `label` on items; `checked`, `defaultChecked`, `onCheckedChange` on CheckboxItem; `value`, `defaultValue`, `onValueChange` on RadioGroup; `value` on RadioItem.
@@ -68,6 +73,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 - CheckboxItems and RadioItems stay open on click, so people can change several.
 - For picking a value saved with a form, use [Select](select.md).
 - Arrow keys move the highlight; typing jumps to an item; Escape and an outside click close it; focus returns to the trigger.
+- An app's own floating list, such as an editor's suggestion list, takes `menuClasses()`: `popup` on the list, `item` on each row, and `data-highlighted` on the active row. See [Class functions](../custom-components.md#class-functions).
 
 ## Style
 

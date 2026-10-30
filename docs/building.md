@@ -6,7 +6,7 @@ How the package is put together and how products use it.
 
 - **React components on [Base UI](https://base-ui.com).** Base UI provides behavior: focus management, keyboard support, ARIA, portals and positioning. Memos UI provides the styling, the tokens and the component API.
 - **No shadcn.** Don't depend on shadcn, don't copy its code, and don't use shadcn-compatible names for components or tokens. Following a similar layering (unstyled behavior below, styled components above) is fine.
-- **One npm package**, `@usememos/ui`, used by every product. ESM only, React 18 and 19, one JS entry point and two stylesheets.
+- **One npm package**, `@usememos/ui`, used by every product. ESM only, React 18 and 19, one JS entry point, two stylesheets and a Tailwind CSS theme file.
 - **Plain CSS on tokens.** Components are styled with CSS that reads token variables. Product code uses tokens through their CSS variables (`var(--mu-well)`) and never copies raw values.
 - **Lucide icons** from `lucide-react`. See [Icons](icons.md).
 - **No fonts.** Text uses the system UI font; nothing is downloaded.
@@ -19,6 +19,8 @@ Load the tokens first, then the styles:
 import "@usememos/ui/tokens.css";
 import "@usememos/ui/styles.css";
 ```
+
+An app on Tailwind CSS v4 also loads `@usememos/ui/tailwind.css`, which maps the tokens to `mu-` utilities (`bg-mu-surface`). See [Tailwind CSS](custom-components.md#tailwind-css).
 
 `tokens.css` defines every token on `:root`, on a shadow root's `:host`, and on any element with the `mu-root` class. `styles.css` holds the foundation classes and every component's styles.
 
@@ -52,11 +54,14 @@ An app changes only the color, shadow and font tokens. Every other token and eve
 ## Class names
 
 - Every class the package ships starts with `mu-`.
+- The [public classes](custom-components.md#public-classes) are for apps too: size rows (`mu-s-md`), depth roles (`mu-raised`), focus, touch targets, icons and the type scale. Apps apply them to their own parts and never override them.
 - `mu-positioner` puts a popup's positioner on `layer-popup`, and `mu-popup-motion` makes a popup fade in and rise `space-1` (no rise under reduced motion).
 - The depth classes `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` apply a whole depth role. Use them for new parts before writing new shadows. See [Depth](depth.md).
 - `mu-prose` styles rendered content. See [Prose](components/prose.md).
 - `mu-icon` applies icon size and stroke rules outside a component.
 - `mu-visually-hidden` hides text visually but keeps it for screen readers.
+- A size row class sets the `--mu-row-*` variables (height, padding, text, radius, gap, icon) that every part inside reads. See [Row variables](custom-components.md#row-variables).
+- Component part classes (`mu-menu-item`) are internal. An app reaches a component's look through its class function (`menuClasses()`). See [Class functions](custom-components.md#class-functions).
 
 ## API conventions
 
@@ -104,7 +109,8 @@ import { Ellipsis, Pin, Trash2 } from "lucide-react";
 
 ### Styling hooks
 
-- Every part has a class `mu-<component>-<part>` (`mu-menu-popup`, `mu-menu-item`), plus `mu-<component>` on single components. Variants are classes too (`mu-button-primary`, `mu-badge-success`), so `buttonClasses()` can style any element.
+- Every part has a class `mu-<component>-<part>` (`mu-menu-popup`, `mu-menu-item`), plus `mu-<component>` on single components. Variants are classes too (`mu-button-primary`, `mu-badge-success`), so a class function can style any element.
+- **Class functions.** A component whose look apps put on their own elements exports `<component>Classes()`: `buttonClasses`, `inputClasses`, `textareaClasses`, `badgeClasses`, `menuClasses` and `popoverClasses`. It returns a string for a single component and one string per part for a namespace. The component builds its own classes with it, so the two can't drift. See [Class functions](custom-components.md#class-functions).
 - State is styled through Base UI's data attributes (`data-highlighted`, `data-checked`, `data-pressed`, `data-disabled`, `data-open`, `data-starting-style`, `data-ending-style`), never through extra classes.
 
 ### Toasts

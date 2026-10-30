@@ -6,7 +6,7 @@ These docs describe the target system. They are the source of truth for `@usemem
 
 ## Who it is for
 
-- **Product code** in memos, the website, the web clipper and future usememos projects. Each product builds its screens from these components and patterns, so the products look and feel like one family.
+- **Product code** in memos, the website, the web clipper and future usememos projects. Each product builds its screens from these components and patterns, so the products look and feel like one family. Parts a product needs beyond them follow [Building your own component](custom-components.md).
 - **People and coding agents** who build or change the package. Start with [`AGENTS.md`](../AGENTS.md).
 
 It is not a general-purpose UI library for outside developers. Components are generic: nothing in the package knows what a note, a memo or a clip is.
@@ -26,6 +26,7 @@ It is not a general-purpose UI library for outside developers. Components are ge
 | [Components](components/README.md) | The 28 components, what was left out, and one page per component |
 | [Patterns](patterns.md) | Page, form, entry, confirmation, loading, empty state and mobile |
 | [Building on it](building.md) | Base UI, loading the CSS, scoping inside a host page, theme selection and API conventions |
+| [Building your own component](custom-components.md) | How an app builds a part the package doesn't ship: Base UI, class functions, public classes, row variables and Tailwind CSS |
 
 ## Decisions at a glance
 

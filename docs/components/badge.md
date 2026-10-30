@@ -22,12 +22,15 @@ interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   children: React.ReactNode; // one or two words
   render?: React.ReactElement;
 }
+
+function badgeClasses(options?: { tone?: Tone | "outline" }): string;
 ```
 
 ## Rules
 
 - Tags: `neutral` with a `Hash` icon. Visibility: `outline` with its icon. Status: `success`, `warning` or `danger`, always with a word, never color alone.
 - A badge is not a button. A clickable tag filter is a [Toggle](toggle.md).
+- An app's own element that should look like a badge, such as a tag that is also a link, takes `badgeClasses()`. See [Class functions](../custom-components.md#class-functions).
 
 ## Style
 

@@ -21,6 +21,7 @@ The docs in `docs/` describe the target system and are the source of truth. The 
 | Icons | [Icons](docs/icons.md) |
 | Animation | [Motion](docs/motion.md) |
 | A screen in a product | [Patterns](docs/patterns.md) |
+| A part an app builds itself | [Building your own component](docs/custom-components.md) |
 
 ## Rules
 
@@ -35,6 +36,7 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 - **Ink, not a hue.** `primary` (near-black in Light, near-white in Dark) is the only emphasis. `accent` (quiet blue) is only for focus, links and selection, never a fill. `success`, `warning` and `danger` are only for status.
 - **Depth means behavior.** Recessed holds a value, raised can be pressed, popups float, everything else is flat. Text inputs are flat. Use the `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` classes before writing new shadows. See [Depth](docs/depth.md).
 - **Apps set only color, shadow and font tokens.** The 26 color tokens, five shadow tokens and three font tokens are the whole theming surface; `themeTokens` lists the 31 an app theme sets. Every other token and every `mu-*` class rule is internal to the package. See [What an app can change](docs/color.md#what-an-app-can-change).
+- **Apps build their own parts from the package.** Base UI for behavior, class functions (`buttonClasses`, `menuClasses`) and [public classes](docs/custom-components.md#public-classes) for looks, `--mu-row-*` variables and tokens for the rest. A component whose look apps reuse exports `<component>Classes()` and builds its own classes with it. See [Building your own component](docs/custom-components.md).
 - **Three themes.** Every change works in Light, Dark and High contrast (`data-theme="light" | "dark" | "contrast"`), and under `prefers-reduced-motion`.
 - **Few sizes, two weights.** Text uses the eight styles in [Typography](docs/typography.md): 13, 14, 16 and 20px in apps (12px only for the labels of 20px parts: xs controls, badges, kbd; 32px only for a website hero), weights 400 and 500 (600 only for bold and headings inside Prose). No other size or weight without a written reason in that page.
 - **Sizes come in rows.** `size` is `xs | sm | md` (20, 24, 32px; md default; there is no `lg`) and sets height, padding, text, icon and radius together. Only the components listed in [Control sizes](docs/layout.md#control-sizes) take `xs`; text entry, menus, tabs and tables are `sm | md`.
@@ -50,12 +52,12 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 1. Check the [inventory](docs/components/README.md). If a screen needs something new, confirm no existing component or pattern covers it.
 2. Write or update the component's page in `docs/components/`, following the [page template](docs/components/README.md#page-template), and the inventory table.
 3. Build it in `packages/ui/src/components/<name>/` on Base UI (`@base-ui/react`), styled only with tokens and the foundation classes, in both sizes, all [states](docs/states.md) and all three themes. Its CSS goes in `<name>/<name>.css`, imported from `src/styles/styles.css`; the build inlines it, so the package still ships one stylesheet.
-4. Export it from `packages/ui/src/index.ts`. The package has one JS entry point.
+4. Export it from `packages/ui/src/index.ts`. The package has one JS entry point. If apps put its look on their own elements, also export a `<component>Classes()` function, build the component's classes with it, and list it in [Class functions](docs/custom-components.md#class-functions).
 5. Show every variant and state in `playground/sections/<name>.tsx` and list it in `playground/sections/index.ts`.
 6. Add unit tests in `packages/ui/test/` for behavior that isn't Base UI's (controlled and uncontrolled state, `loading`, `size` through context, `render`), with `// @vitest-environment happy-dom` at the top. Add a browser test in `e2e/<name>.spec.ts` for keyboard paths, reduced motion and touch hit areas. `e2e/foundations.spec.ts` runs axe over the whole playground in every theme.
 7. Update the screenshots (below).
 
-The tests enforce part of this: `inventory.test.ts` fails when a component folder has no docs page, export or playground section, and `css.test.ts` fails on raw colors, lengths, durations or z-indexes in component CSS (only `0.5px` and `1px` lengths are allowed).
+The tests enforce part of this: `inventory.test.ts` fails when a component folder has no docs page, export or playground section, `css.test.ts` fails on raw colors, lengths, durations or z-indexes in component CSS (only `0.5px` and `1px` lengths are allowed), `classes.test.tsx` fails when a component and its class function disagree or a public class or row variable in the docs is missing, and `tailwind.test.ts` fails when `tailwind.css` misses a token.
 
 ## Workspace
 
@@ -63,6 +65,7 @@ The tests enforce part of this: `inventory.test.ts` fails when a component folde
   - `src/index.ts`: the one JS entry point
   - `src/styles/tokens.css`: every token, published as `@usememos/ui/tokens.css`
   - `src/styles/styles.css`: imports `foundation.css` (size rows, depth, focus, icons, type scale) and each component's stylesheet; published as one file, `@usememos/ui/styles.css`
+  - `src/styles/tailwind.css`: the tokens as Tailwind CSS v4 theme variables, published as written as `@usememos/ui/tailwind.css`
   - `src/components/<name>/`: one folder per component, with its stylesheet
   - `scripts/build.mjs`: the build (the JavaScript by `scripts/modules.mjs`, the stylesheets by esbuild, then `tsc` for the declarations, then `llms.txt` and `llms-full.txt` from `docs/` by `scripts/llms.mjs`). The JavaScript ships as one ES module per source file, never one bundled file, so apps' bundlers drop the components they don't import
   - `test/`: Vitest tests: tokens and docs in sync, color contrast, CSS rules, the inventory, component behavior, and that an app importing one component bundles only that component

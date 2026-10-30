@@ -35,6 +35,8 @@ interface Popover.PopupProps extends BasePopover.Popup.Props {
   side?: Side; align?: Align; // Positioner props; default side "bottom"
   container?: HTMLElement | ShadowRoot | React.RefObject<HTMLElement | ShadowRoot | null> | null; // portal target
 }
+
+function popoverClasses(): { popup: string; title: string; description: string };
 ```
 
 Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on the root; `openOnHover`, `delay` on the trigger; `initialFocus`, `finalFocus` on the popup.
@@ -44,6 +46,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 - Use it for a few controls that belong to one thing. For a list of actions, use [Menu](menu.md). For a decision that blocks the page, use [Dialog](dialog.md).
 - Give it a `Popover.Title`, or `aria-label` on the popup.
 - It closes on Escape and on a click outside; focus returns to the trigger.
+- An app's own floating panel, such as an emoji picker, takes `popoverClasses()`. See [Class functions](../custom-components.md#class-functions).
 
 ## Style
 

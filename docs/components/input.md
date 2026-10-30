@@ -21,6 +21,8 @@ interface InputProps extends Omit<BaseInput.Props, "size" | "prefix"> {
   className?: string;              // on the visible box, not the <input>
   style?: React.CSSProperties;     // on the visible box, not the <input>
 }
+
+function inputClasses(options?: { size?: "sm" | "md" }): string; // the visible box
 ```
 
 Wraps Base UI's [Input](https://base-ui.com/react/components/input), so inside a [Field](field.md) it gets its label, description and validity. The ref and every other prop (`value`, `onValueChange`, `type`, `disabled`, native attributes) go to the `<input>`. The visible box is a `<span>` around it that fills its container's width.
@@ -30,6 +32,7 @@ Wraps Base UI's [Input](https://base-ui.com/react/components/input), so inside a
 - Provide a `Field.Label` or `aria-label`. Never a placeholder alone.
 - `prefix` and `suffix` hold an icon, a short word or a small ghost Button.
 - `sm` for filters inside panels, `md` everywhere else.
+- An app's own one-line field, such as a tag input around a native `<input>`, takes `inputClasses()` on its box: focus anywhere inside shows the ring, and `aria-invalid="true"` or `aria-disabled="true"` on the box show those states. See [Class functions](../custom-components.md#class-functions).
 
 ## Style
 
