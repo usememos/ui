@@ -3,7 +3,7 @@
 import { describe, expect, it } from 'vitest';
 import colorDocs from '../../../docs/color.md?raw';
 
-const themes = ['light', 'dark', 'contrast'] as const;
+const themes = ['light', 'dark'] as const;
 
 /** Text colors and the backgrounds each one is used on. */
 const pairs: [text: string, backgrounds: string[]][] = [
@@ -22,9 +22,9 @@ function colorTable() {
   const table = new Map<string, Record<(typeof themes)[number], string>>();
   for (const line of colorDocs.split('\n')) {
     const cells = line.split('|').slice(1, -1).map((cell) => cell.trim().replace(/`/g, ''));
-    const [name, light, dark, contrast] = cells;
-    if (!name || !light || !dark || !contrast || !/^[\w-]+$/.test(name) || name === 'Token') continue;
-    table.set(name, { light, dark, contrast });
+    const [name, light, dark] = cells;
+    if (!name || !light || !dark || !/^[\w-]+$/.test(name) || name === 'Token') continue;
+    table.set(name, { light, dark });
   }
   return table;
 }

@@ -34,4 +34,3 @@ Provide `href` and `children`.
 ## Style
 
 - `accent` text that underlines on hover: the one place the hue appears at rest. `muted` uses `ink-muted`.
-- High contrast underlines every link.

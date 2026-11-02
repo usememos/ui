@@ -2,6 +2,7 @@
 // the mu cascade layer and app themes, as docs/building.md and color.md describe,
 // and an app's own parts styled with the class functions (docs/custom-components.md).
 import { expect, type Page, test } from '@playwright/test';
+import { themes } from './helpers';
 
 /** A custom property's value on the root element. */
 const rootVar = (page: Page, name: string) => page.locator('html').evaluate((element, name) => getComputedStyle(element).getPropertyValue(name).trim(), name);
@@ -60,7 +61,7 @@ const styles = (page: Page, selector: string, properties: string[]) =>
 
 const box = ['background-color', 'box-shadow', 'border-top-left-radius', 'font-size', 'line-height', 'font-weight', 'color'];
 
-for (const theme of ['light', 'dark', 'contrast']) {
+for (const theme of themes) {
   test(`class functions give an app's own parts the component's look in ${theme}`, async ({ page }) => {
     await page.goto(`/interop.html?theme=${theme}`);
     const same = async (component: string, custom: string, properties: string[]) => {

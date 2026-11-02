@@ -3,7 +3,7 @@
 The Memos UI design system: tokens, foundation styles and React components for memos, the website, the web clipper and future usememos projects.
 
 - Calm, dense and tactile: pure grays, ink for emphasis, and a little depth that shows what holds a value and what you can press.
-- Light, Dark and High contrast themes, all from CSS custom properties.
+- Light and Dark themes, all from CSS custom properties. Apps can add their own.
 - One package, `@usememos/ui`. ESM only, for React 18 or later, with behavior from [Base UI](https://base-ui.com).
 
 The package ships the tokens, the foundation styles and 28 components, each with a page in [docs/components](docs/components/README.md). Versions follow memos' CalVer (`26.10.0`, `26.10.1`) and do not signal breaking changes, so pin an exact version. [docs/](docs/README.md) is the design system and the source of truth for the package.
@@ -79,7 +79,7 @@ The package ships `llms.txt`, an index of the docs, and `llms-full.txt`, every d
 
 ### Themes
 
-Set `data-theme="light"`, `"dark"` or `"contrast"` on the root element, or on any element to theme its subtree. Without the attribute the tokens are Light. The package does not read `prefers-color-scheme`; the app does, so a saved preference can win over the system setting.
+Set `data-theme="light"` or `"dark"` on the root element, or on any element to theme its subtree. Without the attribute the tokens are Light. The package does not read `prefers-color-scheme`; the app does, so a saved preference can win over the system setting.
 
 An app can add its own themes and fonts by setting the color, shadow and font tokens; every other token is internal. See [What an app can change](docs/color.md#what-an-app-can-change).
 

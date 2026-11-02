@@ -37,7 +37,7 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 - **Depth means behavior.** Recessed holds a value, raised can be pressed, popups float, everything else is flat. Text inputs are flat. Use the `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` classes before writing new shadows. See [Depth](docs/depth.md).
 - **Apps set only color, shadow and font tokens.** The 26 color tokens, five shadow tokens and three font tokens are the whole theming surface; `themeTokens` lists the 31 an app theme sets. Every other token and every `mu-*` class rule is internal to the package. See [What an app can change](docs/color.md#what-an-app-can-change).
 - **Apps build their own parts from the package.** Base UI for behavior, class functions (`buttonClasses`, `menuClasses`) and [public classes](docs/custom-components.md#public-classes) for looks, `--mu-row-*` variables and tokens for the rest. A component whose look apps reuse exports `<component>Classes()` and builds its own classes with it. See [Building your own component](docs/custom-components.md).
-- **Three themes.** Every change works in Light, Dark and High contrast (`data-theme="light" | "dark" | "contrast"`), and under `prefers-reduced-motion`.
+- **Two themes.** Every change works in Light and Dark (`data-theme="light" | "dark"`), and under `prefers-reduced-motion`. Apps add their own themes by setting the theme tokens ([App themes](docs/color.md#app-themes)); the package ships and tests only these two.
 - **Few sizes, two weights.** Text uses the eight styles in [Typography](docs/typography.md): 13, 14, 16 and 20px in apps (12px only for the labels of 20px parts: xs controls, badges, kbd; 32px only for a website hero), weights 400 and 500 (600 only for bold and headings inside Prose). No other size or weight without a written reason in that page.
 - **Sizes come in rows.** `size` is `xs | sm | md` (20, 24, 32px; md default; there is no `lg`) and sets height, padding, text, icon and radius together. Only the components listed in [Control sizes](docs/layout.md#control-sizes) take `xs`; text entry, menus, tabs and tables are `sm | md`.
 - **4px grid.** The only 2px value is `inset`.
@@ -45,14 +45,14 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 - **Not in the set:** Card, Slider, Stepper, Chip, SegmentedControl, Accordion. See [what was left out](docs/components/README.md#left-out-on-purpose) and what to use instead.
 - **Scoped CSS.** Classes start with `mu-`. No global selectors beyond `:root` and `.mu-root`, so the package can mount inside a host page.
 - **Source order decides.** Inside the package a later rule beats an earlier one on the same element. Every `:has()` sits in `:where()`, so it adds no specificity. See [Writing component CSS](docs/building.md#writing-component-css).
-- **Accessibility.** Text keeps 4.5:1 contrast in every theme. Focus rings are ink and show on `:focus-visible` only, 1px outside the edge; a focused field darkens its own edge instead of getting a ring; popups never show one. Icon-only controls have an `aria-label` and a Tooltip. Touch targets reach 44px on `pointer: coarse`.
+- **Accessibility.** Text keeps 4.5:1 contrast in both themes. Focus rings are ink and show on `:focus-visible` only, 1px outside the edge; a focused field darkens its own edge instead of getting a ring; popups never show one. Icon-only controls have an `aria-label` and a Tooltip. Touch targets reach 44px on `pointer: coarse`.
 - **Interface text** is sentence case, starts buttons with a verb, and uses no emoji.
 
 ## Adding or changing a component
 
 1. Check the [inventory](docs/components/README.md). If a screen needs something new, confirm no existing component or pattern covers it.
 2. Write or update the component's page in `docs/components/`, following the [page template](docs/components/README.md#page-template), and the inventory table.
-3. Build it in `packages/ui/src/components/<name>/` on Base UI (`@base-ui/react`), styled only with tokens and the foundation classes, in both sizes, all [states](docs/states.md) and all three themes. Its CSS goes in `<name>/<name>.css`, imported from `src/styles/styles.css`; the build inlines it, so the package still ships one stylesheet.
+3. Build it in `packages/ui/src/components/<name>/` on Base UI (`@base-ui/react`), styled only with tokens and the foundation classes, in both sizes, all [states](docs/states.md) and both themes. Its CSS goes in `<name>/<name>.css`, imported from `src/styles/styles.css`; the build inlines it, so the package still ships one stylesheet.
 4. Export it from `packages/ui/src/index.ts`. The package has one JS entry point. If apps put its look on their own elements, also export a `<component>Classes()` function, build the component's classes with it, and list it in [Class functions](docs/custom-components.md#class-functions).
 5. Show every variant and state in `playground/sections/<name>.tsx` and list it in `playground/sections/index.ts`.
 6. Add unit tests in `packages/ui/test/` for behavior that isn't Base UI's (controlled and uncontrolled state, `loading`, `size` through context, `render`), with `// @vitest-environment happy-dom` at the top. Add a browser test in `e2e/<name>.spec.ts` for keyboard paths, reduced motion and touch hit areas. `e2e/foundations.spec.ts` runs axe over the whole playground in every theme.
@@ -109,7 +109,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 Examples:
 
 ```
-feat(tokens): add the high contrast theme
+feat(tokens): add the warning-soft token
 fix(switch): keep the knob inset at sm
 docs: describe the Memos UI design system
 ```

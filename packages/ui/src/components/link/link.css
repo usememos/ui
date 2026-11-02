@@ -7,8 +7,6 @@
   cursor: pointer;
 }
 .mu-link:hover, .mu-link:focus-visible, .mu-link-underline { text-decoration: underline; }
-/* High contrast never tells a link apart by color alone. */
-[data-theme="contrast"] .mu-link { text-decoration: underline; }
 .mu-link-muted { color: var(--mu-ink-muted); }
 .mu-link-muted:hover { color: var(--mu-ink); }
 

@@ -16,7 +16,7 @@ It is not a general-purpose UI library for outside developers. Components are ge
 | Doc | What it covers |
 | --- | --- |
 | [Principles and voice](principles.md) | The taste in six rules, and how interface text is written |
-| [Color](color.md) | Color roles, every color token in Light, Dark and High contrast, and how themes are chosen |
+| [Color](color.md) | Color roles, every color token in Light and Dark, and how themes are chosen |
 | [Depth](depth.md) | The tactile model: recessed, key, raised, popup and flat; shadow tokens |
 | [Typography](typography.md) | The system font, the type scale and text rules |
 | [Size, spacing and layout](layout.md) | Control sizes, the 4px scale, radius, layout widths, breakpoints and layers |
@@ -32,7 +32,7 @@ It is not a general-purpose UI library for outside developers. Components are ge
 
 - **Behavior from Base UI.** Focus management, keyboard support, ARIA, portals and positioning come from [Base UI](https://base-ui.com). Styling, tokens and the component API are our own.
 - **No shadcn.** No shadcn dependency, no copied shadcn code, and no shadcn-compatible component or token names (`card`, `muted`, `destructive`, `foreground` and so on are not used).
-- **Light, tactile by default.** Restrained depth that shows behavior. Light is the default theme; Dark and High contrast ship with it.
+- **Light, tactile by default.** Restrained depth that shows behavior. Light is the default theme; Dark ships with it.
 - **Ink is the accent.** The primary action and every on state use `primary`: near-black in Light, near-white in Dark.
 - **One quiet hue.** `accent` is a quiet blue used only for links and text selection, never as a fill. Focus is ink.
 - **Status colors only for status.** Green means success, amber means warning, red means danger or error. None of them is used for emphasis.

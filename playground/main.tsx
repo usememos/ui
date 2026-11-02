@@ -7,9 +7,9 @@ import type { Size } from '@usememos/ui';
 import { Foundations } from './foundations';
 import { rowSize, sections } from './sections';
 
-type Theme = 'light' | 'dark' | 'contrast';
+type Theme = 'light' | 'dark';
 
-const themes: Theme[] = ['light', 'dark', 'contrast'];
+const themes: Theme[] = ['light', 'dark'];
 const sizes: Size[] = ['xs', 'sm', 'md'];
 
 /** ?theme=dark&size=sm: the tests open the page this way. At xs, sections without xs render at sm. */

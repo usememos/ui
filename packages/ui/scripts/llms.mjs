@@ -53,7 +53,7 @@ export function buildLlms(docsDir) {
     '',
     `> ${purpose(overview)}`,
     '',
-    'React components on Base UI, CSS tokens and foundation styles. Load `@usememos/ui/tokens.css`, then `@usememos/ui/styles.css`; set `data-theme` to `light`, `dark` or `contrast` on the root element. Components are compound parts named after Base UI\'s anatomy (`Menu.Root`, `Menu.Trigger`, `Menu.Popup`, `Menu.Item`); icons are Lucide elements. Every docs page is in llms-full.txt next to this file.',
+    'React components on Base UI, CSS tokens and foundation styles. Load `@usememos/ui/tokens.css`, then `@usememos/ui/styles.css`; set `data-theme` to `light` or `dark` on the root element. Components are compound parts named after Base UI\'s anatomy (`Menu.Root`, `Menu.Trigger`, `Menu.Popup`, `Menu.Item`); icons are Lucide elements. Every docs page is in llms-full.txt next to this file.',
     '',
     '## Docs',
     '',

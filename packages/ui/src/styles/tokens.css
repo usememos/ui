@@ -4,8 +4,8 @@
  * this file and the docs in sync.
  *
  * Light is the default on :root, on a shadow root's :host and on any
- * .mu-root that is not inside a themed element. data-theme="light",
- * "dark" or "contrast" on any element switches its subtree.
+ * .mu-root that is not inside a themed element. data-theme="light" or
+ * "dark" on any element switches its subtree.
  *
  * The tokens sit in the `mu` cascade layer, like styles.css, so an app
  * theme's rules win over them whatever their specificity.
@@ -84,41 +84,6 @@
   --mu-shadow-pop: 0 8px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.06);
   color-scheme: dark;
 }
-[data-theme="contrast"] {
-  color-scheme: light;
-  --mu-canvas: #ffffff;
-  --mu-surface: #ffffff;
-  --mu-well: #e6e6e6;
-  --mu-hover: #d9d9d9;
-  --mu-key: #ffffff;
-  --mu-key-hover: #f2f2f2;
-  --mu-key-sheen: #ffffff00;
-  --mu-edge: #6b6b6b;
-  --mu-line: #6b6b6b;
-  --mu-overlay: rgba(0,0,0,0.6);
-  --mu-ink: #000000;
-  --mu-ink-muted: #333333;
-  --mu-primary: #000000;
-  --mu-primary-hover: #262626;
-  --mu-on-primary: #ffffff;
-  --mu-accent: oklch(0.42 0.14 255);
-  --mu-selection: rgba(0,75,151,0.25);
-  --mu-success: oklch(0.42 0.12 150);
-  --mu-success-soft: #e9f4ec;
-  --mu-warning: oklch(0.45 0.11 70);
-  --mu-warning-soft: #fbf1df;
-  --mu-danger: oklch(0.45 0.18 27);
-  --mu-danger-key: oklch(0.45 0.18 27);
-  --mu-danger-soft: #fbeaea;
-  --mu-on-danger: #ffffff;
-  --mu-focus: var(--mu-primary);
-  --mu-focus-edge: var(--mu-ink);
-  --mu-shadow-track: 0 0 0 0 rgba(0,0,0,0);
-  --mu-shadow-key: 0 0 0 1px #6b6b6b;
-  --mu-shadow-raised: 0 0 0 1px #000000;
-  --mu-shadow-pressed: inset 0 0 0 2px #000000;
-  --mu-shadow-pop: 0 0 0 1px #000000;
-}
 :where(:root, :host, .mu-root) {
   --mu-space-1: 4px;
   --mu-space-2: 8px;
@@ -168,11 +133,6 @@
   --mu-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mu-font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mu-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-}
-/* High contrast widens the focus indicators so they meet WCAG 2.4.13 (AAA). */
-:where([data-theme="contrast"], [data-theme="contrast"] .mu-root) {
-  --mu-focus-offset: 2px;
-  --mu-focus-edge-width: 2px;
 }
 
 }

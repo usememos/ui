@@ -9,7 +9,7 @@ import foundationCss from '../src/styles/foundation.css?raw';
 import tokensCss from '../src/styles/tokens.css?raw';
 import { themeTokens } from '../src/theme-tokens';
 
-const themes = ['light', 'dark', 'contrast'] as const;
+const themes = ['light', 'dark'] as const;
 type Theme = (typeof themes)[number];
 
 const normalize = (value: string) => value.replace(/`/g, '').replace(/\s+/g, ' ').replace(/\s*,\s*/g, ',').trim();
@@ -46,7 +46,6 @@ const tokenRules = rules(tokensCss);
 const themeRule: Record<Theme, Map<string, string>> = {
   light: rule(tokenRules, ':where(:root,:host,.mu-root:not([data-theme] *)),[data-theme="light"]'),
   dark: rule(tokenRules, '[data-theme="dark"]'),
-  contrast: rule(tokenRules, '[data-theme="contrast"]'),
 };
 const staticRule = rule(tokenRules, ':where(:root,:host,.mu-root)');
 
@@ -60,9 +59,9 @@ describe('tokens.css', () => {
   it('matches the color tokens in docs/color.md', () => {
     const rows = tableRows(colorDocs);
     expect(rows.length).toBeGreaterThan(20);
-    for (const [name, light, dark, contrast] of rows) {
+    for (const [name, light, dark] of rows) {
       const token = `--mu-${unquote(name)}`;
-      const expected: Record<Theme, string | undefined> = { light, dark, contrast };
+      const expected: Record<Theme, string | undefined> = { light, dark };
       for (const theme of themes) {
         expect(normalize(themeRule[theme].get(token) ?? ''), `${token} in ${theme}`).toBe(normalize(expected[theme] ?? ''));
       }
@@ -75,7 +74,7 @@ describe('tokens.css', () => {
   });
 
   it('matches the shadow tokens in docs/depth.md', () => {
-    const headings: Record<Theme, string> = { light: 'Light', dark: 'Dark', contrast: 'High contrast' };
+    const headings: Record<Theme, string> = { light: 'Light', dark: 'Dark' };
     for (const theme of themes) {
       const block = depthDocs.match(new RegExp(`### ${headings[theme]}\\n\\n\`\`\`css\\n([\\s\\S]*?)\`\`\``))?.[1] ?? '';
       const shadows = [...block.matchAll(/(--mu-shadow-[\w-]+):\s*([^;]+);/g)];

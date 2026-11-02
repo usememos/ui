@@ -29,7 +29,6 @@ Each depth class applies a whole role in one class. Use them for new parts befor
 - **One rule for "selected".** A single choice among peers (tabs, a segmented filter) is a raised key sliding in a well. An on/off state (a toolbar toggle) is pressed into a well. Never mix the two in one row.
 - Content areas are flat. There is no card component: group content with spacing, a heading and a `Separator`.
 - No textures, no glass or blur behind text, and no neumorphism. Every fill and text pair keeps its contrast, and depth is added on top.
-- In High contrast, depth turns into outlines on every well and key, and `shadow-pressed` becomes an inner ring.
 
 ## Shadow tokens
 
@@ -59,14 +58,4 @@ Each depth class applies a whole role in one class. Use them for new parts befor
 --mu-shadow-raised: inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.25), 0 0 0 0.5px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.5);
 --mu-shadow-pressed: inset 0 1px 3px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(0,0,0,0.6);
 --mu-shadow-pop: 0 8px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.06);
-```
-
-### High contrast
-
-```css
---mu-shadow-track: 0 0 0 0 rgba(0,0,0,0);
---mu-shadow-key: 0 0 0 1px #6b6b6b;
---mu-shadow-raised: 0 0 0 1px #000000;
---mu-shadow-pressed: inset 0 0 0 2px #000000;
---mu-shadow-pop: 0 0 0 1px #000000;
 ```

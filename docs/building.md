@@ -47,7 +47,7 @@ Inside another page (the web clipper, an embed), mount the UI under a `.mu-root`
 
 ## Choosing a theme
 
-Set `data-theme="light" | "dark" | "contrast"` on the root element or on any `.mu-root`. Without the attribute the tokens are Light. The app, not the package, reads `prefers-color-scheme` and the user's saved choice. See [Color](color.md#themes). An app can add its own themes on top of these three; see [App themes](color.md#app-themes).
+Set `data-theme="light" | "dark"` on the root element or on any `.mu-root`. Without the attribute the tokens are Light. The app, not the package, reads `prefers-color-scheme` and the user's saved choice. See [Color](color.md#themes). An app can add its own themes on top of these two; see [App themes](color.md#app-themes).
 
 An app changes only the color, shadow and font tokens. Every other token and every `mu-*` class rule is internal. See [What an app can change](color.md#what-an-app-can-change).
 
@@ -140,6 +140,6 @@ toast.add({ title: "Note archived", type: "success" });
 1. A reason: a screen in a product needs it, and no existing component or pattern covers it.
 2. A generic name and API that would make sense in any of our products.
 3. Tokens only: no raw colors, sizes or shadows.
-4. Both sizes, all [states](states.md), all three themes, and reduced motion.
+4. Both sizes, all [states](states.md), both themes, and reduced motion.
 5. Keyboard and screen reader behavior from Base UI.
 6. A page in `docs/components/` and an entry in the [inventory](components/README.md).

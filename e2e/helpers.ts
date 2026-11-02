@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, type Page } from '@playwright/test';
 
-export const themes = ['light', 'dark', 'contrast'] as const;
+export const themes = ['light', 'dark'] as const;
 export type Theme = (typeof themes)[number];
 
 /** Opens the playground in a theme and size, once fonts are ready. */

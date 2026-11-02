@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { expectNoAxeViolations, open, themes } from './helpers';
 
-const canvas = { light: 'rgb(249, 249, 249)', dark: 'rgb(15, 15, 15)', contrast: 'rgb(255, 255, 255)' };
+const canvas = { light: 'rgb(249, 249, 249)', dark: 'rgb(15, 15, 15)' };
 
 for (const theme of themes) {
   test(`applies the ${theme} theme`, async ({ page }) => {
