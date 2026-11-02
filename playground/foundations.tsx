@@ -18,7 +18,7 @@ export function Foundations() {
         <div className="pg-swatches">
           {colors.map((name) => (
             <div className="pg-swatch" key={name}>
-              <span style={{ background: `var(--${name})` }} />
+              <span style={{ background: `var(--mu-${name})` }} />
               <span className="mu-caption">{name}</span>
             </div>
           ))}
