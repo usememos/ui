@@ -69,6 +69,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal`, `d
 - Use AlertDialog for confirmations; see the [confirmation pattern](../patterns.md#confirmation). Open it from a Menu item with `open` and `onOpenChange`.
 - Escape and a backdrop click close a Dialog. While a form has unsaved input, keep it open from `onOpenChange`.
 - Focus moves into the dialog and returns to the trigger on close.
+- Size passes through the portal: a Dialog declared inside a sized Root (`Table.Root size="sm"`) renders its Buttons and fields at that size. Declare Dialogs at the page level. See [Size](../usage.md#size).
 
 ## Style
 

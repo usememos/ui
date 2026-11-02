@@ -46,6 +46,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `disabled` 
 - Never put essential information only in a tooltip: it doesn't open on touch screens.
 - For text that explains something, use a [Popover](popover.md) instead.
 - Wrap a toolbar, or the whole app, in one `Tooltip.Provider`.
+- On a trigger that also opens a Menu, Popover or Dialog, stack the triggers: `<Tooltip.Trigger render={<Menu.Trigger render={<Button … />} />} />`. See [the recipe](../usage.md#an-icon-only-button-with-a-tooltip-and-a-menu).
 
 ## Style
 

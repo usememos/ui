@@ -71,7 +71,8 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 - Act in `onClick`. Labels are verbs in sentence case.
 - Put destructive items last, after a Separator, with `danger`. Confirm them with an [AlertDialog](dialog.md).
 - CheckboxItems and RadioItems stay open on click, so people can change several.
-- For picking a value saved with a form, use [Select](select.md).
+- For picking a value saved with a form, use [Select](select.md). For content that stays open while people use it (inputs, text, several controls), use [Popover](popover.md). See [Menu or Popover](../usage.md#menu-or-popover).
+- To open a Dialog from an item, keep the Dialog outside the Menu and control its `open`. See [the recipe](../usage.md#a-menu-item-that-opens-a-dialog).
 - Arrow keys move the highlight; typing jumps to an item; Escape and an outside click close it; focus returns to the trigger.
 - An app's own floating list, such as an editor's suggestion list, takes `menuClasses()`: `popup` on the list, `item` on each row, and `data-highlighted` on the active row. See [Class functions](../custom-components.md#class-functions).
 

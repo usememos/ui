@@ -32,6 +32,8 @@ Components follow the [API conventions](../building.md#api-conventions): parts w
 
 ## Choosing between similar components
 
+The short version. [Using the components](../usage.md) has the full decision guides, recipes and common mistakes.
+
 | Need | Use |
 | --- | --- |
 | Start an action | Button |

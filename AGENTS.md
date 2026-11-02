@@ -20,7 +20,7 @@ The docs in `docs/` describe the target system and are the source of truth. The 
 | Text | [Typography](docs/typography.md) and the voice rules in [Principles](docs/principles.md#voice-and-interface-text) |
 | Icons | [Icons](docs/icons.md) |
 | Animation | [Motion](docs/motion.md) |
-| A screen in a product | [Patterns](docs/patterns.md) |
+| A screen in a product | [Patterns](docs/patterns.md), [Using the components](docs/usage.md) |
 | A part an app builds itself | [Building your own component](docs/custom-components.md) |
 
 ## Rules
