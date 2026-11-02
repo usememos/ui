@@ -11,7 +11,7 @@ test("the app's own variables don't reach the components", async ({ page }) => {
   await page.goto('/interop.html');
   const button = page.locator('#primary');
   // The app sets --primary, --radius-md, --font-sans and --space-3; the button reads only --mu- tokens.
-  await expect(button).toHaveCSS('background-color', 'rgb(31, 31, 31)');
+  await expect(button).toHaveCSS('background-color', 'rgb(26, 26, 26)');
   await expect(button).toHaveCSS('border-top-left-radius', '6px');
   await expect(button).toHaveCSS('padding-left', '12px');
   expect(await button.evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/^system-ui,/);
@@ -86,8 +86,8 @@ for (const theme of themes) {
 
 test("an app's own parts show states from attributes", async ({ page }) => {
   await page.goto('/interop.html');
-  // A menu row the app highlights itself gets `hover` (#ededed in Light).
-  await expect(page.locator('#menu-custom-active')).toHaveCSS('background-color', 'rgb(237, 237, 237)');
+  // A menu row the app highlights itself gets `hover` (#ececec in Light).
+  await expect(page.locator('#menu-custom-active')).toHaveCSS('background-color', 'rgb(236, 236, 236)');
   await expect(page.locator('#menu-custom-item')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
 
   // A field's edge turns 1.5px `focus-edge` ink (#1a1a1a in Light) while anything inside it has focus.

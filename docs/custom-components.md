@@ -119,7 +119,7 @@ An app on Tailwind CSS v4 loads `tailwind.css` after the package's other stylesh
 @import "@usememos/ui/tailwind.css";
 ```
 
-It maps the 26 color tokens, five shadow tokens, seven radius tokens and three font tokens to utilities with an `mu-` prefix, so they never clash with an app's own colors:
+It maps the 27 color tokens, five shadow tokens, seven radius tokens and three font tokens to utilities with an `mu-` prefix, so they never clash with an app's own colors:
 
 | Token | Utility |
 | --- | --- |

@@ -21,8 +21,8 @@ test('shows the ink focus ring on keyboard focus only', async ({ page }) => {
   await expect(button).toBeFocused();
   await expect(button).toHaveCSS('outline-style', 'solid');
   await expect(button).toHaveCSS('outline-width', '2px');
-  // `focus` is `primary` ink (#1f1f1f in Light), 1px outside the edge.
-  await expect(button).toHaveCSS('outline-color', 'rgb(31, 31, 31)');
+  // `focus` is `primary` ink (#1a1a1a in Light), 1px outside the edge.
+  await expect(button).toHaveCSS('outline-color', 'rgb(26, 26, 26)');
   await expect(button).toHaveCSS('outline-offset', '1px');
 });
 

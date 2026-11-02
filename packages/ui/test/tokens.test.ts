@@ -94,8 +94,21 @@ describe('tokens.css', () => {
     }
   });
 
+  it('points every neutral color token at a step of the gray ramp, or at white', () => {
+    const grays = tableRows(colorDocs).filter(([name]) => /^`gray-\d+`$/.test(name ?? ''));
+    expect(grays.map(([name]) => unquote(name))).toEqual(Array.from({ length: 12 }, (_, i) => `gray-${i + 1}`));
+    for (const theme of themes) {
+      for (const [name, value] of themeRule[theme]) {
+        if (name.startsWith('--mu-gray-') || !/^#([0-9a-f])\1{5}$|^#(?:([0-9a-f]{2})\2\2)$/i.test(value)) continue;
+        expect(value, `${name} in ${theme} should be var(--mu-gray-N) or #ffffff`).toBe('#ffffff');
+      }
+    }
+  });
+
   it('exports the color and shadow tokens as themeTokens, and every theme sets each one', () => {
-    const colors = tableRows(colorDocs).map(([name]) => `--mu-${unquote(name)}`);
+    const colors = tableRows(colorDocs)
+      .map(([name]) => `--mu-${unquote(name)}`)
+      .filter((name) => !name.startsWith('--mu-gray-'));
     const shadows = [...depthDocs.matchAll(/^\| `(shadow-[\w-]+)` \|/gm)].map(([, name = '']) => `--mu-${name}`);
     expect(shadows).toHaveLength(5);
     expect([...themeTokens]).toEqual([...colors, ...shadows]);

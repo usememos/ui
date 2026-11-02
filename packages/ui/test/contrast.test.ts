@@ -26,6 +26,13 @@ function colorTable() {
     if (!name || !light || !dark || !/^[\w-]+$/.test(name) || name === 'Token') continue;
     table.set(name, { light, dark });
   }
+  // Neutral tokens point at the gray ramp: resolve var(--mu-gray-N) to its value.
+  for (const values of table.values()) {
+    for (const theme of themes) {
+      const ref = values[theme].match(/^var\(--mu-([\w-]+)\)$/)?.[1];
+      if (ref) values[theme] = table.get(ref)?.[theme] ?? values[theme];
+    }
+  }
   return table;
 }
 

@@ -11,12 +11,12 @@ test('Menu: keyboard opens it, moves through items, and returns focus on close',
   const menu = page.getByRole('menu');
   await expect(menu).toBeVisible();
   await expect(trigger).toHaveAttribute('data-popup-open', '');
-  // The popup takes focus without a ring; the highlighted item shows the `hover` fill (#ededed in Light), not a ring.
+  // The popup takes focus without a ring; the highlighted item shows the `hover` fill (#ececec in Light), not a ring.
   await expect(menu).toHaveCSS('outline-style', 'none');
   await page.keyboard.press('ArrowDown');
   const edit = page.getByRole('menuitem', { name: /Edit/ });
   await expect(edit).toHaveAttribute('data-highlighted', '');
-  await expect(edit).toHaveCSS('background-color', 'rgb(237, 237, 237)');
+  await expect(edit).toHaveCSS('background-color', 'rgb(236, 236, 236)');
   await expect(edit).toHaveCSS('outline-style', 'none');
   await page.keyboard.press('Escape');
   await expect(menu).toBeHidden();
