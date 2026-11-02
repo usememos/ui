@@ -2,6 +2,7 @@ import { Popover as BasePopover } from '@base-ui/react/popover';
 import { forwardRef } from 'react';
 import { withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
+import { SizeContext } from '../../internal/size';
 import { popoverClasses } from './classes';
 
 const classes = /* @__PURE__ */ popoverClasses();
@@ -29,12 +30,15 @@ export interface PopupProps extends BasePopover.Popup.Props, PositionerProps {
 }
 
 /** The panel: a surface with `shadow-pop`, `popover-width` wide. */
-export const Popup = forwardRef<HTMLDivElement, PopupProps>(function PopoverPopup({ container, className, ...props }, ref) {
+export const Popup = forwardRef<HTMLDivElement, PopupProps>(function PopoverPopup({ container, className, children, ...props }, ref) {
   const [positioner, rest] = splitPositioner(props);
   return (
     <BasePopover.Portal container={container}>
       <BasePopover.Positioner sideOffset={6} {...positioner} className="mu-positioner">
-        <BasePopover.Popup ref={ref} {...rest} className={withClass(classes.popup, className)} />
+        <BasePopover.Popup ref={ref} {...rest} className={withClass(classes.popup, className)}>
+          {/* The panel is md wherever it is declared: React context crosses the portal, so a sm toolbar's size would leak in. */}
+          <SizeContext.Provider value="md">{children}</SizeContext.Provider>
+        </BasePopover.Popup>
       </BasePopover.Positioner>
     </BasePopover.Portal>
   );

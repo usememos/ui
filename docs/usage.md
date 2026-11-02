@@ -268,7 +268,8 @@ In an extension or an embed, pass the same `container` to every `Popup` and to `
 - **Pick by place, not by importance.** `md` everywhere by default, including dialogs, forms, onboarding and marketing pages. `sm` for dense toolbars, table rows and filters inside panels. `xs` for secondary actions beside 13px text (entry footers, row actions). See [Control sizes](layout.md#control-sizes).
 - **Never make a control bigger to make it stronger.** Emphasis is the `primary` variant.
 - **Don't mix sizes in one row.** A Button beside an Input has the Input's size.
-- **Size crosses portals.** React context passes through Popups, so a Dialog, Popover or Menu rendered inside a `Table.Root size="sm"` or a sized `ToggleGroup` renders its Buttons and fields at that size too. Render Dialogs at the page level and open them with `open` (as in [A menu item that opens a dialog](#a-menu-item-that-opens-a-dialog)), or set `size="md"` on what's inside.
+- **Dialogs and Popovers start at md.** Their panels are md wherever they are declared, so a Dialog inside a `Table.Root size="sm"` still has md Buttons and fields. Set `size` inside the panel only for a part that should differ.
+- **Menus follow their surroundings.** A Menu, Select or Combobox without its own `size` takes the size of the Root around it, so a menu opened from a sm toolbar has sm rows.
 - Text entry, menus, tabs and tables have no `xs`; an inherited `xs` renders them at `sm`.
 
 ## Emphasis and color
@@ -324,7 +325,6 @@ Run through it for every screen.
 | `size` on every part of a Menu or Select | `size` on its Root |
 | Two `primary` Buttons in one view | One `primary`, the rest `neutral` |
 | `danger` Button as the first click | A `danger` Menu item, then an AlertDialog |
-| A Dialog declared inside a sm Table row | The Dialog at page level, opened with `open` |
 | A placeholder as the only label | `Field.Label`, or `aria-label` |
 | Color as the only signal of status | A Badge or Toast with a word and an icon |
 | `className` that changes a component's color, height or radius | Use the component as it is, or change the package |
