@@ -30,7 +30,7 @@ Memos UI is ink on paper: pure-gray neutrals, `primary` ink for emphasis, one qu
 
 There are two themes: **Light** (the default) and **Dark**.
 
-- Each theme sets the [gray ramp](#gray-ramp), every color token and every shadow token. Neutral color tokens point at a ramp step; nothing else is derived at runtime. The package's tests check the values against the tables on this page and in [Depth](depth.md), and check the contrast promised here.
+- Each theme sets every color token and every shadow token to an explicit value. Nothing is derived at runtime. The package's tests check the values against the tables on this page and in [Depth](depth.md), and check the contrast promised here.
 - Dark keeps the same depth model. Wells go darker than `canvas`, keys go lighter, `key-sheen` drops to 8%, and `primary` flips to near-white with a dark `on-primary`.
 - Non-text contrast: `edge` is about 1.5:1 in Light and Dark. That is the soft border people expect from a calm interface, and it is below WCAG's 3:1 for control boundaries. An app that needs 3:1 boundaries defines its own [app theme](#app-themes) with a darker `edge` and outlined keys.
 
@@ -81,48 +81,25 @@ An app can offer more themes than the two the package ships, such as a warm Pape
 - The tokens sit in the `mu` [cascade layer](building.md#cascade-layer), so an unlayered app theme wins over them at any specificity.
 - An app theme is a choice the user makes. It is not a way to restyle the package per product: an app's default theme is Light or Dark.
 
-## Gray ramp
-
-Every neutral color comes from one 12-step gray ramp per theme. Step 1 is the page and step 12 is the strongest text; Light runs light to dark and Dark runs dark to light. The neutral color tokens below point at a step (`hover` is `var(--mu-gray-3)`); only white and the hues are written out.
-
-- The ramp is internal, like space and radius. Apps read a step for their own parts (`var(--mu-gray-7)` for a chart grid line) but don't override it, and an [app theme](#app-themes) sets the color tokens, not the ramp.
-- Steps 1 to 6 are fills and lines, 7 to 9 are free for app parts, 10 to 12 are text. A step marked free has no token on it yet.
-- A new neutral token points at an existing step. Add a step only with a written reason here.
-
-| Step | Light | Dark | Used by |
-| --- | --- | --- | --- |
-| `gray-1` | `#fafafa` | `#0f0f0f` | Light: `canvas`, `key-hover`. Dark: `canvas`, `on-primary` |
-| `gray-2` | `#f4f4f4` | `#1a1a1a` | Light: free. Dark: `surface` |
-| `gray-3` | `#ececec` | `#252525` | Light: `hover`. Dark: `well`, `hover`, `line` |
-| `gray-4` | `#e4e4e4` | `#343434` | Light: `well`. Dark: `key`, `edge` |
-| `gray-5` | `#dedede` | `#3c3c3c` | Light: `line`. Dark: `key-hover` |
-| `gray-6` | `#d0d0d0` | `#4d4d4d` | Light: `edge`. Dark: free |
-| `gray-7` | `#b5b5b5` | `#636363` | Light: free. Dark: free |
-| `gray-8` | `#949494` | `#7c7c7c` | Light: free. Dark: free |
-| `gray-9` | `#767676` | `#959595` | Light: free. Dark: free |
-| `gray-10` | `#5e5e5e` | `#adadad` | Light: `ink-muted`. Dark: `ink-muted` |
-| `gray-11` | `#333333` | `#e6e6e6` | Light: `primary-hover`. Dark: `primary` |
-| `gray-12` | `#1a1a1a` | `#ededed` | Light: `ink`, `primary`. Dark: `ink` |
-
 ## Color tokens
 
 | Token | Light | Dark | Usage |
 | --- | --- | --- | --- |
-| `canvas` | `var(--mu-gray-1)` | `var(--mu-gray-1)` | Page background |
-| `surface` | `#ffffff` | `var(--mu-gray-2)` | One lightness step above canvas: inputs, menus, popovers, dialogs, toasts, table headers |
-| `well` | `var(--mu-gray-4)` | `var(--mu-gray-3)` | Recessed parts that hold a state: switch, tab, checkbox and radio wells, pressed toggles, inline code. Paired with `edge` and `shadow-track`. Not for text entry |
-| `hover` | `var(--mu-gray-3)` | `var(--mu-gray-3)` | Hover on rows, ghost buttons and wells; the highlighted row in menus and selects |
-| `key` | `#ffffff` | `var(--mu-gray-4)` | Raised parts you press: neutral buttons, select triggers, the selected tab, switch knobs, kbd. Paired with `shadow-key` or `shadow-raised` |
-| `key-hover` | `var(--mu-gray-1)` | `var(--mu-gray-5)` | Hover on a neutral key |
+| `canvas` | `#fafafa` | `#0f0f0f` | Page background |
+| `surface` | `#ffffff` | `#1a1a1a` | One lightness step above canvas: inputs, menus, popovers, dialogs, toasts, table headers |
+| `well` | `#e4e4e4` | `#252525` | Recessed parts that hold a state: switch, tab, checkbox and radio wells, pressed toggles, inline code. Paired with `edge` and `shadow-track`. Not for text entry |
+| `hover` | `#ececec` | `#252525` | Hover on rows, ghost buttons and wells; the highlighted row in menus and selects |
+| `key` | `#ffffff` | `#343434` | Raised parts you press: neutral buttons, select triggers, the selected tab, switch knobs, kbd. Paired with `shadow-key` or `shadow-raised` |
+| `key-hover` | `#fafafa` | `#3c3c3c` | Hover on a neutral key |
 | `key-sheen` | `rgba(255,255,255,0.18)` | `rgba(255,255,255,0.08)` | Top light on keys: a gradient from `key-sheen` at the top edge to clear at 60% of the height |
-| `edge` | `var(--mu-gray-6)` | `var(--mu-gray-4)` | 1px border of inputs and wells. About 1.5:1 on canvas |
-| `line` | `var(--mu-gray-5)` | `var(--mu-gray-3)` | Separators, table rules and menu dividers. 1.25:1 in Light, so structural lines also need spacing or a heading |
+| `edge` | `#d0d0d0` | `#343434` | 1px border of inputs and wells. About 1.5:1 on canvas |
+| `line` | `#dedede` | `#252525` | Separators, table rules and menu dividers. 1.25:1 in Light, so structural lines also need spacing or a heading |
 | `overlay` | `rgba(0,0,0,0.32)` | `rgba(0,0,0,0.6)` | Backdrop behind dialogs and sheets |
-| `ink` | `var(--mu-gray-12)` | `var(--mu-gray-12)` | Primary text and icons on canvas, surface, well and key (13:1 or more in both themes) |
-| `ink-muted` | `var(--mu-gray-10)` | `var(--mu-gray-10)` | Secondary text: descriptions, placeholders, unselected tabs and toggles, shortcuts, timestamps (4.9:1 or more on every surface) |
-| `primary` | `var(--mu-gray-12)` | `var(--mu-gray-11)` | The one emphasized action and every on state: primary buttons, checked boxes and radios, switches when on, tooltips. Ink, not a hue |
-| `primary-hover` | `var(--mu-gray-11)` | `#ffffff` | Hover on a primary key |
-| `on-primary` | `#ffffff` | `var(--mu-gray-1)` | Text, icons and the switch knob on `primary` (16:1 Light, 15:1 Dark) |
+| `ink` | `#1a1a1a` | `#ededed` | Primary text and icons on canvas, surface, well and key (13:1 or more in both themes) |
+| `ink-muted` | `#5e5e5e` | `#adadad` | Secondary text: descriptions, placeholders, unselected tabs and toggles, shortcuts, timestamps (4.9:1 or more on every surface) |
+| `primary` | `#1a1a1a` | `#e6e6e6` | The one emphasized action and every on state: primary buttons, checked boxes and radios, switches when on, tooltips. Ink, not a hue |
+| `primary-hover` | `#333333` | `#ffffff` | Hover on a primary key |
+| `on-primary` | `#ffffff` | `#0f0f0f` | Text, icons and the switch knob on `primary` (16:1 Light, 15:1 Dark) |
 | `accent` | `oklch(0.5 0.13 255)` | `oklch(0.78 0.11 255)` | The only hue at rest: links, the text cursor and selection. 5.8:1 on canvas in Light. Never a fill |
 | `selection` | `rgba(40,99,171,0.18)` | `rgba(135,186,253,0.28)` | Text selection and the selected range in an editor |
 | `focus` | `var(--mu-primary)` | `var(--mu-primary)` | Keyboard focus ring: 2px outline, 1px offset, on `:focus-visible` only |
