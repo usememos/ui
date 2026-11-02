@@ -46,7 +46,7 @@
 .mu-toast[data-ending-style][data-swipe-direction="left"] { translate: calc(var(--toast-swipe-movement-x) - 150%) var(--offset-y); }
 .mu-toast[data-ending-style][data-swipe-direction="right"] { translate: calc(var(--toast-swipe-movement-x) + 150%) var(--offset-y); }
 .mu-toast[data-limited] { opacity: 0; }
-.mu-toast:focus-visible { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-width); }
+.mu-toast:focus-visible { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-offset); }
 /* Keeps the stack expanded while the pointer crosses the gap between toasts. */
 .mu-toast::after { content: ""; position: absolute; top: 100%; left: 0; width: 100%; height: calc(var(--mu-row-gap) + 1px); }
 

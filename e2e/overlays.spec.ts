@@ -11,8 +11,13 @@ test('Menu: keyboard opens it, moves through items, and returns focus on close',
   const menu = page.getByRole('menu');
   await expect(menu).toBeVisible();
   await expect(trigger).toHaveAttribute('data-popup-open', '');
+  // The popup takes focus without a ring; the highlighted item shows the `hover` fill (#ededed in Light), not a ring.
+  await expect(menu).toHaveCSS('outline-style', 'none');
   await page.keyboard.press('ArrowDown');
-  await expect(page.getByRole('menuitem', { name: /Edit/ })).toHaveAttribute('data-highlighted', '');
+  const edit = page.getByRole('menuitem', { name: /Edit/ });
+  await expect(edit).toHaveAttribute('data-highlighted', '');
+  await expect(edit).toHaveCSS('background-color', 'rgb(237, 237, 237)');
+  await expect(edit).toHaveCSS('outline-style', 'none');
   await page.keyboard.press('Escape');
   await expect(menu).toBeHidden();
   await expect(trigger).toBeFocused();
@@ -127,6 +132,7 @@ test('Popover: opens below its trigger and returns focus on Escape', async ({ pa
   await trigger.click();
   const popup = page.getByRole('dialog', { name: 'Share this note' });
   await expect(popup).toBeVisible();
+  await expect(popup).toHaveCSS('outline-style', 'none');
   const [t, p] = await Promise.all([trigger.boundingBox(), popup.boundingBox()]);
   expect(p!.y).toBeGreaterThan(t!.y + t!.height);
   await page.keyboard.press('Escape');

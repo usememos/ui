@@ -89,13 +89,13 @@ test("an app's own parts show states from attributes", async ({ page }) => {
   await expect(page.locator('#menu-custom-active')).toHaveCSS('background-color', 'rgb(237, 237, 237)');
   await expect(page.locator('#menu-custom-item')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
 
-  // A field's ring shows while anything inside it has focus.
+  // A field's edge turns 1.5px `focus-edge` ink (#1a1a1a in Light) while anything inside it has focus.
   const field = page.locator('#input-custom');
-  await expect(field).toHaveCSS('outline-style', 'none');
+  await expect(field).toHaveCSS('box-shadow', /^rgb\(208, 208, 208\) 0px 0px 0px 1px inset/);
   await page.getByRole('textbox', { name: 'Custom tag' }).focus();
-  await expect(field).toHaveCSS('outline-style', 'solid');
+  await expect(field).toHaveCSS('box-shadow', /^rgb\(26, 26, 26\) 0px 0px 0px 1.5px inset/);
   await page.getByRole('textbox', { name: 'Custom note' }).focus();
-  await expect(page.locator('#textarea-custom')).toHaveCSS('outline-style', 'solid');
+  await expect(page.locator('#textarea-custom')).toHaveCSS('box-shadow', /^rgb\(26, 26, 26\) 0px 0px 0px 1.5px inset/);
 
   // aria-invalid and aria-disabled on the box.
   await field.evaluate((element) => element.setAttribute('aria-invalid', 'true'));

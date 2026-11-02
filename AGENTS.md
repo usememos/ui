@@ -33,7 +33,7 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 - **Parts, not data props.** Multi-element components are namespaces of parts with Base UI's names (`Menu.Root`, `Menu.Trigger`, `Menu.Popup`, `Menu.Item`). Portal, Positioner and Backdrop fold into one `Popup`. No `items` or `options` arrays. See [API conventions](docs/building.md#api-conventions).
 - **No shadcn.** No shadcn dependency, no copied shadcn code, and no shadcn-compatible names (`card`, `muted`, `destructive`, `foreground`, `secondary`, `ring` and so on). Use the token names in [Color](docs/color.md).
 - **Tokens only.** Use `var(--mu-<token>)` for every color, shadow, radius, space, size, duration, easing and z-index. No raw values in component CSS.
-- **Ink, not a hue.** `primary` (near-black in Light, near-white in Dark) is the only emphasis. `accent` (quiet blue) is only for focus, links and selection, never a fill. `success`, `warning` and `danger` are only for status.
+- **Ink, not a hue.** `primary` (near-black in Light, near-white in Dark) is the only emphasis. `accent` (quiet blue) is only for links and selection, never a fill. Focus is ink. `success`, `warning` and `danger` are only for status.
 - **Depth means behavior.** Recessed holds a value, raised can be pressed, popups float, everything else is flat. Text inputs are flat. Use the `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` classes before writing new shadows. See [Depth](docs/depth.md).
 - **Apps set only color, shadow and font tokens.** The 26 color tokens, five shadow tokens and three font tokens are the whole theming surface; `themeTokens` lists the 31 an app theme sets. Every other token and every `mu-*` class rule is internal to the package. See [What an app can change](docs/color.md#what-an-app-can-change).
 - **Apps build their own parts from the package.** Base UI for behavior, class functions (`buttonClasses`, `menuClasses`) and [public classes](docs/custom-components.md#public-classes) for looks, `--mu-row-*` variables and tokens for the rest. A component whose look apps reuse exports `<component>Classes()` and builds its own classes with it. See [Building your own component](docs/custom-components.md).
@@ -45,7 +45,7 @@ These are decisions, not suggestions. Changing one needs the maintainer's sign-o
 - **Not in the set:** Card, Slider, Stepper, Chip, SegmentedControl, Accordion. See [what was left out](docs/components/README.md#left-out-on-purpose) and what to use instead.
 - **Scoped CSS.** Classes start with `mu-`. No global selectors beyond `:root` and `.mu-root`, so the package can mount inside a host page.
 - **Source order decides.** Inside the package a later rule beats an earlier one on the same element. Every `:has()` sits in `:where()`, so it adds no specificity. See [Writing component CSS](docs/building.md#writing-component-css).
-- **Accessibility.** Text keeps 4.5:1 contrast in every theme. Focus rings show on `:focus-visible` only. Icon-only controls have an `aria-label` and a Tooltip. Touch targets reach 44px on `pointer: coarse`.
+- **Accessibility.** Text keeps 4.5:1 contrast in every theme. Focus rings are ink and show on `:focus-visible` only, 1px outside the edge; a focused field darkens its own edge instead of getting a ring; popups never show one. Icon-only controls have an `aria-label` and a Tooltip. Touch targets reach 44px on `pointer: coarse`.
 - **Interface text** is sentence case, starts buttons with a verb, and uses no emoji.
 
 ## Adding or changing a component

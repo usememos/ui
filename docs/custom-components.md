@@ -27,7 +27,7 @@ A class function returns the classes that make any element look like a component
 
 State is set with attributes, never with extra classes:
 
-- A field shows the focus ring when it or anything inside it has focus. `aria-invalid="true"` shows the error edge, and `aria-disabled="true"` dims it.
+- A field darkens its edge to `focus-edge` when it or anything inside it has focus. `aria-invalid="true"` shows the error edge, and `aria-disabled="true"` dims it.
 - A menu row is highlighted while it has `data-highlighted`, and dimmed with `data-disabled`. Base UI sets both; a list the app drives itself sets them on the active row.
 - A popup fades in with `data-starting-style` and out with `data-ending-style`, which Base UI's popups set.
 
@@ -67,7 +67,7 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-popup` | `surface`, `shadow-pop` and `radius-xl` | A part that floats |
 | `mu-popup-motion` | The popup fade and rise, none under reduced motion | A popup Base UI opens |
 | `mu-positioner` | The popup layer | A popup's positioner |
-| `mu-focus` | The focus ring on `:focus-visible` | Anything focusable |
+| `mu-focus` | The ink focus ring on `:focus-visible`, 1px outside the edge | Anything focusable |
 | `mu-hit` | An invisible 44px touch target on `pointer: coarse` | Anything pressable smaller than 44px |
 | `mu-icon` | Icon size and stroke | A Lucide icon outside a control |
 | `mu-visually-hidden` | Hidden on screen, read by screen readers | Text for screen readers only |

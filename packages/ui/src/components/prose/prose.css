@@ -25,7 +25,7 @@
 
 .mu-prose a { color: var(--mu-accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; border-radius: var(--mu-radius-xs); }
 /* Links inside running text are underlined at rest: color alone does not set them apart from the text. */
-.mu-prose a:focus-visible { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-width); }
+.mu-prose a:focus-visible { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-offset); }
 
 /* Lists. */
 .mu-prose :where(ul, ol) { padding-inline-start: var(--mu-space-6); }
@@ -51,7 +51,7 @@
   cursor: pointer;
 }
 .mu-prose li > input[type="checkbox"]:first-child:disabled { cursor: default; }
-.mu-prose li > input[type="checkbox"]:first-child:focus-visible { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-width); }
+.mu-prose li > input[type="checkbox"]:first-child:focus-visible { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-offset); }
 .mu-prose li > input[type="checkbox"]:first-child:checked { background-color: var(--mu-primary); box-shadow: none; }
 .mu-prose li > input[type="checkbox"]:first-child:checked::after {
   content: "";

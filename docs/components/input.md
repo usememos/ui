@@ -32,11 +32,11 @@ Wraps Base UI's [Input](https://base-ui.com/react/components/input), so inside a
 - Provide a `Field.Label` or `aria-label`. Never a placeholder alone.
 - `prefix` and `suffix` hold an icon, a short word or a small ghost Button.
 - `sm` for filters inside panels, `md` everywhere else.
-- An app's own one-line field, such as a tag input around a native `<input>`, takes `inputClasses()` on its box: focus anywhere inside shows the ring, and `aria-invalid="true"` or `aria-disabled="true"` on the box show those states. See [Class functions](../custom-components.md#class-functions).
+- An app's own one-line field, such as a tag input around a native `<input>`, takes `inputClasses()` on its box: focus anywhere inside darkens the edge, and `aria-invalid="true"` or `aria-disabled="true"` on the box show those states. See [Class functions](../custom-components.md#class-functions).
 
 ## Style
 
 - Flat `surface` with a 1px `edge` and a faint inner shadow from the top. Never a gray well, so it never reads as disabled.
 - Typed text weight 400; placeholder `ink-muted`.
-- Hover darkens the edge to `ink-muted`; focus adds the ring. The background never changes.
+- Hover darkens the edge to `ink-muted`; focus turns it into a 1.5px `focus-edge` (ink), on click and keyboard alike. There is no ring around the field. The background never changes.
 - The side with a prefix or suffix has 2px less padding.

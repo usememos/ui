@@ -16,7 +16,7 @@ const tokensOf = (group: string) => [...new Set([...tokensCss.matchAll(new RegEx
 describe('tailwind.css', () => {
   it('maps every theme token, radius and font', () => {
     const expected = [...themeTokens, ...tokensOf('radius'), ...tokensOf('font')];
-    expect(expected.length).toBe(41);
+    expect(expected.length).toBe(42);
     expect(expected.filter((token) => ![...mapped.values()].includes(token))).toEqual([]);
     expect(mapped.size).toBe(expected.length);
   });

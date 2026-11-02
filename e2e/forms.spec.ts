@@ -98,13 +98,16 @@ test('Field: an error replaces the description and marks the input', async ({ pa
   await expect(field.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
 });
 
-test('Input: the label focuses the input and the box shows the focus ring', async ({ page }) => {
+test('Input: the label focuses the input and the box darkens its edge, with no ring', async ({ page }) => {
   await open(page);
   await page.locator('#field label', { hasText: 'Name' }).click();
   const input = page.getByRole('textbox', { name: 'Name' });
   await expect(input).toBeFocused();
   const box = page.locator('#field .mu-input-root').first();
-  await expect(box).toHaveCSS('outline-style', 'solid');
+  // The edge turns 1.5px `focus-edge` ink (#1a1a1a in Light).
+  await expect(box).toHaveCSS('box-shadow', /^rgb\(26, 26, 26\) 0px 0px 0px 1.5px inset/);
+  // The outline is transparent: only forced-colors mode paints it.
+  await expect(box).toHaveCSS('outline-color', 'rgba(0, 0, 0, 0)');
 });
 
 test('Switch: the knob slides when on, and only fades under reduced motion', async ({ page }) => {

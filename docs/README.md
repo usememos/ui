@@ -34,7 +34,7 @@ It is not a general-purpose UI library for outside developers. Components are ge
 - **No shadcn.** No shadcn dependency, no copied shadcn code, and no shadcn-compatible component or token names (`card`, `muted`, `destructive`, `foreground` and so on are not used).
 - **Light, tactile by default.** Restrained depth that shows behavior. Light is the default theme; Dark and High contrast ship with it.
 - **Ink is the accent.** The primary action and every on state use `primary`: near-black in Light, near-white in Dark.
-- **One quiet hue.** `accent` is a quiet blue used only for focus rings, links and text selection, never as a fill.
+- **One quiet hue.** `accent` is a quiet blue used only for links and text selection, never as a fill. Focus is ink.
 - **Status colors only for status.** Green means success, amber means warning, red means danger or error. None of them is used for emphasis.
 - **Lucide icons** at a fixed screen-pixel stroke: 1.5px at md, 1.25px at xs, sm and in badges.
 - **The system UI font** for all text. The package ships no font files.

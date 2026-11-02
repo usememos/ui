@@ -34,6 +34,7 @@
   --color-mu-accent: var(--mu-accent);
   --color-mu-selection: var(--mu-selection);
   --color-mu-focus: var(--mu-focus);
+  --color-mu-focus-edge: var(--mu-focus-edge);
   --color-mu-success: var(--mu-success);
   --color-mu-success-soft: var(--mu-success-soft);
   --color-mu-warning: var(--mu-warning);

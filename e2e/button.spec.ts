@@ -10,7 +10,7 @@ test('sizes set the height', async ({ page }) => {
   }
 });
 
-test('shows the focus ring on keyboard focus only', async ({ page }) => {
+test('shows the ink focus ring on keyboard focus only', async ({ page }) => {
   await open(page);
   const button = save(page);
   await button.click();
@@ -21,6 +21,9 @@ test('shows the focus ring on keyboard focus only', async ({ page }) => {
   await expect(button).toBeFocused();
   await expect(button).toHaveCSS('outline-style', 'solid');
   await expect(button).toHaveCSS('outline-width', '2px');
+  // `focus` is `primary` ink (#1f1f1f in Light), 1px outside the edge.
+  await expect(button).toHaveCSS('outline-color', 'rgb(31, 31, 31)');
+  await expect(button).toHaveCSS('outline-offset', '1px');
 });
 
 test('Enter and Space press it', async ({ page }) => {

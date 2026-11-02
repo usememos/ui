@@ -23,6 +23,7 @@ export const themeTokens = [
   '--mu-accent',
   '--mu-selection',
   '--mu-focus',
+  '--mu-focus-edge',
   '--mu-success',
   '--mu-success-soft',
   '--mu-warning',

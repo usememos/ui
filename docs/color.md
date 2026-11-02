@@ -1,6 +1,6 @@
 # Color
 
-Memos UI is ink on paper: pure-gray neutrals, `primary` ink for emphasis, one quiet blue for focus, links and selection, and status colors only when there is a status.
+Memos UI is ink on paper: pure-gray neutrals, `primary` ink for emphasis, one quiet blue for links and selection, and status colors only when there is a status.
 
 ## Roles
 
@@ -12,14 +12,15 @@ Memos UI is ink on paper: pure-gray neutrals, `primary` ink for emphasis, one qu
 | Keys | `key`, `key-hover`, `key-sheen` | Neutral buttons, select triggers, the selected tab, switch knobs, kbd |
 | Text | `ink`, `ink-muted` | Primary and secondary text. Both pass 4.5:1 on every surface, well and key in every theme |
 | Emphasis | `primary`, `primary-hover`, `on-primary` | Primary button, checked checkbox and radio, switch when on, tooltip |
-| Meta | `accent`, `selection`, `focus` | Links, focus ring, text selection. Never a fill |
+| Meta | `accent`, `selection`, `focus`, `focus-edge` | Links and text selection (`accent`); the keyboard focus ring and the focused field edge (`focus`, `focus-edge`, both ink). Never a fill |
 | Status | `success`, `warning`, `danger` and their `-soft` pairs; `danger-key`, `on-danger` | Toasts, badges, field errors, danger buttons |
 | Lines | `line` | Separators, table rules, menu dividers |
 
 ## Rules
 
 - Neutrals are pure gray, never tinted.
-- `accent` is a quiet blue used only for links, focus and selection. If a screen has blue on it at rest, apart from links, something is wrong.
+- `accent` is a quiet blue used only for links and selection. If a screen has blue on it at rest, apart from links, something is wrong.
+- Focus is ink, not blue. A focused field darkens its own edge to `focus-edge`; a control reached by keyboard gets a 2px `focus` ring 1px outside its edge. See [States](states.md).
 - Status colors appear only when there is a status. Red is for destructive actions and errors, never for emphasis.
 - `danger` is tuned for text. `danger-key` is the danger button's fill; it is darker in Dark so the button is not the loudest thing on screen.
 - Always pair a status color with a word or an icon.
@@ -75,7 +76,7 @@ An app can offer more themes than the three the package ships, such as a warm Pa
     expect(themeTokens.filter((name) => !paper.includes(`${name}:`))).toEqual([]);
   });
   ```
-- Keep the rules on this page: `primary` stays ink, not a brand hue; `accent` is only for focus, links and selection; status colors only for status.
+- Keep the rules on this page: `primary` stays ink, not a brand hue; `accent` is only for links and selection; focus is ink; status colors only for status.
 - The app owns the theme's contrast. Check in the app's own tests that every text and background pair named in the Usage column below keeps 4.5:1 or more. The package's tests and screenshots cover only Light, Dark and High contrast.
 - The tokens sit in the `mu` [cascade layer](building.md#cascade-layer), so an unlayered app theme wins over them at any specificity.
 - An app theme is a choice the user makes. It is not a way to restyle the package per product: an app's default theme is Light or Dark.
@@ -99,9 +100,10 @@ An app can offer more themes than the three the package ships, such as a warm Pa
 | `primary` | `#1f1f1f` | `#e6e6e6` | `#000000` | The one emphasized action and every on state: primary buttons, checked boxes and radios, switches when on, tooltips. Ink, not a hue |
 | `primary-hover` | `#333333` | `#f5f5f5` | `#262626` | Hover on a primary key |
 | `on-primary` | `#ffffff` | `#111111` | `#ffffff` | Text, icons and the switch knob on `primary` (16:1 Light, 15:1 Dark) |
-| `accent` | `oklch(0.5 0.13 255)` | `oklch(0.78 0.11 255)` | `oklch(0.42 0.14 255)` | The only hue at rest: focus rings, links, the text cursor and selection. 5.8:1 on canvas in Light. Never a fill |
+| `accent` | `oklch(0.5 0.13 255)` | `oklch(0.78 0.11 255)` | `oklch(0.42 0.14 255)` | The only hue at rest: links, the text cursor and selection. 5.8:1 on canvas in Light. Never a fill |
 | `selection` | `rgba(40,99,171,0.18)` | `rgba(135,186,253,0.28)` | `rgba(0,75,151,0.25)` | Text selection and the selected range in an editor |
-| `focus` | `var(--mu-accent)` | `var(--mu-accent)` | `var(--mu-accent)` | Focus ring: 2px outline, 2px offset, on `:focus-visible` only |
+| `focus` | `var(--mu-primary)` | `var(--mu-primary)` | `var(--mu-primary)` | Keyboard focus ring: 2px outline, 1px offset (2px in High contrast), on `:focus-visible` only |
+| `focus-edge` | `var(--mu-ink)` | `var(--mu-ink)` | `var(--mu-ink)` | Edge of a focused field (Input, Textarea, Combobox): 1.5px (2px in High contrast) on any focus, in place of the 1px `edge` |
 | `success` | `oklch(0.52 0.13 150)` | `oklch(0.78 0.14 150)` | `oklch(0.42 0.12 150)` | Success text and icons on `surface` or `success-soft` (4.6:1 or more). Always with a word or icon |
 | `success-soft` | `#e9f4ec` | `#14261a` | `#e9f4ec` | Background of success badges and toasts |
 | `warning` | `oklch(0.5 0.11 70)` | `oklch(0.8 0.13 75)` | `oklch(0.45 0.11 70)` | Warning text and icons on `surface` or `warning-soft` (5.5:1 or more) |

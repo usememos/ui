@@ -41,7 +41,8 @@
   --mu-danger-key: oklch(0.53 0.19 27);
   --mu-danger-soft: #fbeaea;
   --mu-on-danger: #ffffff;
-  --mu-focus: var(--mu-accent);
+  --mu-focus: var(--mu-primary);
+  --mu-focus-edge: var(--mu-ink);
   --mu-shadow-track: inset 0 1px 2px rgba(0,0,0,0.10);
   --mu-shadow-key: 0 1px 2px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(0,0,0,0.05);
   --mu-shadow-raised: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.12);
@@ -74,7 +75,8 @@
   --mu-danger-key: oklch(0.55 0.17 25);
   --mu-danger-soft: #2c1616;
   --mu-on-danger: #ffffff;
-  --mu-focus: var(--mu-accent);
+  --mu-focus: var(--mu-primary);
+  --mu-focus-edge: var(--mu-ink);
   --mu-shadow-track: inset 0 1px 2px rgba(0,0,0,0.55), inset 0 -0.5px 0 rgba(255,255,255,0.06);
   --mu-shadow-key: 0 1px 2px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.10);
   --mu-shadow-raised: inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.25), 0 0 0 0.5px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.5);
@@ -109,7 +111,8 @@
   --mu-danger-key: oklch(0.45 0.18 27);
   --mu-danger-soft: #fbeaea;
   --mu-on-danger: #ffffff;
-  --mu-focus: var(--mu-accent);
+  --mu-focus: var(--mu-primary);
+  --mu-focus-edge: var(--mu-ink);
   --mu-shadow-track: 0 0 0 0 rgba(0,0,0,0);
   --mu-shadow-key: 0 0 0 1px #6b6b6b;
   --mu-shadow-raised: 0 0 0 1px #000000;
@@ -139,6 +142,8 @@
   --mu-inset: 2px;
   --mu-hit-area: 44px;
   --mu-focus-width: 2px;
+  --mu-focus-offset: 1px;
+  --mu-focus-edge-width: 1.5px;
   --mu-icon-xs: 12px;
   --mu-icon-sm: 14px;
   --mu-icon-md: 16px;
@@ -164,4 +169,10 @@
   --mu-font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mu-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
+/* High contrast widens the focus indicators so they meet WCAG 2.4.13 (AAA). */
+:where([data-theme="contrast"], [data-theme="contrast"] .mu-root) {
+  --mu-focus-offset: 2px;
+  --mu-focus-edge-width: 2px;
+}
+
 }
