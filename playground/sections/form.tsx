@@ -10,7 +10,7 @@ export function FormSection(_: SectionProps<RowSize>) {
           <Form.Title>{bordered ? 'Add a tag rule' : 'Profile'}</Form.Title>
           <Form.Description>{bordered ? 'Tag new notes that match a word.' : 'Shown on your public notes.'}</Form.Description>
           <Field.Root name={bordered ? 'tag' : 'name'}>
-            <Field.Label>{bordered ? 'Tag' : 'Display name'}</Field.Label>
+            <Field.Label>{bordered ? 'Tag' : 'Nickname'}</Field.Label>
             <Input defaultValue={bordered ? 'work' : 'Steven'} />
           </Field.Root>
           <Field.Root orientation="horizontal">
