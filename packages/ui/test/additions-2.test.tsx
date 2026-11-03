@@ -51,7 +51,7 @@ describe('ToggleGroup fullWidth', () => {
         </ToggleGroup>
       </>,
     );
-    const [full, plain] = container.querySelectorAll('[role="group"]');
+    const [full, plain] = [...container.querySelectorAll('[role="group"]')] as [Element, Element];
     expect(full.className).toContain('mu-toggle-group-full');
     expect(full.className).toContain('mu-segmented');
     expect(plain.className).not.toContain('mu-toggle-group-full');
