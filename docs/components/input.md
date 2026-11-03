@@ -37,6 +37,6 @@ Wraps Base UI's [Input](https://base-ui.com/react/components/input), so inside a
 ## Style
 
 - Flat `surface` with a 1px `edge` and a faint inner shadow from the top. Never a gray well, so it never reads as disabled.
-- Typed text weight 400; placeholder `ink-muted`.
+- Typed text weight 400; placeholder `ink-muted`. On touch screens typed text is 16px at every size, so iOS Safari does not zoom in on focus; the field keeps its height.
 - Hover darkens the edge to `ink-muted`; focus turns it into a 1.5px `focus-edge` (ink), on click and keyboard alike. There is no ring around the field. The background never changes.
 - The side with a prefix or suffix has 2px less padding.

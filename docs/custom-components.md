@@ -95,13 +95,15 @@ A size row class sets these variables on its element, and children inherit them.
 | `--mu-row-padding-icon` | 4px | 6px | 10px |
 | `--mu-row-font-size` | 12px | 13px | 14px |
 | `--mu-row-line-height` | 16px | 18px | 20px |
+| `--mu-row-field-font-size` | 12px | 13px | 14px |
+| `--mu-row-field-line-height` | 16px | 18px | 20px |
 | `--mu-row-radius` | 4px | 4px | 6px |
 | `--mu-row-gap` | 4px | 4px | 6px |
 | `--mu-row-icon` | 12px | 14px | 16px |
 | `--mu-row-icon-stroke` | 1.25px | 1.25px | 1.5px |
 | `--mu-row-check-box` | 14px | 16px | 18px |
 
-`--mu-row-padding-icon` is the padding on the side of a control that starts or ends with an icon. Inside `mu-compact`, the md `--mu-row-height` is 28px.
+`--mu-row-padding-icon` is the padding on the side of a control that starts or ends with an icon. Inside `mu-compact`, the md `--mu-row-height` is 28px. `--mu-row-field-font-size` and `--mu-row-field-line-height` are for text people type; on touch screens they are 16px and 20px at every size, so iOS Safari does not zoom in when a field takes focus.
 
 ```css
 .app-tag-input-chip {

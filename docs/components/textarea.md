@@ -35,3 +35,4 @@ Base UI has no textarea part, so this renders Base UI's `Field.Control` as a `<t
 ## Style
 
 - Looks like [Input](input.md). Resizes vertically only.
+- On touch screens typed text is 16px on a 20px line at every size, like Input, so iOS Safari does not zoom in on focus.

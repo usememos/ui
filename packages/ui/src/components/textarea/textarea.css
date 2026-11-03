@@ -5,12 +5,14 @@
   width: 100%;
   min-height: var(--mu-row-height);
   margin: 0;
-  padding: calc((var(--mu-row-height) - var(--mu-row-line-height)) / 2) var(--mu-row-padding);
+  padding: calc((var(--mu-row-height) - var(--mu-row-field-line-height)) / 2) var(--mu-row-padding);
   border: 0;
   border-radius: var(--mu-row-radius);
   color: var(--mu-ink);
   background-color: var(--mu-surface);
   box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
+  font-size: var(--mu-row-field-font-size);
+  line-height: var(--mu-row-field-line-height);
   font-weight: 400;
   resize: vertical;
   transition: box-shadow var(--mu-duration-fade) var(--mu-ease-out);

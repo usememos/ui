@@ -43,8 +43,11 @@
   color: inherit;
   background: none;
   font: inherit;
+  font-size: var(--mu-row-field-font-size);
   font-weight: 400;
 }
+/* An app's own field inside the box (inputClasses()) gets the same text size. */
+.mu-input-root:where(:not(:has(> .mu-input))) :where(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]), textarea) { font-size: var(--mu-row-field-font-size); }
 .mu-input::placeholder { color: var(--mu-ink-muted); opacity: 1; }
 .mu-input[data-disabled] { cursor: not-allowed; }
 

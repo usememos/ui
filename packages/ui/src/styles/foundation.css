@@ -15,6 +15,8 @@
   --mu-row-padding-icon: var(--mu-space-1);
   --mu-row-font-size: 12px;
   --mu-row-line-height: 16px;
+  --mu-row-field-font-size: 12px;
+  --mu-row-field-line-height: 16px;
   --mu-row-radius: var(--mu-radius-sm);
   --mu-row-gap: var(--mu-space-1);
   --mu-row-icon: var(--mu-icon-xs);
@@ -27,6 +29,8 @@
   --mu-row-padding-icon: 6px;
   --mu-row-font-size: 13px;
   --mu-row-line-height: 18px;
+  --mu-row-field-font-size: 13px;
+  --mu-row-field-line-height: 18px;
   --mu-row-radius: var(--mu-radius-sm);
   --mu-row-gap: var(--mu-space-1);
   --mu-row-icon: var(--mu-icon-sm);
@@ -39,11 +43,18 @@
   --mu-row-padding-icon: 10px;
   --mu-row-font-size: 14px;
   --mu-row-line-height: 20px;
+  --mu-row-field-font-size: 14px;
+  --mu-row-field-line-height: 20px;
   --mu-row-radius: var(--mu-radius-md);
   --mu-row-gap: 6px;
   --mu-row-icon: var(--mu-icon-md);
   --mu-row-icon-stroke: 1.5px;
   --mu-row-check-box: 18px;
+}
+
+/* Typed text in fields is 16px on a 20px line on touch screens, at every size: below 16px, iOS Safari zooms the page in when a field takes focus. */
+@media (pointer: coarse) {
+  .mu-s-xs, .mu-s-sm, .mu-s-md { --mu-row-field-font-size: 16px; --mu-row-field-line-height: 20px; }
 }
 
 /* Compact: inside it, md controls and rows are control-compact (28px) tall; their text, icons, padding and radius stay md. For an app's sidebar. */
@@ -89,16 +100,16 @@
 .mu-icon-md { --mu-row-icon: var(--mu-icon-md); --mu-row-icon-stroke: 1.5px; }
 
 /* Type scale. See docs/typography.md. */
-/* App text uses four sizes and two weights; 12px is for the labels of 20px parts only; 32px is for a website hero only. */
+/* App text uses four sizes and two weights; 12px is for the labels of 20px parts only; 32px is for a website hero only. Titles and headings balance their lines. */
 .mu-label-xs { font-family: var(--mu-font-sans); font-size: 12px; line-height: 16px; font-weight: 500; }
 .mu-caption { font-family: var(--mu-font-sans); font-size: 13px; line-height: 18px; font-weight: 400; }
 .mu-label-sm { font-family: var(--mu-font-sans); font-size: 13px; line-height: 18px; font-weight: 500; }
 .mu-body { font-family: var(--mu-font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
 .mu-label { font-family: var(--mu-font-sans); font-size: 14px; line-height: 20px; font-weight: 500; }
-.mu-title { font-family: var(--mu-font-display); font-size: 16px; line-height: 24px; font-weight: 500; }
-.mu-heading { font-family: var(--mu-font-display); font-size: 20px; line-height: 28px; font-weight: 500; }
-.mu-display { font-family: var(--mu-font-display); font-size: 32px; line-height: 40px; font-weight: 500; letter-spacing: -0.02em; }
+.mu-title { font-family: var(--mu-font-display); font-size: 16px; line-height: 24px; font-weight: 500; text-wrap: balance; }
+.mu-heading { font-family: var(--mu-font-display); font-size: 20px; line-height: 28px; font-weight: 500; text-wrap: balance; }
+.mu-display { font-family: var(--mu-font-display); font-size: 32px; line-height: 40px; font-weight: 500; letter-spacing: -0.02em; text-wrap: balance; }
 
-/* Prose sizes: reading text is larger than UI text. prose.css sets the rest. See docs/components/prose.md. */
-.mu-prose { --prose-fs: 16px; --prose-lh: 24px; --prose-h1: 20px; --prose-h1-lh: 28px; --prose-h2: 16px; --prose-h2-lh: 24px; --prose-head: 13px; --prose-head-lh: 18px; }
-.mu-prose-sm { --prose-fs: 14px; --prose-lh: 22px; }
+/* Prose sizes: reading text is larger than UI text, with three heading sizes (h1, h2, then h3-h6 at the text size). prose.css sets the rest. See docs/components/prose.md. */
+.mu-prose { --prose-fs: 16px; --prose-lh: 24px; --prose-h1: 24px; --prose-h1-lh: 32px; --prose-h2: 20px; --prose-h2-lh: 28px; --prose-h3: 16px; --prose-h3-lh: 24px; --prose-head: 13px; --prose-head-lh: 18px; }
+.mu-prose-sm { --prose-fs: 14px; --prose-lh: 22px; --prose-h1: 16px; --prose-h1-lh: 24px; --prose-h2: 14px; --prose-h2-lh: 22px; --prose-h3: 14px; --prose-h3-lh: 22px; }

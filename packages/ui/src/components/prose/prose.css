@@ -13,12 +13,14 @@
 
 /* Blocks: space-3 between them, headings get space-5 above and space-2 below. */
 .mu-prose :where(p, ul, ol, pre, blockquote, table, figure, img, video, hr) { margin: 0 0 var(--mu-space-3); }
-.mu-prose :where(h1, h2, h3, h4, h5, h6) { margin: var(--mu-space-5) 0 var(--mu-space-2); font-family: var(--mu-font-display); font-weight: 600; letter-spacing: 0; }
+.mu-prose :where(h1, h2, h3, h4, h5, h6) { margin: var(--mu-space-5) 0 var(--mu-space-2); font-family: var(--mu-font-display); font-weight: 600; letter-spacing: 0; text-wrap: balance; }
+.mu-prose :where(p, li) { text-wrap: pretty; }
 .mu-prose > :first-child { margin-top: 0; }
 .mu-prose > :last-child { margin-bottom: 0; }
 
 .mu-prose h1 { font-size: var(--prose-h1); line-height: var(--prose-h1-lh); }
-.mu-prose :where(h2, h3, h4, h5, h6) { font-size: var(--prose-h2); line-height: var(--prose-h2-lh); }
+.mu-prose h2 { font-size: var(--prose-h2); line-height: var(--prose-h2-lh); }
+.mu-prose :where(h3, h4, h5, h6) { font-size: var(--prose-h3); line-height: var(--prose-h3-lh); }
 
 .mu-prose :where(strong, b) { font-weight: 600; }
 .mu-prose del { color: var(--mu-ink-muted); }

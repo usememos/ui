@@ -37,8 +37,8 @@ Every native attribute passes through.
 
 ## Style
 
-- Text: 16px on a 24px line (`sm`: 14 on 22), weight 400, `ink`. Blocks are `space-3` apart.
-- Headings: `h1` 20/28px, `h2`–`h6` 16/24px; all weight 600, with `space-5` above and `space-2` below. Bold (`strong`, `b`) is 600 too. These are the only 600s in the system: people wrote them as bold, and 500 does not read as bold in system fonts.
+- Text: 16px on a 24px line (`sm`: 14 on 22), weight 400, `ink`. Paragraphs and list items use `text-wrap: pretty`, so a last line is rarely one word. Blocks are `space-3` apart.
+- Headings: `h1` 24/32px, `h2` 20/28px, `h3`–`h6` 16/24px (`sm`: `h1` 16/24px, `h2`–`h6` 14/22px); all weight 600, balanced over their lines (`text-wrap: balance`), with `space-5` above and `space-2` below. Bold (`strong`, `b`) is 600 too. These are the only 600s in the system: people wrote them as bold, and 500 does not read as bold in system fonts.
 - Links: `accent`, underlined at rest, because color alone does not set them apart from the text.
 - Code: `--mu-font-mono` at 0.875em on `well`. Inline code has `radius-xs`; blocks have `radius-md`, `space-3` by `space-4` padding, and scroll sideways.
 - Quotes: a 2px `edge` bar, text in `ink-muted`. Rules: a 1px `line` with `space-5` around it.
@@ -46,4 +46,4 @@ Every native attribute passes through.
 - Images and video: never wider than the column, `radius-lg`.
 - Tables follow [Table](table.md): `line` between rows, 13px `ink-muted` heads (weight 500), tabular numbers; they scroll sideways when too wide.
 - Tags: `ink-muted` on `well`, `radius-xs`. They read as words, not badges.
-- Sizes are custom properties set on `.mu-prose` in the foundation (`--prose-fs`, `--prose-lh`, heading sizes).
+- Sizes are custom properties set on `.mu-prose` in the foundation (`--prose-fs`, `--prose-lh`, `--prose-h1`, `--prose-h2`, `--prose-h3` and their line heights).

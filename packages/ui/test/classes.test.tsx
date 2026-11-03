@@ -134,7 +134,7 @@ describe('public classes and row variables', () => {
   it('set every row variable in docs/custom-components.md, with its value, in each size row', () => {
     const start = customDocs.indexOf('## Row variables');
     const rows = [...customDocs.slice(start).matchAll(/^\| `(--mu-row-[\w-]+)` \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$/gm)];
-    expect(rows).toHaveLength(10);
+    expect(rows).toHaveLength(12);
     const tokens = { 'var(--mu-control-xs)': '20px', 'var(--mu-control-sm)': '24px', 'var(--mu-control-md)': '32px', 'var(--mu-space-1)': '4px', 'var(--mu-space-2)': '8px', 'var(--mu-space-3)': '12px', 'var(--mu-radius-sm)': '4px', 'var(--mu-radius-md)': '6px', 'var(--mu-icon-xs)': '12px', 'var(--mu-icon-sm)': '14px', 'var(--mu-icon-md)': '16px' } as Record<string, string>;
     for (const [index, size] of ['xs', 'sm', 'md'].entries()) {
       const body = foundationCss.match(new RegExp(`\\.mu-s-${size} \\{([^}]*)\\}`))?.[1] ?? '';
