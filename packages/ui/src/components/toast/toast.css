@@ -1,34 +1,34 @@
-/* Toast: confirms that something happened, stacked at the bottom of the screen. See docs/components/toast.md. */
+/* Toast: confirms that something happened, stacked at the top right of the screen. See docs/components/toast.md. */
 .mu-toast-viewport {
   position: fixed;
+  top: var(--mu-space-6);
   right: var(--mu-space-6);
-  bottom: var(--mu-space-6);
   z-index: var(--mu-layer-toast);
   width: var(--mu-toast-width);
   outline: 0;
 }
-/* Below breakpoint-sm (640px): bottom-center, full width. */
+/* Below breakpoint-sm (640px): top, full width, below the status bar. */
 @media (max-width: 639.98px) {
-  .mu-toast-viewport { right: var(--mu-space-4); bottom: var(--mu-space-4); left: var(--mu-space-4); width: auto; }
+  .mu-toast-viewport { top: max(var(--mu-space-4), env(safe-area-inset-top)); right: var(--mu-space-4); left: var(--mu-space-4); width: auto; }
 }
 
-/* Collapsed, the toasts behind peek out above the front one; hovering or focusing the viewport fans them out. */
+/* Collapsed, the toasts behind peek out below the front one; hovering or focusing the viewport fans them out downward. */
 .mu-toast {
   --mu-row-gap: var(--mu-space-3);
   --peek: var(--mu-space-2);
   --scale: max(0, 1 - var(--toast-index) * 0.05);
   --shrink: calc(1 - var(--scale));
   --height: var(--toast-frontmost-height, var(--toast-height));
-  --offset-y: calc(var(--toast-offset-y) * -1 - var(--toast-index) * var(--mu-row-gap) + var(--toast-swipe-movement-y));
+  --offset-y: calc(var(--toast-offset-y) + var(--toast-index) * var(--mu-row-gap) + var(--toast-swipe-movement-y));
   position: absolute;
+  top: 0;
   right: 0;
-  bottom: 0;
   z-index: calc(var(--mu-layer-toast) - var(--toast-index));
   box-sizing: border-box;
   width: 100%;
   height: var(--height);
-  transform-origin: bottom center;
-  translate: var(--toast-swipe-movement-x) calc(var(--toast-swipe-movement-y) - var(--toast-index) * var(--peek) - var(--shrink) * var(--height));
+  transform-origin: top center;
+  translate: var(--toast-swipe-movement-x) calc(var(--toast-swipe-movement-y) + var(--toast-index) * var(--peek) + var(--shrink) * var(--height));
   scale: var(--scale);
   user-select: none;
   outline: 0;
@@ -39,7 +39,7 @@
     height var(--mu-duration-fade) var(--mu-ease-out);
 }
 .mu-toast[data-expanded] { height: var(--toast-height); translate: var(--toast-swipe-movement-x) var(--offset-y); scale: 1; }
-.mu-toast[data-starting-style], .mu-toast[data-ending-style] { translate: 0 150%; }
+.mu-toast[data-starting-style], .mu-toast[data-ending-style] { translate: 0 -150%; }
 .mu-toast[data-ending-style] { opacity: 0; }
 .mu-toast[data-ending-style][data-swipe-direction="up"] { translate: 0 calc(var(--toast-swipe-movement-y) - 150%); }
 .mu-toast[data-ending-style][data-swipe-direction="down"] { translate: 0 calc(var(--toast-swipe-movement-y) + 150%); }
@@ -48,7 +48,7 @@
 .mu-toast[data-limited] { opacity: 0; }
 .mu-toast:focus-visible { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-offset); }
 /* Keeps the stack expanded while the pointer crosses the gap between toasts. */
-.mu-toast::after { content: ""; position: absolute; top: 100%; left: 0; width: 100%; height: calc(var(--mu-row-gap) + 1px); }
+.mu-toast::after { content: ""; position: absolute; bottom: 100%; left: 0; width: 100%; height: calc(var(--mu-row-gap) + 1px); }
 
 .mu-toast-content {
   display: flex;

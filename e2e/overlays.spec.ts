@@ -116,13 +116,14 @@ test.describe('on a phone', () => {
     expect(create!.width).toBe(cancel!.width);
   });
 
-  test('Toasts span the width at the bottom', async ({ page }) => {
+  test('Toasts span the width at the top', async ({ page }) => {
     await open(page);
     await page.locator('#toast').getByRole('button', { name: 'Save' }).click();
     const toast = page.locator('.mu-toast').first();
     await expect(toast).toBeVisible();
     const box = (await toast.boundingBox())!;
     expect(Math.round(box.width)).toBe(390 - 32);
+    await expect.poll(async () => Math.round((await toast.boundingBox())!.y)).toBe(16);
   });
 });
 
@@ -158,6 +159,8 @@ test('Toast: shows a toast with its action, and the X closes it', async ({ page 
   const toast = page.locator('.mu-toast', { hasText: 'Note archived' });
   await expect(toast).toBeVisible();
   await expect(toast.getByRole('button', { name: 'Undo' })).toBeVisible();
+  // Top right, space-6 from the edges, once it has slid in.
+  await expect.poll(async () => toast.boundingBox().then((box) => [Math.round(box!.y), Math.round(page.viewportSize()!.width - box!.x - box!.width)])).toEqual([24, 24]);
   // Base UI hides the X from screen readers; Escape and F6 reach the toast instead.
   await toast.locator('.mu-toast-close').click();
   await expect(toast).toHaveCount(0);

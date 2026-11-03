@@ -95,7 +95,7 @@ Two breakpoints. They are values, not tokens: CSS custom properties can't be use
 
 | Breakpoint | Value | Usage |
 | --- | --- | --- |
-| breakpoint-sm | 640px | Below this: one column, dialogs and menus become sheets, toasts sit bottom-center |
+| breakpoint-sm | 640px | Below this: one column, dialogs and menus become sheets, toasts span the top |
 | breakpoint-md | 1024px | From this: the sidebar is fixed and the content column is centered |
 
 ```css

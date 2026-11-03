@@ -58,6 +58,6 @@ Under `breakpoint-sm` (640px):
 
 - One column.
 - Dialogs and menus become sheets.
-- Toasts sit bottom-center.
+- Toasts span the top of the screen.
 - Every control keeps its 44px hit area.
 - Controls stay `md`.

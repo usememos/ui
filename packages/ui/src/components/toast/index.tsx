@@ -26,7 +26,7 @@ export interface ViewportProps extends BaseToast.Viewport.Props {
   closeLabel?: string;
 }
 
-/** Shows the toasts: bottom-right, or bottom-center below `breakpoint-sm`. Render it once, inside Provider. */
+/** Shows the toasts: top-right, or across the top below `breakpoint-sm`. Render it once, inside Provider. */
 export const Viewport = forwardRef<HTMLDivElement, ViewportProps>(function ToastViewport({ container, closeLabel = 'Close', className, ...props }, ref) {
   return (
     <BaseToast.Portal container={container}>
@@ -41,13 +41,16 @@ const icons = { neutral: Info, success: CircleCheck, warning: TriangleAlert, dan
 
 const toneOf = (type: string | undefined): Tone => (type === 'success' || type === 'warning' || type === 'danger' ? type : 'neutral');
 
+/** Toasts sit at the top right, so they swipe away up or to the right. */
+const swipeDirection: BaseToast.Root.Props['swipeDirection'] = ['up', 'right'];
+
 function ToastList({ closeLabel }: { closeLabel: string }) {
   const { toasts } = BaseToast.useToastManager();
   return toasts.map((toast) => {
     const tone = toneOf(toast.type);
     const Icon = icons[tone];
     return (
-      <BaseToast.Root key={toast.id} toast={toast} className={cx('mu-toast mu-popup mu-base mu-s-md', `mu-toast-${tone}`)}>
+      <BaseToast.Root key={toast.id} toast={toast} swipeDirection={swipeDirection} className={cx('mu-toast mu-popup mu-base mu-s-md', `mu-toast-${tone}`)}>
         <BaseToast.Content className="mu-toast-content">
           <Icon className="mu-toast-icon" aria-hidden />
           <div className="mu-toast-text">
