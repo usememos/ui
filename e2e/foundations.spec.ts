@@ -18,8 +18,10 @@ for (const theme of themes) {
 
 test('loads no web fonts: text uses the system UI font', async ({ page }) => {
   await open(page);
-  expect(await page.evaluate(() => document.fonts.size)).toBe(0);
-  expect(await page.locator('main').evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/^system-ui,/);
+  // The only font faces are the local() alias of Segoe UI, which loads no file.
+  expect(await page.evaluate(() => [...new Set([...document.fonts].map((face) => face.family.replace(/"/g, '')))])).toEqual(['Segoe UI (mu)']);
+  expect(await page.evaluate(() => performance.getEntriesByType('resource').filter((entry) => /\.(woff2?|ttf|otf)(\?|$)/.test(entry.name)).length)).toBe(0);
+  expect(await page.locator('main').evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/^-apple-system, BlinkMacSystemFont, "Segoe UI \(mu\)", system-ui,/);
 });
 
 test('sizes set the control height', async ({ page }) => {

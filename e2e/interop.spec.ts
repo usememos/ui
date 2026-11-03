@@ -14,7 +14,7 @@ test("the app's own variables don't reach the components", async ({ page }) => {
   await expect(button).toHaveCSS('background-color', 'rgb(26, 26, 26)');
   await expect(button).toHaveCSS('border-top-left-radius', '6px');
   await expect(button).toHaveCSS('padding-left', '12px');
-  expect(await button.evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/^system-ui,/);
+  expect(await button.evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/^-apple-system, BlinkMacSystemFont, "Segoe UI \(mu\)", system-ui,/);
   // And the tokens don't overwrite the app's variables.
   expect(await rootVar(page, '--primary')).toBe('rgb(255, 0, 0)');
 });
