@@ -29,7 +29,7 @@ const visibility = { private: "Private", workspace: "Workspace", public: "Public
 | Part | Base UI part | Renders |
 | --- | --- | --- |
 | `Select.Root` | `Select.Root` | Nothing. Holds the value and a hidden input for forms. Takes `size` |
-| `Select.Trigger` | `Select.Trigger` with `Select.Icon` | A neutral key with a chevron at the end, a `<button role="combobox">` |
+| `Select.Trigger` | `Select.Trigger` with `Select.Icon` | A neutral key with a chevron at the end, a `<button role="combobox">`. Takes `variant` |
 | `Select.Value` | `Select.Value` | The chosen item's label, or the placeholder |
 | `Select.Popup` | `Select.Portal`, `Positioner`, `Popup`, `List`, scroll arrows | The list, portaled to the body |
 | `Select.Item` | `Select.Item` with `ItemText` and `ItemIndicator` | One option, with a check at the end when chosen. Takes `icon` |
@@ -43,6 +43,9 @@ const visibility = { private: "Private", workspace: "Workspace", public: "Public
 type Select.RootProps<Value, Multiple> = BaseSelect.Root.Props<Value, Multiple> & {
   size?: "sm" | "md";
 };
+interface Select.TriggerProps extends BaseSelect.Trigger.Props {
+  variant?: "neutral" | "ghost"; // default "neutral"; ghost: a flat row, for a switcher in a sidebar or toolbar
+}
 interface Select.PopupProps extends BaseSelect.Popup.Props {
   alignItemWithTrigger?: boolean; // default true: the list opens over the trigger with the chosen item on the value
   side?: Side; align?: Align; // used when alignItemWithTrigger is false
@@ -61,9 +64,10 @@ Base UI's props pass through: `items`, `value`, `defaultValue`, `onValueChange`,
 - Label it with a [Field](field.md), or `aria-label` on the trigger.
 - Use [RadioGroup](radio-group.md) for two or three options with room to show them, and [Combobox](combobox.md) for more than about 10 or when people type to find.
 - For actions, use [Menu](menu.md).
+- `variant="ghost"` draws the trigger as a row instead of a key, for a value people switch in place, such as the current space in a sidebar. Put an icon or Avatar before `Select.Value`. In a form, keep `neutral`.
 
 ## Style
 
-- Trigger: a neutral key ([Button](button.md) `neutral`), value left-aligned, `ChevronsUpDown` in `ink-muted`. Placeholder in `ink-muted`, weight 400. Invalid: a `danger` edge.
+- Trigger: a neutral key ([Button](button.md) `neutral`), value left-aligned, `ChevronsUpDown` in `ink-muted`. `ghost`: a ghost Button with `ink` text, `hover` on hover and while open. Placeholder in `ink-muted`, weight 400. Invalid: a `danger` edge.
 - List: `mu-popup`, `space-1` padding, at least `menu-width` and the trigger's width. Rows like [Menu](menu.md) items; the highlighted row uses `hover`.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.

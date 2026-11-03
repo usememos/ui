@@ -36,6 +36,9 @@
 /* Room for the X at the top right. */
 .mu-dialog-popup:where(:has(> .mu-dialog-x)) > .mu-dialog-title { padding-inline-end: var(--mu-space-6); }
 
+/* Bare: the content runs edge to edge and is clipped to the radius. The content sets its own padding, and closes with Escape or its own Close. */
+.mu-dialog-popup.mu-dialog-bare { gap: 0; padding: 0; overflow: hidden; }
+
 .mu-dialog-title { margin: 0; color: var(--mu-ink); }
 .mu-dialog-description { margin: calc(-1 * var(--mu-space-2)) 0 0; color: var(--mu-ink-muted); }
 .mu-dialog-x { position: absolute; top: var(--mu-space-4); right: var(--mu-space-4); }
@@ -51,6 +54,7 @@
     border-end-end-radius: 0;
   }
   .mu-dialog-sheet > .mu-dialog-popup[data-starting-style], .mu-dialog-sheet > .mu-dialog-popup[data-ending-style] { translate: 0 var(--mu-space-6); }
+  .mu-dialog-sheet > .mu-dialog-popup.mu-dialog-bare { padding-bottom: env(safe-area-inset-bottom); }
   .mu-dialog-sheet .mu-dialog-footer { flex-direction: column-reverse; }
   .mu-dialog-sheet .mu-dialog-footer > * { width: 100%; }
 }

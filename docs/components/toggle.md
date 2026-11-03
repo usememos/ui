@@ -32,3 +32,4 @@ Wraps Base UI's [Toggle](https://base-ui.com/react/components/toggle): `pressed`
 ## Style
 
 - Off: flat `ink-muted`. On: sits in a `well` with `ink` text.
+- A label shrinks with an ellipsis when its row runs out of room, as Select's value does; an icon-only toggle never shrinks. A ToggleGroup is at most as wide as its container, so long translated labels truncate instead of overflowing.

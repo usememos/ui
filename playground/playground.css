@@ -12,3 +12,7 @@ body { margin: 0; background: var(--mu-canvas); color: var(--mu-ink); font-famil
 .pg-well { width: 120px; height: 32px; padding: var(--mu-inset); box-sizing: border-box; border-radius: var(--mu-radius-md); display: flex; }
 .pg-well > span { flex: 1; border-radius: var(--mu-radius-sm); display: grid; place-items: center; }
 .pg-control { height: var(--mu-row-height); padding: 0 var(--mu-row-padding); display: inline-flex; align-items: center; gap: var(--mu-row-gap); border-radius: var(--mu-row-radius); }
+.pg-bare-search { border-radius: 0; box-shadow: inset 0 -1px 0 var(--mu-line); }
+.pg-bare-list { padding: var(--mu-space-1); }
+.pg-drawer-nav { width: var(--mu-sidebar-width); }
+.pg-drawer-links { display: grid; padding: var(--mu-space-2); }

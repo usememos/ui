@@ -22,6 +22,7 @@ The most common mistake is reaching for the wrong overlay. Decide by what the fl
 | [Popover](components/popover.md) | Any small content: text, a few controls | Click on its trigger | Escape, a click outside, or its own Close | No | A share panel, a link editor, a filter panel, an explanation |
 | [Dialog](components/dialog.md) | A short form or a decision | An action | Its buttons, Escape, a backdrop click | Yes | Creating something, editing settings of one thing |
 | [AlertDialog](components/dialog.md) | A question and two buttons | An action | Only its buttons | Yes | Confirming a destructive or irreversible action |
+| [Drawer](components/drawer.md) | Navigation, or the details of one thing | A ghost button | Escape, a backdrop click, a swipe toward its edge, or a link inside | Yes | The sidebar on a phone; details beside a list |
 | [Toast](components/toast.md) | A sentence about what happened, at most one action | The app, after something happened | A timeout, its X, or its action | No | "Note archived" with Undo; "Couldn't sync" |
 
 ### Menu or Popover
@@ -218,14 +219,15 @@ const [confirming, setConfirming] = useState(false);
 ```tsx
 <Fieldset.Root>
   <Fieldset.Legend>Notifications</Fieldset.Legend>
-  <Field.Root>
-    <Field.Label>
-      <Switch checked={mentions} onCheckedChange={saveMentions} /> Email me when I'm mentioned
-    </Field.Label>
+  <Field.Root orientation="horizontal">
+    <Field.Label>Email me when I'm mentioned</Field.Label>
     <Field.Description>Sent at most once an hour.</Field.Description>
+    <Switch checked={mentions} onCheckedChange={saveMentions} />
   </Field.Root>
 </Fieldset.Root>
 ```
+
+A horizontal Field puts the setting's name first and the Switch or Select at the end of the row. For a short list of options under one heading (notification types), a Switch or Checkbox inside its `Field.Label` also works.
 
 No Save button and no toast: the Switch shows the result. If saving fails, move the Switch back and show a danger Toast.
 
@@ -320,6 +322,10 @@ Run through it for every screen.
 | A Select with 30 options | A Combobox |
 | A Select with two options and room to spare | A RadioGroup |
 | A boxed card around each item | Whitespace, a section title, or a Separator |
+| An icon after a Button's label inside `children` | `iconEnd` |
+| A `<button>` with its own classes as a row in a Popover | `menuClasses().item`, in a Popover with `variant="list"` |
+| A Dialog with `className` that removes its padding and X | `variant="bare"` |
+| Tailwind `size-4` on a standalone icon | `mu-icon-sm` or `mu-icon-md`, which set the stroke too |
 | A Spinner where a list will appear | Skeletons in the shape of the list |
 | `size="md"` or `"lg"` on a Button to emphasize it | `variant="primary"` at the row's size |
 | `size` on every part of a Menu or Select | `size` on its Root |
@@ -339,7 +345,9 @@ Names and parts from other libraries and where they go.
 | --- | --- |
 | Modal, Dialog | [Dialog](components/dialog.md); `sheet` covers phones |
 | ConfirmDialog, AlertDialog, `window.confirm` | [AlertDialog](components/dialog.md) |
-| Drawer, Sheet | Dialog (a bottom sheet below 640px). There is no side drawer; a narrow sidebar below `breakpoint-md` is the [page pattern](patterns.md#page) |
+| Drawer, Sheet | [Drawer](components/drawer.md) from an edge; a Dialog already becomes a bottom sheet below 640px |
+| Command palette, Spotlight | Dialog with `variant="bare"` around an inline [Combobox](components/combobox.md) |
+| Emoji or icon picker | Combobox with `inline` and `grid` |
 | DropdownMenu, ActionMenu | [Menu](components/menu.md) |
 | ContextMenu | Not built. Put the same actions in a Menu on a visible trigger |
 | HoverCard | [Popover](components/popover.md) with `openOnHover` on the trigger |

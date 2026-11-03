@@ -1,10 +1,10 @@
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import type { ForwardRefExoticComponent, RefAttributes } from 'react';
-import { createDialogParts, type PopupProps as SharedPopupProps } from './parts';
+import { createDialogParts, type PopupProps as SharedPopupProps, type VariantProps } from './parts';
 
 export type { CloseProps, DescriptionProps, FooterProps, RootProps, TitleProps, TriggerProps } from './parts';
 
-export interface PopupProps extends SharedPopupProps {
+export interface PopupProps extends SharedPopupProps, VariantProps {
   /** The accessible name of the X button at the top right. Default "Close". */
   closeLabel?: string;
 }
@@ -15,7 +15,7 @@ const parts = createDialogParts(BaseDialog, 'dialog', true);
 export const Root = parts.Root;
 /** Opens the dialog. Usually `render={<Button />}`. */
 export const Trigger = parts.Trigger;
-/** The panel over a dimmed backdrop, with an X at the top right. A sheet from the bottom below `breakpoint-sm`. */
+/** The panel over a dimmed backdrop, with an X at the top right; `variant="bare"` drops the padding and the X. A sheet from the bottom below `breakpoint-sm`. */
 export const Popup = parts.Popup as ForwardRefExoticComponent<PopupProps & RefAttributes<HTMLDivElement>>;
 /** The dialog's heading, an `<h2>`: a question or a task. */
 export const Title = parts.Title;

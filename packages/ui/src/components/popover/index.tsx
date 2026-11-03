@@ -3,9 +3,10 @@ import { forwardRef } from 'react';
 import { withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
 import { SizeContext } from '../../internal/size';
-import { popoverClasses } from './classes';
+import { popoverClasses, type PopoverVariant } from './classes';
 
 const classes = /* @__PURE__ */ popoverClasses();
+const listClasses = /* @__PURE__ */ popoverClasses({ variant: 'list' });
 
 export type RootProps = BasePopover.Root.Props;
 
@@ -27,15 +28,21 @@ type PositionerProps = Pick<
 export interface PopupProps extends BasePopover.Popup.Props, PositionerProps {
   /** Where the popover is portaled to. Default `document.body`. */
   container?: BasePopover.Portal.Props['container'];
+  /**
+   * `panel` (default) pads its content `space-4` and stacks it `space-3` apart.
+   * `list` holds rows, such as an account menu with a header: a Menu's
+   * `space-1` padding and no gap, for rows with `menuClasses().item`.
+   */
+  variant?: PopoverVariant;
 }
 
 /** The panel: a surface with `shadow-pop`, `popover-width` wide. */
-export const Popup = forwardRef<HTMLDivElement, PopupProps>(function PopoverPopup({ container, className, children, ...props }, ref) {
+export const Popup = forwardRef<HTMLDivElement, PopupProps>(function PopoverPopup({ container, variant = 'panel', className, children, ...props }, ref) {
   const [positioner, rest] = splitPositioner(props);
   return (
     <BasePopover.Portal container={container}>
       <BasePopover.Positioner sideOffset={6} {...positioner} className="mu-positioner">
-        <BasePopover.Popup ref={ref} {...rest} className={withClass(classes.popup, className)}>
+        <BasePopover.Popup ref={ref} {...rest} className={withClass(variant === 'list' ? listClasses.popup : classes.popup, className)}>
           {/* The panel is md wherever it is declared: React context crosses the portal, so a sm toolbar's size would leak in. */}
           <SizeContext.Provider value="md">{children}</SizeContext.Provider>
         </BasePopover.Popup>

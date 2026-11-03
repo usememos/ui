@@ -16,6 +16,23 @@
 .mu-field-description { margin: 0; color: var(--mu-ink-muted); }
 .mu-field-root[data-invalid] > .mu-field-description { display: none; }
 
+/*
+ * Horizontal: the label and description in the first column, the control at
+ * the end of the row, centered on them. The label is weight 400, as a setting's name.
+ */
+.mu-field-horizontal {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: var(--mu-space-4);
+  row-gap: 0;
+}
+.mu-field-horizontal > * { grid-column: 2; grid-row: 1; justify-self: end; }
+.mu-field-horizontal:where(:has(> .mu-field-description)) > * { grid-row: 1 / span 2; }
+.mu-field-horizontal > .mu-field-label { grid-column: 1; grid-row: 1; justify-self: stretch; font-weight: 400; }
+.mu-field-horizontal > .mu-field-description { grid-column: 1; grid-row: 2; justify-self: stretch; margin-top: var(--mu-space-1); }
+.mu-field-horizontal > .mu-field-error { grid-column: 1 / -1; grid-row: 3; justify-self: stretch; margin-top: var(--mu-space-1); }
+
 .mu-field-error { display: flex; align-items: flex-start; gap: var(--mu-space-1); color: var(--mu-danger); }
 .mu-field-error > .mu-icon { --mu-row-icon: var(--mu-icon-sm); margin-block: calc((1lh - var(--mu-icon-sm)) / 2); }
 

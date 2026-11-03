@@ -1,4 +1,4 @@
-import { Button, Checkbox, Field, Fieldset, Input, Switch, Textarea } from '@usememos/ui';
+import { Button, Checkbox, Field, Fieldset, Input, Select, Switch, Textarea } from '@usememos/ui';
 import type { RowSize, SectionProps } from '.';
 
 /** The form pattern: labels above controls, errors under them, actions at the end. */
@@ -38,6 +38,23 @@ export function FieldSection({ size }: SectionProps<RowSize>) {
           </Field.Label>
         </Field.Root>
       </Fieldset.Root>
+      <Field.Root size={size} orientation="horizontal">
+        <Field.Label>Compact mode</Field.Label>
+        <Field.Description>Show more notes on one screen.</Field.Description>
+        <Switch />
+      </Field.Root>
+      <Field.Root size={size} orientation="horizontal">
+        <Field.Label>Default visibility</Field.Label>
+        <Select.Root items={{ private: 'Private', public: 'Public' }} defaultValue="private">
+          <Select.Trigger>
+            <Select.Value />
+          </Select.Trigger>
+          <Select.Popup>
+            <Select.Item value="private">Private</Select.Item>
+            <Select.Item value="public">Public</Select.Item>
+          </Select.Popup>
+        </Select.Root>
+      </Field.Root>
       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
         <Button variant="ghost" size={size}>
           Cancel

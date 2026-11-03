@@ -30,6 +30,7 @@
 @import "../components/menu/menu.css" layer(mu);
 @import "../components/select/select.css" layer(mu);
 @import "../components/dialog/dialog.css" layer(mu);
+@import "../components/drawer/drawer.css" layer(mu);
 @import "../components/toast/toast.css" layer(mu);
 @import "../components/combobox/combobox.css" layer(mu);
 @import "../components/collapsible/collapsible.css" layer(mu);

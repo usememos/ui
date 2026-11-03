@@ -68,6 +68,7 @@ describe('class functions', () => {
             <Menu.Item shortcut="P">Pin</Menu.Item>
           </Menu.Group>
           <Menu.Separator />
+          <Menu.Item description="Moves it to the trash">Archive</Menu.Item>
           <Menu.Item danger>Delete</Menu.Item>
         </Menu.Popup>
       </Menu.Root>,
@@ -77,7 +78,9 @@ describe('class functions', () => {
     const items = document.querySelectorAll('[role="menuitem"]');
     expect(classesOf(document.querySelector('[role="menu"]'))).toEqual(split(menu.popup));
     expect(classesOf(items[0]!)).toEqual(split(menu.item));
-    expect(classesOf(items[1]!)).toEqual(split(menu.dangerItem));
+    expect(classesOf(items[1]!.querySelector('.mu-menu-text'))).toEqual(split(menu.text));
+    expect(classesOf(items[1]!.querySelector('.mu-menu-description'))).toEqual(split(menu.description));
+    expect(classesOf(items[2]!)).toEqual(split(menu.dangerItem));
     expect(classesOf(items[0]!.querySelector('.mu-menu-label'))).toEqual(split(menu.label));
     expect(classesOf(items[0]!.querySelector('.mu-menu-shortcut'))).toEqual(split(menu.shortcut));
     expect(classesOf(document.querySelector('[role="separator"]'))).toEqual(split(menu.separator));
@@ -109,6 +112,7 @@ describe('class functions', () => {
       badgeClasses({ tone: 'outline' }),
       ...Object.values(menuClasses()),
       ...Object.values(popoverClasses()),
+      ...Object.values(popoverClasses({ variant: 'list' })),
     ].flatMap(split);
     // mu-button-icon and the variant classes are selectors in compound rules, so look for each class anywhere in a selector.
     expect([...new Set(returned)].filter((name) => !new RegExp(`\\.${name}(?![\\w-])`).test(allCss))).toEqual([]);

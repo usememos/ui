@@ -38,6 +38,7 @@ const tags = ["book", "design", "travel"];
 | `Combobox.Group` | `Combobox.Group` | A labeled set of items |
 | `Combobox.GroupLabel` | `Combobox.GroupLabel` | The name of a Group |
 | `Combobox.Separator` | `Combobox.Separator` | A line between groups |
+| `Combobox.Row` | `Combobox.Row` | One row of a grid, with `grid` on the root: square cells for icons or emoji |
 | `Combobox.Collection` | `Combobox.Collection` | Base UI's part, unstyled: renders one group's items from grouped `items` |
 | `Combobox.useFilter` | `Combobox.useFilter` | Base UI's hook: locale-aware `contains`, `startsWith`, `endsWith` for `filter` |
 
@@ -72,6 +73,26 @@ Base UI's props pass through: `items`, `value`, `defaultValue`, `onValueChange`,
 - Use it for more than about 10 options, or when people type to find one. For fewer, use [Select](select.md).
 - Typing opens the list. Up and Down move the highlight, Enter picks, Escape closes; focus stays in the input.
 - Multi-select (chips) is not built.
+- With `inline` on the root, the list sits in the page instead of a popup: put `Input`, `Empty` and `List` directly inside the root, with no `Popup`. The root is then open unless you pass `open`, and the Input drops its chevron. Use it for a picker inside a Popover or a Dialog.
+- With `grid` on the root, split the filtered items into rows of a fixed count and wrap each in `Combobox.Row`. Arrow keys then move across rows and columns, and Enter picks. Give each cell an `aria-label`. This is the icon and emoji picker:
+
+  ```tsx
+  <Combobox.Root items={icons} inline grid value={icon} onValueChange={pick} inputValue={query} onInputValueChange={setQuery} itemToStringLabel={(item) => item.label}>
+    <Combobox.Input placeholder="Find an icon" aria-label="Find an icon" />
+    <Combobox.Empty>No icons found</Combobox.Empty>
+    <Combobox.List aria-label="Icons">
+      {rows(icons.filter((item) => contains(item.label, query)), 8).map((row, index) => (
+        <Combobox.Row key={index}>
+          {row.map((item) => (
+            <Combobox.Item key={item.value} value={item} aria-label={item.label}>{item.icon}</Combobox.Item>
+          ))}
+        </Combobox.Row>
+      ))}
+    </Combobox.List>
+  </Combobox.Root>
+  ```
+
+  The rows are rendered by the app, so filter them with the same query: keep it in `inputValue` and `onInputValueChange`, and match with `useFilter().contains`.
 
 ## Style
 
@@ -79,4 +100,5 @@ Base UI's props pass through: `items`, `value`, `defaultValue`, `onValueChange`,
 - List: `mu-popup`, `space-1` padding, as wide as the input and at least `menu-width`, at most `list-height` (240px) tall, then it scrolls.
 - Rows are a control height, text weight 400; the highlighted row uses `hover`; the chosen row has a check at the end.
 - Empty text: `body` in `ink-muted`, `space-3` by `space-4` padding.
+- Grid cells: square, a control height, `inset` apart, `row-radius`; the highlighted cell uses `hover`, the chosen cell sits in a `well` like a pressed Toggle. No check.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.

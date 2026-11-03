@@ -34,9 +34,10 @@ import { Button, Input, Popover } from "@usememos/ui";
 interface Popover.PopupProps extends BasePopover.Popup.Props {
   side?: Side; align?: Align; // Positioner props; default side "bottom"
   container?: HTMLElement | ShadowRoot | React.RefObject<HTMLElement | ShadowRoot | null> | null; // portal target
+  variant?: "panel" | "list"; // default "panel"; list: a Menu's padding and no gap, for rows
 }
 
-function popoverClasses(): { popup: string; title: string; description: string };
+function popoverClasses(options?: { variant?: "panel" | "list" }): { popup: string; title: string; description: string };
 ```
 
 Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on the root; `openOnHover`, `delay` on the trigger; `initialFocus`, `finalFocus` on the popup.
@@ -45,6 +46,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 
 - Use it for a few controls that belong to one thing. For a list of actions, use [Menu](menu.md). For a decision that blocks the page, use [Dialog](dialog.md).
 - Give it a `Popover.Title`, or `aria-label` on the popup.
+- `variant="list"` is for a panel made of rows, such as an account panel (a name, then links) or a scope picker with a header. Draw the rows with `menuClasses().item` and the lines between them with `menuClasses().separator`. When the rows are only actions, use a [Menu](menu.md) instead.
 - The panel is always md: controls inside it ignore the size of the Root around the Popover (a sm toolbar). Pass `size` to a control inside only when it should differ.
 - It closes on Escape and on a click outside; focus returns to the trigger.
 - An app's own floating panel, such as an emoji picker, takes `popoverClasses()`. See [Class functions](../custom-components.md#class-functions).
@@ -53,4 +55,5 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 
 - `mu-popup` (`surface`, `shadow-pop`, `radius-xl`), `space-4` padding, `popover-width` wide. Children stack `space-3` apart.
 - Title: `label`. Description: `caption` in `ink-muted`, `space-1` under the title.
+- `list`: `space-1` padding and no gap, like a Menu. A title and description inside line up with the rows' text, with `space-2` above the title and below the description.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.

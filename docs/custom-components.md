@@ -22,13 +22,13 @@ A class function returns the classes that make any element look like a component
 | `inputClasses({ size })` | A string | One-line field, such as a tag input around a native `<input>` |
 | `textareaClasses({ size })` | A string | Multi-line field, such as a content-editable editor |
 | `badgeClasses({ tone })` | A string | Label, such as a tag that is also a link |
-| `menuClasses({ size })` | `popup`, `item`, `dangerItem`, `label`, `shortcut`, `separator`, `groupLabel` | Floating list, such as an editor's suggestion list |
-| `popoverClasses()` | `popup`, `title`, `description` | Floating panel, such as an emoji picker |
+| `menuClasses({ size })` | `popup`, `item`, `dangerItem`, `label`, `text`, `description`, `shortcut`, `separator`, `groupLabel` | Floating list, such as an editor's suggestion list, or rows inside a Popover with `variant="list"` |
+| `popoverClasses({ variant })` | `popup`, `title`, `description` | Floating panel, such as an emoji picker |
 
 State is set with attributes, never with extra classes:
 
 - A field darkens its edge to `focus-edge` when it or anything inside it has focus. `aria-invalid="true"` shows the error edge, and `aria-disabled="true"` dims it.
-- A menu row is highlighted while it has `data-highlighted`, and dimmed with `data-disabled`. Base UI sets both; a list the app drives itself sets them on the active row.
+- A menu row is highlighted while it has `data-highlighted`, and dimmed with `data-disabled`. Base UI sets both; a list the app drives itself sets them on the active row. `item` works on a `<div>`, `<button>` or `<a>`. For a two-line row, wrap `label` and `description` in a `text` span.
 - A popup fades in with `data-starting-style` and out with `data-ending-style`, which Base UI's popups set.
 
 ```tsx
@@ -69,7 +69,10 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-positioner` | The popup layer | A popup's positioner |
 | `mu-focus` | The ink focus ring on `:focus-visible`, 1px outside the edge | Anything focusable |
 | `mu-hit` | An invisible 44px touch target on `pointer: coarse` | Anything pressable smaller than 44px |
-| `mu-icon` | Icon size and stroke | A Lucide icon outside a control |
+| `mu-icon` | Icon size and stroke from the nearest size row, 16px outside one | A Lucide icon inside an app's own row |
+| `mu-icon-xs` | A 12px icon with a 1.25px stroke | A Lucide icon beside 12px or 13px text, outside a control |
+| `mu-icon-sm` | A 14px icon with a 1.25px stroke | A Lucide icon beside 13px or 14px text, outside a control |
+| `mu-icon-md` | A 16px icon with a 1.5px stroke | A Lucide icon beside 14px or 16px text, outside a control |
 | `mu-visually-hidden` | Hidden on screen, read by screen readers | Text for screen readers only |
 | `mu-label-xs` | 12 / 16px, 500 | Labels of 20px parts |
 | `mu-caption` | 13 / 18px, 400 | Secondary text |

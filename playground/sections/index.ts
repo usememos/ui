@@ -7,6 +7,7 @@ import { CheckboxSection } from './checkbox';
 import { CollapsibleSection } from './collapsible';
 import { ComboboxSection } from './combobox';
 import { DialogSection } from './dialog';
+import { DrawerSection } from './drawer';
 import { FieldSection } from './field';
 import { InputSection } from './input';
 import { KbdSection } from './kbd';
@@ -64,6 +65,7 @@ export const sections: (
   { name: 'tabs', title: 'Tabs', Section: TabsSection },
   { name: 'collapsible', title: 'Collapsible', Section: CollapsibleSection },
   { name: 'dialog', title: 'Dialog and AlertDialog', Section: DialogSection },
+  { name: 'drawer', title: 'Drawer', Section: DrawerSection },
   { name: 'popover', title: 'Popover', Section: PopoverSection },
   { name: 'tooltip', title: 'Tooltip', Section: TooltipSection },
   { name: 'toast', title: 'Toast', Section: ToastSection },

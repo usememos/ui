@@ -21,13 +21,19 @@ export function Root<Value, Multiple extends boolean | undefined = false>({ size
   );
 }
 
-export interface TriggerProps extends BaseSelect.Trigger.Props {}
+export interface TriggerProps extends BaseSelect.Trigger.Props {
+  /**
+   * `neutral` (default) is a raised key, for a value in a form. `ghost` is a
+   * flat row that fills with `hover`, for a switcher in a sidebar or toolbar.
+   */
+  variant?: 'neutral' | 'ghost';
+}
 
 /** A neutral key that shows the value, with a chevron at the end. Holds `Value`. */
-export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function SelectTrigger({ className, children, ...props }, ref) {
+export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function SelectTrigger({ variant = 'neutral', className, children, ...props }, ref) {
   const size = useRowSize();
   return (
-    <BaseSelect.Trigger ref={ref} {...props} className={withClass(`mu-select-trigger ${buttonClasses({ variant: 'neutral', size })}`, className)}>
+    <BaseSelect.Trigger ref={ref} {...props} className={withClass(`mu-select-trigger ${buttonClasses({ variant, size })}`, className)}>
       {children}
       <BaseSelect.Icon className="mu-select-icon">
         <ChevronsUpDown aria-hidden />

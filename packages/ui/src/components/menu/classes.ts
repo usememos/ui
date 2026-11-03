@@ -15,6 +15,10 @@ export interface MenuClasses {
   dangerItem: string;
   /** The text of a row, which truncates. */
   label: string;
+  /** Stacks a row's label over its description. */
+  text: string;
+  /** A line of `ink-muted` text under the label. */
+  description: string;
   /** A keyboard shortcut at the end of a row. */
   shortcut: string;
   /** A line between groups of rows. */
@@ -34,6 +38,8 @@ export function menuClasses({ size = 'md' }: MenuClassesOptions = {}): MenuClass
     item: 'mu-menu-item',
     dangerItem: 'mu-menu-item mu-menu-item-danger',
     label: 'mu-menu-label',
+    text: 'mu-menu-text',
+    description: 'mu-menu-description mu-caption',
     shortcut: 'mu-menu-shortcut',
     separator: 'mu-menu-separator',
     groupLabel: 'mu-menu-group-label mu-label-sm',

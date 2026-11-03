@@ -2,11 +2,12 @@
 .mu-toggle {
   position: relative;
   display: inline-flex;
-  flex: none;
+  flex: 0 1 auto;
   align-items: center;
   justify-content: center;
   gap: var(--mu-row-gap);
   box-sizing: border-box;
+  min-width: 0;
   height: var(--mu-row-height);
   margin: 0;
   padding: 0 var(--mu-row-padding);
@@ -22,7 +23,11 @@
   transition-timing-function: var(--mu-ease-out);
 }
 .mu-toggle:where(:has(> svg:first-child)) { padding-inline-start: var(--mu-row-padding-icon); }
-.mu-toggle.mu-toggle-icon { width: var(--mu-row-height); padding: 0; }
+.mu-toggle.mu-toggle-icon { flex: none; width: var(--mu-row-height); padding: 0; }
+
+/* A label shrinks with an ellipsis when its row runs out of room, as Select's value does. */
+.mu-toggle-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.mu-toggle > svg { flex: none; }
 
 @media (hover: hover) {
   .mu-toggle:hover:not([data-disabled]) { color: var(--mu-ink); background-color: var(--mu-hover); }

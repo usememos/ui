@@ -81,5 +81,16 @@ for (const size of ['xs', 'sm', 'md'] as const) {
         await expect(control, selector).toHaveCSS('padding-inline-end', padding);
       }
     });
+
+    test('a button with an end icon has less padding on the end side', async ({ page }) => {
+      await open(page, { size });
+      const control = page.locator('#button button.mu-button').filter({ hasText: 'Show more' }).first();
+      const { padding, icon } = await rowPadding(control);
+      await expect(control).toHaveCSS('padding-inline-start', padding);
+      await expect(control).toHaveCSS('padding-inline-end', icon);
+      const [label, svg] = await Promise.all([control.locator('.mu-button-label').boundingBox(), control.locator('svg').boundingBox()]);
+      expect(svg!.x).toBeGreaterThan(label!.x + label!.width - 1);
+      expect(Math.abs(svg!.y + svg!.height / 2 - (label!.y + label!.height / 2))).toBeLessThan(1);
+    });
   });
 }

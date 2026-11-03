@@ -133,3 +133,44 @@ test.describe('on a touch screen', () => {
     }
   });
 });
+
+test('ToggleGroup: labels shrink with an ellipsis when the group runs out of room', async ({ page }) => {
+  await open(page);
+  const group = page.locator('#toggle-group [data-narrow] .mu-toggle-group');
+  const box = await group.boundingBox();
+  expect(box!.width).toBeLessThanOrEqual(200);
+  const label = group.locator('.mu-toggle-label').first();
+  await expect(label).toHaveCSS('text-overflow', 'ellipsis');
+  expect(await label.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+});
+
+test('Field horizontal: the label comes first at weight 400, the control at the end, and the label toggles a Switch', async ({ page }) => {
+  await open(page);
+  const field = page.locator('#field .mu-field-horizontal').first();
+  const label = field.locator('label');
+  const control = field.getByRole('switch', { name: 'Compact mode' });
+  await expect(label).toHaveCSS('font-weight', '400');
+  const [fieldBox, controlBox] = await Promise.all([field.boundingBox(), control.boundingBox()]);
+  expect(Math.round(controlBox!.x + controlBox!.width)).toBe(Math.round(fieldBox!.x + fieldBox!.width));
+  await label.click();
+  await expect(control).toBeChecked();
+});
+
+test('Combobox grid: arrow keys move across rows and columns, and Enter picks', async ({ page }) => {
+  await open(page);
+  await page.locator('#combobox').getByRole('button', { name: 'Choose icon' }).click();
+  const input = page.getByRole('combobox', { name: 'Find an icon' });
+  await expect(input).toBeFocused();
+  // The chosen icon (Heart, row 1 column 4) is where the highlight starts.
+  await page.keyboard.press('ArrowDown');
+  const highlighted = page.locator('.mu-combobox-row [data-highlighted]');
+  await expect(highlighted).toHaveAttribute('aria-label', 'Sun');
+  await page.keyboard.press('ArrowLeft');
+  await expect(highlighted).toHaveAttribute('aria-label', 'Star');
+  await page.keyboard.press('ArrowUp');
+  await expect(highlighted).toHaveAttribute('aria-label', 'Coffee');
+  await page.keyboard.press('Enter');
+  await expect(page.locator('.mu-combobox-row [aria-label="Coffee"]')).toHaveAttribute('data-selected', '');
+  await input.fill('st');
+  await expect(page.locator('.mu-combobox-row .mu-combobox-item')).toHaveCount(1);
+});

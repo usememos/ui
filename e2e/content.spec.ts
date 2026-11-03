@@ -22,8 +22,8 @@ test('Combobox: says so when nothing matches, and Escape closes it', async ({ pa
   await open(page);
   const input = tagInput(page);
   await input.fill('zzz');
-  await expect(page.locator('.mu-combobox-empty')).toHaveText('No tags found');
-  await expect(page.getByRole('option')).toHaveCount(0);
+  await expect(page.locator('.mu-combobox-popup .mu-combobox-empty')).toHaveText('No tags found');
+  await expect(page.locator('.mu-combobox-popup').getByRole('option')).toHaveCount(0);
   await page.keyboard.press('Escape');
   await expect(page.locator('.mu-combobox-popup')).toBeHidden();
 });

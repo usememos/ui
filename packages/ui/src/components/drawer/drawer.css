@@ -1,0 +1,59 @@
+/* Drawer: a panel against one edge of the screen, over a dimmed backdrop. See docs/components/drawer.md. */
+.mu-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--mu-layer-overlay);
+  background-color: var(--mu-overlay);
+  opacity: calc(1 - var(--drawer-swipe-progress, 0));
+  transition: opacity var(--mu-duration-settle) var(--mu-ease-out);
+}
+.mu-drawer-backdrop[data-starting-style], .mu-drawer-backdrop[data-ending-style] { opacity: 0; }
+
+.mu-drawer-viewport { position: fixed; inset: 0; z-index: var(--mu-layer-overlay); display: flex; }
+.mu-drawer-left { justify-content: flex-start; }
+.mu-drawer-right { justify-content: flex-end; }
+.mu-drawer-bottom { align-items: flex-end; }
+
+.mu-drawer-popup {
+  --drawer-hidden: 0 0;
+  position: relative;
+  box-sizing: border-box;
+  width: var(--mu-drawer-width);
+  max-width: calc(100% - var(--mu-space-12));
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background-color: var(--mu-surface);
+  box-shadow: var(--mu-shadow-pop);
+  outline: 0;
+  translate: var(--drawer-swipe-movement-x, 0) var(--drawer-swipe-movement-y, 0);
+  transition: translate var(--mu-duration-settle) var(--mu-ease-settle), opacity var(--mu-duration-settle) var(--mu-ease-out);
+}
+.mu-drawer-bottom > .mu-drawer-popup {
+  width: 100%;
+  max-width: none;
+  height: auto;
+  max-height: calc(100% - var(--mu-space-6));
+  padding-bottom: env(safe-area-inset-bottom);
+  border-start-start-radius: var(--mu-radius-2xl);
+  border-start-end-radius: var(--mu-radius-2xl);
+}
+.mu-drawer-left > .mu-drawer-popup { --drawer-hidden: -100% 0; }
+.mu-drawer-right > .mu-drawer-popup { --drawer-hidden: 100% 0; }
+.mu-drawer-bottom > .mu-drawer-popup { --drawer-hidden: 0 100%; }
+.mu-drawer-popup[data-starting-style], .mu-drawer-popup[data-ending-style] { translate: var(--drawer-hidden); }
+.mu-drawer-popup[data-swiping] { transition: none; user-select: none; }
+
+.mu-drawer-content { display: flex; flex-direction: column; gap: var(--mu-space-4); box-sizing: border-box; min-height: 100%; padding: var(--mu-space-5); }
+.mu-drawer-bare > .mu-drawer-content { gap: 0; padding: 0; }
+/* Room for the X at the top end. */
+.mu-drawer-popup:where(:has(> .mu-drawer-x)) > .mu-drawer-content > .mu-drawer-title { padding-inline-end: var(--mu-space-6); }
+
+.mu-drawer-title { margin: 0; color: var(--mu-ink); }
+.mu-drawer-description { margin: calc(-1 * var(--mu-space-2)) 0 0; color: var(--mu-ink-muted); }
+.mu-drawer-x { position: absolute; top: var(--mu-space-4); inset-inline-end: var(--mu-space-4); }
+
+/* Under reduced motion the drawer fades instead of sliding. */
+@media (prefers-reduced-motion: reduce) {
+  .mu-drawer-popup[data-starting-style], .mu-drawer-popup[data-ending-style] { translate: none; opacity: 0; }
+}

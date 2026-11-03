@@ -17,7 +17,11 @@ import { Pin, Trash2 } from "lucide-react";
 - **Color is `currentColor`.** Icons follow the text color: `ink` in controls, `ink-muted` in menu rows, the tone color in toasts.
 - **Icons sit in a fixed square.** In a menu row or a control, the icon square keeps labels aligned whether or not a row has an icon.
 - **Accessibility.** Icons are `aria-hidden`. Every icon-only Button or Toggle has an `aria-label`, and a Tooltip with the same text.
-- **Standalone icons.** Outside a component, add `className="mu-icon"` to get the same size and stroke rules.
+- **Standalone icons.** Outside a component, give the icon a size class: `mu-icon-xs` (12px, 1.25px stroke), `mu-icon-sm` (14px, 1.25px) or `mu-icon-md` (16px, 1.5px). Each sets the box and the stroke together, so a heading's icon or an empty state's icon matches the icons in controls. `mu-icon` alone takes the size of the nearest size row (`mu-s-*`), or 16px outside one. Don't size an icon with a utility such as `size-4`: it changes the box but not the stroke.
+
+  ```tsx
+  <h2 className="mu-title"><Inbox className="mu-icon-sm" aria-hidden /> Inbox</h2>
+  ```
 
 ## Built-in glyphs
 
@@ -32,6 +36,7 @@ These components bring their own Lucide icons, so the app doesn't pass them:
 | Collapsible | `ChevronRight` (turns 90° when open) |
 | Toast | `Info`, `CircleCheck`, `TriangleAlert`, `CircleAlert`, `X` |
 | Field | `CircleAlert` (errors) |
+| Dialog, Drawer | `X` |
 | Link | `ArrowUpRight` (external links) |
 
 ## Missing icons

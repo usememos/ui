@@ -58,7 +58,7 @@ An app changes only the color, shadow and font tokens. Every other token and eve
 - `mu-positioner` puts a popup's positioner on `layer-popup`, and `mu-popup-motion` makes a popup fade in and rise `space-1` (no rise under reduced motion).
 - The depth classes `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` apply a whole depth role. Use them for new parts before writing new shadows. See [Depth](depth.md).
 - `mu-prose` styles rendered content. See [Prose](components/prose.md).
-- `mu-icon` applies icon size and stroke rules outside a component.
+- `mu-icon` applies icon size and stroke rules outside a component, at the size of the nearest size row; `mu-icon-xs`, `mu-icon-sm` and `mu-icon-md` set a fixed size on their own. See [Icons](icons.md).
 - `mu-visually-hidden` hides text visually but keeps it for screen readers.
 - A size row class sets the `--mu-row-*` variables (height, padding, text, radius, gap, icon) that every part inside reads. See [Row variables](custom-components.md#row-variables).
 - Component part classes (`mu-menu-item`) are internal. An app reaches a component's look through its class function (`menuClasses()`). See [Class functions](custom-components.md#class-functions).

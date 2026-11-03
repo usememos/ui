@@ -1,5 +1,7 @@
-import { AlertDialog, Button, Dialog, Field, Input, Select } from '@usememos/ui';
-import { Trash2 } from 'lucide-react';
+import { AlertDialog, Button, Dialog, Field, Input, menuClasses, Select } from '@usememos/ui';
+import { FileText, Search, Trash2 } from 'lucide-react';
+
+const menu = menuClasses();
 import type { SectionProps } from '.';
 
 export function DialogSection({ size }: SectionProps) {
@@ -31,6 +33,20 @@ export function DialogSection({ size }: SectionProps) {
             <Dialog.Close render={<Button variant="ghost">Cancel</Button>} />
             <Button variant="primary">Create</Button>
           </Dialog.Footer>
+        </Dialog.Popup>
+      </Dialog.Root>
+      <Dialog.Root>
+        <Dialog.Trigger render={<Button size={size} icon={<Search />}>Quick find</Button>} />
+        <Dialog.Popup variant="bare" aria-label="Quick find">
+          <Input prefix={<Search />} placeholder="Find notes and pages" aria-label="Find" className="pg-bare-search" />
+          <div className="pg-bare-list">
+            {['Reading list', 'Weekly review', 'Trip to Lisbon'].map((title) => (
+              <Dialog.Close key={title} className={menu.item}>
+                <FileText aria-hidden />
+                <span className={menu.label}>{title}</span>
+              </Dialog.Close>
+            ))}
+          </div>
         </Dialog.Popup>
       </Dialog.Root>
       <AlertDialog.Root>

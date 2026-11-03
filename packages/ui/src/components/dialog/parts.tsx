@@ -13,6 +13,15 @@ export interface PopupProps extends BaseDialog.Popup.Props {
   /** Below `breakpoint-sm` the dialog becomes a sheet from the bottom. `false` keeps it centered. Default true. */
   sheet?: boolean;
 }
+
+export interface VariantProps {
+  /**
+   * `panel` (default) pads the content `space-5`, stacks it `space-4` apart and
+   * adds the X. `bare` keeps the surface, radius and shadow but has no padding,
+   * gap or X: the content runs edge to edge, for a search palette or an image.
+   */
+  variant?: 'panel' | 'bare';
+}
 export interface TitleProps extends BaseDialog.Title.Props {}
 export interface DescriptionProps extends BaseDialog.Description.Props {}
 export interface CloseProps extends BaseDialog.Close.Props {}
@@ -27,18 +36,23 @@ export function createDialogParts(Base: typeof BaseDialog, name: 'dialog' | 'ale
     return <Base.Trigger ref={ref} {...props} className={withClass(`mu-${name}-trigger`, className)} />;
   });
 
-  const Popup = forwardRef<HTMLDivElement, PopupProps & { closeLabel?: string }>(function DialogPopup(
-    { container, sheet = true, closeLabel = 'Close', className, children, ...props },
+  const Popup = forwardRef<HTMLDivElement, PopupProps & VariantProps & { closeLabel?: string }>(function DialogPopup(
+    { container, sheet = true, variant = 'panel', closeLabel = 'Close', className, children, ...props },
     ref,
   ) {
+    const bare = variant === 'bare';
     return (
       <Base.Portal container={container}>
         <Base.Backdrop className="mu-dialog-backdrop" />
         <Base.Viewport className={cx('mu-dialog-viewport', sheet && 'mu-dialog-sheet')}>
-          <Base.Popup ref={ref} {...props} className={withClass(`mu-dialog-popup mu-${name}-popup mu-popup mu-base mu-s-md`, className)}>
+          <Base.Popup
+            ref={ref}
+            {...props}
+            className={withClass(cx(`mu-dialog-popup mu-${name}-popup`, bare && 'mu-dialog-bare', 'mu-popup mu-base mu-s-md'), className)}
+          >
             {/* A dialog is md wherever it is declared: React context crosses the portal, so a size set by a parent Root (a sm Table) would leak in. */}
             <SizeContext.Provider value="md">{children}</SizeContext.Provider>
-            {closeButton ? (
+            {closeButton && !bare ? (
               <Base.Close className="mu-dialog-x" render={<Button variant="ghost" size="sm" icon={<X />} aria-label={closeLabel} />} />
             ) : null}
           </Base.Popup>

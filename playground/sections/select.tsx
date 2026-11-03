@@ -1,5 +1,5 @@
 import { Field, Select } from '@usememos/ui';
-import { Globe, Lock, Users } from 'lucide-react';
+import { Globe, Lock, Notebook, Users } from 'lucide-react';
 import type { RowSize, SectionProps } from '.';
 
 const visibility = { private: 'Private', workspace: 'Workspace', public: 'Public' };
@@ -60,6 +60,16 @@ export function SelectSection({ size }: SectionProps<RowSize>) {
           </Select.Popup>
         </Select.Root>
       </Field.Root>
+      <Select.Root size={size} items={{ personal: 'Personal', team: 'Design team' }} defaultValue="personal">
+        <Select.Trigger variant="ghost" aria-label="Space">
+          <Notebook aria-hidden />
+          <Select.Value />
+        </Select.Trigger>
+        <Select.Popup alignItemWithTrigger={false}>
+          <Select.Item value="personal">Personal</Select.Item>
+          <Select.Item value="team">Design team</Select.Item>
+        </Select.Popup>
+      </Select.Root>
     </div>
   );
 }

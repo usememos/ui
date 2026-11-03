@@ -23,7 +23,7 @@ It is not a general-purpose UI library for outside developers. Components are ge
 | [Motion](motion.md) | Press, settle and fade timing, and reduced motion |
 | [States](states.md) | Hover, pressed, loading, disabled, invalid and focus |
 | [Icons](icons.md) | Lucide, sizes, fixed stroke widths and accessibility |
-| [Components](components/README.md) | The 28 components, what was left out, and one page per component |
+| [Components](components/README.md) | The 29 components, what was left out, and one page per component |
 | [Using the components](usage.md) | Which component to pick (overlays, controls, feedback), recipes for combining them, size, emphasis, an accessibility checklist, common mistakes and a map from other UI kits |
 | [Patterns](patterns.md) | Page, form, entry, confirmation, loading, empty state and mobile |
 | [Building on it](building.md) | Base UI, loading the CSS, scoping inside a host page, theme selection and API conventions |

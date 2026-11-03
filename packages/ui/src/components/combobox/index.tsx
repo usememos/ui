@@ -1,6 +1,6 @@
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import { Check, ChevronsUpDown, Search } from 'lucide-react';
-import { forwardRef, type CSSProperties, type ReactNode } from 'react';
+import { createContext, forwardRef, useContext, type CSSProperties, type ReactNode } from 'react';
 import { cx, withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
 import { SizeContext, useRowSize } from '../../internal/size';
@@ -11,6 +11,9 @@ export const Collection = BaseCombobox.Collection;
 
 /** Base UI's matcher for `filter`, with locale-aware `contains`, `startsWith` and `endsWith`. */
 export const useFilter = BaseCombobox.useFilter;
+
+/** Whether the Root is `inline`: its list sits in the page, not in a popup. */
+const InlineContext = createContext(false);
 
 export type RootProps<Value, Multiple extends boolean | undefined = false, Item = Value> = BaseCombobox.Root.Props<Value, Multiple, Item> & {
   size?: Exclude<Size, 'xs'>;
@@ -24,7 +27,10 @@ export function Root<Value, Multiple extends boolean | undefined = false, Item =
   const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
-      <BaseCombobox.Root {...props} />
+      <InlineContext.Provider value={props.inline ?? false}>
+        {/* An inline list is always shown, so it is open unless the app says otherwise; Enter only picks in an open list. */}
+        <BaseCombobox.Root {...(props.inline && props.open === undefined && props.defaultOpen === undefined ? { open: true } : null)} {...props} />
+      </InlineContext.Provider>
     </SizeContext.Provider>
   );
 }
@@ -50,15 +56,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function ComboboxI
   ref,
 ) {
   const size = useRowSize();
+  const inline = useContext(InlineContext);
   return (
-    <BaseCombobox.InputGroup className={cx('mu-input-root mu-combobox-input-root mu-base', `mu-s-${size}`, className)} style={style}>
+    <BaseCombobox.InputGroup className={cx('mu-input-root', !inline && 'mu-combobox-input-root', 'mu-base', `mu-s-${size}`, className)} style={style}>
       {icon !== null ? <span className="mu-input-prefix">{icon}</span> : null}
       <BaseCombobox.Input ref={ref} {...props} className="mu-input" />
-      <span className="mu-input-suffix">
-        <BaseCombobox.Trigger className="mu-combobox-trigger mu-focus" aria-label={triggerLabel}>
-          <ChevronsUpDown aria-hidden />
-        </BaseCombobox.Trigger>
-      </span>
+      {/* An inline list is always shown, so there is nothing to open. */}
+      {inline ? null : (
+        <span className="mu-input-suffix">
+          <BaseCombobox.Trigger className="mu-combobox-trigger mu-focus" aria-label={triggerLabel}>
+            <ChevronsUpDown aria-hidden />
+          </BaseCombobox.Trigger>
+        </span>
+      )}
     </BaseCombobox.InputGroup>
   );
 });
@@ -118,6 +128,17 @@ export const Item = forwardRef<HTMLDivElement, ItemProps>(function ComboboxItem(
       </span>
     </BaseCombobox.Item>
   );
+});
+
+export interface RowProps extends BaseCombobox.Row.Props {}
+
+/**
+ * One row of a grid, with `grid` on the root: its items are square cells for
+ * an icon or an emoji, and arrow keys move across rows and columns. Split the
+ * filtered items into rows of a fixed count.
+ */
+export const Row = forwardRef<HTMLDivElement, RowProps>(function ComboboxRow({ className, ...props }, ref) {
+  return <BaseCombobox.Row ref={ref} {...props} className={withClass('mu-combobox-row', className)} />;
 });
 
 export interface EmptyProps extends BaseCombobox.Empty.Props {}

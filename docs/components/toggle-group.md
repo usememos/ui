@@ -50,5 +50,6 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange`, `multipl
 
 ## Style
 
+- At most as wide as its container. When the labels don't fit, they shrink with an ellipsis; icon-only items keep their size.
 - `multiple`: items 2px apart.
 - Without `multiple`: a segmented well; the key slides to the chosen item over `duration-settle` with `ease-settle` and re-measures when an item changes width. Under reduced motion it jumps.

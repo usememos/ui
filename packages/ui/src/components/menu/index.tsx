@@ -1,6 +1,6 @@
 import { Menu as BaseMenu } from '@base-ui/react/menu';
 import { Check, ChevronRight } from 'lucide-react';
-import { forwardRef, type ReactNode } from 'react';
+import { forwardRef, useId, type ReactNode } from 'react';
 import { cx, withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
 import { SizeContext, useRowSize } from '../../internal/size';
@@ -59,18 +59,36 @@ interface RowProps {
   icon?: IconElement;
   /** A keyboard shortcut at the end of the row, such as "⌘ D". */
   shortcut?: ReactNode;
+  /** A line of `ink-muted` text under the label, which makes the row two lines tall. Screen readers read it as the item's description. */
+  description?: ReactNode;
   children?: ReactNode;
 }
 
-/** The shared inside of every row: icon, label, shortcut. */
-function Row({ icon, shortcut, children }: RowProps) {
-  return (
+/**
+ * The shared inside of every row: icon, label, shortcut. With a description,
+ * the label and description stack, and the item is named by the label and
+ * described by the description.
+ */
+function useRow({ icon, shortcut, description, children }: RowProps) {
+  const id = useId();
+  const hasDescription = description !== undefined && description !== null && description !== false;
+  const label = <span className={classes.label} id={hasDescription ? `${id}-label` : undefined}>{children}</span>;
+  const content = (
     <>
       {icon}
-      <span className={classes.label}>{children}</span>
+      {hasDescription ? (
+        <span className={classes.text}>
+          {label}
+          <span className={classes.description} id={`${id}-description`}>{description}</span>
+        </span>
+      ) : (
+        label
+      )}
       {shortcut !== undefined ? <span className={classes.shortcut}>{shortcut}</span> : null}
     </>
   );
+  const aria = hasDescription ? { 'aria-labelledby': `${id}-label`, 'aria-describedby': `${id}-description` } : null;
+  return [content, aria] as const;
 }
 
 export interface ItemProps extends BaseMenu.Item.Props, RowProps {
@@ -79,12 +97,11 @@ export interface ItemProps extends BaseMenu.Item.Props, RowProps {
 }
 
 /** One action. */
-export const Item = forwardRef<HTMLDivElement, ItemProps>(function MenuItem({ icon, shortcut, danger = false, className, children, ...props }, ref) {
+export const Item = forwardRef<HTMLDivElement, ItemProps>(function MenuItem({ icon, shortcut, description, danger = false, className, children, ...props }, ref) {
+  const [row, aria] = useRow({ icon, shortcut, description, children });
   return (
-    <BaseMenu.Item ref={ref} {...props} className={withClass(danger ? classes.dangerItem : classes.item, className)}>
-      <Row icon={icon} shortcut={shortcut}>
-        {children}
-      </Row>
+    <BaseMenu.Item ref={ref} {...aria} {...props} className={withClass(danger ? classes.dangerItem : classes.item, className)}>
+      {row}
     </BaseMenu.Item>
   );
 });
@@ -92,12 +109,11 @@ export const Item = forwardRef<HTMLDivElement, ItemProps>(function MenuItem({ ic
 export interface CheckboxItemProps extends BaseMenu.CheckboxItem.Props, RowProps {}
 
 /** An option that turns on or off, with a check at the end. Stays open on click. */
-export const CheckboxItem = forwardRef<HTMLDivElement, CheckboxItemProps>(function MenuCheckboxItem({ icon, shortcut, className, children, ...props }, ref) {
+export const CheckboxItem = forwardRef<HTMLDivElement, CheckboxItemProps>(function MenuCheckboxItem({ icon, shortcut, description, className, children, ...props }, ref) {
+  const [row, aria] = useRow({ icon, shortcut, description, children });
   return (
-    <BaseMenu.CheckboxItem ref={ref} {...props} className={withClass(cx(classes.item, 'mu-menu-checkbox-item'), className)}>
-      <Row icon={icon} shortcut={shortcut}>
-        {children}
-      </Row>
+    <BaseMenu.CheckboxItem ref={ref} {...aria} {...props} className={withClass(cx(classes.item, 'mu-menu-checkbox-item'), className)}>
+      {row}
       <span className="mu-menu-indicator">
         <BaseMenu.CheckboxItemIndicator render={<Check aria-hidden />} />
       </span>
@@ -115,12 +131,11 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function M
 export interface RadioItemProps extends BaseMenu.RadioItem.Props, RowProps {}
 
 /** One choice in a RadioGroup, with a check at the end when chosen. Stays open on click. */
-export const RadioItem = forwardRef<HTMLDivElement, RadioItemProps>(function MenuRadioItem({ icon, shortcut, className, children, ...props }, ref) {
+export const RadioItem = forwardRef<HTMLDivElement, RadioItemProps>(function MenuRadioItem({ icon, shortcut, description, className, children, ...props }, ref) {
+  const [row, aria] = useRow({ icon, shortcut, description, children });
   return (
-    <BaseMenu.RadioItem ref={ref} {...props} className={withClass(cx(classes.item, 'mu-menu-radio-item'), className)}>
-      <Row icon={icon} shortcut={shortcut}>
-        {children}
-      </Row>
+    <BaseMenu.RadioItem ref={ref} {...aria} {...props} className={withClass(cx(classes.item, 'mu-menu-radio-item'), className)}>
+      {row}
       <span className="mu-menu-indicator">
         <BaseMenu.RadioItemIndicator render={<Check aria-hidden />} />
       </span>
@@ -161,9 +176,10 @@ export interface SubmenuTriggerProps extends BaseMenu.SubmenuTrigger.Props {
 
 /** The row that opens a submenu, with a chevron at the end. */
 export const SubmenuTrigger = forwardRef<HTMLDivElement, SubmenuTriggerProps>(function MenuSubmenuTrigger({ icon, className, children, ...props }, ref) {
+  const [row] = useRow({ icon, children });
   return (
     <BaseMenu.SubmenuTrigger ref={ref} {...props} className={withClass(cx(classes.item, 'mu-menu-submenu-trigger'), className)}>
-      <Row icon={icon}>{children}</Row>
+      {row}
       <ChevronRight className="mu-menu-chevron" aria-hidden />
     </BaseMenu.SubmenuTrigger>
   );

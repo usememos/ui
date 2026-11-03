@@ -21,6 +21,12 @@ export function ToggleGroupSection({ size }: SectionProps) {
         <Toggle value="list" icon={<List />} aria-label="List" />
         <Toggle value="grid" icon={<LayoutGrid />} aria-label="Grid" />
       </ToggleGroup>
+      <div style={{ width: 200 }} data-narrow>
+        <ToggleGroup size={size} defaultValue={['list']} aria-label="Izkārtojums">
+          <Toggle value="list" icon={<List />}>Saraksta skats</Toggle>
+          <Toggle value="grid" icon={<LayoutGrid />}>Mūra izkārtojums</Toggle>
+        </ToggleGroup>
+      </div>
     </div>
   );
 }

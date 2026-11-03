@@ -12,6 +12,8 @@ export interface ButtonProps extends BaseButton.Props {
   size?: Size;
   /** A Lucide element, before the label. With no children the button is square and needs `aria-label`. */
   icon?: IconElement;
+  /** A Lucide element after the label, such as a chevron or an arrow that says where the action leads. */
+  iconEnd?: IconElement;
   /** Keeps the width, shows a Spinner and ignores presses. */
   loading?: boolean;
   /** The accessible name while loading, such as "Saving". */
@@ -36,11 +38,12 @@ export function buttonClasses({ variant = 'neutral', size = 'md', iconOnly = fal
 
 /** Starts an action. A raised key that sinks while pressed. */
 export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
-  { variant = 'neutral', size, icon, loading = false, loadingLabel, disabled, focusableWhenDisabled, className, children, ...props },
+  { variant = 'neutral', size, icon, iconEnd, loading = false, loadingLabel, disabled, focusableWhenDisabled, className, children, ...props },
   ref,
 ) {
   const resolved = useSize(size);
-  const iconOnly = icon !== undefined && (children === undefined || children === null || children === false);
+  const noLabel = children === undefined || children === null || children === false;
+  const iconOnly = noLabel && (icon !== undefined || iconEnd !== undefined);
   return (
     <BaseButton
       ref={ref}
@@ -54,6 +57,7 @@ export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
     >
       {icon}
       {iconOnly ? null : <span className="mu-button-label">{children}</span>}
+      {iconOnly && icon !== undefined ? null : iconEnd}
       {loading ? <span className="mu-spinner" aria-hidden /> : null}
     </BaseButton>
   );

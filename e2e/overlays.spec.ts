@@ -180,6 +180,67 @@ test('popups only fade under reduced motion', async ({ page }) => {
   expect(translate).toEqual(['none', 'none']);
 });
 
+test('Menu: a row with a description grows, keeps the check on the label line, and closes on click', async ({ page }) => {
+  await open(page);
+  await page.locator('#menu').getByRole('button', { name: 'Visibility' }).click();
+  const workspace = page.getByRole('menuitemradio', { name: 'Workspace' });
+  await expect(workspace).toHaveAccessibleDescription('Members of this workspace');
+  const box = await workspace.boundingBox();
+  expect(box!.height).toBeGreaterThan(40);
+  await workspace.click();
+  await expect(page.getByRole('menu')).toBeHidden();
+});
+
+test('Popover list: rows drawn with menuClasses on a button and a link start their text at the start edge', async ({ page }) => {
+  await open(page);
+  await page.locator('#popover').getByRole('button', { name: 'Account' }).click();
+  const popup = page.locator('.mu-popover-popup');
+  await expect(popup).toHaveCSS('padding-top', '4px');
+  await expect(popup).toHaveCSS('row-gap', '0px');
+  for (const row of [popup.getByRole('button', { name: 'Settings' }), popup.getByRole('link', { name: 'Sign out' })]) {
+    await expect(row).toHaveCSS('text-align', 'start');
+    await expect(row).toHaveCSS('height', '32px');
+    const [rowBox, popupBox] = await Promise.all([row.boundingBox(), popup.boundingBox()]);
+    expect(Math.round(rowBox!.width)).toBe(Math.round(popupBox!.width - 8));
+  }
+});
+
+test('Dialog bare: content runs edge to edge with no X, and Escape closes it', async ({ page }) => {
+  await open(page);
+  const trigger = page.getByRole('button', { name: 'Quick find' });
+  await trigger.click();
+  const dialog = page.getByRole('dialog', { name: 'Quick find' });
+  await expect(dialog).toHaveCSS('padding-top', '0px');
+  await expect(dialog.getByRole('button', { name: 'Close' })).toHaveCount(0);
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+  await expect(trigger).toBeFocused();
+});
+
+test('Drawer: slides from its edge, closes on Escape, and returns focus', async ({ page }) => {
+  await open(page);
+  const trigger = page.getByRole('button', { name: 'Open navigation' });
+  await trigger.click();
+  const drawer = page.getByRole('dialog', { name: 'Navigation' });
+  await expect(drawer).toBeVisible();
+  await page.evaluate(() => Promise.all(document.getAnimations().filter((animation) => animation instanceof CSSTransition).map((animation) => animation.finished.catch(() => undefined))));
+  const box = await drawer.boundingBox();
+  expect(box!.x).toBe(0);
+  expect(box!.height).toBe(page.viewportSize()!.height);
+  await page.keyboard.press('Escape');
+  await expect(drawer).toBeHidden();
+  await expect(trigger).toBeFocused();
+
+  await page.getByRole('button', { name: 'Note details' }).click();
+  const details = page.getByRole('dialog', { name: 'Note details' });
+  await page.evaluate(() => Promise.all(document.getAnimations().filter((animation) => animation instanceof CSSTransition).map((animation) => animation.finished.catch(() => undefined))));
+  const right = await details.boundingBox();
+  expect(Math.round(right!.x + right!.width)).toBe(page.viewportSize()!.width);
+  expect(Math.round(right!.width)).toBe(320);
+  await details.getByRole('button', { name: 'Close' }).click();
+  await expect(details).toBeHidden();
+});
+
 for (const theme of themes) {
   test(`open overlays have no axe violations in ${theme}`, async ({ page }) => {
     await open(page, { theme });
@@ -191,6 +252,15 @@ for (const theme of themes) {
     await page.keyboard.press('Escape');
     await page.getByRole('button', { name: 'Create access token' }).click();
     await expectNoAxeViolations(page, '[role="dialog"]');
+    await page.keyboard.press('Escape');
+    await page.locator('#menu').getByRole('button', { name: 'Visibility' }).click();
+    await expectNoAxeViolations(page, '[role="menu"]');
+    await page.keyboard.press('Escape');
+    await page.locator('#popover').getByRole('button', { name: 'Account' }).click();
+    await expectNoAxeViolations(page, '.mu-popover-popup');
+    await page.keyboard.press('Escape');
+    await page.getByRole('button', { name: 'Note details' }).click();
+    await expectNoAxeViolations(page, '.mu-drawer-popup');
     await page.keyboard.press('Escape');
     await page.locator('#toast').getByRole('button', { name: 'Fail' }).click();
     await expectNoAxeViolations(page, '.mu-toast-viewport');

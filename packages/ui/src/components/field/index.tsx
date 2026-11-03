@@ -8,14 +8,25 @@ import type { Size } from '../../types';
 export interface RootProps extends BaseField.Root.Props {
   /** The size of the control inside, passed on to it. */
   size?: Exclude<Size, 'xs'>;
+  /**
+   * `vertical` (default) stacks the label over the control. `horizontal` puts
+   * the label and description first and the control at the end of the row,
+   * as in a settings row with a Switch or Select.
+   */
+  orientation?: 'vertical' | 'horizontal';
 }
 
 /** One control with its label, description and error, wired for screen readers. */
-export const Root = forwardRef<HTMLDivElement, RootProps>(function FieldRoot({ size, className, ...props }, ref) {
+export const Root = forwardRef<HTMLDivElement, RootProps>(function FieldRoot({ size, orientation = 'vertical', className, ...props }, ref) {
   const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
-      <BaseField.Root ref={ref} {...props} className={withClass('mu-field-root', className)} />
+      <BaseField.Root
+        ref={ref}
+        data-orientation={orientation}
+        {...props}
+        className={withClass(orientation === 'horizontal' ? 'mu-field-root mu-field-horizontal' : 'mu-field-root', className)}
+      />
     </SizeContext.Provider>
   );
 });

@@ -84,6 +84,7 @@ Buttons, inputs and badges are never pills.
 | `tooltip-width` | 240px | Maximum width of a tooltip |
 | `toast-width` | 360px | Width of a toast from `breakpoint-sm` up |
 | `dialog-width` | 440px | Default width of a dialog |
+| `drawer-width` | 320px | Default width of a drawer from the start or end edge |
 
 - `content-width` and `sidebar-width` are suggested values for an app's page layout. No component uses them. An app that needs another width uses its own value instead of overriding the token.
 - The other widths are component defaults. To change one instance, pass `className` or `style` to it.

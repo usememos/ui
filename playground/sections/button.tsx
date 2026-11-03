@@ -1,5 +1,5 @@
 import { Button, buttonClasses, type ButtonVariant } from '@usememos/ui';
-import { ArrowRight, Ellipsis, Plus, Trash2 } from 'lucide-react';
+import { ArrowRight, ChevronDown, Ellipsis, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import type { SectionProps } from '.';
 
@@ -16,6 +16,9 @@ export function ButtonSection({ size }: SectionProps) {
           </Button>
           <Button variant={variant} size={size} icon={variant === 'danger' ? <Trash2 /> : <Plus />}>
             {variant === 'danger' ? 'Delete' : 'New note'}
+          </Button>
+          <Button variant={variant} size={size} iconEnd={variant === 'danger' ? <ArrowRight /> : <ChevronDown />}>
+            {variant === 'danger' ? 'Delete all' : 'Show more'}
           </Button>
           <Button variant={variant} size={size} icon={<Ellipsis />} aria-label="More actions" />
           <Button variant={variant} size={size} loading>

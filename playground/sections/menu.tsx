@@ -1,5 +1,5 @@
 import { Button, Menu } from '@usememos/ui';
-import { Archive, Copy, Ellipsis, FolderInput, Pencil, Pin, Trash2 } from 'lucide-react';
+import { Archive, Copy, Ellipsis, FolderInput, Globe, Lock, Pencil, Pin, Trash2, Users } from 'lucide-react';
 import type { RowSize, SectionProps } from '.';
 
 export function MenuSection({ size }: SectionProps<RowSize>) {
@@ -45,6 +45,22 @@ export function MenuSection({ size }: SectionProps<RowSize>) {
               <Menu.RadioItem value="updated">Updated</Menu.RadioItem>
             </Menu.RadioGroup>
           </Menu.Group>
+        </Menu.Popup>
+      </Menu.Root>
+      <Menu.Root size={size}>
+        <Menu.Trigger render={<Button size={size}>Visibility</Button>} />
+        <Menu.Popup>
+          <Menu.RadioGroup defaultValue="private">
+            <Menu.RadioItem value="private" icon={<Lock />} description="Only you can see it" closeOnClick>
+              Private
+            </Menu.RadioItem>
+            <Menu.RadioItem value="workspace" icon={<Users />} description="Members of this workspace" closeOnClick>
+              Workspace
+            </Menu.RadioItem>
+            <Menu.RadioItem value="public" icon={<Globe />} description="Anyone with the link" closeOnClick>
+              Public
+            </Menu.RadioItem>
+          </Menu.RadioGroup>
         </Menu.Popup>
       </Menu.Root>
     </div>

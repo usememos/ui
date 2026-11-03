@@ -3,6 +3,8 @@
 .mu-select-value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mu-select-value[data-placeholder] { color: var(--mu-ink-muted); font-weight: 400; }
 .mu-select-icon { display: flex; flex: none; color: var(--mu-ink-muted); }
+/* Ghost: a row that shows a value, so its text is ink, not ink-muted. */
+.mu-select-trigger.mu-button-ghost:not([data-disabled]) { color: var(--mu-ink); }
 .mu-select-trigger[data-invalid] { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-key); }
 
 .mu-select-positioner { outline: 0; }

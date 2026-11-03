@@ -56,6 +56,14 @@
 .mu-combobox-item-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .mu-combobox-indicator { display: grid; flex: none; place-items: center; width: var(--mu-row-icon); height: var(--mu-row-icon); margin-inline-start: var(--mu-space-2); color: var(--mu-ink); }
 
+/* Grid: rows of square cells, with `grid` on the root. The chosen cell sits in a well, as a pressed Toggle. */
+.mu-combobox-row { display: flex; gap: var(--mu-inset); }
+.mu-combobox-row + .mu-combobox-row { margin-top: var(--mu-inset); }
+.mu-combobox-row > .mu-combobox-item { flex: none; justify-content: center; width: var(--mu-row-height); padding: 0; border-radius: var(--mu-row-radius); }
+.mu-combobox-row > .mu-combobox-item > .mu-combobox-item-text { flex: none; overflow: visible; }
+.mu-combobox-row > .mu-combobox-item > .mu-combobox-indicator { display: none; }
+.mu-combobox-row > .mu-combobox-item[data-selected] { background-color: var(--mu-well); box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track); }
+
 /* Base UI keeps Empty mounted so screen readers hear it; it only takes room when it has text. */
 .mu-combobox-empty:not(:empty) { padding: var(--mu-space-3) var(--mu-space-4); color: var(--mu-ink-muted); }
 

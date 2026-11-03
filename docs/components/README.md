@@ -1,13 +1,13 @@
 # Components
 
-28 components in five groups, chosen from what Base UI and other popular libraries provide and what our products need today. Every component is generic: it works the same in memos, the website, the web clipper and any future product.
+29 components in five groups, chosen from what Base UI and other popular libraries provide and what our products need today. Every component is generic: it works the same in memos, the website, the web clipper and any future product.
 
 | Group | Components |
 | --- | --- |
 | Actions | [Button](button.md), [Toggle](toggle.md), [ToggleGroup](toggle-group.md), [Menu](menu.md), [Link](link.md) |
 | Forms | [Field and Fieldset](field.md), [Input](input.md), [Textarea](textarea.md), [Select](select.md), [Combobox](combobox.md), [Checkbox](checkbox.md), [Switch](switch.md), [RadioGroup](radio-group.md) |
 | Navigation | [Tabs](tabs.md), [Collapsible](collapsible.md) |
-| Overlays | [Dialog](dialog.md) (and its sheet form), [Popover](popover.md), [Tooltip](tooltip.md), [Toast](toast.md) |
+| Overlays | [Dialog](dialog.md) (and its sheet form), [Drawer](drawer.md), [Popover](popover.md), [Tooltip](tooltip.md), [Toast](toast.md) |
 | Display | [Avatar](avatar.md), [Badge](badge.md), [Kbd](kbd.md), [Separator](separator.md), [Spinner](spinner.md), [Skeleton](skeleton.md), [Table](table.md), [Prose](prose.md), plus [Lucide icons](../icons.md) |
 
 ## Page template
@@ -49,6 +49,7 @@ The short version. [Using the components](../usage.md) has the full decision gui
 | A list of actions for one thing | Menu |
 | A few controls that belong to one thing | Popover |
 | A decision that blocks the page | Dialog |
+| Navigation or details that slide in from an edge | Drawer |
 | Name an icon-only control | Tooltip |
 | Confirm something happened | Toast |
 | A status or tag label | Badge |

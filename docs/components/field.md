@@ -29,7 +29,7 @@ import { Checkbox, Field, Fieldset, Input } from "@usememos/ui";
 
 | Part | Base UI part | Renders |
 | --- | --- | --- |
-| `Field.Root` | `Field.Root` | A `<div>` around one control. Takes `size` and passes it to the control |
+| `Field.Root` | `Field.Root` | A `<div>` around one control. Takes `size` and passes it to the control, and `orientation` |
 | `Field.Label` | `Field.Label` | A `<label>`: above a text control, or around a Checkbox, Switch or Radio |
 | `Field.Item` | `Field.Item` | A `<div>` around one option of a radio or checkbox group in one field |
 | `Field.Description` | `Field.Description` | A `<p>` of help under the control |
@@ -42,6 +42,7 @@ import { Checkbox, Field, Fieldset, Input } from "@usememos/ui";
 ```ts
 interface Field.RootProps extends BaseField.Root.Props {
   size?: "sm" | "md"; // passed to the control inside
+  orientation?: "vertical" | "horizontal"; // default "vertical"; horizontal: label first, control at the end of the row
 }
 interface Fieldset.RootProps extends BaseFieldset.Root.Props {
   size?: "sm" | "md"; // passed to every control inside
@@ -55,6 +56,15 @@ Base UI's props pass through: `name`, `invalid`, `disabled`, `validate`, `valida
 - Set `invalid` from the app when the server rejects a value; use `validate` for client checks.
 - Write the error as how to fix the problem.
 - Put a Checkbox, Switch or Radio inside its `Field.Label`, so clicking the text toggles it.
+- For a settings row (a name, an optional description, and a Switch or Select at the end), use `orientation="horizontal"` and put the control after `Field.Label` and `Field.Description`, not inside the label:
+
+  ```tsx
+  <Field.Root orientation="horizontal">
+    <Field.Label>Compact mode</Field.Label>
+    <Field.Description>Show more notes on one screen.</Field.Description>
+    <Switch checked={compact} onCheckedChange={setCompact} />
+  </Field.Root>
+  ```
 - A radio group is one field: `Field.Root` holds `Fieldset.Root render={<RadioGroup />}`, and each radio sits in a `Field.Item`. See [RadioGroup](radio-group.md).
 - Stack fields `space-4` apart. Group them with a heading or a Fieldset, not boxes.
 - Never use a placeholder as the only label.
@@ -62,4 +72,5 @@ Base UI's props pass through: `name`, `invalid`, `disabled`, `validate`, `valida
 ## Style
 
 - Label: `label` style (14px, 500), `space-1` above the control; weight 400 when it wraps a Checkbox, Switch or Radio.
+- Horizontal: a two-column grid. The label (weight 400) and description fill the first column; the control sits at the end, centered on them, `space-4` from the text. The error spans the row under them.
 - Description and error: `caption` (13px), below the control. The error hides the description and turns the control's edge `danger`.
