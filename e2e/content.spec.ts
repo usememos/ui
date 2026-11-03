@@ -148,13 +148,36 @@ test('List: an ItemButton fills its row and highlights on hover', async ({ page 
   await expect(button).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
 });
 
-test('ToggleGroup: fullWidth fills its container with equal labeled items', async ({ page }) => {
+test('ToggleGroup: fullWidth fills its container; labeled items grow by equal amounts from their natural width', async ({ page }) => {
   await open(page);
   const group = page.locator('[data-full-width] [role="group"]');
   expect(Math.round((await group.boundingBox())!.width)).toBe(320);
-  const widths = await group.locator('button').evaluateAll((buttons) => buttons.map((button) => Math.round(button.getBoundingClientRect().width)));
-  expect(widths).toHaveLength(2);
-  expect(Math.abs(widths[0]! - widths[1]!)).toBeLessThanOrEqual(1);
+  const sizes = await group.locator('button').evaluateAll((buttons) => buttons.map((button) => {
+    const label = button.querySelector('.mu-toggle-label')!;
+    return { width: button.getBoundingClientRect().width, label: label.getBoundingClientRect().width, cut: label.scrollWidth > label.clientWidth };
+  }));
+  expect(sizes).toHaveLength(2);
+  expect(sizes.some((size) => size.cut)).toBe(false);
+  expect(Math.abs((sizes[0]!.width - sizes[0]!.label) - (sizes[1]!.width - sizes[1]!.label))).toBeLessThanOrEqual(1);
+});
+
+test('ToggleGroup: fullWidth in a popup that sizes to its content keeps whole labels', async ({ page }) => {
+  await open(page);
+  const labels = page.locator('[data-fit-content] .mu-toggle-label');
+  await expect(labels).toHaveCount(3);
+  const cut = await labels.evaluateAll((spans) => spans.filter((span) => span.scrollWidth > span.clientWidth).map((span) => span.textContent));
+  expect(cut).toEqual([]);
+});
+
+test('Badge: color tints the fill and keeps ink text; without it the fill is well', async ({ page }) => {
+  await open(page);
+  const plain = page.locator('#badge .mu-badge-neutral').first();
+  await expect(plain).toHaveCSS('background-color', 'rgb(228, 228, 228)');
+  const work = page.locator('[data-tag-colors] .mu-badge').first();
+  await expect(work).toHaveCSS('color', 'rgb(26, 26, 26)');
+  const fill = await work.evaluate((element) => getComputedStyle(element).backgroundColor);
+  expect(fill).not.toBe('rgb(228, 228, 228)');
+  expect(fill).toMatch(/^(color\(srgb|rgba)/);
 });
 
 test('Form: bordered has a List edge and a canvas footer bar that runs to the edges', async ({ page }) => {

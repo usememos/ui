@@ -22,6 +22,25 @@ describe('Badge primary', () => {
   });
 });
 
+describe('Badge color', () => {
+  it('sets --mu-badge-color from color and keeps the caller style', () => {
+    const { container } = render(
+      <Badge color="#e5484d" style={{ marginInlineStart: 4 }}>
+        work
+      </Badge>,
+    );
+    const badge = container.querySelector('span')!;
+    expect(badge.style.getPropertyValue('--mu-badge-color')).toBe('#e5484d');
+    expect(badge.style.marginInlineStart).toBe('4px');
+    expect(badge.hasAttribute('color')).toBe(false);
+  });
+
+  it('sets no style without a color', () => {
+    const { container } = render(<Badge>reading</Badge>);
+    expect(container.querySelector('span')!.getAttribute('style')).toBeNull();
+  });
+});
+
 describe('Table.Actions', () => {
   it('groups the buttons of a cell in a div', () => {
     const { container } = render(

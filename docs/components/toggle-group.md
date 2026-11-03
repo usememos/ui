@@ -35,7 +35,7 @@ import { Bold, Code, Italic } from "lucide-react";
 ```ts
 interface ToggleGroupProps extends BaseToggleGroup.Props {
   size?: Size;         // passed to every Toggle inside
-  fullWidth?: boolean; // fills the container; labeled Toggles share the width equally
+  fullWidth?: boolean; // fills the container; labeled Toggles grow from their natural width
 }
 ```
 
@@ -52,6 +52,6 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange`, `multipl
 
 ## Style
 
-- At most as wide as its container. With `fullWidth`, exactly as wide, and labeled Toggles take equal shares (icon-only ones keep their size). When the labels don't fit, they shrink with an ellipsis; icon-only items keep their size.
+- At most as wide as its container. With `fullWidth`, exactly as wide: labeled Toggles start at their natural width and share the extra space equally (`flex: 1 1 auto`), so equal labels give equal Toggles and a long label is never cut while there is room. Inside a popup that sizes to its content, the group is as wide as its labels need. When the container is narrower than the labels, they shrink with an ellipsis; icon-only items keep their size.
 - `multiple`: items 2px apart.
 - Without `multiple`: a segmented well; the key slides to the chosen item over `duration-settle` with `ease-settle` and re-measures when an item changes width. Under reduced motion it jumps.

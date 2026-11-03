@@ -11,7 +11,12 @@
   vertical-align: middle;
 }
 
-.mu-badge-neutral { color: var(--mu-ink); background-color: var(--mu-well); }
+/* A user's color for a tag (`--mu-badge-color`, set by the `color` prop) tints the fill; text and icon stay ink, so any color stays readable. Unset, the tint is invalid and the fill falls back to well. */
+.mu-badge-neutral {
+  --mu-badge-tint: color-mix(in srgb, var(--mu-badge-color) 18%, transparent);
+  color: var(--mu-ink);
+  background-color: var(--mu-badge-tint, var(--mu-well));
+}
 .mu-badge-primary { color: var(--mu-on-primary); background-color: var(--mu-primary); }
 .mu-badge-outline { color: var(--mu-ink-muted); box-shadow: inset 0 0 0 1px var(--mu-edge); }
 .mu-badge-success { color: var(--mu-success); background-color: var(--mu-success-soft); }

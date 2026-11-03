@@ -27,6 +27,13 @@ export function ToggleGroupSection({ size }: SectionProps) {
           <Toggle value="grid" icon={<LayoutGrid />}>Masonry</Toggle>
         </ToggleGroup>
       </div>
+      <div className="mu-popup" style={{ width: 'max-content', padding: 8 }} data-fit-content>
+        <ToggleGroup size={size} fullWidth defaultValue={['auto']} aria-label="Ansicht">
+          <Toggle value="list">Liste</Toggle>
+          <Toggle value="grid">Raster</Toggle>
+          <Toggle value="auto">Automatisch</Toggle>
+        </ToggleGroup>
+      </div>
       <div style={{ width: 200 }} data-narrow>
         <ToggleGroup size={size} defaultValue={['list']} aria-label="Izkārtojums">
           <Toggle value="list" icon={<List />}>Saraksta skats</Toggle>

@@ -30,11 +30,13 @@ State is set with attributes, never with extra classes:
 - A field darkens its edge to `focus-edge` when it or anything inside it has focus. `aria-invalid="true"` shows the error edge, and `aria-disabled="true"` dims it.
 - A menu row is highlighted while it has `data-highlighted`, and dimmed with `data-disabled`. Base UI sets both; a list the app drives itself sets them on the active row. `item` works on a `<div>`, `<button>` or `<a>`. For a two-line row, wrap `label` and `description` in a `text` span.
 - A popup fades in with `data-starting-style` and out with `data-ending-style`, which Base UI's popups set.
+- A tag with a user's color sets `--mu-badge-color` on the element: `style={{ "--mu-badge-color": tag.color } as React.CSSProperties}`. The fill becomes a tint of it; the text stays ink.
 
 ```tsx
 import { badgeClasses, menuClasses, textareaClasses } from "@usememos/ui";
 
 <a className={badgeClasses()} href="/tags/work">work</a>
+<a className={badgeClasses()} href="/tags/trip" style={{ "--mu-badge-color": "#3e63dd" } as React.CSSProperties}>trip</a>
 
 <div className={textareaClasses()} contentEditable role="textbox" aria-multiline="true" aria-label="Note" />
 
