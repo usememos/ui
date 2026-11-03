@@ -5,6 +5,18 @@
  */
 
 /*
+ * Segoe UI, the Windows UI font, has no Medium (500) face, so with a plain stack the browser draws every 500 label at 400 there.
+ * This alias of the installed Segoe UI draws 500 and 600 with its Semibold face. It loads no file: every source is local().
+ * The font stacks in tokens.css list it after the Apple fonts and before system-ui. See docs/typography.md#fonts.
+ */
+@font-face { font-family: "Segoe UI (mu)"; font-weight: 400; src: local("Segoe UI"), local("SegoeUI"); }
+@font-face { font-family: "Segoe UI (mu)"; font-weight: 400; font-style: italic; src: local("Segoe UI Italic"), local("SegoeUI-Italic"); }
+@font-face { font-family: "Segoe UI (mu)"; font-weight: 500 600; src: local("Segoe UI Semibold"), local("SegoeUI-Semibold"); }
+@font-face { font-family: "Segoe UI (mu)"; font-weight: 500 600; font-style: italic; src: local("Segoe UI Semibold Italic"), local("SegoeUI-SemiboldItalic"); }
+@font-face { font-family: "Segoe UI (mu)"; font-weight: 700; src: local("Segoe UI Bold"), local("SegoeUI-Bold"); }
+@font-face { font-family: "Segoe UI (mu)"; font-weight: 700; font-style: italic; src: local("Segoe UI Bold Italic"), local("SegoeUI-BoldItalic"); }
+
+/*
  * Sizes: one class sets height, padding, type, radius, gaps and icons together,
  * as the row variables that components and apps read. See docs/layout.md and
  * docs/custom-components.md#row-variables.

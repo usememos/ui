@@ -132,8 +132,8 @@
   --mu-duration-shimmer: 1400ms;
   --mu-ease-settle: cubic-bezier(0.2, 0.9, 0.3, 1);
   --mu-ease-out: cubic-bezier(0.2, 0, 0, 1);
-  --mu-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mu-font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mu-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI (mu)", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mu-font-display: -apple-system, BlinkMacSystemFont, "Segoe UI (mu)", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mu-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 

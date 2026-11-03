@@ -21,11 +21,11 @@
 
 | Family | Stack |
 | --- | --- |
-| `--mu-font-sans` | `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
-| `--mu-font-display` | `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--mu-font-sans` | `-apple-system, BlinkMacSystemFont, "Segoe UI (mu)", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--mu-font-display` | `-apple-system, BlinkMacSystemFont, "Segoe UI (mu)", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--mu-font-mono` | `ui-monospace, "SF Mono", Menlo, Consolas, monospace` |
 
-The package ships no font files and loads no remote font: text uses the system UI font, so it looks native on each platform and costs no download. Do not import or define another font family, not even a `local()` alias of a system font. One known cost: Segoe UI, the Windows UI font, has no Medium face, so weight 500 draws at 400 on Windows and labels there rely on size and color. That is accepted to keep the plain system stack. An app that wants another font sets `--mu-font-sans`, `--mu-font-display` or `--mu-font-mono` after loading `tokens.css`, and loads the font itself. These are the only type tokens an app may set: sizes, line heights, weights and letter spacing are fixed (see [What an app can change](color.md#what-an-app-can-change)). Code in [Prose](components/prose.md) uses `font-mono`, the platform's monospace font by default.
+The package ships no font files and loads no remote font: text uses the system UI font, so it looks native on each platform and costs no download. Do not import or define another font family. The one exception is `"Segoe UI (mu)"`, an alias of the installed Windows UI font that the stylesheet defines with `local()` sources only, so it loads no file. Segoe UI has Regular, Semibold and Bold faces but no Medium, so with a plain stack the browser draws weight 500 at 400 and every label on Windows loses its weight. The alias draws 500 and 600 with the installed Semibold face. It comes after `-apple-system` and `BlinkMacSystemFont`, so Apple platforms still get San Francisco, and before `system-ui`, which is plain Segoe UI on Windows. An app that wants another font sets `--mu-font-sans`, `--mu-font-display` or `--mu-font-mono` after loading `tokens.css`, and loads the font itself. These are the only type tokens an app may set: sizes, line heights, weights and letter spacing are fixed (see [What an app can change](color.md#what-an-app-can-change)). Code in [Prose](components/prose.md) uses `font-mono`, the platform's monospace font by default.
 
 ## Scale
 
