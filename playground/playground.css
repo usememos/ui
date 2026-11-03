@@ -16,3 +16,6 @@ body { margin: 0; background: var(--mu-canvas); color: var(--mu-ink); font-famil
 .pg-bare-list { padding: var(--mu-space-1); }
 .pg-drawer-nav { width: var(--mu-sidebar-width); }
 .pg-drawer-links { display: grid; padding: var(--mu-space-2); }
+.pg-list-record { display: flex; align-items: center; justify-content: space-between; gap: var(--mu-space-3); }
+.pg-list-url { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pg-section h3.mu-label { margin: 0; color: var(--mu-ink); }

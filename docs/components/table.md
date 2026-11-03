@@ -42,7 +42,7 @@ No Base UI part: these are styled native table elements.
 
 | Part | Renders |
 | --- | --- |
-| `Table.Root` | A `<table>` inside a `<div>` that scrolls sideways when the table is too wide. Takes `size`. The ref and props go to the `<table>` |
+| `Table.Root` | A `<table>` inside a `<div>` that scrolls sideways when the table is too wide. Takes `size` and `bordered`. The ref and props go to the `<table>` |
 | `Table.Caption` | `<caption>`, under the table. Names it for screen readers |
 | `Table.Header` | `<thead>` |
 | `Table.Body` | `<tbody>` |
@@ -54,7 +54,8 @@ No Base UI part: these are styled native table elements.
 
 ```ts
 interface Table.RootProps extends React.ComponentProps<"table"> {
-  size?: "sm" | "md"; // sm for dense admin lists
+  size?: "sm" | "md";  // sm for dense admin lists
+  bordered?: boolean;  // a line edge and rounded corners around the table, for a table that sits among other sections
 }
 interface Table.HeadProps extends React.ComponentProps<"th"> {
   num?: boolean; // right-aligned, for a column of numbers
@@ -74,10 +75,12 @@ Every native attribute passes through.
 - Put row actions in the last column as a ghost [Menu](menu.md) trigger, named for its row. Give that column's Head text in `mu-visually-hidden`.
 - Name the table with a Caption, or `aria-label` on the root.
 - Sort, select and paginate in the app. The table has no data props.
+- Set `bordered` when the table is one section of a settings or admin page, next to other sections or a [List](list.md), so it reads as one block. Leave it off when the table is the page's main content. Never put a bordered table inside a Dialog or Popover.
 
 ## Style
 
-- No boxes or stripes: a `line` under the head row and between body rows. Body rows highlight with `hover`.
+- No stripes: a `line` under the head row and between body rows. Body rows highlight with `hover`.
+- `bordered`: `surface` fill, a 1px `line` edge and `radius-lg` on the scrolling wrapper; the Caption sits inside the edge, under a `line`. The outer columns pad `space-1` more, so the text lines up with a [List](list.md) row's.
 - Heads: `label-sm` (13px, 500) in `ink-muted`, a control height tall.
 - Cells: `caption` at sm and `body` at md, with tabular numbers. Rows are 34 or 40px; a Button in a cell overlaps the padding, so rows keep that height.
 - Cells pad `px` at the sides. Caption: `caption` in `ink-muted`, `space-2` above.

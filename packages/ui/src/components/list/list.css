@@ -1,0 +1,14 @@
+/* List: a boxed list of records or settings rows, divided by line. See docs/components/list.md. */
+.mu-list {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--mu-line);
+  border-radius: var(--mu-radius-lg);
+  color: var(--mu-ink);
+  background-color: var(--mu-surface);
+  list-style: none;
+}
+.mu-list-item { box-sizing: border-box; min-width: 0; padding: var(--mu-space-3) var(--mu-space-4); }
+.mu-list.mu-s-sm > .mu-list-item { padding: var(--mu-space-2) var(--mu-space-3); }
+.mu-list-item + .mu-list-item { border-top: 1px solid var(--mu-line); }

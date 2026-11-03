@@ -41,6 +41,7 @@ Wraps Base UI's [Button](https://base-ui.com/react/components/button): `disabled
   ```
 
 - Prefer saying why an action is unavailable over disabling it.
+- Over a photo or video (an image viewer's close and arrows, a cover's edit button), use `neutral` Buttons inside an element with `data-theme="dark"`, so they are dark keys whatever the app's theme. There is no media variant. See [the recipe](../usage.md#buttons-over-a-photo).
 
 ## Style
 

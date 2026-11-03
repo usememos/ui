@@ -66,7 +66,7 @@ Base UI's props pass through: `name`, `invalid`, `disabled`, `validate`, `valida
   </Field.Root>
   ```
 - A radio group is one field: `Field.Root` holds `Fieldset.Root render={<RadioGroup />}`, and each radio sits in a `Field.Item`. See [RadioGroup](radio-group.md).
-- Stack fields `space-4` apart. Group them with a heading or a Fieldset, not boxes.
+- Stack fields `space-4` apart. Group them with a heading or a Fieldset. On a settings page, put horizontal Fields in a [List](list.md), one per Item.
 - Never use a placeholder as the only label.
 
 ## Style

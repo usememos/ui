@@ -1,5 +1,7 @@
-/* Table: rows separated by line, with no boxes or stripes. See docs/components/table.md. */
+/* Table: rows separated by line, with no stripes; `bordered` boxes it. See docs/components/table.md. */
 .mu-table-scroll { overflow-x: auto; max-width: 100%; }
+/* Bordered: the box clips the rows to its corners. */
+.mu-table-bordered { box-sizing: border-box; border: 1px solid var(--mu-line); border-radius: var(--mu-radius-lg); background-color: var(--mu-surface); }
 .mu-table {
   width: 100%;
   border-collapse: collapse;
@@ -27,3 +29,8 @@
 .mu-table-muted { color: var(--mu-ink-muted); }
 
 .mu-table-caption { caption-side: bottom; padding: var(--mu-space-2) var(--mu-row-padding) 0; color: var(--mu-ink-muted); text-align: start; }
+.mu-table-bordered .mu-table-caption { padding-bottom: var(--mu-space-2); border-top: 1px solid var(--mu-line); }
+/* Inside the edge, the outer columns pad as a List row does, so a bordered Table and a List line up. */
+.mu-table-bordered :is(.mu-table-head, .mu-table-cell):first-child,
+.mu-table-bordered .mu-table-caption { padding-inline-start: calc(var(--mu-row-padding) + var(--mu-space-1)); }
+.mu-table-bordered :is(.mu-table-head, .mu-table-cell):last-child { padding-inline-end: calc(var(--mu-row-padding) + var(--mu-space-1)); }

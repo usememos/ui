@@ -100,7 +100,8 @@ Answer in order; the first yes decides.
 | Details or advanced settings people rarely need | [Collapsible](components/collapsible.md) | A Dialog |
 | Several sections, one open at a time | Collapsibles, controlled together | A third-party accordion |
 | Separating groups of content | `space-6` of whitespace, then a section title, then a [Separator](components/separator.md) if still unclear | A box, border or card |
-| Data with columns (tokens, users, webhooks) | [Table](components/table.md) | A list of boxes |
+| Data with columns (tokens, users, webhooks) | [Table](components/table.md), `bordered` when it is one section among others | A List with columns faked in each row |
+| Settings rows, or a few records with an action each | [List](components/list.md) | Separate boxes for each row |
 | A list of content (notes, comments) | [Entries](patterns.md#entry) | A Table |
 
 ## Picking feedback
@@ -217,17 +218,20 @@ const [confirming, setConfirming] = useState(false);
 ### Settings that save at once
 
 ```tsx
-<Fieldset.Root>
-  <Fieldset.Legend>Notifications</Fieldset.Legend>
-  <Field.Root orientation="horizontal">
-    <Field.Label>Email me when I'm mentioned</Field.Label>
-    <Field.Description>Sent at most once an hour.</Field.Description>
-    <Switch checked={mentions} onCheckedChange={saveMentions} />
-  </Field.Root>
-</Fieldset.Root>
+<h2 className="mu-label" id="notifications">Notifications</h2>
+<List.Root aria-labelledby="notifications">
+  <List.Item>
+    <Field.Root orientation="horizontal">
+      <Field.Label>Email me when I'm mentioned</Field.Label>
+      <Field.Description>Sent at most once an hour.</Field.Description>
+      <Switch checked={mentions} onCheckedChange={saveMentions} />
+    </Field.Root>
+  </List.Item>
+  <List.Item>…</List.Item>
+</List.Root>
 ```
 
-A horizontal Field puts the setting's name first and the Switch or Select at the end of the row. For a short list of options under one heading (notification types), a Switch or Checkbox inside its `Field.Label` also works.
+A horizontal Field puts the setting's name first and the Switch or Select at the end of the row. A [List](components/list.md) boxes the rows of one section and divides them with lines. Inside a Dialog, leave out the List and stack the Fields. For a short list of options under one heading (notification types), a Switch or Checkbox inside its `Field.Label` also works.
 
 No Save button and no toast: the Switch shows the result. If saving fails, move the Switch back and show a danger Toast.
 
@@ -255,6 +259,25 @@ One `Tooltip.Provider` around the toolbar (or the app) so moving along it opens 
 - Show one or two frequent actions as xs or sm ghost Buttons beside it, each with a Tooltip.
 - On an entry the trigger appears on hover; on touch screens it is always visible (see [Entry](patterns.md#entry)).
 
+### Buttons over a photo
+
+Controls over an image or a video sit in a dark-theme scope, so they read on any picture in both app themes:
+
+```tsx
+<figure className="app-viewer">
+  <img src={src} alt={alt} />
+  <div className="app-viewer-controls" data-theme="dark">
+    <Button icon={<X />} aria-label="Close" onClick={close} />
+    <Button icon={<ChevronLeft />} aria-label="Previous image" onClick={previous} />
+    <Button icon={<ChevronRight />} aria-label="Next image" onClick={next} />
+  </div>
+</figure>
+```
+
+- `data-theme="dark"` on any element sets the Dark tokens for everything inside it, so the Buttons are dark `neutral` keys with light icons. Don't use `ghost` there: it has no fill and disappears on a busy picture.
+- Leave the scope's own background transparent; the keys carry their own fill and shadow.
+- A full-screen viewer is a Dialog with `variant="bare"`; put the scope inside its Popup.
+
 ### Inside a shadow root or a host page
 
 In an extension or an embed, pass the same `container` to every `Popup` and to `Toast.Viewport`, so popups mount inside the shadow root and pick up its styles. See [Scoping inside a host page](building.md#scoping-inside-a-host-page).
@@ -267,7 +290,7 @@ In an extension or an embed, pass the same `container` to every `Popup` and to `
 ## Size
 
 - **Set `size` once, on the outermost part that takes it.** `Menu.Root`, `Select.Root`, `Combobox.Root`, `Tabs.Root`, `Collapsible.Root`, `Table.Root`, `Field.Root`, `Fieldset.Root`, `RadioGroup` and `ToggleGroup` pass their size to every part and every Button, Toggle, Checkbox or Input inside them. Don't repeat it on the parts.
-- **Pick by place, not by importance.** `md` everywhere by default, including dialogs, forms, onboarding and marketing pages. `sm` for dense toolbars, table rows and filters inside panels. `xs` for secondary actions beside 13px text (entry footers, row actions). See [Control sizes](layout.md#control-sizes).
+- **Pick by place, not by importance.** `md` everywhere by default, including dialogs, forms, onboarding, marketing pages and the app's sidebar (its navigation rows and its main button). `sm` for dense toolbars, table rows and filters inside panels. `xs` for secondary actions beside 13px text (entry footers, row actions). See [Control sizes](layout.md#control-sizes).
 - **Never make a control bigger to make it stronger.** Emphasis is the `primary` variant.
 - **Don't mix sizes in one row.** A Button beside an Input has the Input's size.
 - **Dialogs and Popovers start at md.** Their panels are md wherever they are declared, so a Dialog inside a `Table.Root size="sm"` still has md Buttons and fields. Set `size` inside the panel only for a part that should differ.
@@ -321,7 +344,7 @@ Run through it for every screen.
 | A Checkbox that saves at once | A Switch |
 | A Select with 30 options | A Combobox |
 | A Select with two options and room to spare | A RadioGroup |
-| A boxed card around each item | Whitespace, a section title, or a Separator |
+| A boxed card around each item | Whitespace, a section title, or a Separator. Rows of settings or records go in one [List](components/list.md) |
 | An icon after a Button's label inside `children` | `iconEnd` |
 | A `<button>` with its own classes as a row in a Popover | `menuClasses().item`, in a Popover with `variant="list"` |
 | A Dialog with `className` that removes its padding and X | `variant="bare"` |
@@ -347,6 +370,8 @@ Names and parts from other libraries and where they go.
 | ConfirmDialog, AlertDialog, `window.confirm` | [AlertDialog](components/dialog.md) |
 | Drawer, Sheet | [Drawer](components/drawer.md) from an edge; a Dialog already becomes a bottom sheet below 640px |
 | Command palette, Spotlight | Dialog with `variant="bare"` around an inline [Combobox](components/combobox.md) |
+| Lightbox, image viewer | Dialog with `variant="bare"`, its controls as neutral Buttons in a `data-theme="dark"` scope ([recipe](#buttons-over-a-photo)) |
+| List group, settings card, DataList | [List](components/list.md) |
 | Emoji or icon picker | Combobox with `inline` and `grid` |
 | DropdownMenu, ActionMenu | [Menu](components/menu.md) |
 | ContextMenu | Not built. Put the same actions in a Menu on a visible trigger |
@@ -354,7 +379,7 @@ Names and parts from other libraries and where they go.
 | Tooltip with a `title` or `content` prop | [Tooltip](components/tooltip.md) parts: Root, Trigger, Popup |
 | Snackbar, Toaster, sonner's `toast()` | [Toast](components/toast.md) and `Toast.useToastManager().add()` |
 | Toast `variant="destructive"` | `type: "danger"` |
-| Card, Paper, Panel | No component: spacing, a section title and [Separator](components/separator.md) |
+| Card, Paper, Panel | No component: spacing, a section title and [Separator](components/separator.md). For a boxed group of rows, [List](components/list.md) |
 | Divider | [Separator](components/separator.md) |
 | Chip, Tag | [Badge](components/badge.md) to show, [Toggle](components/toggle.md) to filter |
 | SegmentedControl, RadioButtons in a row | [ToggleGroup](components/toggle-group.md) without `multiple` |

@@ -1,12 +1,12 @@
 // @vitest-environment happy-dom
 // Parts and options added for memos' migration: Button iconEnd, two-line menu
 // rows, Popover list, ghost Select trigger, bare Dialog, Drawer, horizontal
-// Field, and the inline grid Combobox.
+// Field, the inline grid Combobox, List and the bordered Table.
 import { DirectionProvider } from '@base-ui/react/direction-provider';
 import { act } from 'react';
 import { ChevronDown, Heart, Lock, Star } from 'lucide-react';
 import { afterEach, describe, expect, it } from 'vitest';
-import { Button, buttonClasses, Combobox, Dialog, Drawer, Field, Menu, Popover, popoverClasses, Select, Switch } from '../src';
+import { Button, buttonClasses, Combobox, Dialog, Drawer, Field, List, Menu, Popover, popoverClasses, Select, Switch, Table } from '../src';
 import { render } from './render';
 
 afterEach(() => {
@@ -208,5 +208,51 @@ describe('Combobox inline grid', () => {
     const row = container.querySelector('.mu-combobox-row')!;
     expect(row.querySelectorAll('.mu-combobox-item')).toHaveLength(2);
     expect(row.querySelector('[aria-label="Heart"]')!.hasAttribute('data-selected')).toBe(true);
+  });
+});
+
+describe('List', () => {
+  it('renders a sized ul of li rows and passes its size to controls inside', () => {
+    const { container } = render(
+      <List.Root size="sm" aria-label="Webhooks">
+        <List.Item>
+          <Button>Edit</Button>
+        </List.Item>
+        <List.Item className="app-row">Second</List.Item>
+      </List.Root>,
+    );
+    const list = container.querySelector('ul')!;
+    expect(list.className).toContain('mu-list');
+    expect(list.className).toContain('mu-s-sm');
+    expect(list.getAttribute('aria-label')).toBe('Webhooks');
+    const items = list.querySelectorAll(':scope > li.mu-list-item');
+    expect(items).toHaveLength(2);
+    expect(items[1]!.className).toContain('app-row');
+    expect(list.querySelector('button')!.className).toContain('mu-s-sm');
+  });
+
+  it('takes the size around it, and md by default', () => {
+    const { container } = render(<List.Root><List.Item>One</List.Item></List.Root>);
+    expect(container.querySelector('ul')!.className).toContain('mu-s-md');
+  });
+});
+
+describe('Table bordered', () => {
+  it('boxes the scrolling wrapper only when set', () => {
+    const { container } = render(
+      <>
+        <Table.Root bordered aria-label="Members">
+          <Table.Body><Table.Row><Table.Cell>Ada</Table.Cell></Table.Row></Table.Body>
+        </Table.Root>
+        <Table.Root aria-label="Plain">
+          <Table.Body><Table.Row><Table.Cell>Bo</Table.Cell></Table.Row></Table.Body>
+        </Table.Root>
+      </>,
+    );
+    const [bordered, plain] = [...container.querySelectorAll('.mu-table-scroll')];
+    expect(bordered!.className).toContain('mu-table-bordered');
+    expect(plain!.className).not.toContain('mu-table-bordered');
+    expect(bordered!.querySelector('table')!.getAttribute('aria-label')).toBe('Members');
+    expect(bordered!.querySelector('table')!.hasAttribute('bordered')).toBe(false);
   });
 });

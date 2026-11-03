@@ -79,6 +79,29 @@ test('Table: a Menu trigger in a row does not make the row taller than its text'
   }
 });
 
+test('List: one edge around the rows, a line between them, and the Switch at the end of a settings row', async ({ page }) => {
+  await open(page);
+  const list = page.getByRole('list', { name: 'Preferences' });
+  await expect(list).toHaveCSS('border-top-width', '1px');
+  await expect(list).toHaveCSS('list-style-type', 'none');
+  const rows = list.locator(':scope > li');
+  await expect(rows.first()).toHaveCSS('border-top-width', '0px');
+  await expect(rows.nth(1)).toHaveCSS('border-top-width', '1px');
+  const [rowEnd, switchEnd] = await rows.first().evaluate((row) => {
+    const control = row.querySelector('[role="switch"]')!;
+    const padding = parseFloat(getComputedStyle(row).paddingRight);
+    return [row.getBoundingClientRect().right - padding, control.getBoundingClientRect().right];
+  });
+  expect(Math.abs(rowEnd - switchEnd)).toBeLessThanOrEqual(1);
+});
+
+test('Table: bordered boxes the table, and the plain one has no edge', async ({ page }) => {
+  await open(page);
+  const scrolls = page.locator('#table .mu-table-scroll');
+  await expect(scrolls.nth(0)).toHaveCSS('border-top-width', '0px');
+  await expect(scrolls.nth(1)).toHaveCSS('border-top-width', '1px');
+});
+
 test('Prose: task list checkboxes are 16px, and done items are struck through', async ({ page }) => {
   await open(page);
   const boxes = page.locator('#prose input[type="checkbox"]');

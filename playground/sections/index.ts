@@ -12,6 +12,7 @@ import { FieldSection } from './field';
 import { InputSection } from './input';
 import { KbdSection } from './kbd';
 import { LinkSection } from './link';
+import { ListSection } from './list';
 import { MenuSection } from './menu';
 import { PopoverSection } from './popover';
 import { ProseSection } from './prose';
@@ -76,5 +77,6 @@ export const sections: (
   { name: 'spinner', xs: true, title: 'Spinner', Section: SpinnerSection },
   { name: 'skeleton', xs: true, title: 'Skeleton', Section: SkeletonSection },
   { name: 'table', title: 'Table', Section: TableSection },
+  { name: 'list', title: 'List', Section: ListSection },
   { name: 'prose', title: 'Prose', Section: ProseSection },
 ];

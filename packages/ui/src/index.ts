@@ -16,6 +16,7 @@ export * as Fieldset from './components/field/fieldset';
 export { Input, inputClasses, type InputClassesOptions, type InputProps } from './components/input';
 export { Kbd, type KbdProps } from './components/kbd';
 export { Link, type LinkProps } from './components/link';
+export * as List from './components/list';
 export * as Menu from './components/menu';
 export { menuClasses, type MenuClasses, type MenuClassesOptions } from './components/menu/classes';
 export * as Popover from './components/popover';

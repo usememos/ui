@@ -5,6 +5,7 @@ How the components go together. Each product builds its screens from these patte
 ## Page
 
 - From `breakpoint-md` (1024px) up: a fixed sidebar of `sidebar-width` (240px). Below it, the sidebar is a [Drawer](components/drawer.md) from the start edge (`side="start"`, `variant="bare"`) opened from a ghost button.
+- Sidebar rows (navigation links, a space switcher, the main "New" button) are md: 32px tall, `label` text, md icons. There is no 28px row; don't build one with custom padding.
 - Content sits in a column of at most `content-width` (720px), padded `space-4` on phones and `space-6` on desktop.
 - A page header is a `heading` with an optional `body` line under it, and the page's one primary action at the right. `heading` appears once per page.
 - Sections inside a page have a `label` title (14px, 500) with `space-6` above it and `space-2` below. Section titles are never larger than the text around them; space and grouping set them apart. A section's rows use `label` for the name and `caption` in `ink-muted` for the description.
@@ -15,6 +16,7 @@ How the components go together. Each product builds its screens from these patte
 - Related checkboxes or switches sit in a `Fieldset`.
 - Actions go at the end, right-aligned: a ghost Cancel, then the primary.
 - A form that saves at once (settings) uses switches and has no Save button. A form with a Save button uses checkboxes.
+- On a settings page, each section is a title and a [List](components/list.md) of horizontal Fields: the setting's name at the start, its Switch or Select at the end. A section of records (tokens, webhooks) is a List, or a `bordered` [Table](components/table.md) when the records have columns.
 - Errors appear under the field, in words that say how to fix it.
 
 ## Entry

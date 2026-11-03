@@ -8,6 +8,8 @@ const bodyText: Record<Exclude<Size, 'xs'>, string> = { sm: 'mu-caption', md: 'm
 export interface RootProps extends ComponentPropsWithoutRef<'table'> {
   /** `sm` for dense admin lists. Sets row height and cell text. */
   size?: Exclude<Size, 'xs'>;
+  /** Draws the table in a box: a `line` edge, `radius-lg` corners and a `surface` fill, as a List. */
+  bordered?: boolean;
 }
 
 /**
@@ -15,11 +17,11 @@ export interface RootProps extends ComponentPropsWithoutRef<'table'> {
  * sideways when the table is wider than the screen; the ref and every prop go
  * to the `<table>`.
  */
-export const Root = forwardRef<HTMLTableElement, RootProps>(function TableRoot({ size, className, ...props }, ref) {
+export const Root = forwardRef<HTMLTableElement, RootProps>(function TableRoot({ size, bordered = false, className, ...props }, ref) {
   const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
-      <div className="mu-table-scroll">
+      <div className={bordered ? 'mu-table-scroll mu-table-bordered' : 'mu-table-scroll'}>
         <table ref={ref} {...props} className={cx('mu-table mu-base', `mu-s-${resolved}`, bodyText[resolved], className)} />
       </div>
     </SizeContext.Provider>
