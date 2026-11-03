@@ -6,6 +6,7 @@ How the components go together. Each product builds its screens from these patte
 
 - From `breakpoint-md` (1024px) up: a fixed sidebar of `sidebar-width` (240px). Below it, the sidebar is a [Drawer](components/drawer.md) from the start edge (`side="start"`, `variant="bare"`) opened from a ghost button.
 - A sidebar may use 28px rows: put `mu-compact` on it and every md control and row inside is `control-compact` (28px) tall, the package's (a ghost Select switcher, the "New" Button) and the app's own navigation rows alike. See [A sidebar navigation row](usage.md#a-sidebar-navigation-row). Without it, sidebar rows are md (32px).
+- Sidebar navigation rows (pages, views, tags) are `body` text, weight 400, `ink-muted`, and the current row is `ink` on the `hover` fill. A sidebar section title ("Tags") is `label-sm` or `label`, 500, and the "New" Button keeps its 500 label. Rows are scanned content; weight is for the few things that name them.
 - Content sits in a column of at most `content-width` (720px), padded `space-4` on phones and `space-6` on desktop.
 - A page header is a `heading` with an optional `body` line under it, and the page's one primary action at the right. `heading` appears once per page.
 - Sections inside a page have a `label` title (14px, 500) with `space-6` above it and `space-2` below. Section titles are never larger than the text around them; space and grouping set them apart. A section's rows are horizontal Fields: the name at weight 400 (`body`) and the description in `caption`, `ink-muted`. The section title above is the only `label` (500); the row names stay 400 so the title stands out from them.
@@ -26,7 +27,7 @@ A repeated unit of content in a list: a note, a comment, a changelog item.
 
 - **Header line** in `caption` (`ink-muted`): who or when, visibility as an outline Badge, and a ghost Menu trigger at the right that appears on hover. On touch screens the menu trigger is always visible.
 - **Body** in `Prose`.
-- **Footer line:** tags as Prose tags, attachments, reactions.
+- **Footer line:** tags as `neutral` [Badge](components/badge.md)s with a `Hash` icon, in `ink` (a tag is the user's own word, not metadata); a tag's own color goes in the Badge's `color`. Then attachments and reactions. Prose tags are only for tags inside the body's text.
 - Entries are separated by `space-6` of whitespace or a `Separator`, never by boxes.
 
 ## Confirmation

@@ -24,6 +24,7 @@ Memos UI is ink on paper: pure-gray neutrals, `primary` ink for emphasis, one qu
 - Status colors appear only when there is a status. Red is for destructive actions and errors, never for emphasis.
 - `danger` is tuned for text. `danger-key` is the danger button's fill; it is darker in Dark so the button is not the loudest thing on screen.
 - Always pair a status color with a word or an icon.
+- A color the user chooses, such as a tag's, is their content, not a role. It appears only as a tint behind `ink` text (Badge's `color`), never as text or as a fill under light text, because the package can't know its contrast.
 - Use tokens through their CSS variables. Every token is a custom property with the `--mu-` prefix: the `well` token is `var(--mu-well)`. The prefix keeps the tokens apart from an app's own variables and from Tailwind's. Never copy raw values into component or product code.
 
 ## Themes

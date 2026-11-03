@@ -38,8 +38,8 @@ Eight styles over six sizes. 13 and 14px each have a 400 style for text and a 50
 | `label-xs` | 12 / 16px | 500 | Labels inside xs controls, badges and kbd: the parts that are 20px tall. Never for running or secondary text. The reason for the size: xs controls must read as tiny, and at 13px they read as sm controls with less padding |
 | `caption` | 13 / 18px | 400 | Secondary text: field descriptions and errors, metadata, timestamps, toast and popover descriptions, table captions, sm table cells. Usually in `ink-muted` |
 | `label-sm` | 13 / 18px | 500 | Labels inside sm controls, tooltips, group labels in menus and lists, table heads |
-| `body` | 14 / 20px | 400 | Default running text in app UI; dialog descriptions |
-| `label` | 14 / 20px | 500 | Labels inside md controls, field labels, nav rows, buttons, section titles, popover and toast titles. The default control text |
+| `body` | 14 / 20px | 400 | Default running text in app UI; dialog descriptions; the names in rows people scan: Menu and Select items, settings row names, sidebar navigation rows |
+| `label` | 14 / 20px | 500 | Labels inside md controls, field labels, buttons, section titles, popover and toast titles. The default control text |
 
 ### Headings (`--mu-font-display`)
 

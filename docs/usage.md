@@ -290,6 +290,7 @@ The package ships no navigation component: the sidebar's rows are the app's link
   padding: 0 var(--mu-row-padding-icon);
   border-radius: var(--mu-row-radius);
   color: var(--mu-ink-muted);
+  font-weight: 400; /* mu-base sets 500, for control labels */
   text-decoration: none;
 }
 .app-nav-row:hover, .app-nav-row[aria-current="page"] { color: var(--mu-ink); background-color: var(--mu-hover); }
@@ -297,7 +298,8 @@ The package ships no navigation component: the sidebar's rows are the app's link
 
 - `mu-compact` changes only md. sm (24px) and xs (20px) controls inside keep their heights, so an xs ghost Button for a row action still fits.
 - Popups opened from the sidebar (the Select's list, a Menu) mount outside it, at the normal 32px. To give a panel of rows the same 28px, put `mu-compact` on its popup: `<Popover.Popup variant="list" className="mu-compact">`.
-- `mu-s-md` gives the rows 14px text, 16px icons with a 1.25px stroke, and md padding and radius; `mu-base` sets the font and weight 500. Never set the `--mu-row-*` variables or the size tokens yourself; `mu-compact` is the only way to change a row's height.
+- `mu-s-md` gives the rows 14px text, 16px icons with a 1.25px stroke, and md padding and radius; `mu-base` sets the font. Never set the `--mu-row-*` variables or the size tokens yourself; `mu-compact` is the only way to change a row's height.
+- Rows are weight 400 (`body`), like Menu items, Select items and settings row names. A column of rows is content people scan; at 500 every row competes and the sidebar reads as bold. 500 is for what names a group: a section title in the sidebar and the "New" Button's label. The current row stands out by its fill and `ink` color, not by weight, so the text doesn't shift when the current page changes.
 - Mark the current page with `aria-current="page"`, not with color alone; the fill shows it too.
 - Rows stack `inset` (2px) apart. Don't add `mu-hit` to stacked rows: their 44px touch areas would overlap. 28px is above the 24px minimum target size.
 - A row with a count or a menu at its end adds it after the label with `margin-inline-start: auto`.
@@ -318,7 +320,7 @@ Controls over an image or a video sit in a dark-theme scope, so they read on any
 ```
 
 - `data-theme="dark"` on any element sets the Dark tokens for everything inside it, so the Buttons are dark `neutral` keys with light icons. Don't use `ghost` there: it has no fill and disappears on a busy picture.
-- When the scope holds only Buttons, leave its own background transparent: the keys carry their own fill and shadow.
+- When the scope holds only Buttons, leave its own background transparent: the keys carry their own fill and shadow. Text in the scope, such as a counter or a file name, has no fill of its own and needs the pill in [Text over a photo](#text-over-a-photo).
 - A full-screen viewer is a Dialog with `variant="bare" fullScreen`; put the scope inside its Popup.
 
 ### Text over a photo
@@ -429,6 +431,9 @@ Run through it for every screen.
 | `w-full` on a ToggleGroup and `flex-1` on its Toggles | `fullWidth` |
 | `h-dvh`, a `border-e` or your own Close on a bare Drawer's content | Nothing: bare does these; give your content `height: 100%` |
 | A 28px row class, or `--mu-row-height` set by hand | `mu-compact` on the sidebar or popup |
+| `mu-base` (weight 500) alone on sidebar navigation rows | `font-weight: 400` on the rows: they are `body` text, like Menu items |
+| A tag chip of your own in an entry's footer, or a Prose tag there | A `neutral` Badge with a `Hash` icon, in ink |
+| A tag in the user's color as text, or on a fill you mixed yourself | `<Badge color={tag.color}>`: a tint, with ink text |
 | Text over a photo on a translucent, blurred fill | An opaque `surface` pill in a `data-theme="dark"` scope |
 | Tailwind `size-4` on a standalone icon | `mu-icon-sm` or `mu-icon-md`, which set the stroke too |
 | A Spinner where a list will appear | Skeletons in the shape of the list |

@@ -86,7 +86,7 @@ Every native attribute passes through.
   ```
 - Name the table with a Caption, or `aria-label` on the root.
 - Sort, select and paginate in the app. The table has no data props.
-- Set `bordered` when the table is one section of a settings or admin page, next to other sections or a [List](list.md), so it reads as one block. Leave it off when the table is the page's main content. Never put a bordered table inside a Dialog or Popover.
+- Set `bordered` when the table is one section of a settings or admin page, next to other sections or a [List](list.md), so it reads as one block. Its head row gets a `canvas` fill, so the head reads apart from the first row inside the box. Leave it off when the table is the page's main content. Never put a bordered table inside a Dialog or Popover.
 
 ## Style
 

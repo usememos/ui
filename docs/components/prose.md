@@ -31,7 +31,7 @@ Every native attribute passes through.
 
 - Put plain HTML from a Markdown renderer inside it. It styles elements (`h1`–`h6`, `p`, `ul`, `ol`, `li`, `a`, `code`, `pre`, `blockquote`, `table`, `img`, `video`, `hr`), so the renderer needs no classes.
 - Task lists are `<li>` elements that start with `<input type="checkbox">`, as GFM renders them. Give each checkbox a name, such as `aria-label` with the item text. Drop `disabled` when people can tick them.
-- Mark tags with `<span class="mu-prose-tag">#tag</span>`.
+- Mark tags inside the text with `<span class="mu-prose-tag">#tag</span>`. They scale with the text and read as words. Tags listed outside the text, such as a row under an entry, are [Badge](badge.md)s.
 - Do not put components that are not content (forms, menus) inside it.
 - The editor (`@usememos/editor`) uses the same stylesheet in edit mode, so content does not shift between editing and reading.
 
