@@ -297,7 +297,7 @@ The package ships no navigation component: the sidebar's rows are the app's link
 
 - `mu-compact` changes only md. sm (24px) and xs (20px) controls inside keep their heights, so an xs ghost Button for a row action still fits.
 - Popups opened from the sidebar (the Select's list, a Menu) mount outside it, at the normal 32px. To give a panel of rows the same 28px, put `mu-compact` on its popup: `<Popover.Popup variant="list" className="mu-compact">`.
-- `mu-s-md` gives the rows 14px text, 16px icons with a 1.5px stroke, and md padding and radius; `mu-base` sets the font and weight 500. Never set the `--mu-row-*` variables or the size tokens yourself; `mu-compact` is the only way to change a row's height.
+- `mu-s-md` gives the rows 14px text, 16px icons with a 1.25px stroke, and md padding and radius; `mu-base` sets the font and weight 500. Never set the `--mu-row-*` variables or the size tokens yourself; `mu-compact` is the only way to change a row's height.
 - Mark the current page with `aria-current="page"`, not with color alone; the fill shows it too.
 - Rows stack `inset` (2px) apart. Don't add `mu-hit` to stacked rows: their 44px touch areas would overlap. 28px is above the 24px minimum target size.
 - A row with a count or a menu at its end adds it after the label with `margin-inline-start: auto`.

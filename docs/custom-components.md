@@ -73,7 +73,7 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-icon` | Icon size and stroke from the nearest size row, 16px outside one | A Lucide icon inside an app's own row |
 | `mu-icon-xs` | A 12px icon with a 1.25px stroke | A Lucide icon beside 12px or 13px text, outside a control |
 | `mu-icon-sm` | A 14px icon with a 1.25px stroke | A Lucide icon beside 13px or 14px text, outside a control |
-| `mu-icon-md` | A 16px icon with a 1.5px stroke | A Lucide icon beside 14px or 16px text, outside a control |
+| `mu-icon-md` | A 16px icon with a 1.25px stroke | A Lucide icon beside 14px or 16px text, outside a control |
 | `mu-visually-hidden` | Hidden on screen, read by screen readers | Text for screen readers only |
 | `mu-label-xs` | 12 / 16px, 500 | Labels of 20px parts |
 | `mu-caption` | 13 / 18px, 400 | Secondary text |
@@ -100,7 +100,7 @@ A size row class sets these variables on its element, and children inherit them.
 | `--mu-row-radius` | 4px | 4px | 6px |
 | `--mu-row-gap` | 4px | 4px | 6px |
 | `--mu-row-icon` | 12px | 14px | 16px |
-| `--mu-row-icon-stroke` | 1.25px | 1.25px | 1.5px |
+| `--mu-row-icon-stroke` | 1.25px | 1.25px | 1.25px |
 | `--mu-row-check-box` | 14px | 16px | 18px |
 
 `--mu-row-padding-icon` is the padding on the side of a control that starts or ends with an icon. Inside `mu-compact`, the md `--mu-row-height` is 28px. `--mu-row-field-font-size` and `--mu-row-field-line-height` are for text people type; on touch screens they are 16px and 20px at every size, so iOS Safari does not zoom in when a field takes focus.

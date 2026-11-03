@@ -72,6 +72,7 @@ Buttons, inputs and badges are never pills.
 | `icon-xs` | 12px | Icons in xs controls and badges |
 | `icon-sm` | 14px | Icons in sm controls |
 | `icon-md` | 16px | Icons in md controls and nav rows |
+| `icon-stroke` | 1.25px | Stroke of every icon, in screen pixels, at every size. Only the checkbox check differs (2px) |
 
 ## Layout
 

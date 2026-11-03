@@ -13,11 +13,11 @@ import { Pin, Trash2 } from "lucide-react";
 
 - **Icons are elements, not names.** Components take `icon={<Pin />}`, never `icon="pin"`.
 - **Size comes from the control.** An icon inside a component is 12px at xs, 14px at sm and 16px at md (`icon-xs`, `icon-sm`, `icon-md`). Don't pass `size`.
-- **Stroke is fixed in screen pixels.** 1.25px at xs, at sm and in badges, 1.5px at md, and 2px for the check in a checkbox. At 1.5px an icon matches the stem weight of the label text beside it. CSS applies `vector-effect: non-scaling-stroke`, which matches Lucide's `absoluteStrokeWidth`, so no props are needed. Don't pass `strokeWidth`.
+- **Stroke is fixed in screen pixels.** One stroke weight at every size: `icon-stroke`, 1.25px, at xs, sm and md and in badges. Apps don't change it. The only exception is the check in a checkbox, at 2px. At 1.25px a 16px outline glyph (calendar, paperclip, search) reads no heavier than the 14px weight-400 text beside it. CSS applies `vector-effect: non-scaling-stroke`, which matches Lucide's `absoluteStrokeWidth`, so no props are needed. Don't pass `strokeWidth`.
 - **Color is `currentColor`.** Icons follow the text color: `ink` in controls, `ink-muted` in menu rows, the tone color in toasts.
 - **Icons sit in a fixed square.** In a menu row or a control, the icon square keeps labels aligned whether or not a row has an icon.
 - **Accessibility.** Icons are `aria-hidden`. Every icon-only Button or Toggle has an `aria-label`, and a Tooltip with the same text.
-- **Standalone icons.** Outside a component, give the icon a size class: `mu-icon-xs` (12px, 1.25px stroke), `mu-icon-sm` (14px, 1.25px) or `mu-icon-md` (16px, 1.5px). Each sets the box and the stroke together, so a heading's icon or an empty state's icon matches the icons in controls. `mu-icon` alone takes the size of the nearest size row (`mu-s-*`), or 16px outside one. Don't size an icon with a utility such as `size-4`: it changes the box but not the stroke.
+- **Standalone icons.** Outside a component, give the icon a size class: `mu-icon-xs` (12px), `mu-icon-sm` (14px) or `mu-icon-md` (16px), all with the 1.25px stroke. Each sets the box and the stroke together, so a heading's icon or an empty state's icon matches the icons in controls. `mu-icon` alone takes the size of the nearest size row (`mu-s-*`), or 16px outside one. Don't size an icon with a utility such as `size-4`: it changes the box but not the stroke.
 
   ```tsx
   <h2 className="mu-title"><Inbox className="mu-icon-sm" aria-hidden /> Inbox</h2>

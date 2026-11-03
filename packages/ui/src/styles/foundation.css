@@ -32,7 +32,7 @@
   --mu-row-radius: var(--mu-radius-sm);
   --mu-row-gap: var(--mu-space-1);
   --mu-row-icon: var(--mu-icon-xs);
-  --mu-row-icon-stroke: 1.25px;
+  --mu-row-icon-stroke: var(--mu-icon-stroke);
   --mu-row-check-box: 14px;
 }
 .mu-s-sm {
@@ -46,7 +46,7 @@
   --mu-row-radius: var(--mu-radius-sm);
   --mu-row-gap: var(--mu-space-1);
   --mu-row-icon: var(--mu-icon-sm);
-  --mu-row-icon-stroke: 1.25px;
+  --mu-row-icon-stroke: var(--mu-icon-stroke);
   --mu-row-check-box: 16px;
 }
 .mu-s-md {
@@ -60,7 +60,7 @@
   --mu-row-radius: var(--mu-radius-md);
   --mu-row-gap: 6px;
   --mu-row-icon: var(--mu-icon-md);
-  --mu-row-icon-stroke: 1.5px;
+  --mu-row-icon-stroke: var(--mu-icon-stroke);
   --mu-row-check-box: 18px;
 }
 
@@ -103,13 +103,13 @@
   .mu-hit::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, var(--mu-hit-area)); height: max(100%, var(--mu-hit-area)); transform: translate(-50%, -50%); }
 }
 
-/* Icons: Lucide, sized by the control and stroked in screen pixels at every size. See docs/icons.md. */
-.mu-icon, .mu-icon-xs, .mu-icon-sm, .mu-icon-md, .mu-base svg.lucide, .mu-prose svg.lucide { width: var(--mu-row-icon, 16px); height: var(--mu-row-icon, 16px); flex: none; display: block; stroke-width: var(--mu-row-icon-stroke, 1.5px); }
+/* Icons: Lucide, sized by the control, with one `icon-stroke` width in screen pixels at every size. See docs/icons.md. */
+.mu-icon, .mu-icon-xs, .mu-icon-sm, .mu-icon-md, .mu-base svg.lucide, .mu-prose svg.lucide { width: var(--mu-row-icon, 16px); height: var(--mu-row-icon, 16px); flex: none; display: block; stroke-width: var(--mu-row-icon-stroke, var(--mu-icon-stroke)); }
 .mu-icon *, .mu-icon-xs *, .mu-icon-sm *, .mu-icon-md *, .mu-base svg.lucide *, .mu-prose svg.lucide * { vector-effect: non-scaling-stroke; }
 /* A fixed icon size on its own, outside any size row: box and stroke together, as the xs, sm and md rows set them. */
-.mu-icon-xs { --mu-row-icon: var(--mu-icon-xs); --mu-row-icon-stroke: 1.25px; }
-.mu-icon-sm { --mu-row-icon: var(--mu-icon-sm); --mu-row-icon-stroke: 1.25px; }
-.mu-icon-md { --mu-row-icon: var(--mu-icon-md); --mu-row-icon-stroke: 1.5px; }
+.mu-icon-xs { --mu-row-icon: var(--mu-icon-xs); --mu-row-icon-stroke: var(--mu-icon-stroke); }
+.mu-icon-sm { --mu-row-icon: var(--mu-icon-sm); --mu-row-icon-stroke: var(--mu-icon-stroke); }
+.mu-icon-md { --mu-row-icon: var(--mu-icon-md); --mu-row-icon-stroke: var(--mu-icon-stroke); }
 
 /* Type scale. See docs/typography.md. */
 /* App text uses four sizes and two weights; 12px is for the labels of 20px parts only; 32px is for a website hero only. Titles and headings balance their lines. */
