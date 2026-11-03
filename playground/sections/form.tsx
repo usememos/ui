@@ -9,9 +9,9 @@ export function FormSection(_: SectionProps<RowSize>) {
         <Form.Root key={String(bordered)} bordered={bordered} onSubmit={(event) => event.preventDefault()} data-bordered={bordered || undefined}>
           <Form.Title>{bordered ? 'Add a tag rule' : 'Profile'}</Form.Title>
           <Form.Description>{bordered ? 'Tag new notes that match a word.' : 'Shown on your public notes.'}</Form.Description>
-          <Field.Root name={bordered ? 'tag' : 'name'}>
-            <Field.Label>{bordered ? 'Tag' : 'Nickname'}</Field.Label>
-            <Input defaultValue={bordered ? 'work' : 'Steven'} />
+          <Field.Root name={bordered ? 'tag' : 'handle'}>
+            <Field.Label>{bordered ? 'Tag' : 'Handle'}</Field.Label>
+            <Input defaultValue={bordered ? 'work' : 'steven'} />
           </Field.Root>
           <Field.Root orientation="horizontal">
             <Field.Label>{bordered ? 'Apply to existing notes' : 'Show my email'}</Field.Label>
