@@ -226,20 +226,18 @@ test('Drawer: slides from its edge, closes on Escape, and returns focus', async 
   await trigger.click();
   const drawer = page.getByRole('dialog', { name: 'Navigation' });
   await expect(drawer).toBeVisible();
-  await page.evaluate(() => Promise.all(document.getAnimations().filter((animation) => animation instanceof CSSTransition).map((animation) => animation.finished.catch(() => undefined))));
-  const box = await drawer.boundingBox();
-  expect(box!.x).toBe(0);
-  expect(box!.height).toBe(page.viewportSize()!.height);
+  // Poll until it has slid in: the transition starts a frame after the drawer mounts.
+  await expect.poll(async () => drawer.boundingBox().then((box) => box!.x)).toBe(0);
+  expect((await drawer.boundingBox())!.height).toBe(page.viewportSize()!.height);
   await page.keyboard.press('Escape');
   await expect(drawer).toBeHidden();
   await expect(trigger).toBeFocused();
 
   await page.getByRole('button', { name: 'Note details' }).click();
   const details = page.getByRole('dialog', { name: 'Note details' });
-  await page.evaluate(() => Promise.all(document.getAnimations().filter((animation) => animation instanceof CSSTransition).map((animation) => animation.finished.catch(() => undefined))));
-  const right = await details.boundingBox();
-  expect(Math.round(right!.x + right!.width)).toBe(page.viewportSize()!.width);
-  expect(Math.round(right!.width)).toBe(320);
+  await expect(details).toBeVisible();
+  await expect.poll(async () => details.boundingBox().then((box) => Math.round(box!.x + box!.width))).toBe(page.viewportSize()!.width);
+  expect(Math.round((await details.boundingBox())!.width)).toBe(320);
   await details.getByRole('button', { name: 'Close' }).click();
   await expect(details).toBeHidden();
 });
