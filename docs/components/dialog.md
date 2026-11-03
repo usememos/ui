@@ -72,6 +72,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal`, `d
 - Escape and a backdrop click close a Dialog. While a form has unsaved input, keep it open from `onOpenChange`.
 - Focus moves into the dialog and returns to the trigger on close.
 - `variant="bare"` is for content that runs edge to edge: a search palette, a picker with its own header, an image. The content sets its own padding. Name the dialog with a `Dialog.Title` (hidden with `mu-visually-hidden` if needed) or `aria-label` on the popup; Escape and a backdrop click still close it.
+- Every Dialog has the same backdrop, `overlay`, including a search palette. There is no prop to lighten or remove it.
 - `fullScreen` is for content that needs the whole screen, such as an image viewer (`variant="bare" fullScreen`). It replaces the sheet on phones. The content handles the safe-area insets. Don't add `fixed inset-0` or `rounded-none` yourself.
 - The panel is always md: controls inside it ignore the size of a Root the Dialog is declared in (a sm Table). Pass `size` to a control inside only when it should differ.
 

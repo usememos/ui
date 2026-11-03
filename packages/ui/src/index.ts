@@ -17,6 +17,7 @@ export { Input, inputClasses, type InputClassesOptions, type InputProps } from '
 export { Kbd, type KbdProps } from './components/kbd';
 export { Link, type LinkProps } from './components/link';
 export * as List from './components/list';
+export * as Form from './components/form';
 export * as Menu from './components/menu';
 export { menuClasses, type MenuClasses, type MenuClassesOptions } from './components/menu/classes';
 export * as Popover from './components/popover';

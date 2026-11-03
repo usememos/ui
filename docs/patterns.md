@@ -18,6 +18,7 @@ How the components go together. Each product builds its screens from these patte
 - A form that saves at once (settings) uses switches and has no Save button. A form with a Save button uses checkboxes.
 - On a settings page, each section is a title and a [List](components/list.md) of horizontal Fields: the setting's name at the start, its Switch or Select at the end. A section of records (tokens, webhooks) is a List, or a `bordered` [Table](components/table.md) when the records have columns.
 - Errors appear under the field, in words that say how to fix it.
+- A small form on a settings page, among Lists ("Add a tag rule", a reactions picker), is a `bordered` [Form](components/form.md): a title, its fields, and the buttons in a footer bar.
 
 ## Entry
 

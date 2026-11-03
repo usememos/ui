@@ -36,4 +36,5 @@
 @import "../components/collapsible/collapsible.css" layer(mu);
 @import "../components/table/table.css" layer(mu);
 @import "../components/list/list.css" layer(mu);
+@import "../components/form/form.css" layer(mu);
 @import "../components/prose/prose.css" layer(mu);

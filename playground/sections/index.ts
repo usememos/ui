@@ -9,6 +9,7 @@ import { ComboboxSection } from './combobox';
 import { DialogSection } from './dialog';
 import { DrawerSection } from './drawer';
 import { FieldSection } from './field';
+import { FormSection } from './form';
 import { InputSection } from './input';
 import { KbdSection } from './kbd';
 import { LinkSection } from './link';
@@ -55,6 +56,7 @@ export const sections: (
   { name: 'toggle-group', xs: true, title: 'ToggleGroup', Section: ToggleGroupSection },
   { name: 'menu', title: 'Menu', Section: MenuSection },
   { name: 'link', title: 'Link', Section: LinkSection },
+  { name: 'form', title: 'Form', Section: FormSection },
   { name: 'field', title: 'Field and Fieldset', Section: FieldSection },
   { name: 'input', title: 'Input', Section: InputSection },
   { name: 'textarea', title: 'Textarea', Section: TextareaSection },

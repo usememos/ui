@@ -5,8 +5,8 @@ import { cx } from '../../internal/class-name';
 import type { IconElement, Tone } from '../../types';
 
 export interface BadgeProps extends useRender.ComponentProps<'span'> {
-  /** A status tone, or `outline` for a quiet label such as visibility. */
-  tone?: Tone | 'outline';
+  /** A status tone, `outline` for a quiet label such as visibility, or `primary` (ink) for the one label that should stand out, such as New. */
+  tone?: Tone | 'outline' | 'primary';
   /** A Lucide element before the text, drawn at 12px. */
   icon?: IconElement;
 }

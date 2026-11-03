@@ -156,3 +156,16 @@ test('ToggleGroup: fullWidth fills its container with equal labeled items', asyn
   expect(widths).toHaveLength(2);
   expect(Math.abs(widths[0]! - widths[1]!)).toBeLessThanOrEqual(1);
 });
+
+test('Form: bordered has a List edge and a canvas footer bar that runs to the edges', async ({ page }) => {
+  await open(page);
+  const form = page.locator('#form form[data-bordered]');
+  await expect(form).toHaveCSS('border-top-width', '1px');
+  await expect(page.getByRole('form', { name: 'Add a tag rule' })).toBeVisible();
+  const footer = form.locator('.mu-form-footer');
+  await expect(footer).toHaveCSS('background-color', 'rgb(250, 250, 250)');
+  const [formBox, footerBox] = [await form.boundingBox(), await footer.boundingBox()];
+  expect(Math.round(footerBox!.width)).toBe(Math.round(formBox!.width) - 2);
+  expect(Math.round(footerBox!.y + footerBox!.height)).toBe(Math.round(formBox!.y + formBox!.height) - 1);
+  await expect(page.locator('#form form').nth(1)).toHaveCSS('border-top-width', '0px');
+});

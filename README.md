@@ -6,7 +6,7 @@ The Memos UI design system: tokens, foundation styles and React components for m
 - Light and Dark themes, all from CSS custom properties. Apps can add their own.
 - One package, `@usememos/ui`. ESM only, for React 18 or later, with behavior from [Base UI](https://base-ui.com).
 
-The package ships the tokens, the foundation styles and 30 components, each with a page in [docs/components](docs/components/README.md). Versions follow memos' CalVer (`26.10.0`, `26.10.1`) and do not signal breaking changes, so pin an exact version. [docs/](docs/README.md) is the design system and the source of truth for the package.
+The package ships the tokens, the foundation styles and 31 components, each with a page in [docs/components](docs/components/README.md). Versions follow memos' CalVer (`26.10.0`, `26.10.1`) and do not signal breaking changes, so pin an exact version. [docs/](docs/README.md) is the design system and the source of truth for the package.
 
 ## Use it
 

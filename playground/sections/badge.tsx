@@ -18,6 +18,7 @@ export function BadgeSection() {
         Expiring
       </Badge>
       <Badge tone="danger">Failed</Badge>
+      <Badge tone="primary">New</Badge>
       <Badge>3</Badge>
     </div>
   );

@@ -5,7 +5,7 @@
 import { act } from 'react';
 import { Pencil, Trash2 } from 'lucide-react';
 import { afterEach, describe, expect, it } from 'vitest';
-import { Button, Dialog, Drawer, List, Table, Toggle, ToggleGroup } from '../src';
+import { Badge, badgeClasses, Button, Dialog, Drawer, Field, Form, Input, List, Table, Toggle, ToggleGroup } from '../src';
 import { render } from './render';
 
 afterEach(() => {
@@ -13,6 +13,14 @@ afterEach(() => {
 });
 
 const settle = () => act(() => new Promise((resolve) => setTimeout(resolve, 20)));
+
+describe('Badge primary', () => {
+  it('uses the primary tone class', () => {
+    const { container } = render(<Badge tone="primary">New</Badge>);
+    expect(container.querySelector('span')!.className).toBe(badgeClasses({ tone: 'primary' }));
+    expect(badgeClasses({ tone: 'primary' })).toContain('mu-badge-primary');
+  });
+});
 
 describe('Table.Actions', () => {
   it('groups the buttons of a cell in a div', () => {
@@ -149,5 +157,49 @@ describe('List.ItemButton', () => {
     expect(link.getAttribute('href')).toBe('/s/1');
     expect(link.hasAttribute('type')).toBe(false);
     expect(link.className).toBe('mu-list-item-button mu-focus app');
+  });
+});
+
+describe('Form', () => {
+  it('is a form named by its Title, boxed only when bordered, and md inside a sized parent', () => {
+    const { container } = render(
+      <Table.Root size="sm" aria-label="Rules">
+        <caption>
+          <Form.Root bordered>
+            <Form.Title>Add a tag rule</Form.Title>
+            <Form.Description>Tag new notes.</Form.Description>
+            <Field.Root name="tag">
+              <Field.Label>Tag</Field.Label>
+              <Input />
+            </Field.Root>
+            <Form.Footer>
+              <Button type="submit">Add rule</Button>
+            </Form.Footer>
+          </Form.Root>
+        </caption>
+      </Table.Root>,
+    );
+    const form = container.querySelector('form')!;
+    const title = form.querySelector('h2')!;
+    expect(form.className).toContain('mu-form-bordered');
+    expect(form.getAttribute('aria-labelledby')).toBe(title.id);
+    expect(title.className).toBe('mu-form-title mu-label');
+    expect(form.querySelector('.mu-form-footer > button')!.className).toContain('mu-s-md');
+  });
+
+  it('takes aria-label instead of a title, and render for another heading level', () => {
+    const { container } = render(
+      <>
+        <Form.Root aria-label="Search" />
+        <Form.Root>
+          <Form.Title render={<h3 />}>Profile</Form.Title>
+        </Form.Root>
+      </>,
+    );
+    const [search, profile] = [...container.querySelectorAll('form')] as [HTMLFormElement, HTMLFormElement];
+    expect(search.className).not.toContain('mu-form-bordered');
+    expect(search.hasAttribute('aria-labelledby')).toBe(false);
+    expect(search.getAttribute('aria-label')).toBe('Search');
+    expect(profile.getAttribute('aria-labelledby')).toBe(profile.querySelector('h3')!.id);
   });
 });

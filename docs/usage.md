@@ -374,7 +374,7 @@ In an extension or an embed, pass the same `container` to every `Popup` and to `
 - **One `primary` Button per view.** A view is a page, a dialog or a popover. Everything else is `neutral`, or `ghost` in toolbars and rows.
 - **`danger` confirms; it never starts.** The first click on "Delete" is a Menu item with `danger` or a neutral Button; the `danger` Button lives in the AlertDialog that follows.
 - **Dialog footers** are a ghost Cancel, then the action, named with its verb ("Delete note", "Create"), never "OK" or "Yes".
-- **Tone is status only.** Badge and Toast tones say success, warning or danger. Don't use them to highlight, decorate or color-code categories.
+- **Tone is status only.** Badge and Toast tones say success, warning or danger. Don't use them to highlight, decorate or color-code categories. The one exception is Badge `tone="primary"`: ink, for the single label in a view that should stand out, such as New.
 - **Links are the only blue.** Don't color text, icons or backgrounds with `accent`.
 
 ## Accessibility checklist
@@ -416,11 +416,14 @@ Run through it for every screen.
 | A Checkbox that saves at once | A Switch |
 | A Select with 30 options | A Combobox |
 | A Select with two options and room to spare | A RadioGroup |
-| A boxed card around each item | Whitespace, a section title, or a Separator. Rows of settings or records go in one [List](components/list.md) |
+| A boxed card around each item | Whitespace, a section title, or a Separator. Rows of settings or records go in one [List](components/list.md); a small form among them in a `bordered` [Form](components/form.md) |
 | An icon after a Button's label inside `children` | `iconEnd` |
 | A `<button>` with its own classes as a row in a Popover | `menuClasses().item`, in a Popover with `variant="list"` |
 | A Dialog with `className` that removes its padding and X | `variant="bare"` |
+| A local box (a "settings panel") around a small form on a settings page | `Form.Root bordered` with `Form.Footer` |
 | A Dialog with `fixed inset-0 rounded-none` | `variant="bare" fullScreen` |
+| A lighter or clear backdrop for one Dialog, such as a search palette | The standard backdrop: every Dialog dims the page the same way |
+| A blue or custom-colored New badge | `tone="primary"` |
 | A wrapper with negative margins around two Buttons in a table cell | `Table.Actions` |
 | A button with negative margins to make a List row clickable | `List.ItemButton` |
 | `w-full` on a ToggleGroup and `flex-1` on its Toggles | `fullWidth` |
@@ -458,7 +461,8 @@ Names and parts from other libraries and where they go.
 | Tooltip with a `title` or `content` prop | [Tooltip](components/tooltip.md) parts: Root, Trigger, Popup |
 | Snackbar, Toaster, sonner's `toast()` | [Toast](components/toast.md) and `Toast.useToastManager().add()` |
 | Toast `variant="destructive"` | `type: "danger"` |
-| Card, Paper, Panel | No component: spacing, a section title and [Separator](components/separator.md). For a boxed group of rows, [List](components/list.md) |
+| Card, Paper, Panel | No component: spacing, a section title and [Separator](components/separator.md). For a boxed group of rows, [List](components/list.md); for a boxed small form, a `bordered` [Form](components/form.md) |
+| Form (Base UI, React Hook Form wrappers) | [Form](components/form.md), with [Field](components/field.md)s inside |
 | Divider | [Separator](components/separator.md) |
 | Chip, Tag | [Badge](components/badge.md) to show, [Toggle](components/toggle.md) to filter |
 | SegmentedControl, RadioButtons in a row | [ToggleGroup](components/toggle-group.md) without `multiple` |
