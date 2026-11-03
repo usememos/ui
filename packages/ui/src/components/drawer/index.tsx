@@ -43,10 +43,12 @@ export interface PopupProps extends BaseDrawer.Popup.Props {
   /**
    * `panel` (default) pads the content `space-5`, stacks it `space-4` apart
    * and adds the X. `bare` has no padding, gap or X, for content that lays
-   * itself out, such as an app's navigation sidebar.
+   * itself out, such as an app's navigation sidebar: its content is exactly
+   * the drawer's height, so the app's own region scrolls, and its Close is
+   * for screen readers only.
    */
   variant?: 'panel' | 'bare';
-  /** The accessible name of the X. Default "Close". */
+  /** The accessible name of the X, or of the screen-reader Close in `bare`. Default "Close". */
   closeLabel?: string;
 }
 
@@ -70,7 +72,12 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function DrawerPopup
             {/* A drawer is md wherever it is declared, as a Dialog is. */}
             <SizeContext.Provider value="md">{children}</SizeContext.Provider>
           </BaseDrawer.Content>
-          {bare ? null : (
+          {bare ? (
+            /* No X on screen, but screen reader users on touch screens, who can't press Escape or swipe, still find a Close. Out of the tab order: keyboards have Escape. */
+            <BaseDrawer.Close className="mu-drawer-sr-close mu-visually-hidden" tabIndex={-1}>
+              {closeLabel}
+            </BaseDrawer.Close>
+          ) : (
             <BaseDrawer.Close className="mu-drawer-x" render={<Button variant="ghost" size="sm" icon={<X />} aria-label={closeLabel} />} />
           )}
         </BaseDrawer.Popup>

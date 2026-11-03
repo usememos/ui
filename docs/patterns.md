@@ -5,10 +5,10 @@ How the components go together. Each product builds its screens from these patte
 ## Page
 
 - From `breakpoint-md` (1024px) up: a fixed sidebar of `sidebar-width` (240px). Below it, the sidebar is a [Drawer](components/drawer.md) from the start edge (`side="start"`, `variant="bare"`) opened from a ghost button.
-- Sidebar navigation rows belong to the app, and so does their height: 28px is common, and `control-md` (32px) also works. Build them from the md row variables with the app's own height; see [A sidebar navigation row](usage.md#a-sidebar-navigation-row). Package controls in the sidebar, such as a ghost Select switcher or the "New" Button, keep their sizes: sm (24px) or md (32px).
+- A sidebar may use 28px rows: put `mu-compact` on it and every md control and row inside is `control-compact` (28px) tall, the package's (a ghost Select switcher, the "New" Button) and the app's own navigation rows alike. See [A sidebar navigation row](usage.md#a-sidebar-navigation-row). Without it, sidebar rows are md (32px).
 - Content sits in a column of at most `content-width` (720px), padded `space-4` on phones and `space-6` on desktop.
 - A page header is a `heading` with an optional `body` line under it, and the page's one primary action at the right. `heading` appears once per page.
-- Sections inside a page have a `label` title (14px, 500) with `space-6` above it and `space-2` below. Section titles are never larger than the text around them; space and grouping set them apart. A section's rows use `label` for the name and `caption` in `ink-muted` for the description.
+- Sections inside a page have a `label` title (14px, 500) with `space-6` above it and `space-2` below. Section titles are never larger than the text around them; space and grouping set them apart. A section's rows are horizontal Fields: the name at weight 400 (`body`) and the description in `caption`, `ink-muted`. The section title above is the only `label` (500); the row names stay 400 so the title stands out from them.
 
 ## Form
 

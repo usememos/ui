@@ -174,3 +174,11 @@ test('Combobox grid: arrow keys move across rows and columns, and Enter picks', 
   await input.fill('st');
   await expect(page.locator('.mu-combobox-row .mu-combobox-item')).toHaveCount(1);
 });
+
+test('mu-compact: md controls inside are 28px tall, sm outside it stays 24px', async ({ page }) => {
+  await open(page);
+  const compact = page.locator('[data-compact]').getByRole('combobox');
+  expect((await compact.boundingBox())!.height).toBe(28);
+  const plain = page.locator('#select').getByRole('combobox', { name: 'Space', exact: true });
+  expect((await plain.boundingBox())!.height).toBe(32);
+});

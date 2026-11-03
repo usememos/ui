@@ -1,5 +1,5 @@
 import { Button, Menu, Table } from '@usememos/ui';
-import { Ellipsis } from 'lucide-react';
+import { Ellipsis, Pencil, Trash2 } from 'lucide-react';
 import type { RowSize, SectionProps } from '.';
 
 const tokens = [
@@ -53,6 +53,9 @@ export function TableSection({ size }: SectionProps<RowSize>) {
             <Table.Head>Name</Table.Head>
             <Table.Head>Role</Table.Head>
             <Table.Head num>Memos</Table.Head>
+            <Table.Head>
+              <span className="mu-visually-hidden">Actions</span>
+            </Table.Head>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -61,6 +64,12 @@ export function TableSection({ size }: SectionProps<RowSize>) {
               <Table.Cell>{member.name}</Table.Cell>
               <Table.Cell muted>{member.role}</Table.Cell>
               <Table.Cell num>{member.memos}</Table.Cell>
+              <Table.Cell num>
+                <Table.Actions data-actions>
+                  <Button variant="ghost" size={size} icon={<Pencil />} aria-label={`Edit ${member.name}`} />
+                  <Button variant="ghost" size={size} icon={<Trash2 />} aria-label={`Remove ${member.name}`} />
+                </Table.Actions>
+              </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

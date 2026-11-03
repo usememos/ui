@@ -46,6 +46,9 @@
   --mu-row-check-box: 18px;
 }
 
+/* Compact: inside it, md controls and rows are control-compact (28px) tall; their text, icons, padding and radius stay md. For an app's sidebar. */
+.mu-compact { --mu-control-md: var(--mu-control-compact); }
+
 /* Depth, in four roles: wells hold a state, keys can be pressed, popups float. Light comes from the top. See docs/depth.md. */
 .mu-recessed { background-color: var(--mu-well); box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track); }
 .mu-raised { background-color: var(--mu-key); background-image: linear-gradient(180deg, var(--mu-key-sheen), rgba(255, 255, 255, 0) 60%); box-shadow: var(--mu-shadow-raised); }

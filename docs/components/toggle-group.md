@@ -34,7 +34,8 @@ import { Bold, Code, Italic } from "lucide-react";
 
 ```ts
 interface ToggleGroupProps extends BaseToggleGroup.Props {
-  size?: Size; // passed to every Toggle inside
+  size?: Size;         // passed to every Toggle inside
+  fullWidth?: boolean; // fills the container; labeled Toggles share the width equally
 }
 ```
 
@@ -47,9 +48,10 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange`, `multipl
 - Without `multiple`: filters and view switches that don't change the whole page. For sections of a page, use Tabs.
 - Base UI lets people press the chosen item to clear it. When one item must stay chosen, ignore an empty value, as in the example.
 - Arrow keys move focus between items; Space or Enter presses one.
+- Set `fullWidth` when the group is the only control on its row and should line up with the edges, such as a view switch across a popover. Don't set `className="w-full"` and `flex-1` on the Toggles yourself.
 
 ## Style
 
-- At most as wide as its container. When the labels don't fit, they shrink with an ellipsis; icon-only items keep their size.
+- At most as wide as its container. With `fullWidth`, exactly as wide, and labeled Toggles take equal shares (icon-only ones keep their size). When the labels don't fit, they shrink with an ellipsis; icon-only items keep their size.
 - `multiple`: items 2px apart.
 - Without `multiple`: a segmented well; the key slides to the chosen item over `duration-settle` with `ease-settle` and re-measures when an item changes width. Under reduced motion it jumps.

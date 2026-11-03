@@ -1,5 +1,5 @@
 import { AlertDialog, Button, Dialog, Field, Input, menuClasses, Select } from '@usememos/ui';
-import { FileText, Search, Trash2 } from 'lucide-react';
+import { FileText, Image, Search, Trash2, X } from 'lucide-react';
 
 const menu = menuClasses();
 import type { SectionProps } from '.';
@@ -46,6 +46,14 @@ export function DialogSection({ size }: SectionProps) {
                 <span className={menu.label}>{title}</span>
               </Dialog.Close>
             ))}
+          </div>
+        </Dialog.Popup>
+      </Dialog.Root>
+      <Dialog.Root>
+        <Dialog.Trigger render={<Button size={size} icon={<Image />}>View image</Button>} />
+        <Dialog.Popup variant="bare" fullScreen aria-label="Image" data-full-screen>
+          <div className="pg-viewer" data-theme="dark">
+            <Dialog.Close render={<Button icon={<X />} aria-label="Close" />} />
           </div>
         </Dialog.Popup>
       </Dialog.Root>

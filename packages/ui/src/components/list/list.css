@@ -9,6 +9,37 @@
   background-color: var(--mu-surface);
   list-style: none;
 }
-.mu-list-item { box-sizing: border-box; min-width: 0; padding: var(--mu-space-3) var(--mu-space-4); }
-.mu-list.mu-s-sm > .mu-list-item { padding: var(--mu-space-2) var(--mu-space-3); }
+.mu-list { --list-pad-block: var(--mu-space-3); --list-pad-inline: var(--mu-space-4); }
+.mu-list.mu-s-sm { --list-pad-block: var(--mu-space-2); --list-pad-inline: var(--mu-space-3); }
+.mu-list-item { box-sizing: border-box; min-width: 0; padding: var(--list-pad-block) var(--list-pad-inline); }
 .mu-list-item + .mu-list-item { border-top: 1px solid var(--mu-line); }
+
+/* ItemButton: the whole row is one control. It takes back the Item's padding, so it fills the row, and rounds with the box at the ends. */
+.mu-list-item-button {
+  display: flex;
+  align-items: center;
+  gap: var(--mu-space-3);
+  box-sizing: border-box;
+  width: calc(100% + 2 * var(--list-pad-inline));
+  margin: calc(-1 * var(--list-pad-block)) calc(-1 * var(--list-pad-inline));
+  padding: var(--list-pad-block) var(--list-pad-inline);
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  background-color: transparent;
+  font: inherit;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--mu-duration-press) var(--mu-ease-out);
+}
+.mu-list-item:first-child > .mu-list-item-button { border-start-start-radius: calc(var(--mu-radius-lg) - 1px); border-start-end-radius: calc(var(--mu-radius-lg) - 1px); }
+.mu-list-item:last-child > .mu-list-item-button { border-end-start-radius: calc(var(--mu-radius-lg) - 1px); border-end-end-radius: calc(var(--mu-radius-lg) - 1px); }
+@media (hover: hover) {
+  .mu-list-item-button:hover:not(:disabled) { background-color: var(--mu-hover); }
+}
+.mu-list-item-button:active:not(:disabled) { background-color: var(--mu-hover); }
+.mu-list-item-button:disabled { opacity: 0.45; cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) {
+  .mu-list-item-button { transition: none; }
+}

@@ -231,7 +231,7 @@ const [confirming, setConfirming] = useState(false);
 </List.Root>
 ```
 
-A horizontal Field puts the setting's name first and the Switch or Select at the end of the row. A [List](components/list.md) boxes the rows of one section and divides them with lines. Inside a Dialog, leave out the List and stack the Fields. For a short list of options under one heading (notification types), a Switch or Checkbox inside its `Field.Label` also works.
+A horizontal Field puts the setting's name first, at weight 400, and the Switch or Select at the end of the row. The section title above it is the `label` (500). A [List](components/list.md) boxes the rows of one section and divides them with lines. Inside a Dialog, leave out the List and stack the Fields. For a short list of options under one heading (notification types), a Switch or Checkbox inside its `Field.Label` also works.
 
 No Save button and no toast: the Switch shows the result. If saving fails, move the Switch back and show a danger Toast.
 
@@ -261,16 +261,23 @@ One `Tooltip.Provider` around the toolbar (or the app) so moving along it opens 
 
 ### A sidebar navigation row
 
-The package ships no navigation component: the sidebar's rows are the app's links, and their height is the app's call. Put the sidebar in an md size row, read the row variables for text, icons, padding and radius, and set only the height yourself:
+The package ships no navigation component: the sidebar's rows are the app's links. For 28px rows, put `mu-compact` on the sidebar: every md control and row inside it is `control-compact` (28px) tall instead of 32px, with md text, icons, padding and radius. The app's own rows read the row variables, so they match the package's controls beside them:
 
 ```tsx
-<nav className="app-nav mu-s-md mu-base" aria-label="Main">
-  <a className="app-nav-row mu-focus" href="/" aria-current={path === "/" ? "page" : undefined}>
-    <House className="mu-icon" aria-hidden />
-    Home
-  </a>
-  …
-</nav>
+<aside className="app-sidebar mu-compact">
+  <Select.Root value={space} onValueChange={setSpace}>
+    <Select.Trigger variant="ghost">…</Select.Trigger>
+    …
+  </Select.Root>
+  <Button variant="primary" icon={<Plus />}>New note</Button>
+  <nav className="app-nav mu-s-md mu-base" aria-label="Main">
+    <a className="app-nav-row mu-focus" href="/" aria-current={path === "/" ? "page" : undefined}>
+      <House className="mu-icon" aria-hidden />
+      Home
+    </a>
+    …
+  </nav>
+</aside>
 ```
 
 ```css
@@ -279,7 +286,7 @@ The package ships no navigation component: the sidebar's rows are the app's link
   display: flex;
   align-items: center;
   gap: var(--mu-row-gap);
-  height: 28px; /* the app's own height; control-md (32px) also works */
+  height: var(--mu-row-height); /* 28px inside mu-compact, 32px without */
   padding: 0 var(--mu-row-padding-icon);
   border-radius: var(--mu-row-radius);
   color: var(--mu-ink-muted);
@@ -288,11 +295,12 @@ The package ships no navigation component: the sidebar's rows are the app's link
 .app-nav-row:hover, .app-nav-row[aria-current="page"] { color: var(--mu-ink); background-color: var(--mu-hover); }
 ```
 
-- `mu-s-md` gives the rows 14px text, 16px icons with a 1.5px stroke, and md padding and radius; `mu-base` sets the font and weight 500. Never set the `--mu-row-*` variables: an app's height on its own element is enough.
+- `mu-compact` changes only md. sm (24px) and xs (20px) controls inside keep their heights, so an xs ghost Button for a row action still fits.
+- Popups opened from the sidebar (the Select's list, a Menu) mount outside it, at the normal 32px. To give a panel of rows the same 28px, put `mu-compact` on its popup: `<Popover.Popup variant="list" className="mu-compact">`.
+- `mu-s-md` gives the rows 14px text, 16px icons with a 1.5px stroke, and md padding and radius; `mu-base` sets the font and weight 500. Never set the `--mu-row-*` variables or the size tokens yourself; `mu-compact` is the only way to change a row's height.
 - Mark the current page with `aria-current="page"`, not with color alone; the fill shows it too.
 - Rows stack `inset` (2px) apart. Don't add `mu-hit` to stacked rows: their 44px touch areas would overlap. 28px is above the 24px minimum target size.
-- A row with a count or a menu at its end adds it after the label with `margin-inline-start: auto`. Use an xs ghost Button for a row action, so it fits inside 28px.
-- Package controls in the sidebar keep their sizes. A ghost [Select](components/select.md) switcher or the "New" Button is sm (24px) or md (32px).
+- A row with a count or a menu at its end adds it after the label with `margin-inline-start: auto`.
 
 ### Buttons over a photo
 
@@ -310,8 +318,37 @@ Controls over an image or a video sit in a dark-theme scope, so they read on any
 ```
 
 - `data-theme="dark"` on any element sets the Dark tokens for everything inside it, so the Buttons are dark `neutral` keys with light icons. Don't use `ghost` there: it has no fill and disappears on a busy picture.
-- Leave the scope's own background transparent; the keys carry their own fill and shadow.
-- A full-screen viewer is a Dialog with `variant="bare"`; put the scope inside its Popup.
+- When the scope holds only Buttons, leave its own background transparent: the keys carry their own fill and shadow.
+- A full-screen viewer is a Dialog with `variant="bare" fullScreen`; put the scope inside its Popup.
+
+### Text over a photo
+
+Plain text over a picture, such as a viewer's "3 / 12" counter or its zoom level, has no fill of its own, so it needs one. Put it in the same dark-theme scope and give the text a `surface` pill:
+
+```tsx
+<div className="app-viewer-controls" data-theme="dark">
+  <span className="app-viewer-label mu-label-sm" aria-live="polite">{index + 1} / {count}</span>
+  <Button icon={<ZoomIn />} aria-label="Zoom in" onClick={zoomIn} />
+</div>
+```
+
+```css
+.app-viewer-label {
+  display: inline-flex;
+  align-items: center;
+  height: var(--mu-control-md);
+  padding: 0 var(--mu-space-3);
+  border-radius: var(--mu-radius-md);
+  color: var(--mu-ink);
+  background-color: var(--mu-surface);
+  box-shadow: var(--mu-shadow-pop);
+  font-variant-numeric: tabular-nums;
+}
+```
+
+- The pill is opaque, as tall as the Buttons beside it, with their radius. Dark `surface` with `ink` text keeps 4.5:1 on any picture.
+- No blur and no translucent fill: glass behind text is not in the system (see [Depth](depth.md)), and it fails contrast on bright pictures.
+- Several labels and Buttons in one row can share one pill instead: put the `surface`, radius, padding and shadow on the scope, and the Buttons become `ghost` inside it, since the pill is their fill.
 
 ### Inside a shadow root or a host page
 
@@ -325,7 +362,7 @@ In an extension or an embed, pass the same `container` to every `Popup` and to `
 ## Size
 
 - **Set `size` once, on the outermost part that takes it.** `Menu.Root`, `Select.Root`, `Combobox.Root`, `Tabs.Root`, `Collapsible.Root`, `Table.Root`, `Field.Root`, `Fieldset.Root`, `RadioGroup` and `ToggleGroup` pass their size to every part and every Button, Toggle, Checkbox or Input inside them. Don't repeat it on the parts.
-- **Pick by place, not by importance.** `md` everywhere by default, including dialogs, forms, onboarding, marketing pages and the controls in an app's sidebar. The sidebar's navigation rows are the app's own; see [A sidebar navigation row](#a-sidebar-navigation-row). `sm` for dense toolbars, table rows and filters inside panels. `xs` for secondary actions beside 13px text (entry footers, row actions). See [Control sizes](layout.md#control-sizes).
+- **Pick by place, not by importance.** `md` everywhere by default, including dialogs, forms, onboarding, marketing pages and an app's sidebar. A sidebar with 28px rows puts `mu-compact` on itself, which makes md 28px inside it; see [A sidebar navigation row](#a-sidebar-navigation-row). `sm` for dense toolbars, table rows and filters inside panels. `xs` for secondary actions beside 13px text (entry footers, row actions). See [Control sizes](layout.md#control-sizes).
 - **Never make a control bigger to make it stronger.** Emphasis is the `primary` variant.
 - **Don't mix sizes in one row.** A Button beside an Input has the Input's size.
 - **Dialogs and Popovers start at md.** Their panels are md wherever they are declared, so a Dialog inside a `Table.Root size="sm"` still has md Buttons and fields. Set `size` inside the panel only for a part that should differ.
@@ -383,6 +420,13 @@ Run through it for every screen.
 | An icon after a Button's label inside `children` | `iconEnd` |
 | A `<button>` with its own classes as a row in a Popover | `menuClasses().item`, in a Popover with `variant="list"` |
 | A Dialog with `className` that removes its padding and X | `variant="bare"` |
+| A Dialog with `fixed inset-0 rounded-none` | `variant="bare" fullScreen` |
+| A wrapper with negative margins around two Buttons in a table cell | `Table.Actions` |
+| A button with negative margins to make a List row clickable | `List.ItemButton` |
+| `w-full` on a ToggleGroup and `flex-1` on its Toggles | `fullWidth` |
+| `h-dvh`, a `border-e` or your own Close on a bare Drawer's content | Nothing: bare does these; give your content `height: 100%` |
+| A 28px row class, or `--mu-row-height` set by hand | `mu-compact` on the sidebar or popup |
+| Text over a photo on a translucent, blurred fill | An opaque `surface` pill in a `data-theme="dark"` scope |
 | Tailwind `size-4` on a standalone icon | `mu-icon-sm` or `mu-icon-md`, which set the stroke too |
 | A Spinner where a list will appear | Skeletons in the shape of the list |
 | `size="md"` or `"lg"` on a Button to emphasize it | `variant="primary"` at the row's size |

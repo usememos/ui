@@ -119,3 +119,40 @@ for (const theme of themes) {
     await expectNoAxeViolations(page, '[role="listbox"]');
   });
 }
+
+test('Table: a bordered head row sits on canvas, and Table.Actions keeps the row height', async ({ page }) => {
+  await open(page);
+  const bordered = page.locator('#table .mu-table-bordered');
+  const canvas = await bordered.evaluate((element) => getComputedStyle(element).getPropertyValue('--mu-canvas').trim());
+  expect(canvas).toBe('#fafafa');
+  await expect(bordered.locator('th').first()).toHaveCSS('background-color', 'rgb(250, 250, 250)');
+  await expect(page.locator('#table .mu-table-scroll').first().locator('th').first()).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  // Two Buttons in Actions sit side by side and the row is as tall as a row with one Button in its Cell.
+  const actionsRow = bordered.locator('tbody tr').first();
+  const buttons = actionsRow.locator('[data-actions] button');
+  const [first, second] = [await buttons.nth(0).boundingBox(), await buttons.nth(1).boundingBox()];
+  expect(Math.round(first!.y)).toBe(Math.round(second!.y));
+  const singleRow = page.locator('#table .mu-table-scroll').first().locator('tbody tr').first();
+  expect(Math.round((await actionsRow.boundingBox())!.height)).toBe(Math.round((await singleRow.boundingBox())!.height));
+});
+
+test('List: an ItemButton fills its row and highlights on hover', async ({ page }) => {
+  await open(page);
+  const list = page.locator('[data-item-buttons]');
+  const row = list.locator(':scope > li').first();
+  const button = row.locator(':scope > a');
+  const [rowBox, buttonBox] = [await row.boundingBox(), await button.boundingBox()];
+  expect(Math.round(buttonBox!.width)).toBe(Math.round(rowBox!.width));
+  expect(Math.round(buttonBox!.height)).toBe(Math.round(rowBox!.height));
+  await button.hover();
+  await expect(button).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+});
+
+test('ToggleGroup: fullWidth fills its container with equal labeled items', async ({ page }) => {
+  await open(page);
+  const group = page.locator('[data-full-width] [role="group"]');
+  expect(Math.round((await group.boundingBox())!.width)).toBe(320);
+  const widths = await group.locator('button').evaluateAll((buttons) => buttons.map((button) => Math.round(button.getBoundingClientRect().width)));
+  expect(widths).toHaveLength(2);
+  expect(Math.abs(widths[0]! - widths[1]!)).toBeLessThanOrEqual(1);
+});

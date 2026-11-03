@@ -60,6 +60,7 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-s-xs` | The xs size row: 20px | Secondary actions beside 13px text |
 | `mu-s-sm` | The sm size row: 24px | Dense toolbars, table rows, filters |
 | `mu-s-md` | The md size row: 32px | Everything else |
+| `mu-compact` | md controls and rows inside are `control-compact` (28px) tall; text, icons, padding and radius stay md | An app's sidebar with 28px rows, or a list Popover beside it |
 | `mu-base` | The system font, the row's text size and weight 500, `ink` text, and icon sizing for Lucide icons inside | The root of a control |
 | `mu-recessed` | `well`, a 1px `edge` and `shadow-track` | A part that holds a value |
 | `mu-key` | A `key` with the sheen and `shadow-key` | A key inside a well |
@@ -100,7 +101,7 @@ A size row class sets these variables on its element, and children inherit them.
 | `--mu-row-icon-stroke` | 1.25px | 1.25px | 1.5px |
 | `--mu-row-check-box` | 14px | 16px | 18px |
 
-`--mu-row-padding-icon` is the padding on the side of a control that starts or ends with an icon.
+`--mu-row-padding-icon` is the padding on the side of a control that starts or ends with an icon. Inside `mu-compact`, the md `--mu-row-height` is 28px.
 
 ```css
 .app-tag-input-chip {

@@ -70,6 +70,18 @@ export function SelectSection({ size }: SectionProps<RowSize>) {
           <Select.Item value="team">Design team</Select.Item>
         </Select.Popup>
       </Select.Root>
+      <div className="mu-compact" data-compact>
+        <Select.Root items={{ personal: 'Personal', team: 'Design team' }} defaultValue="personal">
+          <Select.Trigger variant="ghost" aria-label="Space in a compact sidebar">
+            <Notebook aria-hidden />
+            <Select.Value />
+          </Select.Trigger>
+          <Select.Popup alignItemWithTrigger={false}>
+            <Select.Item value="personal">Personal</Select.Item>
+            <Select.Item value="team">Design team</Select.Item>
+          </Select.Popup>
+        </Select.Root>
+      </div>
     </div>
   );
 }

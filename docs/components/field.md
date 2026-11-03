@@ -72,5 +72,5 @@ Base UI's props pass through: `name`, `invalid`, `disabled`, `validate`, `valida
 ## Style
 
 - Label: `label` style (14px, 500), `space-1` above the control; weight 400 when it wraps a Checkbox, Switch or Radio.
-- Horizontal: a two-column grid. The label (weight 400) and description fill the first column; the control sits at the end, centered on them, `space-4` from the text. The error spans the row under them.
+- Horizontal: a two-column grid. The label (weight 400, as every settings row name is; see [Page](../patterns.md#page)) and description fill the first column; the control sits at the end, centered on them, `space-4` from the text. The error spans the row under them.
 - Description and error: `caption` (13px), below the control. The error hides the description and turns the control's edge `danger`.

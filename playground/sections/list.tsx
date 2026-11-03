@@ -1,4 +1,5 @@
-import { Button, Field, List, Select, Switch } from '@usememos/ui';
+import { Avatar, Button, Field, List, Select, Switch } from '@usememos/ui';
+import { ChevronRight } from 'lucide-react';
 import type { RowSize, SectionProps } from '.';
 
 /** A boxed list of settings rows, and one of records with an action at the end. */
@@ -37,6 +38,19 @@ export function ListSection({ size }: SectionProps<RowSize>) {
           </List.Item>
         </List.Root>
       </section>
+      <List.Root size={size} aria-label="Spaces" data-item-buttons>
+        {['Personal', 'Design team'].map((name) => (
+          <List.Item key={name}>
+            <List.ItemButton render={<a href="#list" />}>
+              <Avatar.Root size="sm">
+                <Avatar.Fallback>{name.slice(0, 1)}</Avatar.Fallback>
+              </Avatar.Root>
+              <span style={{ flex: 1 }}>{name}</span>
+              <ChevronRight className="mu-icon-md" aria-hidden />
+            </List.ItemButton>
+          </List.Item>
+        ))}
+      </List.Root>
       <List.Root size={size} aria-label="Webhooks">
         {['https://example.com/hooks/memos', 'https://chat.example.com/in/42'].map((url) => (
           <List.Item key={url} className="pg-list-record">

@@ -46,7 +46,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 
 - Use it for a few controls that belong to one thing. For a list of actions, use [Menu](menu.md). For a decision that blocks the page, use [Dialog](dialog.md).
 - Give it a `Popover.Title`, or `aria-label` on the popup.
-- `variant="list"` is for a panel made of rows, such as an account panel (a name, then links) or a scope picker with a header. Draw the rows with `menuClasses().item` and the lines between them with `menuClasses().separator`. When the rows are only actions, use a [Menu](menu.md) instead.
+- `variant="list"` is for a panel made of rows, such as an account panel (a name, then links) or a scope picker with a header. Draw the rows with `menuClasses().item` and the lines between them with `menuClasses().separator`. When the rows are only actions, use a [Menu](menu.md) instead. For 28px rows beside a sidebar with `mu-compact`, put `mu-compact` on the popup too: `className="mu-compact"`.
 - The panel is always md: controls inside it ignore the size of the Root around the Popover (a sm toolbar). Pass `size` to a control inside only when it should differ.
 - It closes on Escape and on a click outside; focus returns to the trigger.
 - An app's own floating panel, such as an emoji picker, takes `popoverClasses()`. See [Class functions](../custom-components.md#class-functions).

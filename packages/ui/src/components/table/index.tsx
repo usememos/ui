@@ -71,6 +71,17 @@ export const Cell = forwardRef<HTMLTableCellElement, CellProps>(function TableCe
   return <td ref={ref} {...props} className={cx('mu-table-cell', num && 'mu-table-num', muted && 'mu-table-muted', className)} />;
 });
 
+export interface ActionsProps extends ComponentPropsWithoutRef<'div'> {}
+
+/**
+ * Two or more row actions side by side in one Cell, such as Edit and Delete
+ * Buttons. Like a single Button in a Cell, the group overlaps the cell's
+ * padding, so the row keeps its height.
+ */
+export const Actions = forwardRef<HTMLDivElement, ActionsProps>(function TableActions({ className, ...props }, ref) {
+  return <div ref={ref} {...props} className={cx('mu-table-actions', className)} />;
+});
+
 export interface CaptionProps extends ComponentPropsWithoutRef<'caption'> {}
 
 /** Names the table, under it in `caption` style. Screen readers read it as the table's name. */

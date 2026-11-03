@@ -22,14 +22,17 @@
 .mu-table-body > .mu-table-row + .mu-table-row > .mu-table-cell { border-top: 1px solid var(--mu-line); }
 .mu-table-body > .mu-table-row:hover > .mu-table-cell { background-color: var(--mu-hover); }
 
-/* A control in a cell (a ghost Menu trigger) overlaps the cell's padding, so rows keep their height. */
-.mu-table-cell > .mu-button { margin-block: calc((var(--mu-row-line-height) - var(--mu-row-height)) / 2); vertical-align: top; }
+/* A control in a cell (a ghost Menu trigger), or a group of them in Actions, overlaps the cell's padding, so rows keep their height. */
+.mu-table-actions { display: inline-flex; align-items: center; gap: var(--mu-space-1); vertical-align: top; }
+.mu-table-cell > :is(.mu-button, .mu-table-actions) { margin-block: calc((var(--mu-row-line-height) - var(--mu-row-height)) / 2); vertical-align: top; }
 
 .mu-table-num { text-align: end; }
 .mu-table-muted { color: var(--mu-ink-muted); }
 
 .mu-table-caption { caption-side: bottom; padding: var(--mu-space-2) var(--mu-row-padding) 0; color: var(--mu-ink-muted); text-align: start; }
 .mu-table-bordered .mu-table-caption { padding-bottom: var(--mu-space-2); border-top: 1px solid var(--mu-line); }
+/* The head row sits on canvas, so it reads as the head inside the box; the scrolling box clips the fill to its corners. */
+.mu-table-bordered .mu-table-head { background-color: var(--mu-canvas); }
 /* Inside the edge, the outer columns pad as a List row does, so a bordered Table and a List line up. */
 .mu-table-bordered :is(.mu-table-head, .mu-table-cell):first-child,
 .mu-table-bordered .mu-table-caption { padding-inline-start: calc(var(--mu-row-padding) + var(--mu-space-1)); }

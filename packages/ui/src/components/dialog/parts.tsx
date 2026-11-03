@@ -21,6 +21,11 @@ export interface VariantProps {
    * gap or X: the content runs edge to edge, for a search palette or an image.
    */
   variant?: 'panel' | 'bare';
+  /**
+   * Covers the whole screen with square corners, at every width, instead of
+   * a centered panel or a sheet. With `bare`, for an image viewer.
+   */
+  fullScreen?: boolean;
 }
 export interface TitleProps extends BaseDialog.Title.Props {}
 export interface DescriptionProps extends BaseDialog.Description.Props {}
@@ -37,14 +42,14 @@ export function createDialogParts(Base: typeof BaseDialog, name: 'dialog' | 'ale
   });
 
   const Popup = forwardRef<HTMLDivElement, PopupProps & VariantProps & { closeLabel?: string }>(function DialogPopup(
-    { container, sheet = true, variant = 'panel', closeLabel = 'Close', className, children, ...props },
+    { container, sheet = true, variant = 'panel', fullScreen = false, closeLabel = 'Close', className, children, ...props },
     ref,
   ) {
     const bare = variant === 'bare';
     return (
       <Base.Portal container={container}>
         <Base.Backdrop className="mu-dialog-backdrop" />
-        <Base.Viewport className={cx('mu-dialog-viewport', sheet && 'mu-dialog-sheet')}>
+        <Base.Viewport className={cx('mu-dialog-viewport', fullScreen ? 'mu-dialog-full' : sheet && 'mu-dialog-sheet')}>
           <Base.Popup
             ref={ref}
             {...props}

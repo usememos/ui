@@ -1,11 +1,13 @@
 import { ToggleGroup as BaseToggleGroup } from '@base-ui/react/toggle-group';
 import { forwardRef, useCallback, useLayoutEffect, useRef, type ReactNode } from 'react';
-import { withClass } from '../../internal/class-name';
+import { cx, withClass } from '../../internal/class-name';
 import { SizeContext, useSize } from '../../internal/size';
 import type { Size } from '../../types';
 
 export interface ToggleGroupProps extends BaseToggleGroup.Props {
   size?: Size;
+  /** Fills its container's width and gives every Toggle an equal share. Icon-only Toggles keep their size. */
+  fullWidth?: boolean;
   children?: ReactNode;
 }
 
@@ -14,7 +16,7 @@ export interface ToggleGroupProps extends BaseToggleGroup.Props {
  * toggles. Without it, one choice among peers: a well with one sliding key,
  * the same control as Tabs.
  */
-export const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(function ToggleGroup({ size, multiple = false, className, children, ...props }, forwardedRef) {
+export const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(function ToggleGroup({ size, multiple = false, fullWidth = false, className, children, ...props }, forwardedRef) {
   const resolved = useSize(size);
   const root = useRef<HTMLDivElement | null>(null);
   const setRef = useCallback(
@@ -32,7 +34,10 @@ export const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(function
         ref={setRef}
         multiple={multiple}
         {...props}
-        className={withClass(multiple ? `mu-toggle-group mu-s-${resolved}` : `mu-toggle-group mu-segmented mu-base mu-s-${resolved}`, className)}
+        className={withClass(
+          cx(multiple ? `mu-toggle-group mu-s-${resolved}` : `mu-toggle-group mu-segmented mu-base mu-s-${resolved}`, fullWidth && 'mu-toggle-group-full'),
+          className,
+        )}
       >
         {multiple ? null : <span className="mu-segmented-key" aria-hidden />}
         {children}

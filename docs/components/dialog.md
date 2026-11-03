@@ -55,10 +55,11 @@ Dialog and AlertDialog have the same parts.
 interface Dialog.PopupProps extends BaseDialog.Popup.Props {
   sheet?: boolean;      // below breakpoint-sm, a sheet from the bottom; default true
   variant?: "panel" | "bare"; // default "panel"; bare: no padding, gap or X (Dialog only)
+  fullScreen?: boolean;  // covers the whole screen with square corners, at every width (Dialog only)
   closeLabel?: string;  // accessible name of the X; default "Close"
   container?: HTMLElement | ShadowRoot | React.RefObject<HTMLElement | ShadowRoot | null> | null; // portal target
 }
-// AlertDialog.Popup takes sheet and container; it has no X and no variant.
+// AlertDialog.Popup takes sheet and container; it has no X, no variant and no fullScreen.
 ```
 
 Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal`, `disablePointerDismissal` on the root; `initialFocus`, `finalFocus` on the popup.
@@ -71,6 +72,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal`, `d
 - Escape and a backdrop click close a Dialog. While a form has unsaved input, keep it open from `onOpenChange`.
 - Focus moves into the dialog and returns to the trigger on close.
 - `variant="bare"` is for content that runs edge to edge: a search palette, a picker with its own header, an image. The content sets its own padding. Name the dialog with a `Dialog.Title` (hidden with `mu-visually-hidden` if needed) or `aria-label` on the popup; Escape and a backdrop click still close it.
+- `fullScreen` is for content that needs the whole screen, such as an image viewer (`variant="bare" fullScreen`). It replaces the sheet on phones. The content handles the safe-area insets. Don't add `fixed inset-0` or `rounded-none` yourself.
 - The panel is always md: controls inside it ignore the size of a Root the Dialog is declared in (a sm Table). Pass `size` to a control inside only when it should differ.
 
 ## Style
@@ -80,3 +82,4 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal`, `d
 - Fades in and rises `space-1` over `duration-settle`. A sheet slides up `space-6`, with square bottom corners and full-width buttons stacked with the action on top. No movement under reduced motion.
 - Long content scrolls the viewport around the panel.
 - `bare`: no padding, no gap and no X; the content is clipped to the radius. Set the width with `className` when it differs from `dialog-width`.
+- `fullScreen`: the viewport's padding goes, and the popup fills it with square corners.

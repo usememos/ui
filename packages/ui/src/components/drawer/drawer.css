@@ -38,14 +38,15 @@
   border-start-start-radius: var(--mu-radius-2xl);
   border-start-end-radius: var(--mu-radius-2xl);
 }
-.mu-drawer-left > .mu-drawer-popup { --drawer-hidden: -100% 0; }
-.mu-drawer-right > .mu-drawer-popup { --drawer-hidden: 100% 0; }
+.mu-drawer-left > .mu-drawer-popup { --drawer-hidden: -100% 0; border-right: 1px solid var(--mu-line); }
+.mu-drawer-right > .mu-drawer-popup { --drawer-hidden: 100% 0; border-left: 1px solid var(--mu-line); }
 .mu-drawer-bottom > .mu-drawer-popup { --drawer-hidden: 0 100%; }
 .mu-drawer-popup[data-starting-style], .mu-drawer-popup[data-ending-style] { translate: var(--drawer-hidden); }
 .mu-drawer-popup[data-swiping] { transition: none; user-select: none; }
 
 .mu-drawer-content { display: flex; flex-direction: column; gap: var(--mu-space-4); box-sizing: border-box; min-height: 100%; padding: var(--mu-space-5); }
-.mu-drawer-bare > .mu-drawer-content { gap: 0; padding: 0; }
+/* Bare: from the start or end, the content is exactly the drawer's height, so a region inside it can scroll on its own. */
+.mu-drawer-bare > .mu-drawer-content { gap: 0; height: 100%; min-height: 0; padding: 0; }
 /* Room for the X at the top end. */
 .mu-drawer-popup:where(:has(> .mu-drawer-x)) > .mu-drawer-content > .mu-drawer-title { padding-inline-end: var(--mu-space-6); }
 

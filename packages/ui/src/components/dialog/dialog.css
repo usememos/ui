@@ -39,6 +39,10 @@
 /* Bare: the content runs edge to edge and is clipped to the radius. The content sets its own padding, and closes with Escape or its own Close. */
 .mu-dialog-popup.mu-dialog-bare { gap: 0; padding: 0; overflow: hidden; }
 
+/* Full screen: the popup covers the viewport with square corners at every width. */
+.mu-dialog-full { place-items: stretch; padding: 0; }
+.mu-dialog-full > .mu-dialog-popup { width: 100%; height: 100%; border-radius: 0; }
+
 .mu-dialog-title { margin: 0; color: var(--mu-ink); }
 .mu-dialog-description { margin: calc(-1 * var(--mu-space-2)) 0 0; color: var(--mu-ink-muted); }
 .mu-dialog-x { position: absolute; top: var(--mu-space-4); right: var(--mu-space-4); }

@@ -267,3 +267,29 @@ for (const theme of themes) {
     await expectNoAxeViolations(page, '.mu-toast-viewport');
   });
 }
+
+test('Dialog: fullScreen covers the viewport with square corners', async ({ page }) => {
+  await open(page);
+  await page.getByRole('button', { name: 'View image' }).click();
+  const dialog = page.locator('[data-full-screen]');
+  await expect(dialog).toBeVisible();
+  await expect.poll(async () => dialog.boundingBox().then((box) => `${Math.round(box!.x)},${Math.round(box!.y)},${Math.round(box!.width)}x${Math.round(box!.height)}`)).toBe(`0,0,${page.viewportSize()!.width}x${page.viewportSize()!.height}`);
+  await expect(dialog).toHaveCSS('border-top-left-radius', '0px');
+  await dialog.getByRole('button', { name: 'Close' }).click();
+  await expect(dialog).toBeHidden();
+});
+
+test('Drawer: bare content is the drawer height, the side drawer has an inner edge, and a hidden Close', async ({ page }) => {
+  await open(page);
+  await page.getByRole('button', { name: 'Open navigation' }).click();
+  const drawer = page.getByRole('dialog', { name: 'Navigation' });
+  await expect.poll(async () => drawer.boundingBox().then((box) => box!.x)).toBe(0);
+  await expect(drawer).toHaveCSS('border-right-width', '1px');
+  const content = drawer.locator('.mu-drawer-content');
+  expect(Math.round((await content.boundingBox())!.height)).toBe(page.viewportSize()!.height);
+  const close = drawer.locator('.mu-drawer-sr-close');
+  await expect(close).toHaveAttribute('tabindex', '-1');
+  await expect(close).toHaveText('Close');
+  await close.dispatchEvent('click');
+  await expect(drawer).toBeHidden();
+});
