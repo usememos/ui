@@ -10,7 +10,7 @@ Every control takes one `size` prop: `xs`, `sm` or `md` (the default). There is 
 | sm | `control-sm` 24px | 8px | 14px | 4px | 13 / 18px | `radius-sm` 4px | 16px |
 | md (default) | `control-md` 32px | 12px | 16px | 6px | 14 / 20px | `radius-md` 6px | 18px |
 
-- Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding, sheets and an app's sidebar navigation. Emphasis comes from the `primary` variant, not from a bigger control. On touch screens the hit area, not the visual size, grows.
+- Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding and sheets. An app's sidebar navigation rows are the app's own and may be a height between sizes, such as 28px (see [A sidebar navigation row](usage.md#a-sidebar-navigation-row)). Emphasis comes from the `primary` variant, not from a bigger control. On touch screens the hit area, not the visual size, grows.
 - Use `xs` for secondary actions beside 13px text: actions on a row or an entry, inline formatting, filters in a tight header, checkboxes in a dense list. It is the height of a Badge or a Kbd, so they line up. Don't use `xs` for forms, for navigation, or for the main action of a screen.
 - Only Button, Toggle, ToggleGroup, Checkbox, RadioGroup and Radio, Switch, Avatar, Spinner and Skeleton take `xs`. Text entry, menus, tabs and tables are too cramped at 20px, so their `size` is `sm | md`, and an `xs` inherited from a parent renders them at `sm`.
 - The icon side of a control has 2px less padding, so text and icon look centered.

@@ -259,6 +259,41 @@ One `Tooltip.Provider` around the toolbar (or the app) so moving along it opens 
 - Show one or two frequent actions as xs or sm ghost Buttons beside it, each with a Tooltip.
 - On an entry the trigger appears on hover; on touch screens it is always visible (see [Entry](patterns.md#entry)).
 
+### A sidebar navigation row
+
+The package ships no navigation component: the sidebar's rows are the app's links, and their height is the app's call. Put the sidebar in an md size row, read the row variables for text, icons, padding and radius, and set only the height yourself:
+
+```tsx
+<nav className="app-nav mu-s-md mu-base" aria-label="Main">
+  <a className="app-nav-row mu-focus" href="/" aria-current={path === "/" ? "page" : undefined}>
+    <House className="mu-icon" aria-hidden />
+    Home
+  </a>
+  …
+</nav>
+```
+
+```css
+.app-nav { display: grid; gap: var(--mu-inset); }
+.app-nav-row {
+  display: flex;
+  align-items: center;
+  gap: var(--mu-row-gap);
+  height: 28px; /* the app's own height; control-md (32px) also works */
+  padding: 0 var(--mu-row-padding-icon);
+  border-radius: var(--mu-row-radius);
+  color: var(--mu-ink-muted);
+  text-decoration: none;
+}
+.app-nav-row:hover, .app-nav-row[aria-current="page"] { color: var(--mu-ink); background-color: var(--mu-hover); }
+```
+
+- `mu-s-md` gives the rows 14px text, 16px icons with a 1.5px stroke, and md padding and radius; `mu-base` sets the font and weight 500. Never set the `--mu-row-*` variables: an app's height on its own element is enough.
+- Mark the current page with `aria-current="page"`, not with color alone; the fill shows it too.
+- Rows stack `inset` (2px) apart. Don't add `mu-hit` to stacked rows: their 44px touch areas would overlap. 28px is above the 24px minimum target size.
+- A row with a count or a menu at its end adds it after the label with `margin-inline-start: auto`. Use an xs ghost Button for a row action, so it fits inside 28px.
+- Package controls in the sidebar keep their sizes. A ghost [Select](components/select.md) switcher or the "New" Button is sm (24px) or md (32px).
+
 ### Buttons over a photo
 
 Controls over an image or a video sit in a dark-theme scope, so they read on any picture in both app themes:
@@ -290,7 +325,7 @@ In an extension or an embed, pass the same `container` to every `Popup` and to `
 ## Size
 
 - **Set `size` once, on the outermost part that takes it.** `Menu.Root`, `Select.Root`, `Combobox.Root`, `Tabs.Root`, `Collapsible.Root`, `Table.Root`, `Field.Root`, `Fieldset.Root`, `RadioGroup` and `ToggleGroup` pass their size to every part and every Button, Toggle, Checkbox or Input inside them. Don't repeat it on the parts.
-- **Pick by place, not by importance.** `md` everywhere by default, including dialogs, forms, onboarding, marketing pages and the app's sidebar (its navigation rows and its main button). `sm` for dense toolbars, table rows and filters inside panels. `xs` for secondary actions beside 13px text (entry footers, row actions). See [Control sizes](layout.md#control-sizes).
+- **Pick by place, not by importance.** `md` everywhere by default, including dialogs, forms, onboarding, marketing pages and the controls in an app's sidebar. The sidebar's navigation rows are the app's own; see [A sidebar navigation row](#a-sidebar-navigation-row). `sm` for dense toolbars, table rows and filters inside panels. `xs` for secondary actions beside 13px text (entry footers, row actions). See [Control sizes](layout.md#control-sizes).
 - **Never make a control bigger to make it stronger.** Emphasis is the `primary` variant.
 - **Don't mix sizes in one row.** A Button beside an Input has the Input's size.
 - **Dialogs and Popovers start at md.** Their panels are md wherever they are declared, so a Dialog inside a `Table.Root size="sm"` still has md Buttons and fields. Set `size` inside the panel only for a part that should differ.
