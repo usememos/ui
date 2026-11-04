@@ -14,7 +14,9 @@ const stripComments = (css: string) => css.replace(/\/\*[\s\S]*?\*\//g, '');
 /** Raw values a component stylesheet may not contain: they belong in tokens. */
 const rawValues: [label: string, pattern: RegExp][] = [
   ['hex color', /#[0-9a-f]{3,8}\b/gi],
-  ['color function', /\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch)\(/gi],
+  // oklch(from …) is allowed: it derives a color (a variable, such as a color the user chose,
+  // or a feature test in @supports) and holds no raw value of its own.
+  ['color function', /\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch)\((?!from\s)/gi],
   // color-mix() may mix variables with transparent by a percentage (a tint of a
   // token or of a color the user chose), never a raw color.
   ['color-mix of a raw value', /\bcolor-mix\((?!\s*in\s+[\w-]+\s*,\s*var\(--[\w-]+\)\s+\d+%\s*,\s*(?:transparent|var\(--[\w-]+\))\s*\))/gi],
@@ -65,6 +67,7 @@ describe('stylesheets', () => {
     expect(findRawValues('@media (max-width: 639px) { .mu-x { width: 100%; } }')).toEqual([]);
     expect(findRawValues('.mu-x { --t: color-mix(in srgb, var(--mu-badge-color) 18%, transparent); }')).toEqual([]);
     expect(findRawValues('.mu-x { background: color-mix(in srgb, red 18%, transparent); }')).toEqual(['color-mix of a raw value: color-mix(']);
+    expect(findRawValues('.mu-x { --t: oklch(from var(--mu-badge-color) clamp(0.5, l, 0.75) c h / 18%); }')).toEqual([]);
   });
 
   for (const [path, css] of Object.entries(componentCss)) {

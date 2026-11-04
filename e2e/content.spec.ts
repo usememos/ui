@@ -177,7 +177,21 @@ test('Badge: color tints the fill and keeps ink text; without it the fill is wel
   await expect(work).toHaveCSS('color', 'rgb(26, 26, 26)');
   const fill = await work.evaluate((element) => getComputedStyle(element).backgroundColor);
   expect(fill).not.toBe('rgb(228, 228, 228)');
-  expect(fill).toMatch(/^(color\(srgb|rgba)/);
+  expect(fill).toMatch(/^(oklch|color\(srgb|rgba)/);
+});
+
+test('Badge: an ink-like color still gives a visible chip in both themes', async ({ page }) => {
+  for (const theme of ['light', 'dark'] as const) {
+    await open(page, { theme });
+    const fills = await page.locator('[data-tag-colors] .mu-badge').first().evaluate((element) =>
+      ['#000000', '#ffffff'].map((color) => {
+        (element as HTMLElement).style.setProperty('--mu-badge-color', color);
+        return getComputedStyle(element).backgroundColor;
+      }),
+    );
+    // Lightness is kept between 50% and 75%, so neither black nor white is a fill the background swallows.
+    for (const fill of fills) expect(fill).toMatch(/^oklch\(0\.(5|75)\b.* \/ 0\.18\)$/);
+  }
 });
 
 test('Form: bordered has a List edge and a canvas footer bar that runs to the edges', async ({ page }) => {
