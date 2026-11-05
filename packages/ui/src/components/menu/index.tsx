@@ -1,6 +1,6 @@
 import { Menu as BaseMenu } from '@base-ui/react/menu';
 import { Check, ChevronRight } from 'lucide-react';
-import { forwardRef, useId, type ReactNode } from 'react';
+import { createContext, forwardRef, useCallback, useContext, useId, useRef, type ReactNode } from 'react';
 import { cx, withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
 import { SizeContext, useRowSize } from '../../internal/size';
@@ -14,12 +14,17 @@ export interface RootProps extends BaseMenu.Root.Props {
   size?: Exclude<Size, 'xs'>;
 }
 
+/** True inside a SubmenuRoot, so its Popup lines up with the trigger row. */
+const SubmenuContext = /* @__PURE__ */ createContext(false);
+
 /** Groups a trigger and its menu. */
 export function Root({ size, ...props }: RootProps) {
   const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
-      <BaseMenu.Root {...props} />
+      <SubmenuContext.Provider value={false}>
+        <BaseMenu.Root {...props} />
+      </SubmenuContext.Provider>
     </SizeContext.Provider>
   );
 }
@@ -41,14 +46,34 @@ export interface PopupProps extends BaseMenu.Popup.Props, PositionerProps {
   container?: BaseMenu.Portal.Props['container'];
 }
 
-/** The list of items. Also the popup of a submenu, inside `SubmenuRoot`. */
+/**
+ * The list of items. Also the popup of a submenu, inside `SubmenuRoot`: there
+ * it moves along the trigger by its own top padding (read when it is placed,
+ * so it follows `space-1`), which lines its first row up with the trigger row,
+ * or its last row when it opens upward.
+ */
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({ container, className, ...props }, ref) {
   const size = useRowSize();
+  const submenu = useContext(SubmenuContext);
+  const popupRef = useRef<HTMLDivElement | null>(null);
+  const setRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      popupRef.current = node;
+      if (typeof ref === 'function') ref(node);
+      else if (ref) ref.current = node;
+    },
+    [ref],
+  );
+  // Base UI reverses the sign when the submenu aligns to the trigger's end, so one value serves both.
+  const alignOffset = useCallback(() => {
+    const popup = popupRef.current;
+    return popup ? -parseFloat(getComputedStyle(popup).paddingTop) || 0 : 0;
+  }, []);
   const [positioner, rest] = splitPositioner(props);
   return (
     <BaseMenu.Portal container={container}>
-      <BaseMenu.Positioner sideOffset={4} {...positioner} className="mu-positioner">
-        <BaseMenu.Popup ref={ref} {...rest} className={withClass(menuClasses({ size }).popup, className)} />
+      <BaseMenu.Positioner sideOffset={4} alignOffset={submenu ? alignOffset : 0} {...positioner} className="mu-positioner">
+        <BaseMenu.Popup ref={setRef} {...rest} className={withClass(menuClasses({ size }).popup, className)} />
       </BaseMenu.Positioner>
     </BaseMenu.Portal>
   );
@@ -167,7 +192,13 @@ export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(function Men
 export type SubmenuRootProps = BaseMenu.SubmenuRoot.Props;
 
 /** Holds a SubmenuTrigger and its own Popup. */
-export const SubmenuRoot = BaseMenu.SubmenuRoot;
+export function SubmenuRoot(props: SubmenuRootProps) {
+  return (
+    <SubmenuContext.Provider value={true}>
+      <BaseMenu.SubmenuRoot {...props} />
+    </SubmenuContext.Provider>
+  );
+}
 
 export interface SubmenuTriggerProps extends BaseMenu.SubmenuTrigger.Props {
   icon?: IconElement;

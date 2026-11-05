@@ -86,3 +86,4 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 - The highlighted row uses `hover`. Disabled rows fade to 45%. `danger` rows use `danger`.
 - A ghost trigger keeps its `hover` background while the menu is open.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.
+- A submenu opens beside its trigger row, 4px from the row. The row sits `space-1` inside the parent menu, so the submenu's edge touches the parent's edge. The submenu moves up by its own top padding (`space-1`, read when it is placed), so its first row lines up with the trigger row. With no room below, it opens upward instead and its last row lines up with the trigger row.

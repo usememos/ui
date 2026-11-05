@@ -8,9 +8,21 @@ import { open, themes } from './helpers';
 const sizes = ['xs', 'sm', 'md'] as const;
 const options = { animations: 'disabled', maxDiffPixelRatio: 0.002 } as const;
 
-/** Each overlay: how to open it, and the element to capture. */
-const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (page: Page) => Locator }[] = [
+/** Each overlay: how to open it, and the element to capture (or, with `union`, the box around several). */
+const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (page: Page) => Locator; union?: boolean }[] = [
   { name: 'menu', open: (page) => page.locator('#menu').getByRole('button', { name: 'More actions' }).click(), shot: (page) => page.getByRole('menu') },
+  // The submenu beside its trigger row: the two lists side by side, the first submenu row level with the trigger.
+  {
+    name: 'menu-submenu',
+    open: async (page) => {
+      await page.locator('#menu').getByRole('button', { name: 'More actions' }).click();
+      await page.getByRole('menuitem', { name: 'Move to' }).focus();
+      await page.keyboard.press('ArrowRight');
+      await expect(page.getByRole('menu')).toHaveCount(2);
+    },
+    shot: (page) => page.getByRole('menu'),
+    union: true,
+  },
   { name: 'menu-checkbox', open: (page) => page.locator('#menu').getByRole('button', { name: 'View' }).click(), shot: (page) => page.getByRole('menu') },
   { name: 'combobox', open: (page) => page.getByRole('combobox', { name: 'Tag', exact: true }).fill('de'), shot: (page) => page.locator('.mu-combobox-popup') },
   { name: 'select', open: (page) => page.locator('#select').getByRole('combobox').nth(1).click(), shot: (page) => page.locator('.mu-select-popup') },
@@ -29,6 +41,17 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
     shot: (page) => page.locator('.mu-toast'),
   },
 ];
+
+/** The box around every element `locator` matches, with room for their shadows. */
+async function around(locator: Locator) {
+  const boxes = (await Promise.all((await locator.all()).map((element) => element.boundingBox()))).filter((box) => box !== null);
+  const pad = 16;
+  const x = Math.max(0, Math.min(...boxes.map((box) => box.x)) - pad);
+  const y = Math.max(0, Math.min(...boxes.map((box) => box.y)) - pad);
+  const right = Math.max(...boxes.map((box) => box.x + box.width)) + pad;
+  const bottom = Math.max(...boxes.map((box) => box.y + box.height)) + pad;
+  return { x: Math.floor(x), y: Math.floor(y), width: Math.ceil(right - x), height: Math.ceil(bottom - y) };
+}
 
 for (const theme of themes) {
   for (const size of sizes) {
@@ -50,9 +73,11 @@ for (const theme of themes) {
         await open(page, { theme, size });
         await overlay.open(page);
         const shot = overlay.shot(page);
-        await expect(shot).toBeVisible();
+        await expect(shot.first()).toBeVisible();
         await page.evaluate(() => Promise.all(document.getAnimations().filter((animation) => animation instanceof CSSTransition).map((animation) => animation.finished.catch(() => undefined))));
-        await expect(shot, overlay.name).toHaveScreenshot(`overlay-${overlay.name}-${theme}-${size}.png`, options);
+        const name = `overlay-${overlay.name}-${theme}-${size}.png`;
+        if (overlay.union) await expect(page, overlay.name).toHaveScreenshot(name, { ...options, clip: await around(shot) });
+        else await expect(shot, overlay.name).toHaveScreenshot(name, options);
       }
     });
   }

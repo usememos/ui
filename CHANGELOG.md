@@ -2,6 +2,12 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
+## Unreleased
+
+### Visual changes
+
+- **A submenu's first row lines up with its trigger row.** A `Menu.Popup` inside `Menu.SubmenuRoot` used to open with its top edge at the trigger row's top, so its first row sat `space-1` (4px) lower. It now moves up by its own top padding. When there is no room below and it opens upward, its last row lines up with the trigger row instead of sitting 4px higher. The submenu still opens 4px from the row, which puts its edge against the parent menu's edge. Root menus are unchanged. `Menu.SubmenuRoot` is now a component of ours that wraps Base UI's; its props are the same.
+
 ## 26.11.6
 
 Published 5 November 2026.

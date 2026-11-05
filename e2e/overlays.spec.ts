@@ -34,6 +34,40 @@ test('Menu: a submenu opens to the side with ArrowRight', async ({ page }) => {
   expect(child!.x).toBeGreaterThan(parent!.x + parent!.width - 1);
 });
 
+test('Menu: a submenu touches its parent and its first row lines up with the trigger row', async ({ page }) => {
+  // No rise on open, so the boxes are measured where they come to rest.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await open(page);
+  await moreActions(page).click();
+  const moveTo = page.getByRole('menuitem', { name: 'Move to' });
+  await moveTo.focus();
+  await page.keyboard.press('ArrowRight');
+  const inbox = page.getByRole('menuitem', { name: 'Inbox' });
+  await expect(inbox).toBeVisible();
+  const [parentMenu, submenu] = [page.getByRole('menu').first(), page.getByRole('menu').nth(1)];
+  await expect(submenu).toHaveAttribute('data-align', 'start');
+  const [trigger, first, parentBox, subBox] = await Promise.all([moveTo.boundingBox(), inbox.boundingBox(), parentMenu.boundingBox(), submenu.boundingBox()]);
+  expect(first!.y).toBeCloseTo(trigger!.y, 0);
+  expect(subBox!.x).toBeCloseTo(parentBox!.x + parentBox!.width, 0);
+});
+
+test('Menu: a submenu that opens upward lines its last row up with the trigger row', async ({ page }) => {
+  // A short window and taller submenu rows leave no room below, so the submenu aligns to the trigger's end.
+  await page.setViewportSize({ width: 640, height: 320 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await open(page);
+  await page.addStyleTag({ content: '#menu { position: fixed; inset: 0 auto auto 24px; margin: 0; } .mu-menu-popup[data-nested] .mu-menu-item { height: 60px; }' });
+  await moreActions(page).click();
+  const moveTo = page.getByRole('menuitem', { name: 'Move to' });
+  await moveTo.focus();
+  await page.keyboard.press('ArrowRight');
+  const submenu = page.getByRole('menu').nth(1);
+  await expect(submenu).toBeVisible();
+  await expect(submenu).toHaveAttribute('data-align', 'end');
+  const [trigger, last] = await Promise.all([moveTo.boundingBox(), submenu.getByRole('menuitem').last().boundingBox()]);
+  expect(last!.y + last!.height).toBeCloseTo(trigger!.y + trigger!.height, 0);
+});
+
 test('Menu: checkbox items stay open and toggle', async ({ page }) => {
   await open(page);
   await page.locator('#menu').getByRole('button', { name: 'View' }).click();
