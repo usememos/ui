@@ -7,7 +7,7 @@ const sizes: Size[] = ['xs', 'sm', 'md'];
 /** Color token names, read from the table in docs/color.md. */
 const colors = [...colorDocs.matchAll(/^\| `([\w-]+)` \|/gm)].map(([, name = '']) => name);
 
-const typeStyles = ['display', 'heading', 'title', 'label', 'body', 'label-sm', 'caption', 'label-xs'];
+const typeStyles = ['display', 'heading', 'title', 'label', 'body', 'label-sm', 'caption', 'label-xs', 'caption-xs'];
 
 /** Tokens, depth roles, type and icons: what every component is built from. */
 export function Foundations() {

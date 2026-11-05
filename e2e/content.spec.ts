@@ -180,6 +180,27 @@ test('Badge: color tints the fill and keeps ink text; without it the fill is wel
   expect(fill).toMatch(/^(oklch|color\(srgb|rgba)/);
 });
 
+test('Badge: a pill in regular 12px text, padded 2px past the xs row so the text clears the round ends', async ({ page }) => {
+  await open(page);
+  for (const badge of await page.locator('#badge .mu-badge').all()) {
+    await expect(badge).toHaveCSS('border-top-left-radius', '9999px');
+    await expect(badge).toHaveCSS('padding-left', '8px');
+    await expect(badge).toHaveCSS('padding-right', '8px');
+    await expect(badge).toHaveCSS('height', '20px');
+    await expect(badge).toHaveCSS('font-size', '12px');
+    await expect(badge).toHaveCSS('font-weight', '400');
+  }
+});
+
+test('Badge: a label wider than its container ends in an ellipsis inside the pill', async ({ page }) => {
+  await open(page);
+  const badge = page.locator('[data-badge-truncated] .mu-badge');
+  const label = badge.locator('.mu-badge-label');
+  expect(await badge.evaluate((element) => element.getBoundingClientRect().width)).toBeLessThanOrEqual(120);
+  expect(await label.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+  await expect(label).toHaveCSS('text-overflow', 'ellipsis');
+});
+
 test('Badge: an ink-like color still gives a visible chip in both themes', async ({ page }) => {
   for (const theme of ['light', 'dark'] as const) {
     await open(page, { theme });

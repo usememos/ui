@@ -1,15 +1,17 @@
-/* Badge: a 20px tag in 12px medium text, as tall as an xs control. See docs/components/badge.md. */
+/* Badge: a 20px pill in 12px regular text (`caption-xs`), as tall as an xs control. Round marks a label; controls are square. The inline padding is the xs row's plus 2px, so the text clears the round ends. A label wider than its container ends in an ellipsis. See docs/components/badge.md. */
 .mu-badge {
   display: inline-flex;
   align-items: center;
   gap: var(--mu-space-1);
   box-sizing: border-box;
+  max-width: 100%;
   height: var(--mu-control-xs);
-  padding: 0 var(--mu-row-padding);
-  border-radius: var(--mu-radius-sm);
+  padding: 0 calc(var(--mu-row-padding) + var(--mu-space-1) / 2);
+  border-radius: var(--mu-radius-full);
   white-space: nowrap;
   vertical-align: middle;
 }
+.mu-badge-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 
 /* A user's color for a tag (`--mu-badge-color`, set by the `color` prop) tints the fill; text and icon stay ink, so any color stays readable. Its lightness is kept between 50% and 75% first, so black in Dark and white in Light still give a visible (gray) chip instead of none. Unset, the tint is invalid and the fill falls back to well. */
 .mu-badge-neutral {

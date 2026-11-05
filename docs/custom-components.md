@@ -77,7 +77,8 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-icon-sm` | A 14px icon with a 1.25px stroke | A Lucide icon beside 13px or 14px text, outside a control |
 | `mu-icon-md` | A 16px icon with a 1.25px stroke | A Lucide icon beside 14px or 16px text, outside a control |
 | `mu-visually-hidden` | Hidden on screen, read by screen readers | Text for screen readers only |
-| `mu-label-xs` | 12 / 16px, 500 | Labels of 20px parts |
+| `mu-label-xs` | 12 / 16px, 500 | Labels of 20px controls and kbd |
+| `mu-caption-xs` | 12 / 16px, 400 | Text of 20px labels (badges) |
 | `mu-caption` | 13 / 18px, 400 | Secondary text |
 | `mu-label-sm` | 13 / 18px, 500 | Small labels |
 | `mu-body` | 14 / 20px, 400 | Body text |

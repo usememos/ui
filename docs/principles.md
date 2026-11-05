@@ -24,6 +24,6 @@
 - A brand hue on controls, or blue anywhere at rest except links.
 - Cards and boxes around content. Group with spacing, a heading and a `Separator`. The exceptions are rows of settings or records: a [List](components/list.md), or a [Table](components/table.md) with `bordered`.
 - Textures, glass or blur behind text, and neumorphism.
-- Pills for buttons, inputs or badges.
+- Pills for buttons or inputs.
 - Color as the only signal. Status colors always come with a word or an icon.
 - Illustrations in empty states.

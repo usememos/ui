@@ -1,5 +1,5 @@
 import { Badge } from '@usememos/ui';
-import { CircleCheck, Globe, Hash, Lock, TriangleAlert } from 'lucide-react';
+import { CircleCheck, CircleX, Globe, Hash, Lock, Sparkles, TriangleAlert } from 'lucide-react';
 
 export function BadgeSection() {
   return (
@@ -29,6 +29,23 @@ export function BadgeSection() {
         </Badge>
         <Badge icon={<Hash />} color="#3e63dd">
           travel
+        </Badge>
+      </span>
+      <span className="pg-row" style={{ gap: "var(--mu-space-2)" }} data-badge-complements>
+        <Badge tone="outline">Archived</Badge>
+        <Badge tone="success">Synced</Badge>
+        <Badge tone="warning">Expiring</Badge>
+        <Badge tone="danger" icon={<CircleX />}>
+          Failed
+        </Badge>
+        <Badge tone="primary" icon={<Sparkles />}>
+          New
+        </Badge>
+        <Badge color="#e5484d">work</Badge>
+      </span>
+      <span style={{ display: "inline-flex", maxWidth: 120 }} data-badge-truncated>
+        <Badge icon={<Hash />} title="projects/2026/annual-planning">
+          projects/2026/annual-planning
         </Badge>
       </span>
     </div>

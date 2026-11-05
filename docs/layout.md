@@ -47,14 +47,14 @@ Inner radius = outer radius − `inset`, so nested corners stay concentric.
 | Token | Value | Usage |
 | --- | --- | --- |
 | `radius-xs` | 2px | Keys inside sm wells (`radius-sm` minus the 2px inset); inline code |
-| `radius-sm` | 4px | sm controls; badges |
+| `radius-sm` | 4px | sm controls |
 | `radius-md` | 6px | md controls, the default |
 | `radius-lg` | 8px | Images in Prose |
 | `radius-xl` | 12px | Menus, select lists, popovers and toasts |
 | `radius-2xl` | 16px | Dialogs and sheets |
-| `radius-full` | 9999px | Avatars, radios, switches and their knobs only |
+| `radius-full` | 9999px | Avatars, radios, switches and their knobs, and badges only |
 
-Buttons, inputs and badges are never pills.
+Buttons and inputs are never pills; badges always are, so a label is never mistaken for a control.
 
 ## Sizes
 

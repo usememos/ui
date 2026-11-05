@@ -26,10 +26,10 @@ export interface BadgeClassesOptions {
  * `<a className={badgeClasses()} href="/tags/work">work</a>`.
  */
 export function badgeClasses({ tone = 'neutral' }: BadgeClassesOptions = {}) {
-  return cx('mu-badge', `mu-badge-${tone}`, 'mu-base', 'mu-s-xs');
+  return cx('mu-badge', `mu-badge-${tone}`, 'mu-base', 'mu-s-xs', 'mu-caption-xs');
 }
 
-/** A tag or status label: one or two words. */
+/** A tag or status label: one or two words, in a pill. A label wider than its container ends in an ellipsis. */
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge({ tone = 'neutral', icon, color, render, children, ...props }, ref) {
   const style = color ? ({ '--mu-badge-color': color } as CSSProperties) : undefined;
   return useRender({
@@ -39,7 +39,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge({ to
     props: mergeProps<'span'>({ className: badgeClasses({ tone }), style, children: (
           <>
             {icon}
-            {children}
+            {children != null && <span className="mu-badge-label">{children}</span>}
           </>
         ) }, props),
   });

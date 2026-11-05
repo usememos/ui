@@ -36,9 +36,13 @@ function badgeClasses(options?: { tone?: Tone | "outline" | "primary" }): string
 - When people can give a tag a color, pass it as `color`. The color tints the fill; the text and the icon stay `ink`, so every color the user can pick stays readable in both themes. Never set the text or the icon in the user's color: on its own tint it falls below 4.5:1 for most colors in one theme or the other. A tag without a color keeps `well`.
 - `color` is for colors people choose. The package's own meanings use tones: status is `success`, `warning` or `danger`, emphasis is `primary`.
 - A badge is not a button. A clickable tag filter is a [Toggle](toggle.md).
+- A badge is round and a control is square. Kbd and Toggle stay square.
+- A label wider than its container ends in an ellipsis. Keep tags short; give a cut tag its full text in `title`.
 - An app's own element that should look like a badge, such as a tag that is also a link, takes `badgeClasses()`. See [Class functions](../custom-components.md#class-functions).
 
 ## Style
 
-- `control-xs` (20px) tall, `radius-sm` (never a pill), `label-xs` text (12px, 500), optional `icon-xs` (12px) icon at a 1.25px stroke. It lines up with xs controls.
+- `control-xs` (20px) tall, `radius-full` (a pill: round marks a label, square marks a control), `caption-xs` text (12px, 400), optional `icon-xs` (12px) icon at a 1.25px stroke. It lines up with xs controls.
+- Inline padding is the xs row's `--mu-row-padding` plus 2px (half of `space-1`) on each side, so the text clears the round ends. The gap between icon and text is `space-1`.
+- Regular weight, because a badge is a label, not a heading: hierarchy among badges comes from tone and fill, not weight. `outline` text is `ink-muted`, 5.1:1 or more on `canvas`, `surface` and `well` in both themes.
 - `neutral`: `ink` on `well`. With `color`, the fill is an 18% tint of that color over the background, the same amount in both themes, and the text and icon stay `ink`. The color's lightness is first kept between 50% and 75% (OKLCH), so an ink-like color (black in Dark, white in Light) still gives a visible gray chip instead of vanishing into the background; hues in that range are unchanged. The prop sets `--mu-badge-color` on the badge; an app's own element with `badgeClasses()` sets that variable itself (see [Class functions](../custom-components.md#class-functions)). `primary`: `on-primary` on `primary`, the colors of a primary Button. Status tones: their `-soft` background with full-strength text.
