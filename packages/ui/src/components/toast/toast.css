@@ -58,10 +58,13 @@
   height: 100%;
   padding: var(--mu-space-3) var(--mu-space-3) var(--mu-space-3) var(--mu-space-4);
   overflow: hidden;
+  border-radius: inherit;
   transition: opacity var(--mu-duration-settle) var(--mu-ease-out);
 }
-.mu-toast-content[data-behind] { opacity: 0; }
-.mu-toast-content[data-expanded] { opacity: 1; }
+/* A toast behind the front one hides its text at once, so none of it shows below a shorter front toast while the stack settles;
+   it fades back in when the stack fans out or the toast comes to the front. Its edge keeps the peek visible in Dark, under the front toast's shadow. */
+.mu-toast-content[data-behind] { opacity: 0; transition: none; box-shadow: inset 0 0 0 1px var(--mu-edge); }
+.mu-toast-content[data-expanded] { opacity: 1; transition: opacity var(--mu-duration-settle) var(--mu-ease-out); box-shadow: none; }
 
 .mu-toast-icon { margin-block: calc((var(--mu-row-height) - var(--mu-row-icon)) / 2); color: var(--mu-ink-muted); }
 /* Each item sits centered on a row as tall as a control, so the icon, the title and the buttons line up. */

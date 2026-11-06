@@ -2,6 +2,13 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
+## Unreleased
+
+### Visual changes
+
+- **A toast's text no longer shows below a newer, shorter toast.** When a toast moved behind the front one, its text faded out over 150ms while its card shrank, so for a moment the old description showed under a title-only toast in front, and the same happened when a fanned-out stack collapsed. A toast behind the front one now hides its text at once; it still fades in when the stack fans out or the toast comes to the front.
+- **The toasts behind the front one are visible in Dark.** Their peeks sat under the front toast's dark shadow and nearly disappeared, so a stack read as one toast. A toast behind now has a 1px inset `edge`, in both themes. It goes away when the stack fans out.
+
 ## 26.11.8
 
 Published 6 November 2026.

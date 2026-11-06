@@ -200,6 +200,25 @@ test('Toast: shows a toast with its action, and the X closes it', async ({ page 
   await expect(toast).toHaveCount(0);
 });
 
+test('Toast: a toast behind hides its text at once and shows its edge; fanned out, it shows both again', async ({ page }) => {
+  await open(page);
+  const triggers = page.locator('#toast');
+  await triggers.getByRole('button', { name: 'Archive' }).click();
+  await triggers.getByRole('button', { name: 'Save' }).click();
+  await page.mouse.move(5, 5);
+  // Archive's toast is taller than Save's; its text must not fade out below the shorter front toast.
+  const behind = page.locator('.mu-toast', { hasText: 'Note archived' }).locator('.mu-toast-content');
+  await expect(behind).toHaveAttribute('data-behind', '');
+  await expect(behind).toHaveCSS('transition-duration', '0s');
+  await expect(behind).toHaveCSS('opacity', '0');
+  // The 1px `edge` (#d0d0d0 in Light) keeps the peek visible.
+  await expect(behind).toHaveCSS('box-shadow', 'rgb(208, 208, 208) 0px 0px 0px 1px inset');
+  await page.locator('.mu-toast', { hasText: 'Settings saved' }).hover();
+  await expect(behind).toHaveAttribute('data-expanded', '');
+  await expect(behind).toHaveCSS('opacity', '1');
+  await expect(behind).toHaveCSS('box-shadow', 'none');
+});
+
 test('popups only fade under reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await open(page);
