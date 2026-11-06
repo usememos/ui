@@ -2,7 +2,9 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
-## Unreleased
+## 26.11.8
+
+Published 6 November 2026.
 
 ### Visual changes
 
