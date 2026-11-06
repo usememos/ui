@@ -10,7 +10,7 @@ import { menuClasses } from './classes';
 const classes = /* @__PURE__ */ menuClasses();
 
 export interface RootProps extends BaseMenu.Root.Props {
-  /** Row height of every item: 24, 32 or 40px. */
+  /** Row height of every item: 28 (sm) or 32px (md). */
   size?: Exclude<Size, 'xs'>;
 }
 
@@ -66,10 +66,16 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({
     if (!popup || align === 'center' || side === 'top' || side === 'bottom') return 0;
     return -parseFloat(getComputedStyle(popup).paddingTop) || 0;
   }, []);
+  // Beside its trigger, it sits its own padding away, so a submenu's edge meets its parent's edge.
+  const sideOffset = useCallback(({ side }: { side: string }) => {
+    const popup = popupRef.current;
+    if (!popup || side === 'top' || side === 'bottom') return 4;
+    return parseFloat(getComputedStyle(popup).paddingTop) || 4;
+  }, []);
   const [positioner, rest] = splitPositioner(props);
   return (
     <BaseMenu.Portal container={container}>
-      <BaseMenu.Positioner sideOffset={4} alignOffset={alignOffset} {...positioner} className="mu-positioner">
+      <BaseMenu.Positioner sideOffset={sideOffset} alignOffset={alignOffset} {...positioner} className="mu-positioner">
         <BaseMenu.Popup ref={setRef} {...rest} className={withClass(menuClasses({ size }).popup, className)} />
       </BaseMenu.Positioner>
     </BaseMenu.Portal>

@@ -97,8 +97,8 @@ Base UI's props pass through: `items`, `value`, `defaultValue`, `onValueChange`,
 ## Style
 
 - The box is an [Input](input.md): flat `surface`, `edge`, and the focused edge on the box. The search icon and chevron are `ink-muted`; the chevron turns `ink` on hover.
-- List: `mu-popup`, `space-1` padding, as wide as the input and at least `menu-width`, at most `list-height` (240px) tall, then it scrolls.
-- Rows are a control height, text weight 400; the highlighted row uses `hover`; the chosen row has a check at the end.
+- List: `mu-popup`, 6px padding, as wide as the input and at least `menu-width`. Rows like [Menu](menu.md) items: 28px at sm, 32px at md, highlight in the row's radius. The list is at most `list-height` (240px) tall, then it scrolls.
+- Rows are text weight 400; the highlighted row uses `hover`; the chosen row has a check at the end.
 - Empty text: `body` in `ink-muted`, `space-3` by `space-4` padding.
 - Grid cells: square, a control height, `inset` apart, `row-radius`; the highlighted cell uses `hover`, the chosen cell sits in a `well` like a pressed Toggle. No check.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.

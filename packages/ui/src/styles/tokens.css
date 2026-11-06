@@ -116,7 +116,8 @@
   --mu-icon-stroke: 1.25px;
   --mu-content-width: 720px;
   --mu-sidebar-width: 240px;
-  --mu-menu-width: 200px;
+  --mu-menu-width: 160px;
+  --mu-menu-max-width: 280px;
   --mu-list-height: 240px;
   --mu-popover-width: 280px;
   --mu-tooltip-width: 240px;

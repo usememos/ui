@@ -10,7 +10,7 @@ Every control takes one `size` prop: `xs`, `sm` or `md` (the default). There is 
 | sm | `control-sm` 24px | 8px | 14px | 4px | 13 / 18px | `radius-sm` 4px | 16px |
 | md (default) | `control-md` 32px | 12px | 16px | 6px | 14 / 20px | `radius-md` 6px | 18px |
 
-- Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding and sheets. A sidebar with 28px rows puts the `mu-compact` class on itself: md controls and rows inside are `control-compact` (28px) tall, with md text, icons, padding and radius (see [A sidebar navigation row](usage.md#a-sidebar-navigation-row)). It is the only height between sizes, and it is not a `size` value. Emphasis comes from the `primary` variant, not from a bigger control. On touch screens the hit area, not the visual size, grows.
+- Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding and sheets. A sidebar with 28px rows puts the `mu-compact` class on itself: md controls and rows inside are `control-compact` (28px) tall, with md text, icons, padding and radius (see [A sidebar navigation row](usage.md#a-sidebar-navigation-row)). It is the only height between sizes, and it is not a `size` value. Floating lists (Menu, Select and Combobox lists) use it for their sm rows too: an sm list has 28px rows with sm text and icons, because a 24px row is cramped inside a 12px-radius popup. Emphasis comes from the `primary` variant, not from a bigger control. On touch screens the hit area, not the visual size, grows.
 - Use `xs` for secondary actions beside 13px text: actions on a row or an entry, inline formatting, filters in a tight header, checkboxes in a dense list. It is the height of a Badge or a Kbd, so they line up. Don't use `xs` for forms, for navigation, or for the main action of a screen.
 - Only Button, Toggle, ToggleGroup, Checkbox, RadioGroup and Radio, Switch, Avatar, Spinner and Skeleton take `xs`. Text entry, menus, tabs and tables are too cramped at 20px, so their `size` is `sm | md`, and an `xs` inherited from a parent renders them at `sm`.
 - The icon side of a control has 2px less padding, so text and icon look centered.
@@ -42,7 +42,7 @@ Every spacing value comes from the 4px scale. The only exception is `inset` (2px
 
 ## Radius
 
-Inner radius = outer radius − `inset`, so nested corners stay concentric.
+Inner radius = outer radius − `inset`, so nested corners stay concentric. Floating lists follow the same rule with their padding: 6px (`radius-xl` − `radius-md`), so an md row's highlight is concentric with the popup's corner, and an sm row's 4px corner sits inside it.
 
 | Token | Value | Usage |
 | --- | --- | --- |
@@ -63,7 +63,7 @@ Buttons and inputs are never pills; badges always are, so a label is never mista
 | `control-xs` | 20px | xs control height; Badge and Kbd |
 | `control-sm` | 24px | sm control height |
 | `control-md` | 32px | Default control height |
-| `control-compact` | 28px | md height inside `mu-compact`, for an app's sidebar |
+| `control-compact` | 28px | md height inside `mu-compact`, for an app's sidebar; sm row height in menus, select lists and combobox lists |
 | `inset` | 2px | Well-to-key inset at every size |
 | `hit-area` | 44px | Minimum touch target on `pointer: coarse`, added invisibly around a control |
 | `focus-width` | 2px | Width of the keyboard focus ring |
@@ -80,7 +80,8 @@ Buttons and inputs are never pills; badges always are, so a label is never mista
 | --- | --- | --- |
 | `content-width` | 720px | Maximum width of a reading column: a timeline, a settings form, an article |
 | `sidebar-width` | 240px | Width of a fixed navigation sidebar from `breakpoint-md` up |
-| `menu-width` | 200px | Minimum width of a menu or select list |
+| `menu-width` | 160px | Minimum width of a menu, select list or combobox list. Above it, the longest row sets the width |
+| `menu-max-width` | 280px | Maximum width of a menu or select list: labels truncate and descriptions wrap here |
 | `list-height` | 240px | Maximum height of a combobox list before it scrolls |
 | `popover-width` | 280px | Default width of a popover |
 | `tooltip-width` | 240px | Maximum width of a tooltip |

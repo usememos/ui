@@ -1,7 +1,7 @@
 import type { Size } from '../../types';
 
 export interface MenuClassesOptions {
-  /** Row height of every item: 24 or 32px. */
+  /** Row height of every item: 28 (sm) or 32px (md). */
   size?: Exclude<Size, 'xs'>;
 }
 

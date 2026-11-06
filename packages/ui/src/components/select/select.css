@@ -10,12 +10,15 @@
 .mu-select-positioner { outline: 0; }
 .mu-select-popup {
   box-sizing: border-box;
-  min-width: max(var(--mu-menu-width), var(--anchor-width));
+  min-width: min(max(var(--mu-menu-width), var(--anchor-width)), var(--available-width));
+  max-width: min(max(var(--mu-menu-max-width), var(--anchor-width)), var(--available-width));
   max-height: var(--available-height);
-  padding: var(--mu-space-1);
+  padding: calc(var(--mu-radius-xl) - var(--mu-radius-md));
   outline: 0;
 }
-.mu-select-list { overflow-y: auto; max-height: var(--available-height); scroll-padding-block: var(--mu-space-1); outline: 0; }
+/* sm rows in a floating list are control-compact (28px) tall, with sm text and icons, as in a Menu. */
+.mu-select-popup.mu-s-sm { --mu-row-height: var(--mu-control-compact); }
+.mu-select-list { overflow-y: auto; max-height: var(--available-height); scroll-padding-block: calc(var(--mu-radius-xl) - var(--mu-radius-md)); outline: 0; }
 
 .mu-select-item {
   display: flex;
@@ -24,7 +27,7 @@
   box-sizing: border-box;
   height: var(--mu-row-height);
   padding: 0 var(--mu-row-padding);
-  border-radius: calc(var(--mu-radius-xl) - var(--mu-space-1));
+  border-radius: var(--mu-row-radius);
   color: var(--mu-ink);
   font-weight: 400;
   white-space: nowrap;
@@ -40,5 +43,5 @@
 .mu-select-indicator { display: grid; flex: none; place-items: center; width: var(--mu-row-icon); height: var(--mu-row-icon); margin-inline-start: var(--mu-space-2); color: var(--mu-ink); }
 
 .mu-select-group-label { padding: var(--mu-space-2) var(--mu-row-padding) var(--mu-space-1); color: var(--mu-ink-muted); }
-.mu-select-separator { height: 1px; margin: var(--mu-space-1) calc(-1 * var(--mu-space-1)); background-color: var(--mu-line); }
+.mu-select-separator { height: 1px; margin: calc(var(--mu-radius-xl) - var(--mu-radius-md)) calc(var(--mu-radius-md) - var(--mu-radius-xl)); background-color: var(--mu-line); }
 .mu-select-scroll-arrow { display: grid; place-items: center; height: var(--mu-space-4); color: var(--mu-ink-muted); }

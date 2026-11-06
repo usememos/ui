@@ -77,13 +77,57 @@ test('Menu: checkbox items stay open and toggle', async ({ page }) => {
   await expect(page.getByRole('menu')).toBeVisible();
 });
 
-test('Menu: rows are a control tall at each size', async ({ page }) => {
-  for (const [size, height] of [['sm', 24], ['md', 32]] as const) {
+test('Menu: rows are 28px at sm and 32px at md', async ({ page }) => {
+  for (const [size, height] of [['sm', 28], ['md', 32]] as const) {
     await open(page, { size });
     await moreActions(page).click();
     // Measured once the popup has risen into place.
     await expect.poll(async () => (await page.getByRole('menuitem', { name: /Pin/ }).boundingBox())?.height).toBe(height);
   }
+});
+
+test('Menu: 6px padding and separators, row-radius highlights, and a width between menu-width and menu-max-width', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  for (const [size, radius] of [['sm', '4px'], ['md', '6px']] as const) {
+    await open(page, { size });
+    await moreActions(page).click();
+    const menu = page.getByRole('menu');
+    await expect(menu).toHaveCSS('padding-top', '6px');
+    await expect(page.getByRole('menuitem', { name: /Pin/ })).toHaveCSS('border-radius', radius);
+    const separator = menu.getByRole('separator');
+    await expect(separator).toHaveCSS('margin-top', '6px');
+    await expect(separator).toHaveCSS('margin-bottom', '6px');
+    // Short labels: the menu sits at its 160px floor, not the old 200px.
+    expect(Math.round((await menu.boundingBox())!.width)).toBe(160);
+    await page.keyboard.press('Escape');
+  }
+  // A long label sets the width, up to 280px, and a long description wraps there.
+  await open(page);
+  await page.addStyleTag({ content: '.mu-menu-description::after { content: " and a long tail that needs more than one line at this width"; }' });
+  await page.locator('#menu').getByRole('button', { name: 'Visibility' }).click();
+  const menu = page.getByRole('menu');
+  expect(Math.round((await menu.boundingBox())!.width)).toBe(280);
+  const description = menu.locator('.mu-menu-description').first();
+  expect((await description.boundingBox())!.height).toBeGreaterThan(30);
+});
+
+test('Select and Combobox: sm list rows are 28px with row-radius highlights and 6px padding', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await open(page, { size: 'sm' });
+  await page.locator('#select').getByRole('combobox').nth(1).click();
+  const listbox = page.getByRole('listbox');
+  await expect(listbox).toBeVisible();
+  const option = page.getByRole('option', { name: 'Deutsch' });
+  await expect.poll(async () => (await option.boundingBox())?.height).toBe(28);
+  await expect(option).toHaveCSS('border-radius', '4px');
+  await expect(page.locator('.mu-select-popup')).toHaveCSS('padding-top', '6px');
+  await page.keyboard.press('Escape');
+  await page.getByPlaceholder('Find a tag').click();
+  await page.keyboard.press('ArrowDown');
+  const comboOption = page.locator('.mu-combobox-list').getByRole('option').first();
+  await expect.poll(async () => (await comboOption.boundingBox())?.height).toBe(28);
+  await expect(comboOption).toHaveCSS('border-radius', '4px');
+  await expect(page.locator('.mu-combobox-list').first()).toHaveCSS('padding-top', '6px');
 });
 
 test('Select: picks a value with the keyboard and shows its label', async ({ page }) => {
@@ -251,13 +295,13 @@ test('Popover list: rows drawn with menuClasses on a button and a link start the
   await open(page);
   await page.locator('#popover').getByRole('button', { name: 'Account' }).click();
   const popup = page.locator('.mu-popover-popup');
-  await expect(popup).toHaveCSS('padding-top', '4px');
+  await expect(popup).toHaveCSS('padding-top', '6px');
   await expect(popup).toHaveCSS('row-gap', '0px');
   for (const row of [popup.getByRole('button', { name: 'Settings' }), popup.getByRole('link', { name: 'Sign out' })]) {
     await expect(row).toHaveCSS('text-align', 'start');
     await expect(row).toHaveCSS('height', '32px');
     const [rowBox, popupBox] = await Promise.all([row.boundingBox(), popup.boundingBox()]);
-    expect(Math.round(rowBox!.width)).toBe(Math.round(popupBox!.width - 8));
+    expect(Math.round(rowBox!.width)).toBe(Math.round(popupBox!.width - 12));
   }
 });
 

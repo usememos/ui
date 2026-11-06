@@ -69,5 +69,5 @@ Base UI's props pass through: `items`, `value`, `defaultValue`, `onValueChange`,
 ## Style
 
 - Trigger: a neutral key ([Button](button.md) `neutral`), value left-aligned, `ChevronsUpDown` in `ink-muted`. `ghost`: a ghost Button with `ink` text, `hover` on hover and while open. Placeholder in `ink-muted`, weight 400. Invalid: a `danger` edge.
-- List: `mu-popup`, `space-1` padding, at least `menu-width` and the trigger's width. Rows like [Menu](menu.md) items; the highlighted row uses `hover`.
+- List: `mu-popup`, 6px padding, at least `menu-width` and the trigger's width, at most `menu-max-width` or the trigger's width when that is wider. Rows like [Menu](menu.md) items: 28px at sm, 32px at md, highlight in the row's radius; the highlighted row uses `hover`.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.

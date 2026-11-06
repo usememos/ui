@@ -45,7 +45,7 @@ import { Ellipsis, FolderInput, Pin, Trash2 } from "lucide-react";
 
 ```ts
 interface Menu.RootProps extends BaseMenu.Root.Props {
-  size?: "sm" | "md"; // row height: 24, 32px. An xs trigger still opens sm rows
+  size?: "sm" | "md"; // row height: 28px (control-compact, sm text), 32px. An xs trigger still opens sm rows
 }
 interface Menu.PopupProps extends BaseMenu.Popup.Props {
   side?: Side; align?: Align; // Positioner props; default side "bottom"
@@ -80,11 +80,12 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 
 ## Style
 
-- `mu-popup` with `space-1` padding, at least `menu-width` wide, scrolls when taller than the space available.
-- Rows are a control height (24 or 32px), text weight 400; icons in `ink-muted`; the shortcut right-aligned in `ink-muted`. Text starts at the start edge.
+- `mu-popup` with 6px padding (`radius-xl` − `radius-md`, so md highlights are concentric with the corners). As wide as its longest row, at least `menu-width` (160px) and at most `menu-max-width` (280px), both clamped to the space available; labels truncate and descriptions wrap at the maximum. Scrolls when taller than the space available.
+- Rows are 28px at sm (`control-compact`, with sm text and icons) and 32px at md, text weight 400; icons in `ink-muted`; the shortcut right-aligned in `ink-muted`. Text starts at the start edge.
 - A row with a description grows: the label, then the description in `caption` and `ink-muted`, with the row's vertical padding above and below. The icon and the check stay on the label's line.
-- The highlighted row uses `hover`, and so does a row whose menu is open (a SubmenuTrigger, or a `menuClasses().item` row that is a `Menu.Trigger`). Disabled rows fade to 45%. `danger` rows use `danger`.
+- A Separator has 6px above and below, the same as the popup padding, and runs edge to edge.
+- The highlighted row uses `hover` with the row's radius (`radius-sm` at sm, `radius-md` at md), and so does a row whose menu is open (a SubmenuTrigger, or a `menuClasses().item` row that is a `Menu.Trigger`). Disabled rows fade to 45%. `danger` rows use `danger`.
 - A ghost trigger keeps its `hover` background while the menu is open.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.
-- A submenu opens beside its trigger row, 4px from the row. The row sits `space-1` inside the parent menu, so the submenu's edge touches the parent's edge.
-- A menu that opens to the side of its trigger (`side` left, right, `inline-start` or `inline-end`; a submenu always does), aligned to `start` or `end`, moves along the trigger by its own top padding (`space-1`, read when it is placed). Its first row lines up with the trigger. With no room below, it opens upward instead and its last row lines up with the trigger. A menu that opens above or below, or is centered, does not move.
+- A menu below or above its trigger sits 4px from it. A submenu opens beside its trigger row, its own padding (6px) from the row. The row sits the same 6px inside the parent menu, so the submenu's edge touches the parent's edge.
+- A menu that opens to the side of its trigger (`side` left, right, `inline-start` or `inline-end`; a submenu always does), aligned to `start` or `end`, moves along the trigger by its own top padding (6px, read when it is placed). Its first row lines up with the trigger. With no room below, it opens upward instead and its last row lines up with the trigger. A menu that opens above or below, or is centered, does not move.

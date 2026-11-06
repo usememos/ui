@@ -22,7 +22,7 @@ A class function returns the classes that make any element look like a component
 | `inputClasses({ size })` | A string | One-line field, such as a tag input around a native `<input>` |
 | `textareaClasses({ size })` | A string | Multi-line field, such as a content-editable editor |
 | `badgeClasses({ tone })` | A string | Label, such as a tag that is also a link |
-| `menuClasses({ size })` | `popup`, `item`, `dangerItem`, `label`, `text`, `description`, `shortcut`, `separator`, `groupLabel` | Floating list, such as an editor's suggestion list, or rows inside a Popover with `variant="list"` |
+| `menuClasses({ size })` | `popup`, `item`, `dangerItem`, `label`, `text`, `description`, `shortcut`, `separator`, `groupLabel` | Floating list, such as an editor's suggestion list, or rows inside a Popover with `variant="list"`. Rows are 28px at sm and 32px at md, as in a Menu |
 | `popoverClasses({ variant })` | `popup`, `title`, `description` | Floating panel, such as an emoji picker |
 
 State is set with attributes, never with extra classes:
