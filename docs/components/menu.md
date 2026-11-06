@@ -83,7 +83,8 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 - `mu-popup` with `space-1` padding, at least `menu-width` wide, scrolls when taller than the space available.
 - Rows are a control height (24 or 32px), text weight 400; icons in `ink-muted`; the shortcut right-aligned in `ink-muted`. Text starts at the start edge.
 - A row with a description grows: the label, then the description in `caption` and `ink-muted`, with the row's vertical padding above and below. The icon and the check stay on the label's line.
-- The highlighted row uses `hover`. Disabled rows fade to 45%. `danger` rows use `danger`.
+- The highlighted row uses `hover`, and so does a row whose menu is open (a SubmenuTrigger, or a `menuClasses().item` row that is a `Menu.Trigger`). Disabled rows fade to 45%. `danger` rows use `danger`.
 - A ghost trigger keeps its `hover` background while the menu is open.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.
-- A submenu opens beside its trigger row, 4px from the row. The row sits `space-1` inside the parent menu, so the submenu's edge touches the parent's edge. The submenu moves up by its own top padding (`space-1`, read when it is placed), so its first row lines up with the trigger row. With no room below, it opens upward instead and its last row lines up with the trigger row.
+- A submenu opens beside its trigger row, 4px from the row. The row sits `space-1` inside the parent menu, so the submenu's edge touches the parent's edge.
+- A menu that opens to the side of its trigger (`side` left, right, `inline-start` or `inline-end`; a submenu always does), aligned to `start` or `end`, moves along the trigger by its own top padding (`space-1`, read when it is placed). Its first row lines up with the trigger. With no room below, it opens upward instead and its last row lines up with the trigger. A menu that opens above or below, or is centered, does not move.

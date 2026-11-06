@@ -1,6 +1,6 @@
 import { Menu as BaseMenu } from '@base-ui/react/menu';
 import { Check, ChevronRight } from 'lucide-react';
-import { createContext, forwardRef, useCallback, useContext, useId, useRef, type ReactNode } from 'react';
+import { forwardRef, useCallback, useId, useRef, type ReactNode } from 'react';
 import { cx, withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
 import { SizeContext, useRowSize } from '../../internal/size';
@@ -14,17 +14,12 @@ export interface RootProps extends BaseMenu.Root.Props {
   size?: Exclude<Size, 'xs'>;
 }
 
-/** True inside a SubmenuRoot, so its Popup lines up with the trigger row. */
-const SubmenuContext = /* @__PURE__ */ createContext(false);
-
 /** Groups a trigger and its menu. */
 export function Root({ size, ...props }: RootProps) {
   const resolved = useRowSize(size);
   return (
     <SizeContext.Provider value={resolved}>
-      <SubmenuContext.Provider value={false}>
-        <BaseMenu.Root {...props} />
-      </SubmenuContext.Provider>
+      <BaseMenu.Root {...props} />
     </SizeContext.Provider>
   );
 }
@@ -47,14 +42,14 @@ export interface PopupProps extends BaseMenu.Popup.Props, PositionerProps {
 }
 
 /**
- * The list of items. Also the popup of a submenu, inside `SubmenuRoot`: there
- * it moves along the trigger by its own top padding (read when it is placed,
- * so it follows `space-1`), which lines its first row up with the trigger row,
- * or its last row when it opens upward.
+ * The list of items. Also the popup of a submenu, inside `SubmenuRoot`. When it
+ * opens to the side of its trigger (a submenu, or a panel row's own menu),
+ * aligned to the start or end, it moves along the trigger by its own top
+ * padding (read when it is placed, so it follows `space-1`): its first row
+ * lines up with the trigger, or its last row when it opens upward.
  */
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({ container, className, ...props }, ref) {
   const size = useRowSize();
-  const submenu = useContext(SubmenuContext);
   const popupRef = useRef<HTMLDivElement | null>(null);
   const setRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -64,15 +59,17 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({
     },
     [ref],
   );
-  // Base UI reverses the sign when the submenu aligns to the trigger's end, so one value serves both.
-  const alignOffset = useCallback(() => {
+  // Base UI reverses the sign when the popup aligns to the trigger's end, so one value serves both.
+  // `side` is where it actually opens, after any flip; above, below or centered, it does not move.
+  const alignOffset = useCallback(({ side, align }: { side: string; align: string }) => {
     const popup = popupRef.current;
-    return popup ? -parseFloat(getComputedStyle(popup).paddingTop) || 0 : 0;
+    if (!popup || align === 'center' || side === 'top' || side === 'bottom') return 0;
+    return -parseFloat(getComputedStyle(popup).paddingTop) || 0;
   }, []);
   const [positioner, rest] = splitPositioner(props);
   return (
     <BaseMenu.Portal container={container}>
-      <BaseMenu.Positioner sideOffset={4} alignOffset={submenu ? alignOffset : 0} {...positioner} className="mu-positioner">
+      <BaseMenu.Positioner sideOffset={4} alignOffset={alignOffset} {...positioner} className="mu-positioner">
         <BaseMenu.Popup ref={setRef} {...rest} className={withClass(menuClasses({ size }).popup, className)} />
       </BaseMenu.Positioner>
     </BaseMenu.Portal>
@@ -192,13 +189,7 @@ export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(function Men
 export type SubmenuRootProps = BaseMenu.SubmenuRoot.Props;
 
 /** Holds a SubmenuTrigger and its own Popup. */
-export function SubmenuRoot(props: SubmenuRootProps) {
-  return (
-    <SubmenuContext.Provider value={true}>
-      <BaseMenu.SubmenuRoot {...props} />
-    </SubmenuContext.Provider>
-  );
-}
+export const SubmenuRoot = BaseMenu.SubmenuRoot;
 
 export interface SubmenuTriggerProps extends BaseMenu.SubmenuTrigger.Props {
   icon?: IconElement;

@@ -2,6 +2,13 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
+## Unreleased
+
+### Visual changes
+
+- **A menu that opens beside its trigger lines up with it, not only a submenu.** Any `Menu.Popup` placed to the side of its trigger (`side` left, right, `inline-start` or `inline-end`) and aligned to `start` or `end` now moves by its own top padding, as a submenu has since 26.11.7: its first row lines up with the trigger, or its last row when it opens upward. This covers a row in a `Popover` with `variant="list"` that opens its own Menu beside the panel, such as a Theme or Language row. Menus that open above or below, or are centered, are unchanged. `Menu.SubmenuRoot` is Base UI's part again; its props are the same.
+- **A row keeps its highlight while its menu is open.** `menuClasses().item` now uses `hover` on any row with `data-popup-open`, as a SubmenuTrigger already did, so a panel row that is a `Menu.Trigger` stays highlighted while its choices are open.
+
 ## 26.11.7
 
 Published 6 November 2026.

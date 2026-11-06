@@ -23,6 +23,17 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
     shot: (page) => page.getByRole('menu'),
     union: true,
   },
+  // A panel row's own Menu beside the panel: the first choice level with the row, like a submenu.
+  {
+    name: 'popover-list-menu',
+    open: async (page) => {
+      await page.locator('#popover').getByRole('button', { name: 'Account' }).click();
+      await page.locator('.mu-popover-popup').getByRole('button', { name: /Theme/ }).click();
+      await expect(page.getByRole('menu')).toBeVisible();
+    },
+    shot: (page) => page.locator('.mu-popover-popup, .mu-menu-popup'),
+    union: true,
+  },
   { name: 'menu-checkbox', open: (page) => page.locator('#menu').getByRole('button', { name: 'View' }).click(), shot: (page) => page.getByRole('menu') },
   { name: 'combobox', open: (page) => page.getByRole('combobox', { name: 'Tag', exact: true }).fill('de'), shot: (page) => page.locator('.mu-combobox-popup') },
   { name: 'select', open: (page) => page.locator('#select').getByRole('combobox').nth(1).click(), shot: (page) => page.locator('.mu-select-popup') },

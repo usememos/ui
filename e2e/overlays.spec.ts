@@ -242,6 +242,52 @@ test('Popover list: rows drawn with menuClasses on a button and a link start the
   }
 });
 
+test('Popover list: a row that opens a Menu beside the panel lines its first choice up with the row', async ({ page }) => {
+  // No rise on open, so the boxes are measured where they come to rest.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await open(page);
+  await page.locator('#popover').getByRole('button', { name: 'Account' }).click();
+  const row = page.locator('.mu-popover-popup').getByRole('button', { name: /Theme/ });
+  await row.click();
+  const menu = page.getByRole('menu');
+  await expect(menu).toBeVisible();
+  await expect(menu).toHaveAttribute('data-side', 'inline-end');
+  await expect(menu).toHaveAttribute('data-align', 'start');
+  const [rowBox, first, panel, menuBox] = await Promise.all([row.boundingBox(), menu.getByRole('menuitemradio').first().boundingBox(), page.locator('.mu-popover-popup').boundingBox(), menu.boundingBox()]);
+  expect(first!.y).toBeCloseTo(rowBox!.y, 0);
+  expect(menuBox!.x).toBeCloseTo(panel!.x + panel!.width, 0);  // The row keeps its highlight while its menu is open.
+  await expect(row).toHaveAttribute('data-popup-open', '');
+  expect(await row.evaluate((element) => getComputedStyle(element).backgroundColor)).not.toBe('rgba(0, 0, 0, 0)');
+});
+
+test('Popover list: a row\'s Menu that opens upward lines its last choice up with the row', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await open(page);
+  // Taller choices and a window that ends just below the row leave no room below.
+  await page.addStyleTag({ content: '#popover { position: fixed; inset: 0 auto auto 24px; margin: 0; } .mu-menu-popup .mu-menu-item { height: 60px; }' });
+  await page.locator('#popover').getByRole('button', { name: 'Account' }).click();
+  const row = page.locator('.mu-popover-popup').getByRole('button', { name: /Theme/ });
+  const box = await row.boundingBox();
+  await page.setViewportSize({ width: 1000, height: Math.round(box!.y + box!.height + 60) });
+  await row.click();
+  const menu = page.getByRole('menu');
+  await expect(menu).toBeVisible();
+  await expect(menu).toHaveAttribute('data-align', 'end');
+  const [rowBox, last] = await Promise.all([row.boundingBox(), menu.getByRole('menuitemradio').last().boundingBox()]);
+  expect(last!.y + last!.height).toBeCloseTo(rowBox!.y + rowBox!.height, 0);
+});
+
+test('Menu: a menu that opens below its trigger does not move along it', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await open(page);
+  await moreActions(page).click();
+  const menu = page.getByRole('menu');
+  await expect(menu).toHaveAttribute('data-side', 'bottom');
+  const [trigger, menuBox] = await Promise.all([moreActions(page).boundingBox(), menu.boundingBox()]);
+  // Centered under the trigger, as Base UI places it.
+  expect(menuBox!.x + menuBox!.width / 2).toBeCloseTo(trigger!.x + trigger!.width / 2, 0);
+});
+
 test('Dialog bare: content runs edge to edge with no X, and Escape closes it', async ({ page }) => {
   await open(page);
   const trigger = page.getByRole('button', { name: 'Quick find' });

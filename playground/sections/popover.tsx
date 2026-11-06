@@ -1,5 +1,5 @@
-import { Avatar, Button, Field, Input, menuClasses, Popover, Select, Switch, ToggleGroup, Toggle } from '@usememos/ui';
-import { Copy, LogOut, Settings, Share, SlidersHorizontal, User } from 'lucide-react';
+import { Avatar, Button, Field, Input, Menu, menuClasses, Popover, Select, Switch, ToggleGroup, Toggle } from '@usememos/ui';
+import { ChevronRight, Copy, LogOut, Palette, Settings, Share, SlidersHorizontal, User } from 'lucide-react';
 import type { SectionProps } from '.';
 
 const menu = menuClasses();
@@ -30,6 +30,22 @@ export function PopoverSection({ size }: SectionProps) {
             <Settings aria-hidden />
             <span className={menu.label}>Settings</span>
           </button>
+          {/* A row that opens its own Menu beside the panel; the choices line up with the row like a submenu's. */}
+          <Menu.Root>
+            <Menu.Trigger openOnHover render={<button type="button" className={menu.item} />}>
+              <Palette aria-hidden />
+              <span className={menu.label}>Theme</span>
+              <span className={menu.shortcut}>System</span>
+              <ChevronRight aria-hidden />
+            </Menu.Trigger>
+            <Menu.Popup side="inline-end" align="start">
+              <Menu.RadioGroup defaultValue="system">
+                <Menu.RadioItem value="system" closeOnClick>System</Menu.RadioItem>
+                <Menu.RadioItem value="light" closeOnClick>Light</Menu.RadioItem>
+                <Menu.RadioItem value="dark" closeOnClick>Dark</Menu.RadioItem>
+              </Menu.RadioGroup>
+            </Menu.Popup>
+          </Menu.Root>
           <a className={menu.item} href="#popover">
             <LogOut aria-hidden />
             <span className={menu.label}>Sign out</span>
