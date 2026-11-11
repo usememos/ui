@@ -1,6 +1,6 @@
 # Patterns
 
-How the components go together. Each product builds its screens from these patterns. None of them is specific to one product. The gaps come from the [spacing ladder](layout.md#spacing), and the playground shows a settings page and a timeline built this way (`playground/screens.tsx`).
+How the components go together. Each product builds its screens from these patterns. None of them is specific to one product. The gaps come from the [spacing ladder](layout.md#spacing), and the playground shows a settings page, a timeline and an empty page built this way (`playground/screens.tsx`).
 
 ## Page
 
@@ -50,8 +50,10 @@ A repeated unit of content in a list: a note, a comment, a changelog item.
 Centered in the content column:
 
 - a `title` line that says what is missing ("No notes yet"),
-- a `body` line that says what to do,
-- one primary Button.
+- a `body` line in `ink-muted` that says what to do, `space-1` under the title,
+- one primary Button, `space-4` under the text.
+
+The block has `space-8` above and below it, so it reads as a region of its own under the page header. The Button is the page's one primary action: a page that shows an empty state has no second primary in its header.
 
 No illustration.
 

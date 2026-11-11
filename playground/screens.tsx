@@ -208,9 +208,34 @@ function TimelineScreen() {
 }
 
 /**
- * Two whole screens built from the components, with only ladder steps for the
- * page's own layout. Components are checked one at a time above; these check
- * how they sit together. They are md at every `?size=`, as an app's pages are.
+ * A page with nothing in it yet, as docs/patterns.md describes an Empty
+ * state: a title, a body line and one primary Button, centered in the content
+ * column. The page header has no action, so the Button is the page's one
+ * primary. The title is an h4 here; in an app it is an h2 under the page's h1.
+ */
+function EmptyScreen() {
+  return (
+    <div className="pg-screen pg-screen-page">
+      <header className="pg-screen-head">
+        <h3 className="mu-heading">Shortcuts</h3>
+        <p className="mu-body">Saved searches that open from the sidebar.</p>
+      </header>
+      <div className="pg-screen-empty">
+        <div className="pg-screen-head">
+          <h4 className="mu-title">No shortcuts yet</h4>
+          <p className="mu-body">Save a search to open it again in one click.</p>
+        </div>
+        <Button variant="primary">Create shortcut</Button>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Three whole screens built from the components, with only ladder steps for
+ * the page's own layout. Components are checked one at a time above; these
+ * check how they sit together. They are md at every `?size=`, as an app's
+ * pages are.
  */
 export function Screens() {
   return (
@@ -222,6 +247,10 @@ export function Screens() {
       <section className="pg-section" id="screen-timeline" data-screen>
         <h2 className="mu-heading">Screen: timeline</h2>
         <TimelineScreen />
+      </section>
+      <section className="pg-section" id="screen-empty" data-screen>
+        <h2 className="mu-heading">Screen: empty state</h2>
+        <EmptyScreen />
       </section>
     </>
   );

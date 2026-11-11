@@ -38,3 +38,5 @@ body { margin: 0; background: var(--mu-canvas); color: var(--mu-ink); font-famil
 .pg-screen-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--mu-space-2); }
 .pg-screen-entry-head { display: flex; align-items: center; gap: var(--mu-space-2); color: var(--mu-ink-muted); }
 .pg-screen-spacer { flex: 1; }
+/* An empty state: centered, space-1 from the title to its body line, space-4 from the text to the Button, space-8 above and below. */
+.pg-screen-empty { display: flex; flex-direction: column; align-items: center; gap: var(--mu-space-4); padding-block: var(--mu-space-8); text-align: center; }

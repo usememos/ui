@@ -31,7 +31,7 @@ Layout spacing comes from one ladder of nine steps, and each step has a job. Two
 | `space-4` | 16px | Blocks in a container | Fields in a form, two blocks of one section; padding of popovers and boxed forms; page padding on phones |
 | `space-5` | 20px | Padding of big surfaces; above a Prose heading | Padding of dialogs and drawers; the space above a heading and around a rule in Prose. Nowhere else: between other things use 16 or 24 |
 | `space-6` | 24px | Groups | Sections and entries on a page, content to its footer; page padding on desktop |
-| `space-8` | 32px | Regions of a page | A page header band to the content, one column to the next |
+| `space-8` | 32px | Regions of a page | A page header band to the content, one column to the next; above and below an empty state |
 | `space-12` | 48px | Website sections | The rhythm between sections of a marketing page |
 | `space-16` | 64px | Website hero and footer | The padding of a hero or a footer |
 
@@ -50,7 +50,7 @@ Every surface follows the same two tiers. Big surfaces pad `space-5` and stack `
 | Fieldset | | 12px | 8px from the legend to its options | |
 | Field | | 4px between label, control and hint | | |
 
-The playground has two reference screens built only from these steps: a settings page and a timeline (`#screen-settings` and `#screen-timeline`, in `playground/screens.tsx`). The screenshot tests cover them, so a spacing change is judged on a whole screen, not only on one component. An app's pages copy their spacing.
+The playground has three reference screens built only from these steps: a settings page, a timeline and an empty page (`#screen-settings`, `#screen-timeline` and `#screen-empty`, in `playground/screens.tsx`). The screenshot tests cover them, so a spacing change is judged on a whole screen, not only on one component. An app's pages copy their spacing.
 
 ## Radius
 
