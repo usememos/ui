@@ -1,6 +1,8 @@
 // Keeps the stylesheets in sync with the token tables in docs/.
 import { describe, expect, it } from 'vitest';
+import agentsDocs from '../../../AGENTS.md?raw';
 import colorDocs from '../../../docs/color.md?raw';
+import customComponentsDocs from '../../../docs/custom-components.md?raw';
 import depthDocs from '../../../docs/depth.md?raw';
 import layoutDocs from '../../../docs/layout.md?raw';
 import motionDocs from '../../../docs/motion.md?raw';
@@ -8,6 +10,7 @@ import typographyDocs from '../../../docs/typography.md?raw';
 import foundationCss from '../src/styles/foundation.css?raw';
 import tokensCss from '../src/styles/tokens.css?raw';
 import { themeTokens } from '../src/theme-tokens';
+import themeTokensSource from '../src/theme-tokens.ts?raw';
 
 const themes = ['light', 'dark'] as const;
 type Theme = (typeof themes)[number];
@@ -102,6 +105,29 @@ describe('tokens.css', () => {
     for (const theme of themes) {
       expect(themeTokens.filter((name) => !themeRule[theme].has(name)), theme).toEqual([]);
     }
+  });
+
+  it('states the real number of color and theme tokens wherever the docs count them', () => {
+    const colors = tableRows(colorDocs).length;
+    const counts = (text: string, pattern: RegExp) => [...text.matchAll(pattern)].map(([, count]) => Number(count));
+    const sources = { 'AGENTS.md': agentsDocs, 'docs/color.md': colorDocs, 'docs/custom-components.md': customComponentsDocs, 'src/theme-tokens.ts': themeTokensSource };
+    for (const [name, text] of Object.entries(sources)) {
+      const found = counts(text, /\b(\d+) color tokens\b/g);
+      expect(found.length, name).toBeGreaterThan(0);
+      expect(found, name).toEqual(found.map(() => colors));
+    }
+    expect(counts(agentsDocs, /`themeTokens` lists the (\d+) an app theme sets/g), 'AGENTS.md').toEqual([themeTokens.length]);
+    expect(counts(colorDocs, /the custom property names of those (\d+) tokens/g), 'docs/color.md').toEqual([themeTokens.length]);
+  });
+
+  it('names every token for its job: no shadow scale, ring or elevation', () => {
+    const names = [...new Set([...stripComments(tokensCss).matchAll(/(--mu-[\w-]+)\s*:/g)].map(([, name = '']) => name))];
+    // A name that only says how a thing looks (`shadow-sm`, `ring`) ends up shared by parts with different jobs.
+    const generic = /^--mu-(ring|elevation)(-|$)|^--mu-shadow-(xs|sm|md|lg|xl|\dxl|base|inner|none|\d+)$/;
+    expect(names.filter((name) => generic.test(name))).toEqual([]);
+    // The five shadows are the five depth roles in docs/depth.md, and nothing else.
+    const shadows = [...depthDocs.matchAll(/^\| `(shadow-[\w-]+)` \|/gm)].map(([, name = '']) => `--mu-${name}`);
+    expect(names.filter((name) => name.startsWith('--mu-shadow-')).sort()).toEqual([...shadows].sort());
   });
 
   it('matches the font stacks in docs/typography.md', () => {

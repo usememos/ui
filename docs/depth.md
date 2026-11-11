@@ -24,6 +24,7 @@ Each depth class applies a whole role in one class. Use them for new parts befor
 ## Rules
 
 - Light always comes from the top.
+- A shadow is named for the role it gives a part: `shadow-track`, `shadow-key`, `shadow-raised`, `shadow-pressed` and `shadow-pop`. There is no size scale (`shadow-sm`, `shadow-md`, `shadow-lg`) and no `elevation` or `ring` token. A new depth is a new role with its own name and rule, not a step between two shadows.
 - Text entry is flat: an input is `surface` with an `edge`, never a gray well, so it never reads as disabled next to a key.
 - A checked box or radio holds a value, so it is a flat `primary` fill, not a raised key. Only things you press are raised.
 - **One rule for "selected".** A single choice among peers (tabs, a segmented filter) is a raised key sliding in a well. An on/off state (a toolbar toggle) is pressed into a well. Never mix the two in one row.

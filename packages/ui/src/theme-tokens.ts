@@ -1,5 +1,5 @@
 /**
- * The custom properties an app theme sets: the 26 color tokens in
+ * The custom properties an app theme sets: the 27 color tokens in
  * docs/color.md and the five shadow tokens in docs/depth.md. A token a theme
  * leaves out keeps its Light value, so an app's tests can check its theme
  * against this list. See docs/color.md#app-themes.
