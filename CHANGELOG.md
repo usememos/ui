@@ -2,6 +2,12 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
+## Unreleased
+
+### Visual changes
+
+- **The smallest text is 11px, not 12px.** `label-xs` and `caption-xs` are 11 / 16px (were 12 / 16px), and the xs size row's `--mu-row-font-size` is 11px. This is the text of every 20px part: Badge, Kbd, the labels of xs Buttons, Toggles, ToggleGroups, Checkboxes, Radios and Switches, and the initials of an xs Avatar. Heights, padding, the 16px line and the 12px icons are unchanged, so nothing moves; only the letters are smaller. The reason: 12px was 1px under the 13px `caption` text beside it, a step too small to see, so xs parts did not read as smaller. The type scale is now 11, 13, 14, 16 and 20px. An app's own element that uses `mu-label-xs`, `mu-caption-xs`, `badgeClasses()` or the xs row follows.
+
 ## 26.11.9
 
 Published 7 November 2026.

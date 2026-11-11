@@ -6,7 +6,7 @@ Every control takes one `size` prop: `xs`, `sm` or `md` (the default). There is 
 
 | Size | Height | Padding | Icon | Icon gap | Text | Radius | Check box |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| xs | `control-xs` 20px | 6px | 12px | 4px | 12 / 16px | `radius-sm` 4px | 14px |
+| xs | `control-xs` 20px | 6px | 12px | 4px | 11 / 16px | `radius-sm` 4px | 14px |
 | sm | `control-sm` 24px | 8px | 14px | 4px | 13 / 18px | `radius-sm` 4px | 16px |
 | md (default) | `control-md` 32px | 12px | 16px | 6px | 14 / 20px | `radius-md` 6px | 18px |
 

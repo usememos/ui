@@ -25,9 +25,9 @@
   --mu-row-height: var(--mu-control-xs);
   --mu-row-padding: 6px;
   --mu-row-padding-icon: var(--mu-space-1);
-  --mu-row-font-size: 12px;
+  --mu-row-font-size: 11px;
   --mu-row-line-height: 16px;
-  --mu-row-field-font-size: 12px;
+  --mu-row-field-font-size: 11px;
   --mu-row-field-line-height: 16px;
   --mu-row-radius: var(--mu-radius-sm);
   --mu-row-gap: var(--mu-space-1);
@@ -112,9 +112,9 @@
 .mu-icon-md { --mu-row-icon: var(--mu-icon-md); --mu-row-icon-stroke: var(--mu-icon-stroke); }
 
 /* Type scale. See docs/typography.md. */
-/* App text uses four sizes and two weights; 12px is for the text of 20px parts only; 32px is for a website hero only. Titles and headings balance their lines. */
-.mu-label-xs { font-family: var(--mu-font-sans); font-size: 12px; line-height: 16px; font-weight: 500; }
-.mu-caption-xs { font-family: var(--mu-font-sans); font-size: 12px; line-height: 16px; font-weight: 400; }
+/* App text uses four sizes and two weights; 11px is for the text of 20px parts only; 32px is for a website hero only. Titles and headings balance their lines. */
+.mu-label-xs { font-family: var(--mu-font-sans); font-size: 11px; line-height: 16px; font-weight: 500; }
+.mu-caption-xs { font-family: var(--mu-font-sans); font-size: 11px; line-height: 16px; font-weight: 400; }
 .mu-caption { font-family: var(--mu-font-sans); font-size: 13px; line-height: 18px; font-weight: 400; }
 .mu-label-sm { font-family: var(--mu-font-sans); font-size: 13px; line-height: 18px; font-weight: 500; }
 .mu-body { font-family: var(--mu-font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }

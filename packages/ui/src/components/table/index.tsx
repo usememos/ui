@@ -54,7 +54,7 @@ export interface HeadProps extends ComponentPropsWithoutRef<'th'> {
   num?: boolean;
 }
 
-/** A column header, `<th scope="col">` in 12px `ink-muted`. */
+/** A column header, `<th scope="col">` in 13px `ink-muted`. */
 export const Head = forwardRef<HTMLTableCellElement, HeadProps>(function TableHead({ num = false, scope = 'col', className, ...props }, ref) {
   return <th ref={ref} scope={scope} {...props} className={cx('mu-table-head mu-label-sm', num && 'mu-table-num', className)} />;
 });

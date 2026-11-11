@@ -180,14 +180,14 @@ test('Badge: color tints the fill and keeps ink text; without it the fill is wel
   expect(fill).toMatch(/^(oklch|color\(srgb|rgba)/);
 });
 
-test('Badge: a pill in regular 12px text, padded 2px past the xs row so the text clears the round ends', async ({ page }) => {
+test('Badge: a pill in regular 11px text, padded 2px past the xs row so the text clears the round ends', async ({ page }) => {
   await open(page);
   for (const badge of await page.locator('#badge .mu-badge').all()) {
     await expect(badge).toHaveCSS('border-top-left-radius', '9999px');
     await expect(badge).toHaveCSS('padding-left', '8px');
     await expect(badge).toHaveCSS('padding-right', '8px');
     await expect(badge).toHaveCSS('height', '20px');
-    await expect(badge).toHaveCSS('font-size', '12px');
+    await expect(badge).toHaveCSS('font-size', '11px');
     await expect(badge).toHaveCSS('font-weight', '400');
   }
 });

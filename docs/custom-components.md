@@ -73,12 +73,12 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-focus` | The ink focus ring on `:focus-visible`, 1px outside the edge | Anything focusable |
 | `mu-hit` | An invisible 44px touch target on `pointer: coarse` | Anything pressable smaller than 44px |
 | `mu-icon` | Icon size and stroke from the nearest size row, 16px outside one | A Lucide icon inside an app's own row |
-| `mu-icon-xs` | A 12px icon with a 1.25px stroke | A Lucide icon beside 12px or 13px text, outside a control |
+| `mu-icon-xs` | A 12px icon with a 1.25px stroke | A Lucide icon beside 11px or 13px text, outside a control |
 | `mu-icon-sm` | A 14px icon with a 1.25px stroke | A Lucide icon beside 13px or 14px text, outside a control |
 | `mu-icon-md` | A 16px icon with a 1.25px stroke | A Lucide icon beside 14px or 16px text, outside a control |
 | `mu-visually-hidden` | Hidden on screen, read by screen readers | Text for screen readers only |
-| `mu-label-xs` | 12 / 16px, 500 | Labels of 20px controls and kbd |
-| `mu-caption-xs` | 12 / 16px, 400 | Text of 20px labels (badges) |
+| `mu-label-xs` | 11 / 16px, 500 | Labels of 20px controls and kbd |
+| `mu-caption-xs` | 11 / 16px, 400 | Text of 20px labels (badges) |
 | `mu-caption` | 13 / 18px, 400 | Secondary text |
 | `mu-label-sm` | 13 / 18px, 500 | Small labels |
 | `mu-body` | 14 / 20px, 400 | Body text |
@@ -96,9 +96,9 @@ A size row class sets these variables on its element, and children inherit them.
 | `--mu-row-height` | 20px | 24px | 32px |
 | `--mu-row-padding` | 6px | 8px | 12px |
 | `--mu-row-padding-icon` | 4px | 6px | 10px |
-| `--mu-row-font-size` | 12px | 13px | 14px |
+| `--mu-row-font-size` | 11px | 13px | 14px |
 | `--mu-row-line-height` | 16px | 18px | 20px |
-| `--mu-row-field-font-size` | 12px | 13px | 14px |
+| `--mu-row-field-font-size` | 11px | 13px | 14px |
 | `--mu-row-field-line-height` | 16px | 18px | 20px |
 | `--mu-row-radius` | 4px | 4px | 6px |
 | `--mu-row-gap` | 4px | 4px | 6px |
