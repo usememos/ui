@@ -76,7 +76,7 @@ describe('color contrast', () => {
   });
 
   for (const theme of themes) {
-    it(`keeps control boundaries at 3:1 or more in ${theme}`, () => {
+    it(`keeps control-edge at 3:1 or more in ${theme}`, () => {
       for (const background of ['canvas', 'surface']) {
         expect(contrast(table.get('control-edge')![theme], table.get(background)![theme]), background).toBeGreaterThanOrEqual(3);
       }

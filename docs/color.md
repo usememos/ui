@@ -7,14 +7,14 @@ Memos UI is ink on paper: pure-gray neutrals, `primary` ink for emphasis, one qu
 | Role | Tokens | Used for |
 | --- | --- | --- |
 | Surfaces | `canvas`, `surface`, `overlay` | The page; then inputs, menus, dialogs and toasts one step up. `overlay` dims the page behind dialogs |
-| Wells | `well`, `control-edge` | Switch, tab, checkbox and radio wells, pressed toggles, inline code. `control-edge` is the 1px boundary of controls |
+| Wells | `well` | Switch tracks, segmented groups, unchecked boxes and radios, pressed toggles, inline code |
 | Hover | `hover` | Rows, ghost buttons, the highlighted menu row. About 4% ink over surface |
 | Keys | `key`, `key-hover` | Neutral buttons, select triggers, the selected tab, switch knobs, kbd |
 | Text | `text`, `text-secondary`, `text-disabled` | Primary, secondary and disabled text. Each keeps 4.5:1 on the backgrounds named in the token table below |
 | Emphasis | `primary`, `primary-hover`, `on-primary` | Primary button, checked checkbox and radio, switch when on, tooltip |
 | Meta | `accent`, `selection`, `focus`, `focus-edge` | Links and text selection (`accent`); the keyboard focus edge and the focused field edge (`focus`, `focus-edge`, both ink). Never a fill |
 | Status | `success`, `warning`, `danger` and their `-soft` pairs; `danger-key`, `on-danger` | Toasts, badges, field errors, danger buttons |
-| Lines | `edge`, `line` | Popup and badge borders; separators, table rules and menu dividers |
+| Lines | `edge`, `control-edge`, `line` | Quiet borders on popups, badges, selects and switches; stronger boundaries on fields, buttons, checkboxes and radios; separators and table rules |
 
 ## Rules
 
@@ -34,7 +34,7 @@ There are two themes: **Light** (the default) and **Dark**.
 - `text`, `text-secondary` and `text-disabled` name content roles for text and icons, not fixed colors. App themes can set each one; they are not derived from `primary`.
 - Each theme sets every color token explicitly. The package's tests check the values against the table on this page and check the contrast promised here.
 - Dark keeps the same flat surface roles. Wells and keys are distinct gray fills, and `primary` flips to near-white with a dark `on-primary`.
-- Control boundaries use `control-edge`, at least 3:1 against `canvas` and `surface` in both themes. `edge` stays softer for popup and badge borders; `line` separates content. Never substitute a structural line for a control boundary.
+- Fields, neutral buttons, checkboxes and radios use `control-edge`, at least 3:1 against `canvas` and `surface` in both themes. Selects and switches use the quieter `edge` at rest. Segmented groups and their selected keys use fills without visible borders. Focus remains a strong edge; `line` separates content.
 
 ### Choosing a theme
 
@@ -88,12 +88,12 @@ An app can offer more themes than the two the package ships, such as a warm Pape
 | --- | --- | --- | --- |
 | `canvas` | `#fafafa` | `#0f0f0f` | Page background |
 | `surface` | `#ffffff` | `#1a1a1a` | One lightness step above canvas: inputs, menus, popovers, dialogs, toasts, table headers |
-| `well` | `#e4e4e4` | `#252525` | Flat parts that hold a state: switch, tab, checkbox and radio wells, pressed toggles, inline code. Paired with `control-edge`. Not for enabled text entry |
+| `well` | `#e4e4e4` | `#252525` | Flat parts that hold a state: switch, tab, checkbox and radio wells, pressed toggles, inline code. A boundary is added only where the component needs one. Not for enabled text entry |
 | `hover` | `#ececec` | `#252525` | Hover on rows, ghost buttons and wells; the highlighted row in menus and selects |
-| `key` | `#ffffff` | `#343434` | Controls and selected parts: neutral buttons, select triggers, the selected tab, switch knobs, kbd. Flat, with `control-edge` where a boundary is needed |
+| `key` | `#ffffff` | `#343434` | Controls and selected parts: neutral buttons, select triggers, the selected tab, switch knobs, kbd. Flat: buttons use `control-edge`, selects use `edge`, selected segments use fill only |
 | `key-hover` | `#fafafa` | `#3c3c3c` | Hover on a neutral key |
-| `edge` | `#d0d0d0` | `#343434` | Quiet borders of popups, badges and disabled controls |
-| `control-edge` | `#909090` | `#777777` | Boundaries of fields, buttons and selection controls; at least 3:1 on `canvas` and `surface` |
+| `edge` | `#d0d0d0` | `#343434` | Quiet borders of popups, badges, selects, switch tracks and disabled controls |
+| `control-edge` | `#909090` | `#777777` | Boundaries of fields, neutral buttons, checkboxes and radios; at least 3:1 on `canvas` and `surface` |
 | `line` | `#dedede` | `#252525` | Separators, table rules and menu dividers. 1.25:1 in Light, so structural lines also need spacing or a heading |
 | `overlay` | `rgba(0,0,0,0.32)` | `rgba(0,0,0,0.6)` | Backdrop behind dialogs and sheets |
 | `text` | `#1a1a1a` | `#ededed` | Primary text and icons on canvas, surface, well and key (13:1 or more in both themes) |

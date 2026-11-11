@@ -10,6 +10,22 @@ const contentPosition = (control: Locator) => control.evaluate((element) => {
 });
 
 for (const theme of themes) {
+  test(`view options use quiet resting boundaries in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    await page.locator('#popover').getByRole('button', { name: 'View options' }).click();
+    const popup = page.locator('.mu-popover-popup');
+    const edge = theme === 'light' ? 'rgb(208, 208, 208)' : 'rgb(52, 52, 52)';
+    await expect(popup.getByRole('combobox')).toHaveCSS('border-top-color', edge);
+    const off = page.locator('#switch .mu-switch:not([data-checked], [data-disabled])');
+    await expect(off).toHaveCSS('border-top-color', edge);
+    const group = popup.locator('.mu-segmented');
+    await expect(group).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+    const key = group.locator('.mu-segmented-key');
+    await expect(key).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+    const fill = await group.evaluate((element) => getComputedStyle(element).backgroundColor);
+    await expect(key).not.toHaveCSS('background-color', fill);
+  });
+
   test(`focus stays visible within flat controls in ${theme}`, async ({ page }) => {
     await open(page, { theme });
     await page.keyboard.press('Tab');
@@ -23,7 +39,10 @@ for (const theme of themes) {
       '#radio-group .mu-radio[data-checked]',
       '#switch .mu-switch:not([data-checked])',
       '#switch .mu-switch[data-checked]',
+      '#select .mu-select-trigger.mu-button-neutral',
+      '#select .mu-select-trigger.mu-button-ghost',
       '#toggle .mu-toggle[data-pressed]',
+      '#toggle-group .mu-segmented .mu-toggle',
       '#tabs .mu-tabs-tab',
       '#list .mu-list-item-button',
       '#combobox .mu-combobox-trigger',
@@ -120,4 +139,7 @@ test('focus borders and switch knobs survive forced colors', async ({ page }) =>
     const track = await control.evaluate((element) => getComputedStyle(element).backgroundColor);
     await expect(control.locator('.mu-switch-thumb')).not.toHaveCSS('background-color', track);
   }
+  const key = page.locator('#toggle-group [aria-label="Show"] .mu-segmented-key');
+  const fill = await key.evaluate((element) => getComputedStyle(element).backgroundColor);
+  await expect(key).not.toHaveCSS('border-top-color', fill);
 });

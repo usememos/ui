@@ -6,8 +6,8 @@ The interface is flat. Fills identify controls and state; borders separate adjac
 
 | Role | Class | Used for | Treatment |
 | --- | --- | --- | --- |
-| Well | `mu-well` | Switch tracks, tab groups, unchecked boxes and radios, pressed toggles | `well` with a 1px `control-edge` |
-| Key | `mu-key` | Neutral buttons, select triggers, selected tabs, switch knobs, kbd | `key` with a 1px `control-edge` where a boundary is needed |
+| Well | `mu-well` | Unchecked boxes and radios, pressed toggles | `well` with a 1px `control-edge` |
+| Key | `mu-key` | Bounded controls, such as neutral buttons | `key` with a 1px `control-edge` where a boundary is needed |
 | Popup | `mu-popup` | Menus, popovers, dialogs and toasts | `surface`, a 1px `edge` and `radius-xl` |
 | Content | none | Text fields and content | Fields use `surface` and `control-edge`; content has no enclosing box |
 
@@ -18,7 +18,8 @@ Use these classes before writing new surface styles. `mu-key` covers both a cont
 - No `box-shadow`, `text-shadow`, sheen gradients, focus rings or visible `outline`. `outline: none` or `0` only suppresses a browser outline when another visible focus treatment exists.
 - Text entry keeps its `surface` fill on hover and focus. Enabled fields never use a gray well; disabled fields use `well` with `text-disabled` text.
 - A checked checkbox or radio uses `primary` with an `on-primary` mark. A switch also moves its knob.
-- A single choice among peers uses a contrasting selected fill in a well. An independent on/off toggle uses `well` and an `edge` when on.
+- Select triggers and switch tracks use a quiet `edge` at rest; focus still thickens to a strong contrasting border.
+- A single choice among peers uses a contrasting selected fill in a well. Neither the group nor its selected key has a visible border at rest; transparent borders reserve space, so geometry stays fixed. In forced colors the selected key gains a text-colored border. An independent on/off toggle uses `well` and an `edge` when on.
 - Floating surfaces have a border so they remain distinct over the same surface color. Modal backdrops still use `overlay`.
 - Content is grouped by spacing, headings and separators. The boxed exceptions are List, bordered Table and bordered Form.
 - Borders count toward the documented padding. Reserve their space and compensate inner padding so states never move text or change a control's size.

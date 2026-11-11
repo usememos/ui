@@ -4,6 +4,14 @@ Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"
 
 ## Unreleased
 
+### Visual changes
+
+- **Selects, switches and segmented choices have quieter resting boundaries.** Select triggers and switch tracks use `edge` instead of `control-edge`. Tabs and single-choice ToggleGroups use contrasting group and selected fills without visible borders at rest. Keyboard focus stays strong, and selection remains bordered in forced colors. Heights, padding and token values are unchanged.
+
+## 26.11.10
+
+Published 11 November 2026.
+
 ### State clarity
 
 - **Focus is easier to see.** Keyboard focus thickens the control's own boundary to 2px without moving text or changing its size. Shadows, rings and visible outlines remain absent.

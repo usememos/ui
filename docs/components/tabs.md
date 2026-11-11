@@ -48,6 +48,6 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange` on the ro
 
 ## Style
 
-- Shares the segmented well and sliding key with a single-choice ToggleGroup.
+- Shares the segmented well and sliding key with a single-choice ToggleGroup. Grouping and selection use fills without visible borders at rest; keyboard focus retains the strong item border. In forced colors the selected key has a text-colored border.
 - Tabs are sized to their labels. The key re-measures when a label changes width.
 - Selected and hovered labels `text`, others `text-secondary`. Weight never changes, so labels don't shift.

@@ -7,7 +7,7 @@ Every interactive component handles these states the same way.
 | Hover | Keys go to `key-hover`. Rows, ghost buttons and wells go to `hover`. An input's edge goes to `text-secondary`. Muted labels go to `text`. Primary keys go to `primary-hover` |
 | Pressed (while held) | Buttons move down 0.5px and change fill; neutral and ghost buttons use `well`, primary uses `primary-hover`, danger darkens its fill |
 | Pressed toggle (on) | Uses `well` with an `edge` and the `text` color |
-| Selected (one of several) | A flat `key` fill with an edge in a well that slides to the chosen item |
+| Selected (one of several) | A flat `key` fill in a well that slides to the chosen item; no visible group or selected-key border at rest |
 | Checked | A flat `primary` fill with an `on-primary` mark |
 | Loading | The control becomes inert at once. After 300ms it hides its label and shows a Spinner without changing size; short waits keep the label |
 | Disabled | `text-disabled` text, quiet borders and `well` on filled controls; no whole-control opacity, hover or press response |

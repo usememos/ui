@@ -13,7 +13,7 @@
   padding: calc(var(--mu-inset) - 1px);
   border-radius: var(--mu-row-radius);
   background-color: var(--mu-well);
-  border: 1px solid var(--mu-control-edge);
+  border: 1px solid transparent;
 }
 
 /* The key: drawn first, so the items paint above it. */
@@ -26,7 +26,7 @@
   translate: var(--key-left) 0;
   border-radius: calc(var(--mu-row-radius) - var(--mu-inset));
   box-sizing: border-box;
-  border: 1px solid var(--mu-control-edge);
+  border: 1px solid transparent;
   background-color: var(--mu-key);
   transition: translate var(--mu-duration-settle) var(--mu-ease-settle), width var(--mu-duration-settle) var(--mu-ease-settle);
 }
@@ -64,6 +64,10 @@
 .mu-tabs-root { display: flex; flex-direction: column; gap: var(--mu-space-4); }
 .mu-tabs-list { align-self: flex-start; }
 .mu-tabs-panel { border: var(--mu-focus-edge-width) solid transparent; border-radius: var(--mu-radius-sm); }
+
+@media (forced-colors: active) {
+  .mu-segmented-key { forced-color-adjust: none; background-color: transparent; border-color: var(--mu-key); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .mu-segmented-key { transition: none; }

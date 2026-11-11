@@ -38,6 +38,7 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
   { name: 'combobox', open: (page) => page.getByRole('combobox', { name: 'Tag', exact: true }).fill('de'), shot: (page) => page.locator('.mu-combobox-popup') },
   { name: 'select', open: (page) => page.locator('#select').getByRole('combobox').nth(1).click(), shot: (page) => page.locator('.mu-select-popup') },
   { name: 'popover', open: (page) => page.locator('#popover').getByRole('button', { name: 'Share' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
+  { name: 'popover-view', open: (page) => page.locator('#popover').getByRole('button', { name: 'View options' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'popover-list', open: (page) => page.locator('#popover').getByRole('button', { name: 'Account' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'menu-description', open: (page) => page.locator('#menu').getByRole('button', { name: 'Visibility' }).click(), shot: (page) => page.getByRole('menu') },
   { name: 'dialog-bare', open: (page) => page.getByRole('button', { name: 'Quick find' }).click(), shot: (page) => page.getByRole('dialog') },

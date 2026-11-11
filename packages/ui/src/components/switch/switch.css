@@ -13,7 +13,7 @@
   padding: calc(var(--mu-inset) - var(--mu-control-border-width));
   border-radius: var(--mu-radius-full);
   background-color: var(--mu-well);
-  border: var(--mu-control-border-width) solid var(--mu-control-edge);
+  border: var(--mu-control-border-width) solid var(--mu-edge);
   cursor: pointer;
   transition: background-color var(--mu-duration-settle) var(--mu-ease-settle), border-color var(--mu-duration-settle) var(--mu-ease-settle);
 }
