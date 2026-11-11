@@ -44,7 +44,8 @@
 .mu-dialog-full > .mu-dialog-popup { width: 100%; height: 100%; border-radius: 0; }
 
 .mu-dialog-title { margin: 0; color: var(--mu-ink); }
-.mu-dialog-description { margin: calc(-1 * var(--mu-space-2)) 0 0; color: var(--mu-ink-muted); }
+/* The description sits space-1 under the title: the popup's gap less space-3. */
+.mu-dialog-description { margin: calc(-1 * var(--mu-space-3)) 0 0; color: var(--mu-ink-muted); }
 .mu-dialog-x { position: absolute; top: var(--mu-space-4); right: var(--mu-space-4); }
 .mu-dialog-footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--mu-space-2); margin-top: var(--mu-space-2); }
 

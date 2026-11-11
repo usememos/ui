@@ -55,7 +55,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `onOpenChan
 ## Style
 
 - `surface` with `shadow-pop`, full height and `drawer-width` (320px) wide from the start or end edge, with a 1px `line` edge on its inner side (the side facing the page), as a fixed sidebar has, at most the screen width minus `space-12`. Square corners; from the bottom it is full width with `radius-2xl` top corners and at most the screen height minus `space-6`.
-- `panel`: content `space-5` in, stacked `space-4` apart; the X is a small ghost Button at `space-4` from the top end corner. Title: `title`. Description: `body` in `ink-muted`.
+- `panel`: content `space-5` in, stacked `space-4` apart, as in a Dialog; the X is a small ghost Button at `space-4` from the top end corner. Title: `title`. Description: `body` in `ink-muted`, `space-1` under the title.
 - `bare`: no padding, gap or X. A visually hidden `Drawer.Close` named `closeLabel` follows the content, so screen readers on touch screens can close it.
 - The backdrop is `overlay`; it fades as the drawer is swiped away.
 - Slides in from its edge over `duration-settle` with `ease-settle` and follows the finger while swiped. Under reduced motion it fades instead.

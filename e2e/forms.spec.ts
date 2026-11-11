@@ -80,6 +80,14 @@ test('RadioGroup: a horizontal legend sits above the radios', async ({ page }) =
   expect(radio.y).toBeGreaterThanOrEqual(legend.y + legend.height);
 });
 
+test('Fieldset: the legend sits 8px above its options, closer than the 12px between them', async ({ page }) => {
+  await open(page);
+  const fieldset = page.locator('#field').getByRole('group', { name: 'Notifications' });
+  const [legend, first, second] = await Promise.all([fieldset.locator('.mu-fieldset-legend').boundingBox(), fieldset.locator('.mu-field-root').nth(0).boundingBox(), fieldset.locator('.mu-field-root').nth(1).boundingBox()]);
+  expect(Math.round(first!.y - (legend!.y + legend!.height))).toBe(8);
+  expect(Math.round(second!.y - (first!.y + first!.height))).toBe(12);
+});
+
 test('Field: clicking the label toggles its checkbox, unless disabled', async ({ page }) => {
   await open(page);
   const checkbox = page.getByRole('checkbox', { name: 'Weekly digest' });

@@ -50,4 +50,4 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange`, `disable
 ## Style
 
 - Each radio is a round well; the chosen one is a flat `primary` circle with an `on-primary` dot.
-- Vertical: `space-3` apart. Horizontal: `space-4` apart, with the legend on its own line above.
+- Vertical: `space-3` apart. Horizontal: `space-4` apart, with the legend on its own line above. The legend sits `space-2` above the radios.

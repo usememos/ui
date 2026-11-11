@@ -51,7 +51,8 @@
 .mu-drawer-popup:where(:has(> .mu-drawer-x)) > .mu-drawer-content > .mu-drawer-title { padding-inline-end: var(--mu-space-6); }
 
 .mu-drawer-title { margin: 0; color: var(--mu-ink); }
-.mu-drawer-description { margin: calc(-1 * var(--mu-space-2)) 0 0; color: var(--mu-ink-muted); }
+/* The description sits space-1 under the title: the content's gap less space-3. */
+.mu-drawer-description { margin: calc(-1 * var(--mu-space-3)) 0 0; color: var(--mu-ink-muted); }
 .mu-drawer-x { position: absolute; top: var(--mu-space-4); inset-inline-end: var(--mu-space-4); }
 
 /* Under reduced motion the drawer fades instead of sliding. */

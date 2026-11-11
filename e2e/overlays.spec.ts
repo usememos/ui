@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 import { expectNoAxeViolations, open, themes } from './helpers';
 
 const moreActions = (page: Page) => page.locator('#menu').getByRole('button', { name: 'More actions' });
@@ -165,6 +165,25 @@ test('Dialog: the X closes it', async ({ page }) => {
   await page.getByRole('button', { name: 'Create access token' }).click();
   await page.getByRole('dialog').getByRole('button', { name: 'Close' }).click();
   await expect(page.getByRole('dialog')).toBeHidden();
+});
+
+test('Dialog and Drawer: the description sits 4px under the title, and blocks stack 16px apart', async ({ page }) => {
+  await open(page);
+  /** The space between the bottom of one part and the top of the next. */
+  const gap = async (above: Locator, below: Locator) => {
+    const [a, b] = await Promise.all([above.boundingBox(), below.boundingBox()]);
+    return Math.round(b!.y - (a!.y + a!.height));
+  };
+  for (const trigger of ['Create access token', 'Note details']) {
+    await page.getByRole('button', { name: trigger }).click();
+    const dialog = page.getByRole('dialog');
+    const description = dialog.locator('.mu-dialog-description, .mu-drawer-description');
+    await expect(dialog).toBeVisible();
+    expect(await gap(dialog.getByRole('heading'), description)).toBe(4);
+    expect(await gap(description, dialog.locator('.mu-field-root').first())).toBe(16);
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+  }
 });
 
 test('AlertDialog: a backdrop click does not close it; Cancel does', async ({ page }) => {

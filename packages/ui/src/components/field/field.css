@@ -37,4 +37,5 @@
 .mu-field-error > .mu-icon { --mu-row-icon: var(--mu-icon-sm); margin-block: calc((1lh - var(--mu-icon-sm)) / 2); }
 
 .mu-fieldset-root { display: flex; flex-direction: column; gap: var(--mu-space-3); min-width: 0; margin: 0; padding: 0; border: 0; }
-.mu-fieldset-legend { margin-bottom: var(--mu-space-1); padding: 0; color: var(--mu-ink); }
+/* The legend sits space-2 above its options, closer than they are to each other: the root's gap less space-1. */
+.mu-fieldset-legend { margin-bottom: calc(-1 * var(--mu-space-1)); padding: 0; color: var(--mu-ink); }
