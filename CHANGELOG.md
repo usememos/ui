@@ -7,6 +7,7 @@ Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"
 ### Visual changes
 
 - **The smallest text is 11px, not 12px.** `label-xs` and `caption-xs` are 11 / 16px (were 12 / 16px), and the xs size row's `--mu-row-font-size` is 11px. This is the text of every 20px part: Badge, Kbd, the labels of xs Buttons, Toggles, ToggleGroups, Checkboxes, Radios and Switches, and the initials of an xs Avatar. Heights, padding, the 16px line and the 12px icons are unchanged, so the parts keep their size and only the letters are smaller. A line of text with a Kbd or Badge inside it can become 1px taller, because the part's text baseline moved. The reason: 12px was 1px under the 13px `caption` text beside it, a step too small to see, so xs parts did not read as smaller. The type scale is now 11, 13, 14, 16 and 20px. An app's own element that uses `mu-label-xs`, `mu-caption-xs`, `badgeClasses()` or the xs row follows.
+- **The `display` style adds no letter spacing.** `.mu-display`, the 32px hero headline of a website, no longer sets −0.02em. The system fonts set their own letter spacing at each size, and San Francisco is already tuned at 32px, so the extra value made the headline tighter than the platform intends. Every type style now has letter spacing 0. An app that wants a tighter hero sets `letter-spacing` on that element.
 
 ## 26.11.9
 

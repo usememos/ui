@@ -124,15 +124,15 @@ describe('foundation.css', () => {
     const rows = tableRows(scaleDocs);
     expect(rows).toHaveLength(9);
     for (const row of rows) {
-      const [name = '', sizes = '', weight, spacing] = row;
+      const [name = '', sizes = '', weight] = row;
       const style = unquote(name);
       const [size, line] = sizes.replace('px', '').split('/').map((part) => `${part.trim()}px`);
       const declarations = rule(styleRules, `.mu-${style}`);
       expect(declarations.get('font-size'), style).toBe(size);
       expect(declarations.get('line-height'), style).toBe(line);
       expect(declarations.get('font-weight'), style).toBe(weight);
-      // Heading rows have five cells: they also list letter spacing, with a typographic minus.
-      if (row.length === 5) expect(declarations.get('letter-spacing') ?? '0', style).toBe(spacing?.replace('−', '-'));
+      // No style adds letter spacing: the system fonts set their own at each size.
+      expect(declarations.get('letter-spacing') ?? '0', style).toBe('0');
       // System fonts have no shared variation axes, so no style sets any.
       expect(declarations.has('font-variation-settings'), style).toBe(false);
     }

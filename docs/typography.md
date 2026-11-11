@@ -2,6 +2,7 @@
 
 ## Rules
 
+- Font decisions follow Apple's [typography guidelines](https://developer.apple.com/design/human-interface-guidelines/typography): the system font, no weight lighter than Regular, hierarchy from color, weight and size, no text under its 11pt minimum for iPhone, and no added letter spacing. The package follows these rules; it does not copy Apple's size tables, which differ per platform (13pt text on Mac, 17pt on iPhone). One set of sizes serves every device, and text does not grow on touch screens, except typed text in fields (see the last rule).
 - Use few sizes and few weights. App text uses four sizes (13, 14, 16 and 20px) and two weights (400 and 500); 11px is only for the text of 20px parts (see `label-xs` and `caption-xs`). Hierarchy comes from text color, spacing and grouping first, then from weight, and from size last.
 - Weight 400 is for running text, values people typed or chose, and badge text (a badge's tone and fill carry its weight). Weight 500 is for labels, controls, titles and headings. The UI uses no 600 or 700. The one exception is [Prose](components/prose.md): bold text and headings that people wrote are 600, because 500 does not read as bold in system fonts.
 - 20px (`heading`) is for the page title only, once per page. 32px (`display`) is for the hero headline on a website only, once per page. Nothing else in the UI is larger than 16px, and 16px is only for `title` and Prose text. Headings that people write inside Prose have their own sizes (see [Prose](#prose)).
@@ -9,7 +10,7 @@
 - Secondary text (descriptions, helper text, metadata) is `caption` (13px) in `ink-muted`. No text is smaller than 13px, except `label-xs` and `caption-xs` inside 20px parts.
 - Control text scales with the control size: 11px at xs, 13px at sm, 14px at md.
 - Reading text (`Prose`) is 16px on a 24px line. `sm` prose is 14px on a 22px line, for dense lists.
-- Letter spacing is 0, except −0.02em for `display`.
+- Letter spacing is 0 for every style, `display` included. The system fonts set their own letter spacing at each size, so adding more makes text tighter or looser than the platform intends.
 - Use `font-variant-numeric: tabular-nums` wherever numbers change or line up: counts, times, tables.
 - Selected and unselected states never change weight, so labels don't shift.
 - Adding a size, a weight or a style needs a written reason in this page and the maintainer's sign-off.
@@ -44,13 +45,13 @@ Nine styles over six sizes. 11, 13 and 14px each have a 400 style for text and a
 
 ### Headings (`--mu-font-display`)
 
-| Style | Size / line | Weight | Letter spacing | Usage |
-| --- | --- | --- | --- | --- |
-| `title` | 16 / 24px | 500 | 0 | Dialog titles; empty-state titles |
-| `heading` | 20 / 28px | 500 | 0 | The page title in an app or on a website. One per page |
-| `display` | 32 / 40px | 500 | −0.02em | The hero headline on a website. Never in an app |
+| Style | Size / line | Weight | Usage |
+| --- | --- | --- | --- |
+| `title` | 16 / 24px | 500 | Dialog titles; empty-state titles |
+| `heading` | 20 / 28px | 500 | The page title in an app or on a website. One per page |
+| `display` | 32 / 40px | 500 | The hero headline on a website. Never in an app |
 
-Each style is also a class with the `mu-` prefix (`.mu-caption`, `.mu-heading`) in `@usememos/ui/styles.css`, which sets the family, size, line height, weight and, where listed, letter spacing.
+Each style is also a class with the `mu-` prefix (`.mu-caption`, `.mu-heading`) in `@usememos/ui/styles.css`, which sets the family, size, line height and weight.
 
 ### Removed styles
 
