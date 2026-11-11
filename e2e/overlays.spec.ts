@@ -168,11 +168,14 @@ test('Dialog: the X closes it', async ({ page }) => {
 });
 
 test('Dialog and Drawer: the description sits 4px under the title, and blocks stack 16px apart', async ({ page }) => {
+  // A panel moves while it opens. With reduced motion it does not, and both parts are read in one
+  // call, so the gap never mixes two moments of that movement.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await open(page);
   /** The space between the bottom of one part and the top of the next. */
   const gap = async (above: Locator, below: Locator) => {
-    const [a, b] = await Promise.all([above.boundingBox(), below.boundingBox()]);
-    return Math.round(b!.y - (a!.y + a!.height));
+    const next = await below.elementHandle();
+    return above.evaluate((a, b) => Math.round(b!.getBoundingClientRect().top - a.getBoundingClientRect().bottom), next);
   };
   for (const trigger of ['Create access token', 'Note details']) {
     await page.getByRole('button', { name: trigger }).click();
