@@ -20,3 +20,21 @@ body { margin: 0; background: var(--mu-canvas); color: var(--mu-ink); font-famil
 .pg-list-record { display: flex; align-items: center; justify-content: space-between; gap: var(--mu-space-3); }
 .pg-list-url { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pg-section h3.mu-label { margin: 0; color: var(--mu-ink); }
+
+/* The reference screens: a page's own layout, with ladder steps only. See docs/layout.md#spacing and docs/patterns.md. */
+.pg-screen { box-sizing: border-box; display: flex; flex-direction: column; gap: var(--mu-space-6); max-width: 100%; padding: var(--mu-space-6); border: 1px solid var(--mu-line); border-radius: var(--mu-radius-xl); }
+.pg-screen-page { width: 640px; }
+.pg-screen-timeline { width: 560px; }
+/* space-1: a title and its description. */
+.pg-screen-head { display: flex; flex-direction: column; gap: var(--mu-space-1); }
+.pg-screen-head > p, .pg-screen-muted { margin: 0; color: var(--mu-ink-muted); }
+.pg-section .pg-screen h3.mu-heading, .pg-screen h4 { margin: 0; color: var(--mu-ink); }
+/* space-2 from a section title to its list, space-4 between two blocks of one section; the sections are space-6 apart. */
+.pg-screen-section { display: flex; flex-direction: column; gap: var(--mu-space-4); min-width: 0; }
+.pg-screen-section > h4 { margin-bottom: calc(-1 * var(--mu-space-2)); }
+/* space-2: controls side by side, and the lines of one entry; the entries are space-6 apart. */
+.pg-screen-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-2); }
+.pg-screen-composer, .pg-screen-entry { display: flex; flex-direction: column; gap: var(--mu-space-2); min-width: 0; }
+.pg-screen-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--mu-space-2); }
+.pg-screen-entry-head { display: flex; align-items: center; gap: var(--mu-space-2); color: var(--mu-ink-muted); }
+.pg-screen-spacer { flex: 1; }

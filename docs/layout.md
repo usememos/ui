@@ -18,27 +18,39 @@ Every control takes one `size` prop: `xs`, `sm` or `md` (the default). There is 
 
 ## Spacing
 
-Every spacing value comes from the 4px scale. The only exception is `inset` (2px), the gap between a well and the key inside it.
+Layout spacing comes from one ladder of nine steps, and each step has a job. Two rules decide every gap:
 
-- 0 inside a well.
-- 2px (`inset`) between items inside a cluster (a toolbar).
-- 8px between controls.
-- 16px between fields.
-- 24px between groups.
+- Closer means more related. A title is nearer to its own text than to the block before it.
+- A container's padding is never smaller than the gap between its blocks.
 
-| Token | Value | Usage |
-| --- | --- | --- |
-| `space-1` | 4px | Gap between sm controls; icon to text in sm; the label-to-control gap in a field |
-| `space-2` | 8px | Gap between md controls; sm horizontal padding |
-| `space-3` | 12px | md horizontal padding |
-| `space-4` | 16px | Padding inside popovers and toasts; gap between fields; page padding on phones |
-| `space-5` | 20px | Padding inside dialogs; space above Prose headings |
-| `space-6` | 24px | Gap between sections or entries inside a page; page padding on desktop |
-| `space-8` | 32px | Gap between page regions |
-| `space-12` | 48px | Section rhythm on a website |
-| `space-16` | 64px | Hero and footer padding on a website |
+| Token | Value | Job | Where |
+| --- | --- | --- | --- |
+| `space-1` | 4px | Parts of one thing | Label to control, title to description, control to hint; the gap between sm controls |
+| `space-2` | 8px | Controls side by side; a title to its list | Buttons in a row, tags, a section title to its List, a Fieldset legend to its options, the lines of an entry |
+| `space-3` | 12px | Rows in a set; blocks on a small surface | Options in a Fieldset or RadioGroup, blocks in a Popover or Toast |
+| `space-4` | 16px | Blocks in a container | Fields in a form, two blocks of one section; padding of popovers and boxed forms; page padding on phones |
+| `space-5` | 20px | Padding of big surfaces; above a Prose heading | Padding of dialogs and drawers; the space above a heading and around a rule in Prose. Nowhere else: between other things use 16 or 24 |
+| `space-6` | 24px | Groups | Sections and entries on a page, content to its footer; page padding on desktop |
+| `space-8` | 32px | Regions of a page | A page header band to the content, one column to the next |
+| `space-12` | 48px | Website sections | The rhythm between sections of a marketing page |
+| `space-16` | 64px | Website hero and footer | The padding of a hero or a footer |
 
-`space-8`, `space-12` and `space-16` are for an app's page layout. No component uses them.
+- `inset` (2px) is not a layout step. It is the gap between a well and the key inside it, and between items inside one cluster (a toolbar). Inside a well the gap is 0.
+- Inside a control the size row sets the spacing (see [Control sizes](#control-sizes)): 6px between an md icon and its text, 6px of padding at xs and in a menu, 2px less padding on a control's icon side. These are optical values of the control, not layout steps. Don't use 6px or 10px between things.
+- `space-8`, `space-12` and `space-16` are for an app's page layout. No component uses them.
+
+Every surface follows the same two tiers. Big surfaces pad `space-5` and stack `space-4`; small ones pad `space-4` and stack `space-3`.
+
+| Surface | Padding | Between blocks | Title to description | Content to footer |
+| --- | --- | --- | --- | --- |
+| Dialog, Drawer | 20px | 16px | 4px | 24px |
+| Form, `bordered` | 16px | 16px | 4px | 16px, then a footer bar |
+| Popover | 16px | 12px | 4px | |
+| Toast | 12px, 16px at the start | 12px | 0: one block of text | |
+| Fieldset | | 12px | 8px from the legend to its options | |
+| Field | | 4px between label, control and hint | | |
+
+The playground has two reference screens built only from these steps: a settings page and a timeline (`#screen-settings` and `#screen-timeline`, in `playground/screens.tsx`). The screenshot tests cover them, so a spacing change is judged on a whole screen, not only on one component. An app's pages copy their spacing.
 
 ## Radius
 

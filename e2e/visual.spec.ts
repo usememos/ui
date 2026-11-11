@@ -70,7 +70,9 @@ for (const theme of themes) {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await open(page, { theme, size });
       // At xs, only the sections with xs: the rest render at sm, as in the sm screenshots.
-      const ids = await page.locator(size === 'xs' ? 'main > section[id][data-xs]' : 'main > section[id]').evaluateAll((sections) => sections.map((section) => section.id));
+      // The reference screens are md at every size, so they are captured at md only.
+      const selector = size === 'xs' ? 'main > section[id][data-xs]' : size === 'sm' ? 'main > section[id]:not([data-screen])' : 'main > section[id]';
+      const ids = await page.locator(selector).evaluateAll((sections) => sections.map((section) => section.id));
       for (const id of ids) {
         await expect(page.locator(`#${id}`), id).toHaveScreenshot(`${id}-${theme}-${size}.png`, options);
       }

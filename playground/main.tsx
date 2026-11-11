@@ -5,6 +5,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import type { Size } from '@usememos/ui';
 import { Foundations } from './foundations';
+import { Screens } from './screens';
 import { rowSize, sections } from './sections';
 
 type Theme = 'light' | 'dark';
@@ -22,7 +23,7 @@ const theme = readParam('theme', themes, 'light');
 const size = readParam('size', sizes, 'md');
 document.documentElement.dataset.theme = theme;
 
-/** Every component section, then the foundations. */
+/** Every component section, then the foundations and the reference screens. */
 function App() {
   return (
     <main className="pg-main">
@@ -33,6 +34,7 @@ function App() {
         </section>
       ))}
       <Foundations />
+      <Screens />
     </main>
   );
 }
