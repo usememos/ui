@@ -5,7 +5,7 @@
   padding: 0;
   border: 1px solid var(--mu-line);
   border-radius: var(--mu-radius-lg);
-  color: var(--mu-ink);
+  color: var(--mu-text);
   background-color: var(--mu-surface);
   list-style: none;
 }
@@ -22,8 +22,8 @@
   box-sizing: border-box;
   width: calc(100% + 2 * var(--list-pad-inline));
   margin: calc(-1 * var(--list-pad-block)) calc(-1 * var(--list-pad-inline));
-  padding: var(--list-pad-block) var(--list-pad-inline);
-  border: 0;
+  padding: calc(var(--list-pad-block) - var(--mu-control-border-width)) calc(var(--list-pad-inline) - var(--mu-control-border-width));
+  border: var(--mu-control-border-width) solid transparent;
   border-radius: 0;
   color: inherit;
   background-color: transparent;
@@ -39,7 +39,7 @@
   .mu-list-item-button:hover:not(:disabled) { background-color: var(--mu-hover); }
 }
 .mu-list-item-button:active:not(:disabled) { background-color: var(--mu-hover); }
-.mu-list-item-button:disabled { opacity: 0.45; cursor: not-allowed; }
+.mu-list-item-button:disabled { color: var(--mu-text-disabled); cursor: not-allowed; }
 @media (prefers-reduced-motion: reduce) {
   .mu-list-item-button { transition: none; }
 }

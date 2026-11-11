@@ -109,9 +109,7 @@ Buttons and inputs are never pills; badges always are, so a label is never mista
 | `control-compact` | 28px | md height inside `mu-compact`, for an app's sidebar; sm row height in menus, select lists and combobox lists |
 | `inset` | 2px | Well-to-key inset at every size |
 | `hit-area` | 44px | Minimum touch target on `pointer: coarse`, added invisibly around a control |
-| `focus-width` | 2px | Width of the keyboard focus ring |
-| `focus-offset` | 1px | Gap between a control's edge and its focus ring, so the ring stays visible on ink fills |
-| `focus-edge-width` | 1.5px | Edge width of a focused field |
+| `focus-edge-width` | 2px | Edge width of a focused control or field |
 | `icon-xs` | 12px | Icons in xs controls and badges |
 | `icon-sm` | 14px | Icons in sm controls |
 | `icon-md` | 16px | Icons in md controls and rows |

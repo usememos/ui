@@ -14,16 +14,16 @@
   height: var(--mu-row-check-box);
   border-radius: var(--mu-radius-full);
   background-color: var(--mu-well);
-  box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
+  border: var(--mu-control-border-width) solid var(--mu-control-edge);
   cursor: pointer;
-  transition-property: background-color, box-shadow, scale;
+  transition-property: background-color, border-color, scale;
   transition-duration: var(--mu-duration-press);
   transition-timing-function: var(--mu-ease-out);
 }
-.mu-radio[data-checked] { background-color: var(--mu-primary); box-shadow: none; }
-.mu-radio[data-invalid] { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-track); }
+.mu-radio[data-checked] { --mu-control-focus: var(--mu-on-primary); background-color: var(--mu-primary); border-color: transparent; }
+.mu-radio[data-invalid] { border-color: var(--mu-danger); }
 .mu-radio:active:not([data-disabled], [data-readonly]) { scale: 0.94; }
-.mu-radio[data-disabled] { opacity: 0.45; cursor: not-allowed; }
+.mu-radio[data-disabled] { --mu-control-focus: var(--mu-focus); --mu-on-primary: var(--mu-text-disabled); background-color: var(--mu-well); border-color: var(--mu-edge); color: var(--mu-text-disabled); cursor: not-allowed; }
 
 .mu-radio-indicator {
   width: calc(var(--mu-row-check-box) / 2.5);

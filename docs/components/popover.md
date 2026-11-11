@@ -54,7 +54,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 
 ## Style
 
-- `mu-popup` (`surface`, `shadow-pop`, `radius-xl`), `space-4` padding, `popover-width` wide. Children stack `space-3` apart.
-- Title: `label`. Description: `caption` in `ink-muted`, `space-1` under the title.
+- `mu-popup` (`surface`, a 1px `edge`, `radius-xl`), `space-4` padding, `popover-width` wide. Children stack `space-3` apart.
+- Title: `label`. Description: `caption` in `text-secondary`, `space-1` under the title.
 - `list`: 6px padding and no gap, like a Menu. A title and description inside line up with the rows' text, with `space-2` above the title and below the description.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.

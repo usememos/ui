@@ -7,7 +7,7 @@ export interface PopoverClassesOptions {
 
 /** The classes of each part of a Popover. */
 export interface PopoverClasses {
-  /** The panel: a surface with `shadow-pop`, `popover-width` wide. */
+  /** The panel: a bordered surface, `popover-width` wide. */
   popup: string;
   /** The panel's heading. */
   title: string;

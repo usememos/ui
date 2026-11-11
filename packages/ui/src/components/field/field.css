@@ -1,7 +1,7 @@
 /* Field and Fieldset: a control with its label, description and error. See docs/components/field.md. */
 .mu-field-root { display: flex; flex-direction: column; gap: var(--mu-space-1); min-width: 0; }
 
-.mu-field-label { color: var(--mu-ink); }
+.mu-field-label { color: var(--mu-text); }
 .mu-field-item { display: flex; }
 /* A Checkbox, Switch or Radio inside the label sits beside its text. */
 .mu-field-label:where(:has(> .mu-checkbox, > .mu-switch, > .mu-radio)) {
@@ -11,9 +11,9 @@
   font-weight: 400;
   cursor: pointer;
 }
-.mu-field-label[data-disabled] { opacity: 0.45; cursor: not-allowed; }
+.mu-field-label[data-disabled] { color: var(--mu-text-disabled); cursor: not-allowed; }
 
-.mu-field-description { margin: 0; color: var(--mu-ink-muted); }
+.mu-field-description { margin: 0; color: var(--mu-text-secondary); }
 .mu-field-root[data-invalid] > .mu-field-description { display: none; }
 
 /*
@@ -38,4 +38,4 @@
 
 .mu-fieldset-root { display: flex; flex-direction: column; gap: var(--mu-space-3); min-width: 0; margin: 0; padding: 0; border: 0; }
 /* The legend sits space-2 above its options, closer than they are to each other: the root's gap less space-1. */
-.mu-fieldset-legend { margin-bottom: calc(-1 * var(--mu-space-1)); padding: 0; color: var(--mu-ink); }
+.mu-fieldset-legend { margin-bottom: calc(-1 * var(--mu-space-1)); padding: 0; color: var(--mu-text); }

@@ -7,8 +7,8 @@
   cursor: pointer;
 }
 .mu-link:hover, .mu-link:focus-visible, .mu-link-underline { text-decoration: underline; }
-.mu-link-muted { color: var(--mu-ink-muted); }
-.mu-link-muted:hover { color: var(--mu-ink); }
+.mu-link-muted { color: var(--mu-text-secondary); }
+.mu-link-muted:hover { color: var(--mu-text); }
 
 /* The external arrow follows the text size. */
 .mu-link > .mu-icon { display: inline-block; width: 0.85em; height: 0.85em; margin-inline-start: 0.1em; vertical-align: -0.05em; }

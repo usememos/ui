@@ -10,16 +10,16 @@
   border-radius: var(--mu-radius-sm);
   color: var(--mu-on-primary);
   background-color: var(--mu-well);
-  box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
+  border: var(--mu-control-border-width) solid var(--mu-control-edge);
   cursor: pointer;
-  transition-property: background-color, box-shadow, scale;
+  transition-property: background-color, border-color, scale;
   transition-duration: var(--mu-duration-press);
   transition-timing-function: var(--mu-ease-out);
 }
-.mu-checkbox[data-checked], .mu-checkbox[data-indeterminate] { background-color: var(--mu-primary); box-shadow: none; }
-.mu-checkbox[data-invalid] { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-track); }
+.mu-checkbox[data-checked], .mu-checkbox[data-indeterminate] { --mu-control-focus: var(--mu-on-primary); background-color: var(--mu-primary); border-color: transparent; }
+.mu-checkbox[data-invalid] { border-color: var(--mu-danger); }
 .mu-checkbox:active:not([data-disabled], [data-readonly]) { scale: 0.94; }
-.mu-checkbox[data-disabled] { opacity: 0.45; cursor: not-allowed; }
+.mu-checkbox[data-disabled] { --mu-control-focus: var(--mu-focus); background-color: var(--mu-well); border-color: var(--mu-edge); color: var(--mu-text-disabled); cursor: not-allowed; }
 
 .mu-checkbox-indicator { display: flex; transition: opacity var(--mu-duration-fade) var(--mu-ease-out) var(--mu-duration-press), scale var(--mu-duration-fade) var(--mu-ease-out) var(--mu-duration-press); }
 .mu-checkbox-indicator[data-starting-style], .mu-checkbox-indicator[data-ending-style] { opacity: 0; scale: 0.6; }

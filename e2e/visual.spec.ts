@@ -53,7 +53,7 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
   },
 ];
 
-/** The box around every element `locator` matches, with room for their shadows. */
+/** The box around every element `locator` matches, with a little surrounding context. */
 async function around(locator: Locator) {
   const boxes = (await Promise.all((await locator.all()).map((element) => element.boundingBox()))).filter((box) => box !== null);
   const pad = 16;
@@ -69,6 +69,7 @@ for (const theme of themes) {
     test(`${theme} ${size}`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await open(page, { theme, size });
+      await expect(page.locator('#button [data-loading-visible]')).toHaveCount(4);
       // At xs, only the sections with xs: the rest render at sm, as in the sm screenshots.
       // The reference screens are md at every size, so they are captured at md only.
       const selector = size === 'xs' ? 'main > section[id][data-xs]' : size === 'sm' ? 'main > section[id]:not([data-screen])' : 'main > section[id]';
@@ -84,6 +85,7 @@ for (const theme of themes) {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       for (const overlay of overlays) {
         await open(page, { theme, size });
+        await expect(page.locator('#button [data-loading-visible]')).toHaveCount(4);
         await overlay.open(page);
         const shot = overlay.shot(page);
         await expect(shot.first()).toBeVisible();

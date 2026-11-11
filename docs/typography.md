@@ -7,7 +7,7 @@
 - Weight 400 is for running text, values people typed or chose, and badge text (a badge's tone and fill carry its weight). Weight 500 is for labels, controls, titles and headings. The UI uses no 600 or 700. The one exception is [Prose](components/prose.md): bold text and headings that people wrote are 600, because 500 does not read as bold in system fonts.
 - 20px (`heading`) is for the page title only, once per page. 32px (`display`) is for the hero headline on a website only, once per page. Nothing else in the UI is larger than 16px, and 16px is only for `title` and Prose text. Headings that people write inside Prose have their own sizes (see [Prose](#prose)).
 - A section title inside a page or panel is `label` (14px, 500), set apart by space above it, not by a larger size. See [Page](patterns.md#page).
-- Secondary text (descriptions, helper text, metadata) is `caption` (13px) in `ink-muted`. No text is smaller than 13px, except `label-xs` and `caption-xs` inside 20px parts.
+- Secondary text (descriptions, helper text, metadata) is `caption` (13px) in `text-secondary`. No text is smaller than 13px, except `label-xs` and `caption-xs` inside 20px parts.
 - Control text scales with the control size: 11px at xs, 13px at sm, 14px at md.
 - Reading text (`Prose`) is 16px on a 24px line. `sm` prose is 14px on a 22px line, for dense lists.
 - Letter spacing is 0 for every style, `display` included. The system fonts set their own letter spacing at each size, so adding more makes text tighter or looser than the platform intends.
@@ -38,7 +38,7 @@ Nine styles over six sizes. 11, 13 and 14px each have a 400 style for text and a
 | --- | --- | --- | --- |
 | `label-xs` | 11 / 16px | 500 | Labels inside xs controls and kbd: 20px parts you press. Never for running or secondary text. The reason for the size: xs parts must read as tiny. At 12px their text was 1px (8%) under the 13px `caption` beside it, a step people can't see, so an xs control read as an sm control with less padding. 11px is a visible step, and it matches the smallest sizes in platform guidelines (the 11pt minimum on iOS, the 11sp label in Material). Nothing is smaller |
 | `caption-xs` | 11 / 16px | 400 | Text inside badges: 20px labels. Never for running or secondary text. The reason for the style: a badge is a label, not a heading, and at 500 every tag and status read heavier than the 13px `caption` metadata around it. Badges get their hierarchy from tone and fill |
-| `caption` | 13 / 18px | 400 | Secondary text: field descriptions and errors, metadata, timestamps, toast and popover descriptions, table captions, sm table cells. Usually in `ink-muted` |
+| `caption` | 13 / 18px | 400 | Secondary text: field descriptions and errors, metadata, timestamps, toast and popover descriptions, table captions, sm table cells. Usually in `text-secondary` |
 | `label-sm` | 13 / 18px | 500 | Labels inside sm controls, tooltips, group labels in menus and lists, table heads |
 | `body` | 14 / 20px | 400 | Default running text in app UI; dialog descriptions; the names in rows people scan: Menu and Select items, settings row names, sidebar navigation rows |
 | `label` | 14 / 20px | 500 | Labels inside md controls, field labels, buttons, section titles, popover and toast titles. The default control text |

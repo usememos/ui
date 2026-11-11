@@ -1,5 +1,5 @@
 import { Button as BaseButton } from '@base-ui/react/button';
-import { forwardRef, type ReactNode } from 'react';
+import { forwardRef, useEffect, useState, type ReactNode } from 'react';
 import { cx, withClass } from '../../internal/class-name';
 import { useSize } from '../../internal/size';
 import type { IconElement, Size } from '../../types';
@@ -14,7 +14,7 @@ export interface ButtonProps extends BaseButton.Props {
   icon?: IconElement;
   /** A Lucide element after the label, such as a chevron or an arrow that says where the action leads. */
   iconEnd?: IconElement;
-  /** Keeps the width, shows a Spinner and ignores presses. */
+  /** Ignores presses immediately; after 300ms, shows a Spinner without changing width. */
   loading?: boolean;
   /** The accessible name while loading, such as "Saving". */
   loadingLabel?: string;
@@ -36,12 +36,22 @@ export function buttonClasses({ variant = 'neutral', size = 'md', iconOnly = fal
   return cx('mu-button', `mu-button-${variant}`, iconOnly && 'mu-button-icon', 'mu-base', `mu-s-${size}`, 'mu-focus', 'mu-hit');
 }
 
-/** Starts an action. A raised key that sinks while pressed. */
+/** Starts an action. A flat control with a distinct pressed fill. */
 export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
   { variant = 'neutral', size, icon, iconEnd, loading = false, loadingLabel, disabled, focusableWhenDisabled, className, children, ...props },
   ref,
 ) {
   const resolved = useSize(size);
+  const [showSpinner, setShowSpinner] = useState(false);
+  useEffect(() => {
+    if (!loading) {
+      setShowSpinner(false);
+      return;
+    }
+    const timer = setTimeout(() => setShowSpinner(true), 300);
+    return () => clearTimeout(timer);
+  }, [loading]);
+  const loadingVisible = loading && showSpinner;
   const noLabel = children === undefined || children === null || children === false;
   const iconOnly = noLabel && (icon !== undefined || iconEnd !== undefined);
   return (
@@ -53,12 +63,13 @@ export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
       focusableWhenDisabled={loading || focusableWhenDisabled}
       aria-busy={loading || undefined}
       data-loading={loading ? '' : undefined}
+      data-loading-visible={loadingVisible ? '' : undefined}
       className={withClass(buttonClasses({ variant, size: resolved, iconOnly }), className)}
     >
       {icon}
       {iconOnly ? null : <span className="mu-button-label">{children}</span>}
       {iconOnly && icon !== undefined ? null : iconEnd}
-      {loading ? <span className="mu-spinner" aria-hidden /> : null}
+      {loadingVisible ? <span className="mu-spinner" aria-hidden /> : null}
     </BaseButton>
   );
 });

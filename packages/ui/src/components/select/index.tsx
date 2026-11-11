@@ -23,7 +23,7 @@ export function Root<Value, Multiple extends boolean | undefined = false>({ size
 
 export interface TriggerProps extends BaseSelect.Trigger.Props {
   /**
-   * `neutral` (default) is a raised key, for a value in a form. `ghost` is a
+   * `neutral` (default) is a flat key, for a value in a form. `ghost` is a
    * flat row that fills with `hover`, for a switcher in a sidebar or toolbar.
    */
   variant?: 'neutral' | 'ghost';
@@ -44,7 +44,7 @@ export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function Sele
 
 export interface ValueProps extends BaseSelect.Value.Props {}
 
-/** The chosen item's label, or `placeholder` in `ink-muted`. */
+/** The chosen item's label, or `placeholder` in `text-secondary`. */
 export const Value = forwardRef<HTMLSpanElement, ValueProps>(function SelectValue({ className, ...props }, ref) {
   return <BaseSelect.Value ref={ref} {...props} className={withClass('mu-select-value', className)} />;
 });

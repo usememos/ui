@@ -1,28 +1,30 @@
 /* Textarea: looks like Input, three lines by default, resized vertically only. See docs/components/textarea.md. */
 .mu-textarea {
+  --mu-field-edge: 1px;
   display: block;
   box-sizing: border-box;
   width: 100%;
   min-height: var(--mu-row-height);
   margin: 0;
-  padding: calc((var(--mu-row-height) - var(--mu-row-field-line-height)) / 2) var(--mu-row-padding);
-  border: 0;
+  padding: calc((var(--mu-row-height) - var(--mu-row-field-line-height)) / 2 - var(--mu-field-edge)) calc(var(--mu-row-padding) - var(--mu-field-edge));
+  border: var(--mu-field-edge) solid var(--mu-control-edge);
+  outline: none;
   border-radius: var(--mu-row-radius);
-  color: var(--mu-ink);
+  color: var(--mu-text);
   background-color: var(--mu-surface);
-  box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
   font-size: var(--mu-row-field-font-size);
   line-height: var(--mu-row-field-line-height);
   font-weight: 400;
   resize: vertical;
-  transition: box-shadow var(--mu-duration-fade) var(--mu-ease-out);
+  transition: border-color var(--mu-duration-fade) var(--mu-ease-out);
 }
-.mu-textarea::placeholder { color: var(--mu-ink-muted); opacity: 1; }
+.mu-textarea::placeholder { color: var(--mu-text-secondary); opacity: 1; }
 @media (hover: hover) {
-  .mu-textarea:hover:not([data-disabled], [aria-disabled="true"], :focus-within) { box-shadow: inset 0 0 0 1px var(--mu-ink-muted), var(--mu-shadow-track); }
+  .mu-textarea:hover:not([data-disabled], [aria-disabled="true"], :focus-within) { border-color: var(--mu-text-secondary); }
 }
-/* Focus darkens the edge to ink, like Input. The transparent outline shows only in forced-colors mode. */
-.mu-textarea:focus-within { box-shadow: inset 0 0 0 var(--mu-focus-edge-width) var(--mu-focus-edge), var(--mu-shadow-track); outline: var(--mu-focus-width) solid transparent; outline-offset: calc(-1 * var(--mu-focus-width)); }
-.mu-textarea:is([data-invalid], [aria-invalid="true"]) { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-track); }
-.mu-textarea:is([data-invalid], [aria-invalid="true"]):focus-within { box-shadow: inset 0 0 0 var(--mu-focus-edge-width) var(--mu-danger), var(--mu-shadow-track); }
-.mu-textarea:is([data-disabled], [aria-disabled="true"]) { opacity: 0.45; cursor: not-allowed; }
+/* Focus darkens and thickens the existing edge, like Input. */
+.mu-textarea:focus-within { --mu-field-edge: var(--mu-focus-edge-width); border-color: var(--mu-focus-edge); }
+.mu-textarea:is([data-invalid], [aria-invalid="true"]) { border-color: var(--mu-danger); }
+.mu-textarea:is([data-disabled], [aria-disabled="true"]) { color: var(--mu-text-disabled); background-color: var(--mu-well); border-color: var(--mu-edge); cursor: not-allowed; }
+
+.mu-textarea:where([data-disabled], [aria-disabled="true"])::placeholder { color: var(--mu-text-disabled); }

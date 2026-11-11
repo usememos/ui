@@ -1,4 +1,4 @@
-/* Button: a raised key that sinks while pressed. See docs/components/button.md. */
+/* Button: a flat control with a distinct pressed fill. See docs/components/button.md. */
 .mu-button {
   position: relative;
   display: inline-flex;
@@ -8,25 +8,23 @@
   box-sizing: border-box;
   height: var(--mu-row-height);
   margin: 0;
-  padding: 0 var(--mu-row-padding);
-  border: 0;
+  padding: 0 calc(var(--mu-row-padding) - var(--mu-control-border-width));
+  border: var(--mu-control-border-width) solid var(--mu-control-edge);
   border-radius: var(--mu-row-radius);
-  color: var(--mu-ink);
+  color: var(--mu-text);
   background-color: var(--mu-key);
-  background-image: linear-gradient(180deg, var(--mu-key-sheen), transparent 60%);
-  box-shadow: var(--mu-shadow-raised);
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
   user-select: none;
-  transition-property: background-color, box-shadow, color, translate;
+  transition-property: background-color, border-color, color, translate;
   transition-duration: var(--mu-duration-press);
   transition-timing-function: var(--mu-ease-out);
 }
 
 /* The icon side has 2px less padding, so text and icon look centered. An icon after the label is an end icon. */
-.mu-button:where(:has(> svg:first-child)) { padding-inline-start: var(--mu-row-padding-icon); }
-.mu-button:where(:has(> .mu-button-label + svg)) { padding-inline-end: var(--mu-row-padding-icon); }
+.mu-button:where(:has(> svg:first-child)) { padding-inline-start: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
+.mu-button:where(:has(> .mu-button-label + svg)) { padding-inline-end: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
 .mu-button.mu-button-icon { width: var(--mu-row-height); padding: 0; }
 
 .mu-button-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
@@ -35,25 +33,30 @@
   .mu-button:hover:not([data-disabled]) { background-color: var(--mu-key-hover); }
   .mu-button-primary:hover:not([data-disabled]) { background-color: var(--mu-primary-hover); }
   .mu-button-danger:hover:not([data-disabled]) { background-color: var(--mu-danger-key); filter: brightness(1.08); }
-  .mu-button-ghost:hover:not([data-disabled]) { background-color: var(--mu-hover); color: var(--mu-ink); }
+  .mu-button-ghost:hover:not([data-disabled]) { background-color: var(--mu-hover); color: var(--mu-text); }
 }
 
-.mu-button:active:not([data-disabled]) { translate: 0 0.5px; box-shadow: var(--mu-shadow-pressed); }
+.mu-button:active:not([data-disabled]) { translate: 0 0.5px; background-color: var(--mu-well); }
 
-.mu-button-primary { color: var(--mu-on-primary); background-color: var(--mu-primary); }
-.mu-button-danger { color: var(--mu-on-danger); background-color: var(--mu-danger-key); }
+.mu-button-primary { --mu-control-focus: var(--mu-on-primary); border-color: transparent; color: var(--mu-on-primary); background-color: var(--mu-primary); }
+.mu-button-danger { --mu-control-focus: var(--mu-on-danger); border-color: transparent; color: var(--mu-on-danger); background-color: var(--mu-danger-key); }
 
-/* Ghost: flat at rest, sinks into a well while held. */
-.mu-button-ghost { color: var(--mu-ink-muted); background-color: transparent; background-image: none; box-shadow: none; }
+/* Filled actions retain their contrasting text while held. */
+.mu-button-primary:active:not([data-disabled]) { background-color: var(--mu-primary-hover); }
+.mu-button-danger:active:not([data-disabled]) { background-color: var(--mu-danger-key); filter: brightness(0.9); }
+
+/* Ghost: no visible boundary at rest. */
+.mu-button-ghost { border-color: transparent; color: var(--mu-text-secondary); background-color: transparent; }
 /* A ghost trigger stays highlighted while its menu or popover is open. */
-.mu-button-ghost[data-popup-open] { background-color: var(--mu-hover); color: var(--mu-ink); }
-.mu-button-ghost:active:not([data-disabled]) { translate: none; background-color: var(--mu-well); box-shadow: var(--mu-shadow-track); }
+.mu-button-ghost[data-popup-open] { background-color: var(--mu-hover); color: var(--mu-text); }
+.mu-button-ghost:active:not([data-disabled]) { translate: none; background-color: var(--mu-well); }
 
-.mu-button[data-disabled]:not([data-loading]) { opacity: 0.45; cursor: not-allowed; }
+.mu-button[data-disabled]:not([data-loading]) { --mu-control-focus: var(--mu-focus); background-color: var(--mu-well); border-color: var(--mu-edge); color: var(--mu-text-disabled); cursor: not-allowed; }
+.mu-button-ghost[data-disabled]:not([data-loading]) { background-color: transparent; border-color: transparent; }
 
-/* Loading keeps the width: the content goes transparent (and stays named) under a centered Spinner. */
+/* After the loading delay, keep the width: the content goes transparent (and stays named) under a centered Spinner. */
 .mu-button[data-loading] { cursor: progress; }
-.mu-button[data-loading] > :not(.mu-spinner) { opacity: 0; }
+.mu-button[data-loading-visible] > :not(.mu-spinner) { opacity: 0; }
 .mu-button > .mu-spinner { position: absolute; inset: 0; margin: auto; }
 
 @media (prefers-reduced-motion: reduce) {

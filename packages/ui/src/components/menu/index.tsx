@@ -45,7 +45,7 @@ export interface PopupProps extends BaseMenu.Popup.Props, PositionerProps {
  * The list of items. Also the popup of a submenu, inside `SubmenuRoot`. When it
  * opens to the side of its trigger (a submenu, or a panel row's own menu),
  * aligned to the start or end, it moves along the trigger by its own top
- * padding (read when it is placed, so it follows `space-1`): its first row
+ * padding and border (read when it is placed): its first row
  * lines up with the trigger, or its last row when it opens upward.
  */
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({ container, className, ...props }, ref) {
@@ -64,13 +64,15 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({
   const alignOffset = useCallback(({ side, align }: { side: string; align: string }) => {
     const popup = popupRef.current;
     if (!popup || align === 'center' || side === 'top' || side === 'bottom') return 0;
-    return -parseFloat(getComputedStyle(popup).paddingTop) || 0;
+    const style = getComputedStyle(popup);
+    return -(parseFloat(style.paddingTop) + parseFloat(style.borderTopWidth)) || 0;
   }, []);
   // Beside its trigger, it sits its own padding away, so a submenu's edge meets its parent's edge.
   const sideOffset = useCallback(({ side }: { side: string }) => {
     const popup = popupRef.current;
     if (!popup || side === 'top' || side === 'bottom') return 4;
-    return parseFloat(getComputedStyle(popup).paddingTop) || 4;
+    const style = getComputedStyle(popup);
+    return parseFloat(style.paddingTop) + parseFloat(style.borderTopWidth) || 4;
   }, []);
   const [positioner, rest] = splitPositioner(props);
   return (
@@ -87,7 +89,7 @@ interface RowProps {
   icon?: IconElement;
   /** A keyboard shortcut at the end of the row, such as "⌘ D". */
   shortcut?: ReactNode;
-  /** A line of `ink-muted` text under the label, which makes the row two lines tall. Screen readers read it as the item's description. */
+  /** A line of `text-secondary` text under the label, which makes the row two lines tall. Screen readers read it as the item's description. */
   description?: ReactNode;
   children?: ReactNode;
 }

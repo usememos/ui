@@ -2,7 +2,7 @@
 
 The Memos UI design system: tokens, foundation styles and React components for memos, the website, the web clipper and future usememos projects.
 
-- Calm, dense and tactile: pure grays, ink for emphasis, and a little depth that shows what holds a value and what you can press.
+- Calm, dense and flat: pure grays, ink for emphasis, and clear fills and borders for controls and state.
 - Light and Dark themes, all from CSS custom properties. Apps can add their own.
 - One package, `@usememos/ui`. ESM only, for React 18 or later, with behavior from [Base UI](https://base-ui.com).
 
@@ -24,9 +24,9 @@ import '@usememos/ui/styles.css';
 ```
 
 - `tokens.css` defines every token as a CSS custom property on `:root`, on a shadow root's `:host`, and on any `.mu-root` element.
-- `styles.css` holds the foundation classes (`mu-s-md`, `mu-raised`, `mu-recessed`, `mu-key`, `mu-popup`, `mu-icon`, the `mu-` type scale) and the component styles.
+- `styles.css` holds the foundation classes (`mu-s-md`, `mu-key`, `mu-well`, `mu-popup`, `mu-icon`, the `mu-` type scale) and the component styles.
 
-Use tokens through their variables (`var(--mu-ink)`, `var(--mu-space-4)`), never as copied values.
+Use tokens through their variables (`var(--mu-text)`, `var(--mu-space-4)`), never as copied values.
 
 Both stylesheets sit in the `mu` cascade layer, so the app's own CSS overrides them without a specificity fight. If the app uses layers too (Tailwind CSS does), declare the order first; see [Loading the CSS](docs/building.md#cascade-layer).
 
@@ -81,7 +81,7 @@ The package ships `llms.txt`, an index of the docs, and `llms-full.txt`, every d
 
 Set `data-theme="light"` or `"dark"` on the root element, or on any element to theme its subtree. Without the attribute the tokens are Light. The package does not read `prefers-color-scheme`; the app does, so a saved preference can win over the system setting.
 
-An app can add its own themes and fonts by setting the color, shadow and font tokens; every other token is internal. See [What an app can change](docs/color.md#what-an-app-can-change).
+An app can add its own themes and fonts by setting the color and font tokens; every other token is internal. See [What an app can change](docs/color.md#what-an-app-can-change).
 
 ### Inside another page
 

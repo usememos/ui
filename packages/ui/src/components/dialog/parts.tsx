@@ -17,7 +17,7 @@ export interface PopupProps extends BaseDialog.Popup.Props {
 export interface VariantProps {
   /**
    * `panel` (default) pads the content `space-5`, stacks it `space-4` apart and
-   * adds the X. `bare` keeps the surface, radius and shadow but has no padding,
+   * adds the X. `bare` keeps the surface, radius and border but has no padding,
    * gap or X: the content runs edge to edge, for a search palette or an image.
    */
   variant?: 'panel' | 'bare';

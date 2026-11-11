@@ -32,6 +32,6 @@ Wraps Base UI's [Checkbox](https://base-ui.com/react/components/checkbox) root w
 
 ## Style
 
-- Unchecked: an empty well with an edge. Checked: a flat `primary` square (holds a value, so not raised).
+- Unchecked: an empty well with an edge. Checked: a flat `primary` square with a contrasting mark.
 - Lucide `Check` at a 2px stroke; `Minus` when indeterminate. It fades and scales in after the fill.
 - Shrinks 6% while pressed.

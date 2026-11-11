@@ -1,25 +1,25 @@
 /* Layout for the test page only. It is not part of the package. */
-body { margin: 0; background: var(--mu-canvas); color: var(--mu-ink); font-family: var(--mu-font-sans); }
+body { margin: 0; background: var(--mu-canvas); color: var(--mu-text); font-family: var(--mu-font-sans); }
 .pg-main { max-width: 960px; margin: 0 auto; padding: var(--mu-space-6); display: grid; gap: var(--mu-space-12); }
 .pg-section { display: grid; gap: var(--mu-space-4); }
 .pg-section > h2 { margin: 0; }
-.pg-section h3:not(.mu-prose *) { margin: var(--mu-space-2) 0 0; color: var(--mu-ink-muted); }
+.pg-section h3:not(.mu-prose *) { margin: var(--mu-space-2) 0 0; color: var(--mu-text-secondary); }
 .pg-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-4); }
 .pg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--mu-space-3); }
 .pg-swatch { display: grid; gap: var(--mu-space-1); }
-.pg-swatch > span:first-child { height: 40px; border-radius: var(--mu-radius-md); box-shadow: inset 0 0 0 1px var(--mu-line); }
+.pg-swatch > span:first-child { height: 40px; border-radius: var(--mu-radius-md); border: 1px solid var(--mu-line); }
 .pg-box { width: 120px; height: 56px; display: grid; place-items: center; border-radius: var(--mu-radius-lg); }
-.pg-well { width: 120px; height: 32px; padding: var(--mu-inset); box-sizing: border-box; border-radius: var(--mu-radius-md); display: flex; }
+.pg-well { width: 120px; height: 32px; padding: calc(var(--mu-inset) - 1px); box-sizing: border-box; border-radius: var(--mu-radius-md); display: flex; }
 .pg-well > span { flex: 1; border-radius: var(--mu-radius-sm); display: grid; place-items: center; }
-.pg-control { height: var(--mu-row-height); padding: 0 var(--mu-row-padding); display: inline-flex; align-items: center; gap: var(--mu-row-gap); border-radius: var(--mu-row-radius); }
-.pg-bare-search { border-radius: 0; box-shadow: inset 0 -1px 0 var(--mu-line); }
+.pg-control { box-sizing: border-box; height: var(--mu-row-height); padding: 0 calc(var(--mu-row-padding) - 1px); display: inline-flex; align-items: center; gap: var(--mu-row-gap); border-radius: var(--mu-row-radius); }
+.pg-bare-search { border-radius: 0; border: 0; border-bottom: 1px solid var(--mu-line); }
 .pg-bare-list { padding: var(--mu-space-1); }
 .pg-drawer-nav { width: var(--mu-sidebar-width); }
 .pg-viewer { display: flex; justify-content: flex-end; height: 100%; padding: var(--mu-space-4); background-color: var(--mu-canvas); }
 .pg-drawer-links { display: grid; padding: var(--mu-space-2); }
 .pg-list-record { display: flex; align-items: center; justify-content: space-between; gap: var(--mu-space-3); }
 .pg-list-url { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pg-section h3.mu-label { margin: 0; color: var(--mu-ink); }
+.pg-section h3.mu-label { margin: 0; color: var(--mu-text); }
 
 /* The reference screens: a page's own layout, with ladder steps only. See docs/layout.md#spacing and docs/patterns.md. */
 .pg-screen { box-sizing: border-box; display: flex; flex-direction: column; gap: var(--mu-space-6); max-width: 100%; padding: var(--mu-space-6); border: 1px solid var(--mu-line); border-radius: var(--mu-radius-xl); }
@@ -27,8 +27,8 @@ body { margin: 0; background: var(--mu-canvas); color: var(--mu-ink); font-famil
 .pg-screen-timeline { width: 560px; }
 /* space-1: a title and its description. */
 .pg-screen-head { display: flex; flex-direction: column; gap: var(--mu-space-1); }
-.pg-screen-head > p, .pg-screen-muted { margin: 0; color: var(--mu-ink-muted); }
-.pg-section .pg-screen h3.mu-heading, .pg-screen h4 { margin: 0; color: var(--mu-ink); }
+.pg-screen-head > p, .pg-screen-muted { margin: 0; color: var(--mu-text-secondary); }
+.pg-section .pg-screen h3.mu-heading, .pg-screen h4 { margin: 0; color: var(--mu-text); }
 /* space-2 from a section title to its list, space-4 between two blocks of one section; the sections are space-6 apart. */
 .pg-screen-section { display: flex; flex-direction: column; gap: var(--mu-space-4); min-width: 0; }
 .pg-screen-section > h4 { margin-bottom: calc(-1 * var(--mu-space-2)); }
@@ -36,7 +36,7 @@ body { margin: 0; background: var(--mu-canvas); color: var(--mu-ink); font-famil
 .pg-screen-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-2); }
 .pg-screen-composer, .pg-screen-entry { display: flex; flex-direction: column; gap: var(--mu-space-2); min-width: 0; }
 .pg-screen-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--mu-space-2); }
-.pg-screen-entry-head { display: flex; align-items: center; gap: var(--mu-space-2); color: var(--mu-ink-muted); }
+.pg-screen-entry-head { display: flex; align-items: center; gap: var(--mu-space-2); color: var(--mu-text-secondary); }
 .pg-screen-spacer { flex: 1; }
 /* An empty state: centered, space-1 from the title to its body line, space-4 from the text to the Button, space-8 above and below. */
 .pg-screen-empty { display: flex; flex-direction: column; align-items: center; gap: var(--mu-space-4); padding-block: var(--mu-space-8); text-align: center; }

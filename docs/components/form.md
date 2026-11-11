@@ -58,6 +58,6 @@ Base UI's props pass through: `onFormSubmit`, `errors`, `validationMode` and `ac
 
 ## Style
 
-- Children stack `space-4` apart. Title: `label` (14px, 500); Description: `caption` in `ink-muted`, `space-1` under the title. Footer: buttons `space-2` apart at the end.
+- Children stack `space-4` apart. Title: `label` (14px, 500); Description: `caption` in `text-secondary`, `space-1` under the title. Footer: buttons `space-2` apart at the end.
 - `bordered`: `surface` fill, a 1px `line` edge, `radius-lg`, `space-4` padding, no shadow, as a List. The Footer runs to the edges as a `canvas` bar under a `line`, padded `space-3` × `space-4`, rounded with the box at the bottom.
 - The form is always md: controls inside it ignore the size of a parent Root.

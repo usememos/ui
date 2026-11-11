@@ -1,6 +1,6 @@
 /*
  * Tabs, and the segmented well they share with a single-choice ToggleGroup:
- * a recessed well with one raised key that slides to the chosen item.
+ * a flat well with one contrasting selected fill that slides to the chosen item.
  * See docs/components/tabs.md and docs/components/toggle-group.md.
  */
 .mu-segmented {
@@ -10,24 +10,24 @@
   gap: 0;
   box-sizing: border-box;
   height: var(--mu-row-height);
-  padding: var(--mu-inset);
+  padding: calc(var(--mu-inset) - 1px);
   border-radius: var(--mu-row-radius);
   background-color: var(--mu-well);
-  box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
+  border: 1px solid var(--mu-control-edge);
 }
 
 /* The key: drawn first, so the items paint above it. */
 .mu-segmented-key {
   position: absolute;
-  top: var(--mu-inset);
+  top: calc(var(--mu-inset) - 1px);
   left: 0;
   width: var(--key-width);
   height: calc(var(--mu-row-height) - 2 * var(--mu-inset));
   translate: var(--key-left) 0;
   border-radius: calc(var(--mu-row-radius) - var(--mu-inset));
+  box-sizing: border-box;
+  border: 1px solid var(--mu-control-edge);
   background-color: var(--mu-key);
-  background-image: linear-gradient(180deg, var(--mu-key-sheen), transparent 60%);
-  box-shadow: var(--mu-shadow-key);
   transition: translate var(--mu-duration-settle) var(--mu-ease-settle), width var(--mu-duration-settle) var(--mu-ease-settle);
 }
 .mu-toggle-group.mu-segmented:not([data-keyed]) > .mu-segmented-key { display: none; }
@@ -43,12 +43,11 @@
   box-sizing: border-box;
   height: 100%;
   margin: 0;
-  padding: 0 calc(var(--mu-row-padding) - var(--mu-inset));
-  border: 0;
+  padding: 0 calc(var(--mu-row-padding) - var(--mu-inset) - var(--mu-control-border-width));
+  border: var(--mu-control-border-width) solid transparent;
   border-radius: calc(var(--mu-row-radius) - var(--mu-inset));
-  color: var(--mu-ink-muted);
+  color: var(--mu-text-secondary);
   background: none;
-  box-shadow: none;
   font: inherit;
   white-space: nowrap;
   cursor: pointer;
@@ -57,14 +56,14 @@
 }
 .mu-segmented > .mu-toggle.mu-toggle-icon { width: calc(var(--mu-row-height) - 2 * var(--mu-inset)); padding: 0; }
 @media (hover: hover) {
-  .mu-segmented-item:hover:not([data-disabled]), .mu-segmented > .mu-toggle:hover:not([data-disabled]) { color: var(--mu-ink); background: none; }
+  .mu-segmented-item:hover:not([data-disabled]), .mu-segmented > .mu-toggle:hover:not([data-disabled]) { color: var(--mu-text); background: none; }
 }
-.mu-segmented-item[data-active], .mu-segmented > .mu-toggle[data-pressed], .mu-segmented > .mu-toggle:active:not([data-disabled]) { color: var(--mu-ink); background: none; box-shadow: none; }
-.mu-segmented-item[data-disabled] { opacity: 0.45; cursor: not-allowed; }
+.mu-segmented-item[data-active], .mu-segmented > .mu-toggle[data-pressed], .mu-segmented > .mu-toggle:active:not([data-disabled]) { color: var(--mu-text); background: none; }
+.mu-segmented-item[data-disabled], .mu-segmented > .mu-toggle[data-disabled] { color: var(--mu-text-disabled); cursor: not-allowed; }
 
 .mu-tabs-root { display: flex; flex-direction: column; gap: var(--mu-space-4); }
 .mu-tabs-list { align-self: flex-start; }
-.mu-tabs-panel { border-radius: var(--mu-radius-sm); }
+.mu-tabs-panel { border: var(--mu-focus-edge-width) solid transparent; border-radius: var(--mu-radius-sm); }
 
 @media (prefers-reduced-motion: reduce) {
   .mu-segmented-key { transition: none; }

@@ -33,4 +33,4 @@ Wraps Base UI's [Switch](https://base-ui.com/react/components/switch) root with 
 
 - A pill well with a round knob; the well fills with `primary` when on.
 - Height = checkbox box + 2px; width = height × 1.7.
-- The knob is a `key` with `shadow-key`, inset 2px; `on-primary` when on. It grows 10% on press and slides with `ease-settle`. Under reduced motion it doesn't slide or grow.
+- The knob is a flat `key`, inset 2px; `on-primary` when on. It grows 10% on press and slides with `ease-settle`. Under reduced motion it doesn't slide or grow.

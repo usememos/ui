@@ -7,8 +7,8 @@
  *   @import "@usememos/ui/styles.css";
  *   @import "@usememos/ui/tailwind.css";
  *
- * Utilities carry an mu- prefix (bg-mu-surface, text-mu-ink-muted,
- * shadow-mu-raised, rounded-mu-md), so they never clash with an app's own
+ * Utilities carry an mu- prefix (bg-mu-surface, text-mu-text-secondary,
+ * rounded-mu-md), so they never clash with an app's own
  * colors. `inline` makes each utility read the --mu- token where it is used,
  * so a .mu-root with its own data-theme recolors the utilities inside it.
  * Spacing needs no mapping: Tailwind's 0.25rem step is the 4px grid, so p-3
@@ -23,12 +23,13 @@
   --color-mu-hover: var(--mu-hover);
   --color-mu-key: var(--mu-key);
   --color-mu-key-hover: var(--mu-key-hover);
-  --color-mu-key-sheen: var(--mu-key-sheen);
   --color-mu-edge: var(--mu-edge);
+  --color-mu-control-edge: var(--mu-control-edge);
   --color-mu-line: var(--mu-line);
   --color-mu-overlay: var(--mu-overlay);
-  --color-mu-ink: var(--mu-ink);
-  --color-mu-ink-muted: var(--mu-ink-muted);
+  --color-mu-text: var(--mu-text);
+  --color-mu-text-secondary: var(--mu-text-secondary);
+  --color-mu-text-disabled: var(--mu-text-disabled);
   --color-mu-primary: var(--mu-primary);
   --color-mu-primary-hover: var(--mu-primary-hover);
   --color-mu-on-primary: var(--mu-on-primary);
@@ -44,13 +45,6 @@
   --color-mu-danger-key: var(--mu-danger-key);
   --color-mu-danger-soft: var(--mu-danger-soft);
   --color-mu-on-danger: var(--mu-on-danger);
-
-  /* Shadows (docs/depth.md) */
-  --shadow-mu-track: var(--mu-shadow-track);
-  --shadow-mu-key: var(--mu-shadow-key);
-  --shadow-mu-raised: var(--mu-shadow-raised);
-  --shadow-mu-pressed: var(--mu-shadow-pressed);
-  --shadow-mu-pop: var(--mu-shadow-pop);
 
   /* Radius (docs/layout.md) */
   --radius-mu-xs: var(--mu-radius-xs);

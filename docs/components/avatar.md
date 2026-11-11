@@ -38,4 +38,4 @@ interface Avatar.RootProps extends BaseAvatar.Root.Props {
 
 ## Style
 
-- A circle (one of three round shapes, with radios and switches). Initials in `ink-muted` on `well`.
+- A circle (one of three round shapes, with radios and switches). Initials in `text-secondary` on `well`.

@@ -13,7 +13,7 @@ test("the app's own variables don't reach the components", async ({ page }) => {
   // The app sets --primary, --radius-md, --font-sans and --space-3; the button reads only --mu- tokens.
   await expect(button).toHaveCSS('background-color', 'rgb(26, 26, 26)');
   await expect(button).toHaveCSS('border-top-left-radius', '6px');
-  await expect(button).toHaveCSS('padding-left', '12px');
+  expect(await button.evaluate((element) => { const style = getComputedStyle(element); return parseFloat(style.paddingLeft) + parseFloat(style.borderLeftWidth); })).toBe(12);
   expect(await button.evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/^-apple-system, BlinkMacSystemFont, "Segoe UI \(mu\)", system-ui,/);
   // And the tokens don't overwrite the app's variables.
   expect(await rootVar(page, '--primary')).toBe('rgb(255, 0, 0)');
@@ -41,7 +41,7 @@ test('an app theme overrides the tokens it sets and keeps Light for the rest', a
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'paper');
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(245, 237, 228)');
   await expect(page.locator('#primary')).toHaveCSS('background-color', 'rgb(60, 40, 30)');
-  expect(await rootVar(page, '--mu-ink')).toBe('#1a1a1a');
+  expect(await rootVar(page, '--mu-text')).toBe('#1a1a1a');
 });
 
 test('an app theme reaches popups, which render outside the app root', async ({ page }) => {
@@ -59,7 +59,7 @@ const styles = (page: Page, selector: string, properties: string[]) =>
     return Object.fromEntries(properties.map((name) => [name, style.getPropertyValue(name)]));
   }, properties);
 
-const box = ['background-color', 'box-shadow', 'border-top-left-radius', 'font-size', 'line-height', 'font-weight', 'color'];
+const box = ['background-color', 'border-top-color', 'border-top-width', 'border-top-left-radius', 'font-size', 'line-height', 'font-weight', 'color'];
 
 for (const theme of themes) {
   test(`class functions give an app's own parts the component's look in ${theme}`, async ({ page }) => {
@@ -90,18 +90,20 @@ test("an app's own parts show states from attributes", async ({ page }) => {
   await expect(page.locator('#menu-custom-active')).toHaveCSS('background-color', 'rgb(236, 236, 236)');
   await expect(page.locator('#menu-custom-item')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
 
-  // A field's edge turns 1.5px `focus-edge` ink (#1a1a1a in Light) while anything inside it has focus.
+  // A field's edge turns 2px `focus-edge` ink (#1a1a1a in Light) while anything inside it has focus.
   const field = page.locator('#input-custom');
-  await expect(field).toHaveCSS('box-shadow', /^rgb\(208, 208, 208\) 0px 0px 0px 1px inset/);
+  await expect(field).toHaveCSS('border-top-color', 'rgb(144, 144, 144)');
   await page.getByRole('textbox', { name: 'Custom tag' }).focus();
-  await expect(field).toHaveCSS('box-shadow', /^rgb\(26, 26, 26\) 0px 0px 0px 1.5px inset/);
+  await expect(field).toHaveCSS('border-top-color', 'rgb(26, 26, 26)');
   await page.getByRole('textbox', { name: 'Custom note' }).focus();
-  await expect(page.locator('#textarea-custom')).toHaveCSS('box-shadow', /^rgb\(26, 26, 26\) 0px 0px 0px 1.5px inset/);
+  await expect(page.locator('#textarea-custom')).toHaveCSS('border-top-color', 'rgb(26, 26, 26)');
 
   // aria-invalid and aria-disabled on the box.
   await field.evaluate((element) => element.setAttribute('aria-invalid', 'true'));
   // The edge turns `danger`, oklch(0.53 0.19 27) in Light.
-  await expect(field).toHaveCSS('box-shadow', /^oklch\(0\.53 0\.19 27\) 0px 0px 0px 1px inset/);
+  await expect(field).toHaveCSS('border-top-color', 'oklch(0.53 0.19 27)');
   await field.evaluate((element) => element.setAttribute('aria-disabled', 'true'));
-  await expect(field).toHaveCSS('opacity', '0.45');
+  await expect(field).toHaveCSS('opacity', '1');
+  await expect(field).toHaveCSS('color', 'rgb(102, 102, 102)');
+  await expect(field).toHaveCSS('background-color', 'rgb(228, 228, 228)');
 });

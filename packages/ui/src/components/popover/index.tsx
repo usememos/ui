@@ -36,7 +36,7 @@ export interface PopupProps extends BasePopover.Popup.Props, PositionerProps {
   variant?: PopoverVariant;
 }
 
-/** The panel: a surface with `shadow-pop`, `popover-width` wide. */
+/** The panel: a bordered surface, `popover-width` wide. */
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(function PopoverPopup({ container, variant = 'panel', className, children, ...props }, ref) {
   const [positioner, rest] = splitPositioner(props);
   return (

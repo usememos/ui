@@ -1,5 +1,6 @@
 /* Input and Textarea: flat surface with an edge; the background never changes. See docs/components/input.md. */
 .mu-input-root {
+  --mu-field-edge: 1px;
   display: flex;
   align-items: center;
   gap: var(--mu-row-gap);
@@ -7,30 +8,29 @@
   width: 100%;
   min-width: 0;
   height: var(--mu-row-height);
-  padding: 0 var(--mu-row-padding);
+  padding: 0 calc(var(--mu-row-padding) - var(--mu-field-edge));
   border-radius: var(--mu-row-radius);
-  color: var(--mu-ink);
+  color: var(--mu-text);
   background-color: var(--mu-surface);
-  box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
+  border: var(--mu-field-edge) solid var(--mu-control-edge);
   cursor: text;
-  transition: box-shadow var(--mu-duration-fade) var(--mu-ease-out);
+  transition: border-color var(--mu-duration-fade) var(--mu-ease-out);
 }
-.mu-input-root:where(:has(> .mu-input-prefix)) { padding-inline-start: var(--mu-row-padding-icon); }
-.mu-input-root:where(:has(> .mu-input-suffix)) { padding-inline-end: var(--mu-row-padding-icon); }
+.mu-input-root:where(:has(> .mu-input-prefix)) { padding-inline-start: calc(var(--mu-row-padding-icon) - var(--mu-field-edge)); }
+.mu-input-root:where(:has(> .mu-input-suffix)) { padding-inline-end: calc(var(--mu-row-padding-icon) - var(--mu-field-edge)); }
 
 @media (hover: hover) {
-  .mu-input-root:hover:not([data-disabled], [aria-disabled="true"], :has(> [data-disabled]), :focus-within) { box-shadow: inset 0 0 0 1px var(--mu-ink-muted), var(--mu-shadow-track); }
+  .mu-input-root:hover:not([data-disabled], [aria-disabled="true"], :has(> [data-disabled]), :focus-within) { border-color: var(--mu-text-secondary); }
 }
 /* An app's own field, styled with inputClasses(), has no .mu-input inside: it takes focus itself or in any child, and states come as attributes on the box.
-   Focus darkens the field's own edge to ink, on click and keyboard alike. No ring around it. The transparent outline shows only in forced-colors mode, which drops shadows. */
+   Focus darkens the field's own edge to ink, on click and keyboard alike. No external focus decoration. */
 .mu-input-root:where(:has(> .mu-input:focus)), .mu-input-root:where(:not(:has(> .mu-input))):focus-within {
-  box-shadow: inset 0 0 0 var(--mu-focus-edge-width) var(--mu-focus-edge), var(--mu-shadow-track);
-  outline: var(--mu-focus-width) solid transparent;
-  outline-offset: calc(-1 * var(--mu-focus-width));
+  --mu-field-edge: var(--mu-focus-edge-width);
+  border-color: var(--mu-focus-edge);
+  outline: none;
 }
-.mu-input-root:is([data-invalid], [aria-invalid="true"], :has(> [data-invalid])) { box-shadow: inset 0 0 0 1px var(--mu-danger), var(--mu-shadow-track); }
-.mu-input-root:is([data-invalid], [aria-invalid="true"], :has(> [data-invalid])):where(:has(> .mu-input:focus), :not(:has(> .mu-input)):focus-within) { box-shadow: inset 0 0 0 var(--mu-focus-edge-width) var(--mu-danger), var(--mu-shadow-track); }
-.mu-input-root:is([data-disabled], [aria-disabled="true"], :has(> [data-disabled])) { opacity: 0.45; cursor: not-allowed; }
+.mu-input-root:is([data-invalid], [aria-invalid="true"], :has(> [data-invalid])) { border-color: var(--mu-danger); }
+.mu-input-root:is([data-disabled], [aria-disabled="true"], :has(> [data-disabled])) { color: var(--mu-text-disabled); background-color: var(--mu-well); border-color: var(--mu-edge); cursor: not-allowed; }
 
 .mu-input {
   flex: 1;
@@ -48,7 +48,11 @@
 }
 /* An app's own field inside the box (inputClasses()) gets the same text size. */
 .mu-input-root:where(:not(:has(> .mu-input))) :where(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]), textarea) { font-size: var(--mu-row-field-font-size); }
-.mu-input::placeholder { color: var(--mu-ink-muted); opacity: 1; }
+.mu-input::placeholder { color: var(--mu-text-secondary); opacity: 1; }
 .mu-input[data-disabled] { cursor: not-allowed; }
 
-.mu-input-prefix, .mu-input-suffix { display: flex; flex: none; align-items: center; gap: var(--mu-space-1); color: var(--mu-ink-muted); }
+.mu-input-prefix, .mu-input-suffix { display: flex; flex: none; align-items: center; gap: var(--mu-space-1); color: var(--mu-text-secondary); }
+
+.mu-input-root:where([data-disabled], [aria-disabled="true"], :has(> [data-disabled])) :where(.mu-input, .mu-input-prefix, .mu-input-suffix) { color: var(--mu-text-disabled); }
+
+.mu-input-root:where([data-disabled], [aria-disabled="true"], :has(> [data-disabled])) .mu-input::placeholder { color: var(--mu-text-disabled); }

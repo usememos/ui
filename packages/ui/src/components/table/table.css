@@ -5,7 +5,7 @@
 .mu-table {
   width: 100%;
   border-collapse: collapse;
-  color: var(--mu-ink);
+  color: var(--mu-text);
   font-variant-numeric: tabular-nums;
   text-align: start;
 }
@@ -14,7 +14,7 @@
 
 .mu-table-head {
   height: var(--mu-row-height);
-  color: var(--mu-ink-muted);
+  color: var(--mu-text-secondary);
   white-space: nowrap;
   border-bottom: 1px solid var(--mu-line);
 }
@@ -27,9 +27,9 @@
 .mu-table-cell > :is(.mu-button, .mu-table-actions) { margin-block: calc((var(--mu-row-line-height) - var(--mu-row-height)) / 2); vertical-align: top; }
 
 .mu-table-num { text-align: end; }
-.mu-table-muted { color: var(--mu-ink-muted); }
+.mu-table-muted { color: var(--mu-text-secondary); }
 
-.mu-table-caption { caption-side: bottom; padding: var(--mu-space-2) var(--mu-row-padding) 0; color: var(--mu-ink-muted); text-align: start; }
+.mu-table-caption { caption-side: bottom; padding: var(--mu-space-2) var(--mu-row-padding) 0; color: var(--mu-text-secondary); text-align: start; }
 .mu-table-bordered .mu-table-caption { padding-bottom: var(--mu-space-2); border-top: 1px solid var(--mu-line); }
 /* The head row sits on canvas, so it reads as the head inside the box; the scrolling box clips the fill to its corners. */
 .mu-table-bordered .mu-table-head { background-color: var(--mu-canvas); }

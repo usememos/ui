@@ -72,11 +72,10 @@
 /* Compact: inside it, md controls and rows are control-compact (28px) tall; their text, icons, padding and radius stay md. For an app's sidebar. */
 .mu-compact { --mu-control-md: var(--mu-control-compact); }
 
-/* Depth, in four roles: wells hold a state, keys can be pressed, popups float. Light comes from the top. See docs/depth.md. */
-.mu-recessed { background-color: var(--mu-well); box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track); }
-.mu-raised { background-color: var(--mu-key); background-image: linear-gradient(180deg, var(--mu-key-sheen), rgba(255, 255, 255, 0) 60%); box-shadow: var(--mu-shadow-raised); }
-.mu-key { background-color: var(--mu-key); background-image: linear-gradient(180deg, var(--mu-key-sheen), rgba(255, 255, 255, 0) 60%); box-shadow: var(--mu-shadow-key); }
-.mu-popup { background: var(--mu-surface); box-shadow: var(--mu-shadow-pop); border-radius: var(--mu-radius-xl); }
+/* Flat surfaces: wells group state, keys identify controls, popups separate overlapping content. */
+.mu-well { box-sizing: border-box; background-color: var(--mu-well); border: var(--mu-control-border-width, 1px) solid var(--mu-control-edge); }
+.mu-key { box-sizing: border-box; background-color: var(--mu-key); border: var(--mu-control-border-width, 1px) solid var(--mu-control-edge); }
+.mu-popup { background: var(--mu-surface); border: 1px solid var(--mu-edge); border-radius: var(--mu-radius-xl); }
 
 /* Popups: every Positioner sits on the popup layer; popups fade in and rise. See docs/motion.md. */
 .mu-positioner { z-index: var(--mu-layer-popup); outline: 0; }
@@ -88,14 +87,14 @@
 }
 
 /* Base text for every component. */
-.mu-base { font-family: var(--mu-font-sans); font-size: var(--mu-row-font-size, 14px); line-height: var(--mu-row-line-height, 20px); font-weight: 500; letter-spacing: 0; color: var(--mu-ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-tap-highlight-color: transparent; }
+.mu-base { font-family: var(--mu-font-sans); font-size: var(--mu-row-font-size, 14px); line-height: var(--mu-row-line-height, 20px); font-weight: 500; letter-spacing: 0; color: var(--mu-text); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-tap-highlight-color: transparent; }
 .mu-base ::selection, .mu-base::selection { background: var(--mu-selection); }
 
 /* Text for screen readers only, such as the head of a column of row actions. */
 .mu-visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
-/* Focus ring on keyboard focus only: an ink ring hugging the edge, 1px out so it stays visible on ink fills. */
-.mu-focus:focus-visible { outline: var(--mu-focus-width) solid var(--mu-focus); outline-offset: var(--mu-focus-offset); }
+/* The control reserves its own border; focus.css changes that edge after component states. */
+.mu-focus { --mu-control-border-width: 1px; outline: none; }
 
 /* An invisible 44px touch target on coarse pointers, without changing the visual size. */
 .mu-hit { position: relative; }

@@ -6,13 +6,13 @@
   box-sizing: border-box;
   width: var(--mu-popover-width);
   max-width: var(--available-width);
-  padding: var(--mu-space-4);
+  padding: calc(var(--mu-space-4) - 1px);
   outline: 0;
 }
-.mu-popover-title { margin: 0; color: var(--mu-ink); }
-.mu-popover-description { margin: calc(-1 * var(--mu-space-2)) 0 0; color: var(--mu-ink-muted); }
+.mu-popover-title { margin: 0; color: var(--mu-text); }
+.mu-popover-description { margin: calc(-1 * var(--mu-space-2)) 0 0; color: var(--mu-text-secondary); }
 
 /* List: rows edge to edge, as in a Menu. A title or description inside lines up with the rows' text. */
-.mu-popover-list { gap: 0; padding: calc(var(--mu-radius-xl) - var(--mu-radius-md)); }
+.mu-popover-list { gap: 0; padding: calc(var(--mu-radius-xl) - var(--mu-radius-md) - 1px); }
 .mu-popover-list > .mu-popover-title { padding: var(--mu-space-2) var(--mu-row-padding) 0; }
 .mu-popover-list > .mu-popover-description { margin: 0; padding: 0 var(--mu-row-padding) var(--mu-space-2); }

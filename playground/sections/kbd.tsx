@@ -2,7 +2,7 @@ import { Kbd } from '@usememos/ui';
 
 export function KbdSection() {
   return (
-    <div className="pg-row mu-body" style={{ color: 'var(--mu-ink-muted)' }}>
+    <div className="pg-row mu-body" style={{ color: 'var(--mu-text-secondary)' }}>
       <span>
         Press <Kbd>⌘</Kbd> <Kbd>K</Kbd> to search
       </span>

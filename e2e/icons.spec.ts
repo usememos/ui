@@ -34,7 +34,8 @@ async function expectCentered(control: Locator, label: string) {
 const rowPadding = (control: Locator) =>
   control.evaluate((element) => {
     const style = getComputedStyle(element);
-    return { padding: style.getPropertyValue('--mu-row-padding').trim(), icon: style.getPropertyValue('--mu-row-padding-icon').trim() };
+    const edge = parseFloat(style.borderInlineStartWidth);
+    return { padding: `${parseFloat(style.getPropertyValue('--mu-row-padding')) - edge}px`, icon: `${parseFloat(style.getPropertyValue('--mu-row-padding-icon')) - edge}px` };
   });
 
 /** Adds an element to the button section with the given classes and an icon, as an app does with buttonClasses(). */

@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 
 export interface KbdProps extends useRender.ComponentProps<'kbd'> {}
 
-/** One keyboard key, such as "⌘", "Enter" or "/", as a tiny raised key. */
+/** One keyboard key, such as "⌘", "Enter" or "/", as a tiny flat key. */
 export const Kbd = forwardRef<HTMLElement, KbdProps>(function Kbd({ render, ...props }, ref) {
   return useRender({ defaultTagName: 'kbd', render, ref, props: mergeProps<'kbd'>({ className: 'mu-kbd mu-label-xs' }, props) });
 });

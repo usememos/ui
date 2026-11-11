@@ -4,7 +4,21 @@ Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"
 
 ## Unreleased
 
+### State clarity
+
+- **Focus is easier to see.** Keyboard focus thickens the control's own boundary to 2px without moving text or changing its size. Shadows, rings and visible outlines remain absent.
+- **Disabled labels stay readable.** Controls use `text-disabled` instead of whole-control opacity. Filled controls and fields use a quiet well; checked marks and switch positions remain visible.
+- **Control boundaries have their own token.** `control-edge` passes 3:1 against canvas and surface in both themes, while popup and badge borders keep the quieter `edge`. App themes now set 28 color tokens, adding `control-edge` and `text-disabled` to `themeTokens`.
+- **Button skips spinners for short waits.** `loading` blocks presses and reports busy immediately, but keeps the label for 300ms before showing a spinner. Finishing cancels the timer and restores the label immediately.
+
+### Breaking changes
+
+- **Text color tokens have literal role names.** Rename `--mu-ink` to `--mu-text`, `--mu-ink-muted` to `--mu-text-secondary`, and `--mu-ink-disabled` to `--mu-text-disabled` in app CSS and themes. Tailwind utilities follow the new names (for example, `text-mu-text-secondary`). The old names are removed; values and appearance are unchanged.
+- **The interface is flat.** Remove app overrides of the five `--mu-shadow-*` tokens and `--mu-key-sheen`; they and the Tailwind shadow utilities are gone. `themeTokens` now lists 26 color tokens. Replace `mu-recessed` with `mu-well` and `mu-raised` with `mu-key`. The focus width and offset tokens are removed; custom parts using `mu-focus` must reserve a real 1px border.
+
 ### Visual changes
+
+- **Controls and popups use flat fills and real borders.** Shadows and key sheen are removed throughout, including fields, checkboxes, radios, switches, tabs, badges and Prose task lists. Pressed buttons change fill. Keyboard focus changes a control's existing edge, using contrasting text color on filled controls; links use a double underline. Fields retain their darker, thicker focus edge. No external focus ring or visible outline is drawn, including in forced-colors mode.
 
 - **The smallest text is 11px, not 12px.** `label-xs` and `caption-xs` are 11 / 16px (were 12 / 16px), and the xs size row's `--mu-row-font-size` is 11px. This is the text of every 20px part: Badge, Kbd, the labels of xs Buttons, Toggles, ToggleGroups, Checkboxes, Radios and Switches, and the initials of an xs Avatar. Heights, padding, the 16px line and the 12px icons are unchanged, so the parts keep their size and only the letters are smaller. A line of text with a Kbd or Badge inside it can become 1px taller, because the part's text baseline moved. The reason: 12px was 1px under the 13px `caption` text beside it, a step too small to see, so xs parts did not read as smaller. The type scale is now 11, 13, 14, 16 and 20px. An app's own element that uses `mu-label-xs`, `mu-caption-xs`, `badgeClasses()` or the xs row follows.
 - **The `display` style adds no letter spacing.** `.mu-display`, the 32px hero headline of a website, no longer sets −0.02em. The system fonts set their own letter spacing at each size, and San Francisco is already tuned at 32px, so the extra value made the headline tighter than the platform intends. Every type style now has letter spacing 0. An app that wants a tighter hero sets `letter-spacing` on that element.

@@ -1,7 +1,7 @@
 /* Form: fields stacked space-4 apart, buttons at the end; `bordered` boxes it with a footer bar. See docs/components/form.md. */
-.mu-form { display: flex; flex-direction: column; gap: var(--mu-space-4); box-sizing: border-box; min-width: 0; margin: 0; color: var(--mu-ink); }
-.mu-form-title { margin: 0; color: var(--mu-ink); }
-.mu-form-description { margin: calc(-1 * var(--mu-space-3)) 0 0; color: var(--mu-ink-muted); }
+.mu-form { display: flex; flex-direction: column; gap: var(--mu-space-4); box-sizing: border-box; min-width: 0; margin: 0; color: var(--mu-text); }
+.mu-form-title { margin: 0; color: var(--mu-text); }
+.mu-form-description { margin: calc(-1 * var(--mu-space-3)) 0 0; color: var(--mu-text-secondary); }
 .mu-form-footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--mu-space-2); }
 
 /* Bordered: a List's edge, padded as a List row; the Footer becomes a canvas bar that runs to the edge. */

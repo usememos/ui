@@ -41,5 +41,5 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `disabled` 
 ## Style
 
 - The trigger is a ghost key that bleeds `px` to the left, so its label lines up with the content below.
-- The chevron is `ink-muted` and turns 180° over `duration-settle` with `ease-settle`.
+- The chevron is `text-secondary` and turns 180° over `duration-settle` with `ease-settle`.
 - The panel fades in and rises `space-1` over `duration-fade`. Its height never animates. No rise or turn under reduced motion.

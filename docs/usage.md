@@ -7,7 +7,7 @@ How to pick the right component for a screen and put components together. Read i
 1. Find the [pattern](patterns.md) the screen follows: page, form, entry, confirmation, loading, empty state, mobile. Follow it before choosing components.
 2. Pick each component with the guides below. When two seem to fit, the first row that matches wins.
 3. Import components from `@usememos/ui` and icons from `lucide-react`. Don't wrap a component to restyle it.
-4. Use `className` and `style` for layout only: width, margin, grid or flex placement. Don't change a component's color, height, padding, radius, shadow, font size or focus style. If the look is wrong, the component or its page is wrong; change the package, not the screen.
+4. Use `className` and `style` for layout only: width, margin, grid or flex placement. Don't change a component's color, height, padding, radius, border, font size or focus style. If the look is wrong, the component or its page is wrong; change the package, not the screen.
 5. A part the package doesn't ship is built with [Building your own component](custom-components.md), never by copying a component's CSS.
 
 ## Picking something that floats
@@ -287,19 +287,21 @@ The package ships no navigation component: the sidebar's rows are the app's link
   align-items: center;
   gap: var(--mu-row-gap);
   height: var(--mu-row-height); /* 28px inside mu-compact, 32px without */
-  padding: 0 var(--mu-row-padding-icon);
+  box-sizing: border-box;
+  padding: 0 calc(var(--mu-row-padding-icon) - var(--mu-control-border-width));
+  border: var(--mu-control-border-width) solid transparent;
   border-radius: var(--mu-row-radius);
-  color: var(--mu-ink-muted);
+  color: var(--mu-text-secondary);
   font-weight: 400; /* mu-base sets 500, for control labels */
   text-decoration: none;
 }
-.app-nav-row:hover, .app-nav-row[aria-current="page"] { color: var(--mu-ink); background-color: var(--mu-hover); }
+.app-nav-row:hover, .app-nav-row[aria-current="page"] { color: var(--mu-text); background-color: var(--mu-hover); }
 ```
 
 - `mu-compact` changes only md. sm (24px) and xs (20px) controls inside keep their heights, so an xs ghost Button for a row action still fits.
 - Popups opened from the sidebar (the Select's list, a Menu) mount outside it, at the normal 32px. To give a panel of rows the same 28px, put `mu-compact` on its popup: `<Popover.Popup variant="list" className="mu-compact">`.
 - `mu-s-md` gives the rows 14px text, 16px icons with a 1.25px stroke, and md padding and radius; `mu-base` sets the font. Never set the `--mu-row-*` variables or the size tokens yourself; `mu-compact` is the only way to change a row's height.
-- Rows are weight 400 (`body`), like Menu items, Select items and settings row names. A column of rows is content people scan; at 500 every row competes and the sidebar reads as bold. 500 is for what names a group: a section title in the sidebar and the "New" Button's label. The current row stands out by its fill and `ink` color, not by weight, so the text doesn't shift when the current page changes.
+- Rows are weight 400 (`body`), like Menu items, Select items and settings row names. A column of rows is content people scan; at 500 every row competes and the sidebar reads as bold. 500 is for what names a group: a section title in the sidebar and the "New" Button's label. The current row stands out by its fill and `text` color, not by weight, so the text doesn't shift when the current page changes.
 - Mark the current page with `aria-current="page"`, not with color alone; the fill shows it too.
 - Rows stack `inset` (2px) apart. Don't add `mu-hit` to stacked rows: their 44px touch areas would overlap. 28px is above the 24px minimum target size.
 - A row with a count or a menu at its end adds it after the label with `margin-inline-start: auto`.
@@ -320,7 +322,7 @@ Controls over an image or a video sit in a dark-theme scope, so they read on any
 ```
 
 - `data-theme="dark"` on any element sets the Dark tokens for everything inside it, so the Buttons are dark `neutral` keys with light icons. Don't use `ghost` there: it has no fill and disappears on a busy picture.
-- When the scope holds only Buttons, leave its own background transparent: the keys carry their own fill and shadow. Text in the scope, such as a counter or a file name, has no fill of its own and needs the pill in [Text over a photo](#text-over-a-photo).
+- When the scope holds only Buttons, leave its own background transparent: the keys carry their own fill and border. Text in the scope, such as a counter or a file name, has no fill of its own and needs the pill in [Text over a photo](#text-over-a-photo).
 - A full-screen viewer is a Dialog with `variant="bare" fullScreen`; put the scope inside its Popup.
 
 ### Text over a photo
@@ -341,16 +343,16 @@ Plain text over a picture, such as a viewer's "3 / 12" counter or its zoom level
   height: var(--mu-control-md);
   padding: 0 var(--mu-space-3);
   border-radius: var(--mu-radius-md);
-  color: var(--mu-ink);
+  color: var(--mu-text);
   background-color: var(--mu-surface);
-  box-shadow: var(--mu-shadow-pop);
+  border: 1px solid var(--mu-edge);
   font-variant-numeric: tabular-nums;
 }
 ```
 
-- The pill is opaque, as tall as the Buttons beside it, with their radius. Dark `surface` with `ink` text keeps 4.5:1 on any picture.
+- The pill is opaque, as tall as the Buttons beside it, with their radius. Dark `surface` with the `text` color keeps 4.5:1 on any picture.
 - No blur and no translucent fill: glass behind text is not in the system (see [Depth](depth.md)), and it fails contrast on bright pictures.
-- Several labels and Buttons in one row can share one pill instead: put the `surface`, radius, padding and shadow on the scope, and the Buttons become `ghost` inside it, since the pill is their fill.
+- Several labels and Buttons in one row can share one pill instead: put the `surface`, radius, padding and border on the scope, and the Buttons become `ghost` inside it, since the pill is their fill.
 
 ### Inside a shadow root or a host page
 

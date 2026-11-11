@@ -9,7 +9,7 @@ const colors = [...colorDocs.matchAll(/^\| `([\w-]+)` \|/gm)].map(([, name = '']
 
 const typeStyles = ['display', 'heading', 'title', 'label', 'body', 'label-sm', 'caption', 'label-xs', 'caption-xs'];
 
-/** Tokens, depth roles, type and icons: what every component is built from. */
+/** Tokens, surfaces, type and icons: what every component is built from. */
 export function Foundations() {
   return (
     <>
@@ -26,14 +26,13 @@ export function Foundations() {
       </section>
 
       <section className="pg-section" id="depth">
-        <h2 className="mu-heading">Depth</h2>
+        <h2 className="mu-heading">Surfaces</h2>
         <div className="pg-row mu-base mu-s-md">
-          <div className="pg-box mu-recessed">Recessed</div>
-          <div className="pg-well mu-recessed">
+          <div className="pg-box mu-well">Well</div>
+          <div className="pg-well mu-well">
             <span className="mu-key">Key</span>
             <span>Off</span>
           </div>
-          <div className="pg-box mu-raised">Raised</div>
           <div className="pg-box mu-popup">Popup</div>
         </div>
       </section>
@@ -51,7 +50,7 @@ export function Foundations() {
         <h2 className="mu-heading">Sizes and icons</h2>
         {sizes.map((size) => (
           <div className={`pg-row mu-base mu-s-${size}`} key={size}>
-            <span className="pg-control mu-raised">
+            <span className="pg-control mu-key">
               <Pin aria-hidden />
               {size}
             </span>

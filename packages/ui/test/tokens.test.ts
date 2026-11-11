@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 import agentsDocs from '../../../AGENTS.md?raw';
 import colorDocs from '../../../docs/color.md?raw';
 import customComponentsDocs from '../../../docs/custom-components.md?raw';
-import depthDocs from '../../../docs/depth.md?raw';
 import layoutDocs from '../../../docs/layout.md?raw';
 import motionDocs from '../../../docs/motion.md?raw';
 import typographyDocs from '../../../docs/typography.md?raw';
@@ -71,20 +70,8 @@ describe('tokens.css', () => {
     }
     const documented = new Set(rows.map(([name]) => `--mu-${unquote(name)}`));
     for (const theme of themes) {
-      const colors = [...themeRule[theme].keys()].filter((name) => name.startsWith('--mu-') && !name.startsWith('--mu-shadow-'));
+      const colors = [...themeRule[theme].keys()].filter((name) => name.startsWith('--mu-'));
       expect(colors.filter((name) => !documented.has(name)), `undocumented colors in ${theme}`).toEqual([]);
-    }
-  });
-
-  it('matches the shadow tokens in docs/depth.md', () => {
-    const headings: Record<Theme, string> = { light: 'Light', dark: 'Dark' };
-    for (const theme of themes) {
-      const block = depthDocs.match(new RegExp(`### ${headings[theme]}\\n\\n\`\`\`css\\n([\\s\\S]*?)\`\`\``))?.[1] ?? '';
-      const shadows = [...block.matchAll(/(--mu-shadow-[\w-]+):\s*([^;]+);/g)];
-      expect(shadows, theme).toHaveLength(5);
-      for (const [, name = '', value = ''] of shadows) {
-        expect(normalize(themeRule[theme].get(name) ?? ''), `${name} in ${theme}`).toBe(normalize(value));
-      }
     }
   });
 
@@ -97,11 +84,9 @@ describe('tokens.css', () => {
     }
   });
 
-  it('exports the color and shadow tokens as themeTokens, and every theme sets each one', () => {
+  it('exports the color tokens as themeTokens, and every theme sets each one', () => {
     const colors = tableRows(colorDocs).map(([name]) => `--mu-${unquote(name)}`);
-    const shadows = [...depthDocs.matchAll(/^\| `(shadow-[\w-]+)` \|/gm)].map(([, name = '']) => `--mu-${name}`);
-    expect(shadows).toHaveLength(5);
-    expect([...themeTokens]).toEqual([...colors, ...shadows]);
+    expect([...themeTokens]).toEqual(colors);
     for (const theme of themes) {
       expect(themeTokens.filter((name) => !themeRule[theme].has(name)), theme).toEqual([]);
     }
@@ -120,14 +105,9 @@ describe('tokens.css', () => {
     expect(counts(colorDocs, /the custom property names of those (\d+) tokens/g), 'docs/color.md').toEqual([themeTokens.length]);
   });
 
-  it('names every token for its job: no shadow scale, ring or elevation', () => {
+  it('has no shadow, sheen, ring or elevation tokens', () => {
     const names = [...new Set([...stripComments(tokensCss).matchAll(/(--mu-[\w-]+)\s*:/g)].map(([, name = '']) => name))];
-    // A name that only says how a thing looks (`shadow-sm`, `ring`) ends up shared by parts with different jobs.
-    const generic = /^--mu-(ring|elevation)(-|$)|^--mu-shadow-(xs|sm|md|lg|xl|\dxl|base|inner|none|\d+)$/;
-    expect(names.filter((name) => generic.test(name))).toEqual([]);
-    // The five shadows are the five depth roles in docs/depth.md, and nothing else.
-    const shadows = [...depthDocs.matchAll(/^\| `(shadow-[\w-]+)` \|/gm)].map(([, name = '']) => `--mu-${name}`);
-    expect(names.filter((name) => name.startsWith('--mu-shadow-')).sort()).toEqual([...shadows].sort());
+    expect(names.filter((name) => /^--mu-(shadow|ring|elevation)(-|$)|^--mu-key-sheen$/.test(name))).toEqual([]);
   });
 
   it('matches the font stacks in docs/typography.md', () => {

@@ -44,7 +44,7 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange`, `multipl
 ## Rules
 
 - Give the group an `aria-label`.
-- A single choice among peers is a raised key in a well; an on/off state is a pressed toggle. Never mix the two in one row.
+- A single choice among peers is a flat selected fill in a well; an on/off state is a pressed toggle. Never mix the two in one row.
 - Without `multiple`: filters and view switches that don't change the whole page. For sections of a page, use Tabs.
 - Base UI lets people press the chosen item to clear it. When one item must stay chosen, ignore an empty value, as in the example.
 - Arrow keys move focus between items; Space or Enter presses one.

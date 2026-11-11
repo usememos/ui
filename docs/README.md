@@ -17,7 +17,7 @@ It is not a general-purpose UI library for outside developers. Components are ge
 | --- | --- |
 | [Principles and voice](principles.md) | The taste in six rules, and how interface text is written |
 | [Color](color.md) | Color roles, every color token in Light and Dark, and how themes are chosen |
-| [Depth](depth.md) | The tactile model: recessed, key, raised, popup and flat; shadow tokens |
+| [Depth](depth.md) | Flat surface roles, borders and focus without shadows or outlines |
 | [Typography](typography.md) | The system font, the type scale and text rules |
 | [Size, spacing and layout](layout.md) | Control sizes, the 4px scale, radius, layout widths, breakpoints and layers |
 | [Motion](motion.md) | Press, settle and fade timing, and reduced motion |

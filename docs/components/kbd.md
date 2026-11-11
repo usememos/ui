@@ -28,4 +28,4 @@ Renders a `<kbd>`.
 
 ## Style
 
-- A tiny raised key, `control-xs` (20px) tall, `label-xs` text (11px) in `ink-muted`.
+- A tiny flat key with an `edge` border, `control-xs` (20px) tall, `label-xs` text (11px) in `text-secondary`.

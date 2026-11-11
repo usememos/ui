@@ -50,4 +50,4 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange` on the ro
 
 - Shares the segmented well and sliding key with a single-choice ToggleGroup.
 - Tabs are sized to their labels. The key re-measures when a label changes width.
-- Selected and hovered labels `ink`, others `ink-muted`. Weight never changes, so labels don't shift.
+- Selected and hovered labels `text`, others `text-secondary`. Weight never changes, so labels don't shift.

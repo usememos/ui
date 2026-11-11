@@ -38,3 +38,4 @@
 @import "../components/list/list.css" layer(mu);
 @import "../components/form/form.css" layer(mu);
 @import "../components/prose/prose.css" layer(mu);
+@import "./focus.css" layer(mu);

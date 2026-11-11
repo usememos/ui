@@ -49,14 +49,14 @@ Inside another page (the web clipper, an embed), mount the UI under a `.mu-root`
 
 Set `data-theme="light" | "dark"` on the root element or on any `.mu-root`. Without the attribute the tokens are Light. The app, not the package, reads `prefers-color-scheme` and the user's saved choice. See [Color](color.md#themes). An app can add its own themes on top of these two; see [App themes](color.md#app-themes).
 
-An app changes only the color, shadow and font tokens. Every other token and every `mu-*` class rule is internal. See [What an app can change](color.md#what-an-app-can-change).
+An app changes only the color and font tokens. Every other token and every `mu-*` class rule is internal. See [What an app can change](color.md#what-an-app-can-change).
 
 ## Class names
 
 - Every class the package ships starts with `mu-`.
-- The [public classes](custom-components.md#public-classes) are for apps too: size rows (`mu-s-md`), depth roles (`mu-raised`), focus, touch targets, icons and the type scale. Apps apply them to their own parts and never override them.
+- The [public classes](custom-components.md#public-classes) are for apps too: size rows (`mu-s-md`), surface roles (`mu-key`), focus, touch targets, icons and the type scale. Apps apply them to their own parts and never override them.
 - `mu-positioner` puts a popup's positioner on `layer-popup`, and `mu-popup-motion` makes a popup fade in and rise `space-1` (no rise under reduced motion).
-- The depth classes `mu-recessed`, `mu-key`, `mu-raised` and `mu-popup` apply a whole depth role. Use them for new parts before writing new shadows. See [Depth](depth.md).
+- The surface classes `mu-well`, `mu-key` and `mu-popup` apply flat fills and borders. Use them for new parts. See [Surfaces and boundaries](depth.md).
 - `mu-prose` styles rendered content. See [Prose](components/prose.md).
 - `mu-icon` applies icon size and stroke rules outside a component, at the size of the nearest size row; `mu-icon-xs`, `mu-icon-sm` and `mu-icon-md` set a fixed size on their own. See [Icons](icons.md).
 - `mu-visually-hidden` hides text visually but keeps it for screen readers.
@@ -139,7 +139,7 @@ toast.add({ title: "Note archived", type: "success" });
 
 1. A reason: a screen in a product needs it, and no existing component or pattern covers it.
 2. A generic name and API that would make sense in any of our products.
-3. Tokens only: no raw colors, sizes or shadows.
+3. Tokens only: no raw colors or sizes; no shadows, sheen or visible outlines.
 4. Both sizes, all [states](states.md), both themes, and reduced motion.
 5. Keyboard and screen reader behavior from Base UI.
 6. A page in `docs/components/` and an entry in the [inventory](components/README.md).

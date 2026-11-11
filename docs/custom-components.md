@@ -9,7 +9,7 @@ An app always has parts the package doesn't ship and shouldn't: product parts (a
 1. **Use a component if one fits.** Check the [inventory](components/README.md). Compose components, swap a part's element with `render`, or adjust one instance with `className` before building anything.
 2. **Behavior from Base UI.** Build anything with focus, keyboard, an open state or a popup on [`@base-ui/react`](https://base-ui.com), as the package does. It is a peer dependency of the package at one exact version, so the app's components and the package's share one copy. Upgrade it only with the package.
 3. **Looks from a class function** when the part should look like a component: an anchor that looks like a Button, an editor that looks like a Textarea, a suggestion list that looks like a Menu. See [Class functions](#class-functions).
-4. **Otherwise, from the public classes and tokens.** Size the part with a size row class and read the [row variables](#row-variables); give it depth with a [depth class](depth.md); set text with a [type class](typography.md); color it with `var(--mu-<token>)` or the [Tailwind utilities](#tailwind-css).
+4. **Otherwise, from the public classes and tokens.** Size the part with a size row class and read the [row variables](#row-variables); give it a surface with a [surface class](depth.md); set text with a [type class](typography.md); color it with `var(--mu-<token>)` or the [Tailwind utilities](#tailwind-css).
 5. **Check it like a component.** It works in Light and Dark and under reduced motion; text keeps 4.5:1 contrast; focus shows on `:focus-visible` (`mu-focus`); touch targets reach 44px (`mu-hit`); icon-only controls have an `aria-label` and a [Tooltip](components/tooltip.md).
 
 ## Class functions
@@ -63,14 +63,13 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-s-sm` | The sm size row: 24px | Dense toolbars, table rows, filters |
 | `mu-s-md` | The md size row: 32px | Everything else |
 | `mu-compact` | md controls and rows inside are `control-compact` (28px) tall; text, icons, padding and radius stay md | An app's sidebar with 28px rows, or a list Popover beside it |
-| `mu-base` | The system font, the row's text size and weight 500, `ink` text, and icon sizing for Lucide icons inside | The root of a control |
-| `mu-recessed` | `well`, a 1px `edge` and `shadow-track` | A part that holds a value |
-| `mu-key` | A `key` with the sheen and `shadow-key` | A key inside a well |
-| `mu-raised` | A `key` with the sheen and `shadow-raised` | A part you press |
-| `mu-popup` | `surface`, `shadow-pop` and `radius-xl` | A part that floats |
+| `mu-base` | The system font, the row's text size and weight 500, the `text` color, and icon sizing for Lucide icons inside | The root of a control |
+| `mu-well` | `well` and a 1px `control-edge` | A part that holds a value |
+| `mu-key` | `key` and a 1px `control-edge` | A control or a selected choice |
+| `mu-popup` | `surface`, a 1px `edge` and `radius-xl` | A part that floats |
 | `mu-popup-motion` | The popup fade and rise, none under reduced motion | A popup Base UI opens |
 | `mu-positioner` | The popup layer | A popup's positioner |
-| `mu-focus` | The ink focus ring on `:focus-visible`, 1px outside the edge | Anything focusable |
+| `mu-focus` | Thickens the existing border on `:focus-visible`; use its `--mu-control-border-width` for border and compensating padding | Anything focusable |
 | `mu-hit` | An invisible 44px touch target on `pointer: coarse` | Anything pressable smaller than 44px |
 | `mu-icon` | Icon size and stroke from the nearest size row, 16px outside one | A Lucide icon inside an app's own row |
 | `mu-icon-xs` | A 12px icon with a 1.25px stroke | A Lucide icon beside 11px or 13px text, outside a control |
@@ -128,12 +127,11 @@ An app on Tailwind CSS v4 loads `tailwind.css` after the package's other stylesh
 @import "@usememos/ui/tailwind.css";
 ```
 
-It maps the 27 color tokens, five shadow tokens, seven radius tokens and three font tokens to utilities with an `mu-` prefix, so they never clash with an app's own colors:
+It maps the 28 color tokens, seven radius tokens and three font tokens to utilities with an `mu-` prefix, so they never clash with an app's own colors:
 
 | Token | Utility |
 | --- | --- |
-| A color, such as `surface` | `bg-mu-surface`, `text-mu-ink-muted`, `border-mu-edge`, and every other color utility |
-| A shadow, such as `shadow-raised` | `shadow-mu-raised` |
+| A color, such as `surface` | `bg-mu-surface`, `text-mu-text-secondary`, `border-mu-edge`, and every other color utility |
 | A radius, such as `radius-md` | `rounded-mu-md` |
 | A font, such as `font-mono` | `font-mu-mono` |
 

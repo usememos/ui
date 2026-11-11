@@ -9,7 +9,7 @@
   width: var(--mu-row-height);
   height: var(--mu-row-height);
   border-radius: var(--mu-radius-full);
-  color: var(--mu-ink-muted);
+  color: var(--mu-text-secondary);
   background-color: var(--mu-well);
   vertical-align: middle;
   user-select: none;

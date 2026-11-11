@@ -7,8 +7,9 @@ const themes = ['light', 'dark'] as const;
 
 /** Text colors and the backgrounds each one is used on. */
 const pairs: [text: string, backgrounds: string[]][] = [
-  ['ink', ['canvas', 'surface', 'well', 'hover', 'key', 'key-hover']],
-  ['ink-muted', ['canvas', 'surface', 'well', 'hover', 'key', 'key-hover']],
+  ['text', ['canvas', 'surface', 'well', 'hover', 'key', 'key-hover']],
+  ['text-disabled', ['canvas', 'surface', 'well', 'key']],
+  ['text-secondary', ['canvas', 'surface', 'well', 'hover', 'key', 'key-hover']],
   ['on-primary', ['primary', 'primary-hover']],
   ['on-danger', ['danger-key']],
   ['accent', ['canvas', 'surface']],
@@ -75,6 +76,12 @@ describe('color contrast', () => {
   });
 
   for (const theme of themes) {
+    it(`keeps control boundaries at 3:1 or more in ${theme}`, () => {
+      for (const background of ['canvas', 'surface']) {
+        expect(contrast(table.get('control-edge')![theme], table.get(background)![theme]), background).toBeGreaterThanOrEqual(3);
+      }
+    });
+
     it(`keeps text at 4.5:1 or more in ${theme}`, () => {
       const failures: string[] = [];
       for (const [text, backgrounds] of pairs) {

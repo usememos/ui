@@ -92,7 +92,7 @@ test('Menu: 6px padding and separators, row-radius highlights, and a width betwe
     await open(page, { size });
     await moreActions(page).click();
     const menu = page.getByRole('menu');
-    await expect(menu).toHaveCSS('padding-top', '6px');
+    expect(await menu.evaluate((element) => { const style = getComputedStyle(element); return parseFloat(style.paddingTop) + parseFloat(style.borderTopWidth); })).toBe(6);
     await expect(page.getByRole('menuitem', { name: /Pin/ })).toHaveCSS('border-radius', radius);
     const separator = menu.getByRole('separator');
     await expect(separator).toHaveCSS('margin-top', '6px');
@@ -120,14 +120,14 @@ test('Select and Combobox: sm list rows are 28px with row-radius highlights and 
   const option = page.getByRole('option', { name: 'Deutsch' });
   await expect.poll(async () => (await option.boundingBox())?.height).toBe(28);
   await expect(option).toHaveCSS('border-radius', '4px');
-  await expect(page.locator('.mu-select-popup')).toHaveCSS('padding-top', '6px');
+  expect(await page.locator('.mu-select-popup').evaluate((element) => { const style = getComputedStyle(element); return parseFloat(style.paddingTop) + parseFloat(style.borderTopWidth); })).toBe(6);
   await page.keyboard.press('Escape');
   await page.getByPlaceholder('Find a tag').click();
   await page.keyboard.press('ArrowDown');
   const comboOption = page.locator('.mu-combobox-list').getByRole('option').first();
   await expect.poll(async () => (await comboOption.boundingBox())?.height).toBe(28);
   await expect(comboOption).toHaveCSS('border-radius', '4px');
-  await expect(page.locator('.mu-combobox-list').first()).toHaveCSS('padding-top', '6px');
+  expect(await page.locator('.mu-combobox-list').first().evaluate((element) => parseFloat(getComputedStyle(element).paddingTop) + parseFloat(getComputedStyle(element.parentElement!).borderTopWidth))).toBe(6);
 });
 
 test('Select: picks a value with the keyboard and shows its label', async ({ page }) => {
@@ -278,11 +278,11 @@ test('Toast: a toast behind hides its text at once and shows its edge; fanned ou
   await expect(behind).toHaveCSS('transition-duration', '0s');
   await expect(behind).toHaveCSS('opacity', '0');
   // The 1px `edge` (#d0d0d0 in Light) keeps the peek visible.
-  await expect(behind).toHaveCSS('box-shadow', 'rgb(208, 208, 208) 0px 0px 0px 1px inset');
+  await expect(behind.locator('..')).toHaveCSS('border-top-color', 'rgb(208, 208, 208)');
   await page.locator('.mu-toast', { hasText: 'Settings saved' }).hover();
   await expect(behind).toHaveAttribute('data-expanded', '');
   await expect(behind).toHaveCSS('opacity', '1');
-  await expect(behind).toHaveCSS('box-shadow', 'none');
+  await expect(behind.locator('..')).toHaveCSS('border-top-color', 'rgb(208, 208, 208)');
 });
 
 test('popups only fade under reduced motion', async ({ page }) => {
@@ -317,7 +317,7 @@ test('Popover list: rows drawn with menuClasses on a button and a link start the
   await open(page);
   await page.locator('#popover').getByRole('button', { name: 'Account' }).click();
   const popup = page.locator('.mu-popover-popup');
-  await expect(popup).toHaveCSS('padding-top', '6px');
+  expect(await popup.evaluate((element) => { const style = getComputedStyle(element); return parseFloat(style.paddingTop) + parseFloat(style.borderTopWidth); })).toBe(6);
   await expect(popup).toHaveCSS('row-gap', '0px');
   for (const row of [popup.getByRole('button', { name: 'Settings' }), popup.getByRole('link', { name: 'Sign out' })]) {
     await expect(row).toHaveCSS('text-align', 'start');

@@ -10,7 +10,7 @@ test('sizes set the height', async ({ page }) => {
   }
 });
 
-test('shows the ink focus ring on keyboard focus only', async ({ page }) => {
+test('shows the ink border on keyboard focus only', async ({ page }) => {
   await open(page);
   const button = save(page);
   await button.click();
@@ -19,11 +19,9 @@ test('shows the ink focus ring on keyboard focus only', async ({ page }) => {
   await page.keyboard.press('Shift+Tab');
   await page.keyboard.press('Tab');
   await expect(button).toBeFocused();
-  await expect(button).toHaveCSS('outline-style', 'solid');
-  await expect(button).toHaveCSS('outline-width', '2px');
-  // `focus` is `primary` ink (#1a1a1a in Light), 1px outside the edge.
-  await expect(button).toHaveCSS('outline-color', 'rgb(26, 26, 26)');
-  await expect(button).toHaveCSS('outline-offset', '1px');
+  await expect(button).toHaveCSS('outline-style', 'none');
+  await expect(button).toHaveCSS('border-top-width', '2px');
+  await expect(button).toHaveCSS('border-top-color', 'rgb(26, 26, 26)');
 });
 
 test('Enter and Space press it', async ({ page }) => {
@@ -56,7 +54,8 @@ test('does not move under reduced motion', async ({ page }) => {
   const box = (await button.boundingBox())!;
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
-  await expect(button).not.toHaveCSS('box-shadow', 'none');
+  await expect(button).toHaveCSS('box-shadow', 'none');
+  await expect(button).toHaveCSS('background-color', 'rgb(228, 228, 228)');
   await expect(button).toHaveCSS('translate', 'none');
   await page.mouse.up();
 });
@@ -70,6 +69,29 @@ test('stays focusable while loading, keeps its width and ignores presses', async
   await expect(loading).toHaveAttribute('aria-busy', 'true');
   await loading.focus();
   await expect(loading).toBeFocused();
+});
+
+test('delays only the spinner, keeps its width, and restores the label when work ends', async ({ page }) => {
+  await page.clock.install({ time: 0 });
+  await open(page);
+  await page.clock.pauseAt(1000);
+  const button = page.locator('#button button').filter({ hasText: 'Save changes' });
+  const before = (await button.boundingBox())!.width;
+  await button.click();
+  await expect(button).toHaveAttribute('aria-disabled', 'true');
+  await expect(button).toHaveAttribute('aria-busy', 'true');
+  await page.clock.runFor(299);
+  await expect(button.locator('.mu-spinner')).toHaveCount(0);
+  await expect(button.locator('.mu-button-label')).toHaveCSS('opacity', '1');
+  await page.clock.runFor(1);
+  await expect(button.locator('.mu-spinner')).toHaveCount(1);
+  await expect(button.locator('.mu-button-label')).toHaveCSS('opacity', '0');
+  expect((await button.boundingBox())!.width).toBe(before);
+  await page.clock.runFor(1200);
+  await expect(button).not.toHaveAttribute('aria-busy', 'true');
+  await expect(button.locator('.mu-spinner')).toHaveCount(0);
+  await expect(button.locator('.mu-button-label')).toHaveCSS('opacity', '1');
+  expect((await button.boundingBox())!.width).toBe(before);
 });
 
 test.describe('on a touch screen', () => {

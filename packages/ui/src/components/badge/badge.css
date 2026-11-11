@@ -4,9 +4,10 @@
   align-items: center;
   gap: var(--mu-space-1);
   box-sizing: border-box;
+  border: 1px solid transparent;
   max-width: 100%;
   height: var(--mu-control-xs);
-  padding: 0 calc(var(--mu-row-padding) + var(--mu-space-1) / 2);
+  padding: 0 calc(var(--mu-row-padding) + var(--mu-space-1) / 2 - 1px);
   border-radius: var(--mu-radius-full);
   white-space: nowrap;
   vertical-align: middle;
@@ -16,7 +17,7 @@
 /* A user's color for a tag (`--mu-badge-color`, set by the `color` prop) tints the fill; text and icon stay ink, so any color stays readable. Its lightness is kept between 50% and 75% first, so black in Dark and white in Light still give a visible (gray) chip instead of none. Unset, the tint is invalid and the fill falls back to well. */
 .mu-badge-neutral {
   --mu-badge-tint: oklch(from var(--mu-badge-color) clamp(0.5, l, 0.75) c h / 18%);
-  color: var(--mu-ink);
+  color: var(--mu-text);
   background-color: var(--mu-badge-tint, var(--mu-well));
 }
 /* Browsers without relative colors get the plain tint. */
@@ -24,7 +25,7 @@
   .mu-badge-neutral { --mu-badge-tint: color-mix(in srgb, var(--mu-badge-color) 18%, transparent); }
 }
 .mu-badge-primary { color: var(--mu-on-primary); background-color: var(--mu-primary); }
-.mu-badge-outline { color: var(--mu-ink-muted); box-shadow: inset 0 0 0 1px var(--mu-edge); }
+.mu-badge-outline { color: var(--mu-text-secondary); border-color: var(--mu-edge); }
 .mu-badge-success { color: var(--mu-success); background-color: var(--mu-success-soft); }
 .mu-badge-warning { color: var(--mu-warning); background-color: var(--mu-warning-soft); }
 .mu-badge-danger { color: var(--mu-danger); background-color: var(--mu-danger-soft); }

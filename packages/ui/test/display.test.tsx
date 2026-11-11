@@ -52,7 +52,7 @@ describe('Button', () => {
 
   it('ignores presses while loading, stays focusable and names the wait', () => {
     let clicks = 0;
-    const { container } = render(
+    const { container, unmount } = render(
       <Button loading loadingLabel="Saving" onClick={() => clicks++}>
         Save
       </Button>,
@@ -65,7 +65,8 @@ describe('Button', () => {
     expect(button.disabled).toBe(false);
     expect(button.hasAttribute('data-loading')).toBe(true);
     expect(button.getAttribute('aria-label')).toBe('Saving');
-    expect(button.querySelector('.mu-spinner')?.getAttribute('aria-hidden')).toBe('true');
+    expect(button.querySelector('.mu-spinner')).toBeNull();
+    unmount();
   });
 
   it('builds the classes for a link that looks like a button', () => {

@@ -184,8 +184,8 @@ test('Badge: a pill in regular 11px text, padded 2px past the xs row so the text
   await open(page);
   for (const badge of await page.locator('#badge .mu-badge').all()) {
     await expect(badge).toHaveCSS('border-top-left-radius', '9999px');
-    await expect(badge).toHaveCSS('padding-left', '8px');
-    await expect(badge).toHaveCSS('padding-right', '8px');
+    expect(await badge.evaluate((element) => { const style = getComputedStyle(element); return parseFloat(style.paddingLeft) + parseFloat(style.borderLeftWidth); })).toBe(8);
+    expect(await badge.evaluate((element) => { const style = getComputedStyle(element); return parseFloat(style.paddingRight) + parseFloat(style.borderRightWidth); })).toBe(8);
     await expect(badge).toHaveCSS('height', '20px');
     await expect(badge).toHaveCSS('font-size', '11px');
     await expect(badge).toHaveCSS('font-weight', '400');

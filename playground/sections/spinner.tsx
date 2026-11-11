@@ -6,7 +6,7 @@ export function SpinnerSection({ size }: SectionProps) {
     <div className="pg-row">
       <Spinner size="sm" />
       <Spinner size="md" />
-      <span className="mu-body" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--mu-ink-muted)' }}>
+      <span className="mu-body" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--mu-text-secondary)' }}>
         <Spinner size={size} label="Loading notes" /> Loading notes
       </span>
     </div>

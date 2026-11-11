@@ -22,12 +22,13 @@
   --mu-hover: #ececec;
   --mu-key: #ffffff;
   --mu-key-hover: #fafafa;
-  --mu-key-sheen: rgba(255,255,255,0.18);
   --mu-edge: #d0d0d0;
+  --mu-control-edge: #909090;
   --mu-line: #dedede;
   --mu-overlay: rgba(0,0,0,0.32);
-  --mu-ink: #1a1a1a;
-  --mu-ink-muted: #5e5e5e;
+  --mu-text: #1a1a1a;
+  --mu-text-secondary: #5e5e5e;
+  --mu-text-disabled: #666666;
   --mu-primary: #1a1a1a;
   --mu-primary-hover: #333333;
   --mu-on-primary: #ffffff;
@@ -42,12 +43,7 @@
   --mu-danger-soft: #fbeaea;
   --mu-on-danger: #ffffff;
   --mu-focus: var(--mu-primary);
-  --mu-focus-edge: var(--mu-ink);
-  --mu-shadow-track: inset 0 1px 2px rgba(0,0,0,0.10);
-  --mu-shadow-key: 0 1px 2px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(0,0,0,0.05);
-  --mu-shadow-raised: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.12);
-  --mu-shadow-pressed: inset 0 1px 3px rgba(0,0,0,0.22), 0 0 0 0.5px rgba(0,0,0,0.12);
-  --mu-shadow-pop: 0 8px 24px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+  --mu-focus-edge: var(--mu-text);
 }
 [data-theme="dark"] {
   --mu-canvas: #0f0f0f;
@@ -56,12 +52,13 @@
   --mu-hover: #252525;
   --mu-key: #343434;
   --mu-key-hover: #3c3c3c;
-  --mu-key-sheen: rgba(255,255,255,0.08);
   --mu-edge: #343434;
+  --mu-control-edge: #777777;
   --mu-line: #252525;
   --mu-overlay: rgba(0,0,0,0.6);
-  --mu-ink: #ededed;
-  --mu-ink-muted: #adadad;
+  --mu-text: #ededed;
+  --mu-text-secondary: #adadad;
+  --mu-text-disabled: #9e9e9e;
   --mu-primary: #e6e6e6;
   --mu-primary-hover: #ffffff;
   --mu-on-primary: #0f0f0f;
@@ -76,13 +73,19 @@
   --mu-danger-soft: #2c1616;
   --mu-on-danger: #ffffff;
   --mu-focus: var(--mu-primary);
-  --mu-focus-edge: var(--mu-ink);
-  --mu-shadow-track: inset 0 1px 2px rgba(0,0,0,0.55), inset 0 -0.5px 0 rgba(255,255,255,0.06);
-  --mu-shadow-key: 0 1px 2px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.10);
-  --mu-shadow-raised: inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.25), 0 0 0 0.5px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.5);
-  --mu-shadow-pressed: inset 0 1px 3px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(0,0,0,0.6);
-  --mu-shadow-pop: 0 8px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.06);
+  --mu-focus-edge: var(--mu-text);
   color-scheme: dark;
+}
+@media (forced-colors: active) {
+  :where(:root, :host, .mu-root), [data-theme] {
+    --mu-control-edge: ButtonText;
+    --mu-text-disabled: GrayText;
+    --mu-focus: Highlight;
+    --mu-focus-edge: Highlight;
+    --mu-on-primary: Highlight;
+    --mu-on-danger: Highlight;
+    --mu-key: ButtonText;
+  }
 }
 :where(:root, :host, .mu-root) {
   --mu-space-1: 4px;
@@ -107,9 +110,7 @@
   --mu-control-compact: 28px;
   --mu-inset: 2px;
   --mu-hit-area: 44px;
-  --mu-focus-width: 2px;
-  --mu-focus-offset: 1px;
-  --mu-focus-edge-width: 1.5px;
+  --mu-focus-edge-width: 2px;
   --mu-icon-xs: 12px;
   --mu-icon-sm: 14px;
   --mu-icon-md: 16px;

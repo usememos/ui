@@ -17,7 +17,7 @@ export interface MenuClasses {
   label: string;
   /** Stacks a row's label over its description. */
   text: string;
-  /** A line of `ink-muted` text under the label. */
+  /** A line of `text-secondary` text under the label. */
   description: string;
   /** A keyboard shortcut at the end of a row. */
   shortcut: string;

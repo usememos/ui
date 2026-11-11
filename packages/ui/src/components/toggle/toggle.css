@@ -1,4 +1,4 @@
-/* Toggle: flat ink-muted when off, pressed into a well when on. See docs/components/toggle.md. */
+/* Toggle: flat text-secondary when off, filled with well when on. See docs/components/toggle.md. */
 .mu-toggle {
   position: relative;
   display: inline-flex;
@@ -10,19 +10,19 @@
   min-width: 0;
   height: var(--mu-row-height);
   margin: 0;
-  padding: 0 var(--mu-row-padding);
-  border: 0;
+  padding: 0 calc(var(--mu-row-padding) - var(--mu-control-border-width));
+  border: var(--mu-control-border-width) solid transparent;
   border-radius: var(--mu-row-radius);
-  color: var(--mu-ink-muted);
+  color: var(--mu-text-secondary);
   background-color: transparent;
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  transition-property: background-color, box-shadow, color;
+  transition-property: background-color, border-color, color;
   transition-duration: var(--mu-duration-press);
   transition-timing-function: var(--mu-ease-out);
 }
-.mu-toggle:where(:has(> svg:first-child)) { padding-inline-start: var(--mu-row-padding-icon); }
+.mu-toggle:where(:has(> svg:first-child)) { padding-inline-start: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
 .mu-toggle.mu-toggle-icon { flex: none; width: var(--mu-row-height); padding: 0; }
 
 /* A label shrinks with an ellipsis when its row runs out of room, as Select's value does. */
@@ -30,11 +30,11 @@
 .mu-toggle > svg { flex: none; }
 
 @media (hover: hover) {
-  .mu-toggle:hover:not([data-disabled]) { color: var(--mu-ink); background-color: var(--mu-hover); }
+  .mu-toggle:hover:not([data-disabled]) { color: var(--mu-text); background-color: var(--mu-hover); }
 }
 .mu-toggle[data-pressed], .mu-toggle:active:not([data-disabled]) {
-  color: var(--mu-ink);
+  color: var(--mu-text);
   background-color: var(--mu-well);
-  box-shadow: inset 0 0 0 1px var(--mu-edge), var(--mu-shadow-track);
+  border-color: var(--mu-control-edge);
 }
-.mu-toggle[data-disabled] { opacity: 0.45; cursor: not-allowed; }
+.mu-toggle[data-disabled] { color: var(--mu-text-disabled); cursor: not-allowed; }

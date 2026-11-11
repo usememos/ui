@@ -54,7 +54,7 @@ export interface HeadProps extends ComponentPropsWithoutRef<'th'> {
   num?: boolean;
 }
 
-/** A column header, `<th scope="col">` in 13px `ink-muted`. */
+/** A column header, `<th scope="col">` in 13px `text-secondary`. */
 export const Head = forwardRef<HTMLTableCellElement, HeadProps>(function TableHead({ num = false, scope = 'col', className, ...props }, ref) {
   return <th ref={ref} scope={scope} {...props} className={cx('mu-table-head mu-label-sm', num && 'mu-table-num', className)} />;
 });
@@ -62,7 +62,7 @@ export const Head = forwardRef<HTMLTableCellElement, HeadProps>(function TableHe
 export interface CellProps extends ComponentPropsWithoutRef<'td'> {
   /** Right-aligns a number. */
   num?: boolean;
-  /** Secondary text, such as a date, in `ink-muted`. */
+  /** Secondary text, such as a date, in `text-secondary`. */
   muted?: boolean;
 }
 

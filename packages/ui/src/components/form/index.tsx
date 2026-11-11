@@ -59,7 +59,7 @@ export const Title = forwardRef<HTMLHeadingElement, TitleProps>(function FormTit
 
 export interface DescriptionProps extends ComponentPropsWithoutRef<'p'> {}
 
-/** One line under the title, in `caption` and `ink-muted`. */
+/** One line under the title, in `caption` and `text-secondary`. */
 export const Description = forwardRef<HTMLParagraphElement, DescriptionProps>(function FormDescription({ className, ...props }, ref) {
   return <p ref={ref} {...props} className={cx('mu-form-description mu-caption', className)} />;
 });

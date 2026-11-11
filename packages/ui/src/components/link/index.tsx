@@ -4,7 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { forwardRef } from 'react';
 
 export interface LinkProps extends useRender.ComponentProps<'a'> {
-  /** For navigation that shouldn't draw the eye: ink-muted, ink on hover. */
+  /** For navigation that shouldn't draw the eye: `text-secondary`, `text` on hover. */
   muted?: boolean;
   /** Opens in a new tab and shows an arrow. */
   external?: boolean;
