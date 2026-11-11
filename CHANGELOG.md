@@ -11,6 +11,10 @@ Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"
 - **A Dialog's or Drawer's description sits 4px under its title, not 8px.** The title and the description now read as one header, with the same `space-1` between them as in a Form and a Popover. The space after the description is unchanged (16px), so a Dialog or Drawer with a description is 4px shorter. Padding stays 20px.
 - **A Fieldset's legend sits 8px above its options, not 16px.** The legend was further from its options than the options are from each other (12px), so it read as a separate line. It now reads as their name. This also applies to a RadioGroup rendered through `Fieldset.Root`, in both orientations. A Fieldset is 8px shorter.
 
+### Additions
+
+- `spacingSteps` and `offLadderSpacing()`, so an app can hold its own layout to the spacing ladder. `spacingSteps` is the ladder in px: 4, 8, 12, 16, 20, 24, 32, 48 and 64. `offLadderSpacing(source)` returns the Tailwind CSS padding, margin and gap classes in a text whose value is not a step, such as `gap-1.5`, `py-7` or `px-[10px]`. An app runs it over its source files in a test; `docs/layout.md` has the recipe under "Spacing in an app". It does not check widths, heights or positions. Nothing in the package's own styles changes.
+
 ## 26.11.9
 
 Published 7 November 2026.

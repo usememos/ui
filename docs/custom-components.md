@@ -138,6 +138,6 @@ It maps the 27 color tokens, five shadow tokens, seven radius tokens and three f
 | A font, such as `font-mono` | `font-mu-mono` |
 
 - Each utility reads the token where it is used, so a `.mu-root` with its own `data-theme` recolors the utilities inside it.
-- Spacing needs no mapping: Tailwind's step is 0.25rem, which is the 4px grid, so `p-3` is `space-3`. Don't use half steps such as `p-0.5`; the only 2px value is `inset`.
+- Spacing needs no mapping: Tailwind's step is 0.25rem (4px), so `p-3` is `space-3`. Use only the numbers of the [spacing ladder](layout.md#spacing): `1`, `2`, `3`, `4`, `5`, `6`, `8`, `12` and `16`. `gap-0.5` (2px) is `inset`, for the items of one cluster only; the other half steps (`p-1.5`, `p-2.5`) are not steps. `offLadderSpacing()` finds the classes that miss the ladder: see [Spacing in an app](layout.md#spacing-in-an-app).
 - Text uses the type classes (`mu-body`), not Tailwind's text sizes.
 - `tailwind-merge` doesn't know `mu-` classes and keeps them next to a utility. The utility still wins, because the package's styles sit in the `mu` [cascade layer](building.md#cascade-layer).

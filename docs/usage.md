@@ -436,6 +436,7 @@ Run through it for every screen.
 | A tag in the user's color as text, or on a fill you mixed yourself | `<Badge color={tag.color}>`: a tint, with ink text |
 | Text over a photo on a translucent, blurred fill | An opaque `surface` pill in a `data-theme="dark"` scope |
 | Tailwind `size-4` on a standalone icon | `mu-icon-sm` or `mu-icon-md`, which set the stroke too |
+| `gap-1.5`, `px-2.5`, `py-7` or `gap-[6px]` between things | A step of the [spacing ladder](layout.md#spacing), picked by its job. `offLadderSpacing()` finds these in an app's tests |
 | A Spinner where a list will appear | Skeletons in the shape of the list |
 | `size="md"` or `"lg"` on a Button to emphasize it | `variant="primary"` at the row's size |
 | `size` on every part of a Menu or Select | `size` on its Root |

@@ -64,6 +64,12 @@ describe('published modules', () => {
     expect(components).toEqual(['menu', 'tooltip']);
   });
 
+  it('keep no component when an app imports only the spacing check', async () => {
+    const files = await bundledFiles(['spacingSteps', 'offLadderSpacing']);
+    expect(files).toContain('spacing.js');
+    expect(files.filter((path) => path.startsWith('components/'))).toEqual([]);
+  });
+
   it("share the app's Base UI: an exact peer dependency, and no dependencies", () => {
     const manifest = JSON.parse(readFileSync(join(pkg, 'package.json'), 'utf8'));
     const root = JSON.parse(readFileSync(join(pkg, '../../package.json'), 'utf8'));

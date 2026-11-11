@@ -52,6 +52,37 @@ Every surface follows the same two tiers. Big surfaces pad `space-5` and stack `
 
 The playground has three reference screens built only from these steps: a settings page, a timeline and an empty page (`#screen-settings`, `#screen-timeline` and `#screen-empty`, in `playground/screens.tsx`). The screenshot tests cover them, so a spacing change is judged on a whole screen, not only on one component. An app's pages copy their spacing.
 
+### Spacing in an app
+
+An app's own layout uses the same steps for the same jobs.
+
+- In CSS, read the token: `gap: var(--mu-space-4)`.
+- In Tailwind CSS, the class number is the token number, so `gap-4` is `space-4` (16px). The ladder is `1`, `2`, `3`, `4`, `5`, `6`, `8`, `12` and `16`. `0` and `px` are fine, and `gap-0.5` (2px) is `inset`, for the items of one cluster only.
+- `p-1.5`, `p-2.5`, `p-7`, `p-10` and lengths such as `gap-[6px]` are not steps.
+- Pick a step by its job, not by the nearest number. 6px between two buttons becomes `gap-2`, because they are controls side by side. 6px between a label and its field becomes `gap-1`, because they are parts of one thing.
+
+The package exports the ladder, and a check for an app's tests:
+
+- `spacingSteps` is the ladder in px: `[4, 8, 12, 16, 20, 24, 32, 48, 64]`.
+- `offLadderSpacing(source)` returns the Tailwind CSS padding, margin and gap classes in a text whose value is not a step, as written: `["gap-1.5", "px-[10px]"]`. It reads the `p`, `m`, `gap` and `space` classes that have a number or a px or rem length, with or without a variant or a minus sign. It does not check widths, heights or positions, and it skips a value it cannot measure (`auto`, a variable, a `calc()`).
+
+Run it over the app's source files:
+
+```ts
+import { offLadderSpacing } from "@usememos/ui";
+
+const sources = import.meta.glob<string>("/src/**/*.{ts,tsx,css}", { query: "?raw", import: "default", eager: true });
+
+it("uses only ladder steps for padding, margin and gap", () => {
+  const off = Object.entries(sources).flatMap(([file, text]) => offLadderSpacing(text).map((name) => `${file}: ${name}`));
+  expect(off).toEqual([]);
+});
+```
+
+- Vitest reads a stylesheet with `?raw` only when `test.css` is `true` in its config. Without it every `.css` file comes back empty, so its `@apply` classes are skipped without an error.
+- An app that is still moving to the ladder compares the count with a number, and lowers the number as it goes: `expect(off.length).toBeLessThanOrEqual(40)`.
+- A real exception, such as padding that makes room for a side panel of a fixed width, is filtered out by name in the app's test, with a comment that says why.
+
 ## Radius
 
 Inner radius = outer radius − `inset`, so nested corners stay concentric. Floating lists follow the same rule with their padding: 6px (`radius-xl` − `radius-md`), so an md row's highlight is concentric with the popup's corner, and an sm row's 4px corner sits inside it.

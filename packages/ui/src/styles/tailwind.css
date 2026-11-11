@@ -11,7 +11,8 @@
  * shadow-mu-raised, rounded-mu-md), so they never clash with an app's own
  * colors. `inline` makes each utility read the --mu- token where it is used,
  * so a .mu-root with its own data-theme recolors the utilities inside it.
- * Spacing needs no mapping: Tailwind's 0.25rem step is the 4px grid.
+ * Spacing needs no mapping: Tailwind's 0.25rem step is the 4px grid, so p-3
+ * is space-3. Use the ladder's numbers only (docs/layout.md#spacing-in-an-app).
  * See docs/custom-components.md#tailwind-css.
  */
 @theme inline {

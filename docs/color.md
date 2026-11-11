@@ -67,7 +67,7 @@ An app can offer more themes than the two the package ships, such as a warm Pape
 ```
 
 - Set every color token in the table below and the five shadow tokens in [Depth](depth.md). A token the theme leaves out keeps its Light value, so a partial theme mixes two palettes.
-- The package exports `themeTokens`, the custom property names of those 32 tokens (`--mu-canvas` to `--mu-shadow-pop`). Check in the app's tests that its theme sets each one:
+- The package exports `themeTokens`, the custom property names of those 32 tokens (`--mu-canvas` to `--mu-shadow-pop`). Check in the app's tests that its theme sets each one (Vitest reads a stylesheet with `?raw` only when `test.css` is `true` in its config; without it the file comes back empty):
 
   ```ts
   import { themeTokens } from "@usememos/ui";
