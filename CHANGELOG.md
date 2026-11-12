@@ -2,7 +2,9 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
-## Unreleased
+## 26.11.16
+
+Published 12 November 2026.
 
 - Persistent choices no longer draw heavy borders: on Toggles use a well fill and ink text, and public `mu-key` surfaces keep their quiet edge under selected/pressed attributes. Hover no longer strengthens Button, Select, Input, Textarea, Combobox or Switch boundaries. Keyboard focus, errors and small checkbox/radio markers retain their distinct edges; forced colors preserves on-toggle selection.
 
