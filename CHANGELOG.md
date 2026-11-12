@@ -2,7 +2,9 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
-## Unreleased
+## 26.11.15
+
+Published 12 November 2026.
 
 - Interactive Prose task checkboxes reserve 44px touch targets while keeping their 16px marks and compact read-only layout.
 - Select values use regular weight, matching Input and Combobox. Disabled pressed Toggles use quiet edges, and disabled Combobox and Collapsible icons follow their text color.
