@@ -1,6 +1,6 @@
 # ToggleGroup
 
-A row of related [Toggles](toggle.md). With `multiple`: a toolbar of independent on/off toggles. Without: one choice among peers, the same control as [Tabs](tabs.md) without a panel.
+A row of related [Toggles](toggle.md) that changes values or tool states. Without `multiple`, it chooses one layout or filter; with `multiple`, it groups independent on/off tools. Use [Tabs](tabs.md) when each choice activates a corresponding content panel.
 
 ## Example
 
@@ -45,7 +45,9 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange`, `multipl
 
 - Give the group an `aria-label`.
 - A single choice among peers is a flat selected fill in a well; an on/off state is a pressed toggle. Never mix the two in one row.
-- Without `multiple`: filters and view switches that don't change the whole page. For sections of a page, use Tabs.
+- Without `multiple`: filters and layout preferences for the same content, such as All / Pinned / Archived or List / 2 / 3 / Auto. Saving the preference does not turn it into a tab; the choice still changes a value rather than activating a content panel.
+- With `multiple`: independent tools or filters that can be active together, such as Bold and Italic. Tabs always chooses one content panel and does not replace this behavior.
+- Single-choice ToggleGroups and Tabs reuse the same segmented treatment. Keep the behavior APIs separate; do not add a `multiple` mode to Tabs or fake panels for settings.
 - When long translated options would need several lines in a narrow panel, use a Select. Wrapping keeps a constrained group readable; it is not a reason to force every choice into a segmented group.
 - Base UI lets people press the chosen item to clear it. When one item must stay chosen, ignore an empty value, as in the example.
 - Arrow keys move focus between items; Space or Enter presses one.

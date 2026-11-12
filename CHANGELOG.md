@@ -2,6 +2,10 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
+## Unreleased
+
+- **Clarify Tabs and ToggleGroup usage in the shipped design-system guides.** Tabs switches content panels; ToggleGroup changes layout preferences, filters or independent tool states. Both retain the shared segmented appearance. Runtime behavior and tokens are unchanged.
+
 ## 26.11.13
 
 Published 12 November 2026.

@@ -1,6 +1,6 @@
 # Tabs
 
-Switches between sections of the same page.
+Switches between content panels on the same page. Use [ToggleGroup](toggle-group.md) to change a layout, filter or tool state, and [Link](link.md) to navigate to another page.
 
 ## Example
 
@@ -43,7 +43,9 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange` on the ro
 ## Rules
 
 - Give the list an `aria-label`.
-- Use tabs for sections of a page, not for site navigation. For a filter or view switch, use a [ToggleGroup](toggle-group.md).
+- Each tab activates a corresponding `Tabs.Panel`, such as Account or Notifications. Use Tabs when the choices name content sections.
+- List / 2 / 3 / Auto changes how the same content is displayed: use a single-choice [ToggleGroup](toggle-group.md). Do not add empty panels just to use Tabs' appearance for a setting.
+- Tabs and single-choice ToggleGroups share one segmented treatment. Pick by what the control changes; do not create separate tokens or visual variants to distinguish them.
 - Left and Right arrow keys move between tabs.
 
 ## Style

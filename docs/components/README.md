@@ -44,8 +44,8 @@ The short version. [Using the components](../usage.md) has the full decision gui
 | One of a short list | Select |
 | One of a long list, or typing to find | Combobox |
 | On/off in a toolbar, or stacking filters | Toggle, or ToggleGroup with `multiple` |
-| One of several views or filters on the same page | ToggleGroup without `multiple` |
-| Sections of a page | Tabs |
+| A layout preference or filter of the same content | ToggleGroup without `multiple` |
+| Content sections of a page, with one panel per choice | Tabs |
 | A list of actions for one thing | Menu |
 | A few controls that belong to one thing | Popover |
 | A decision that blocks the page | Dialog |

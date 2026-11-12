@@ -78,7 +78,9 @@ The most common mistake is reaching for the wrong overlay. Decide by what the fl
 
 ### Choosing a value
 
-Answer in order; the first yes decides.
+For layout preferences and filters on content already on screen, use a [ToggleGroup](components/toggle-group.md) without `multiple` for one choice, or [Toggle](components/toggle.md)s / a ToggleGroup with `multiple` for independent choices. A view preference can be saved; it still changes how the same content is displayed.
+
+For other form and settings values, answer in order; the first yes decides.
 
 1. **Does it save the moment it changes (a settings page)?** On or off: [Switch](components/switch.md). One of a few: [Select](components/select.md) that saves in `onValueChange`.
 2. **Is it on or off, saved with a form?** [Checkbox](components/checkbox.md).
@@ -86,16 +88,16 @@ Answer in order; the first yes decides.
 4. **Is it one of up to about 10 options?** [Select](components/select.md).
 5. **Is it one of a long list, or do people know what they're looking for and type it?** [Combobox](components/combobox.md).
 6. **Is it several of a few options?** Checkboxes in a [Fieldset](components/field.md).
-7. **Is it a view or filter on the current page, not a stored value?** One choice: [ToggleGroup](components/toggle-group.md) without `multiple`. Stacking filters: [Toggle](components/toggle.md)s, or a ToggleGroup with `multiple`.
-8. **Is it text?** One line: [Input](components/input.md). A few plain lines: [Textarea](components/textarea.md). Formatted content: the editor (`@usememos/editor`) with [Prose](components/prose.md).
-9. **Is it a number?** An Input with `type="number"` and `inputMode="numeric"`, or a Select of the sensible values. There is no Slider or Stepper.
+7. **Is it text?** One line: [Input](components/input.md). A few plain lines: [Textarea](components/textarea.md). Formatted content: the editor (`@usememos/editor`) with [Prose](components/prose.md).
+8. **Is it a number?** An Input with `type="number"` and `inputMode="numeric"`, or a Select of the sensible values. There is no Slider or Stepper.
 
 ### Grouping and moving between sections
 
 | Need | Use | Not |
 | --- | --- | --- |
-| Sections of one page (Account, Notifications) | [Tabs](components/tabs.md) | ToggleGroup |
-| A view or filter of the same content (All, Pinned, Archived) | [ToggleGroup](components/toggle-group.md) without `multiple` | Tabs |
+| Content panels of one page (Account, Notifications), with one `Tabs.Panel` per choice | [Tabs](components/tabs.md) | ToggleGroup |
+| A layout or filter of the same content (List / 2 / 3 / Auto; All / Pinned / Archived) | [ToggleGroup](components/toggle-group.md) without `multiple` | Tabs |
+| Independent tool states that can be active together (Bold, Italic) | ToggleGroup with `multiple` | Tabs |
 | Navigation between pages | [Link](components/link.md)s in the app's sidebar | Tabs |
 | Details or advanced settings people rarely need | [Collapsible](components/collapsible.md) | A Dialog |
 | Several sections, one open at a time | Collapsibles, controlled together | A third-party accordion |
@@ -103,6 +105,8 @@ Answer in order; the first yes decides.
 | Data with columns (tokens, users, webhooks) | [Table](components/table.md), `bordered` when it is one section among others | A List with columns faked in each row |
 | Settings rows, or a few records with an action each | [List](components/list.md) | Separate boxes for each row |
 | A list of content (notes, comments) | [Entries](patterns.md#entry) | A Table |
+
+Tabs and single-choice ToggleGroups share the same well, selected fill and focus treatment. Choose by whether the control activates a content panel or changes a value. Do not add a separate visual variant, tokens or an app wrapper for either one.
 
 ## Picking feedback
 
