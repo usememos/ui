@@ -2,7 +2,9 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
-## Unreleased
+## 26.11.17
+
+Published 13 November 2026.
 
 - Select uses one downward chevron and opens its list below the trigger, aligned to its start edge. The selected value has one check; pointer and keyboard targets reuse the shared row highlight. `alignItemWithTrigger={true}` remains available for value-aligned positioning.
 
