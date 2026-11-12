@@ -234,6 +234,28 @@ for (const theme of themes) {
     await expect(on.locator('.mu-switch-thumb')).not.toHaveCSS('translate', 'none');
   });
 
+  test(`chosen values and disabled parts use their content roles in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    for (const value of await page.locator('.mu-select-value').all()) {
+      await expect(value).toHaveCSS('font-weight', '400');
+    }
+    const disabled = theme === 'light' ? 'rgb(102, 102, 102)' : 'rgb(158, 158, 158)';
+    for (const selector of ['#combobox .mu-combobox-trigger[data-disabled]', '#collapsible [data-disabled] > .mu-collapsible-chevron']) {
+      await expect(page.locator(selector)).toHaveCSS('color', disabled);
+    }
+    const toggle = page.locator('#toggle .mu-toggle[data-pressed][data-disabled]');
+    const edge = theme === 'light' ? 'rgb(208, 208, 208)' : 'rgb(52, 52, 52)';
+    await expect(toggle).toHaveCSS('border-top-color', edge);
+    const fill = await toggle.evaluate((element) => getComputedStyle(element).backgroundColor);
+    await toggle.hover();
+    await expect(toggle).toHaveCSS('border-top-color', edge);
+    await expect(toggle).toHaveCSS('background-color', fill);
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    const segment = page.locator('#toggle-group [aria-label="Show"] .mu-toggle[data-pressed]');
+    await segment.evaluate((element) => element.setAttribute('data-disabled', ''));
+    await expect(segment).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+  });
+
   test(`text links have a distinct focus underline in ${theme}`, async ({ page }) => {
     await open(page, { theme });
     await page.keyboard.press('Tab');
@@ -261,6 +283,14 @@ test('focus borders and switch knobs survive forced colors', async ({ page }) =>
   const input = page.locator('#input input').first();
   await input.focus();
   await expect(input.locator('..')).toHaveCSS('border-top-width', '2px');
+  const task = page.locator('#prose input[type="checkbox"]').first();
+  await task.focus();
+  const mark = await task.evaluate((element) => {
+    const style = getComputedStyle(element, '::before');
+    return { width: style.borderTopWidth, edge: style.borderTopColor, fill: style.backgroundColor };
+  });
+  expect(mark.width).toBe('2px');
+  expect(mark.edge).not.toBe(mark.fill);
   for (const control of await page.locator('#switch .mu-switch:not([data-disabled])').all()) {
     const track = await control.evaluate((element) => getComputedStyle(element).backgroundColor);
     await expect(control.locator('.mu-switch-thumb')).not.toHaveCSS('background-color', track);

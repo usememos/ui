@@ -13,10 +13,13 @@ export function ProseSection({ size }: SectionProps) {
       <h2>Done</h2>
       <ul>
         <li>
-          <input type="checkbox" defaultChecked disabled aria-label="Ship the new editor" /> Ship the new editor
+          <input type="checkbox" defaultChecked aria-label="Ship the new editor" /> Ship the new editor
         </li>
         <li>
-          <input type="checkbox" disabled aria-label="Write the release notes" /> Write the release notes
+          <input type="checkbox" aria-label="Write the release notes" /> Write the release notes
+        </li>
+        <li>
+          <input type="checkbox" defaultChecked disabled aria-label="Publish the previous release" /> Publish the previous release
         </li>
       </ul>
       <h3>Notes</h3>

@@ -55,7 +55,7 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange`, `multipl
 
 ## Style
 
-- At most as wide as its container. With `fullWidth`, exactly as wide: labeled Toggles start at their natural width and share the extra space equally (`flex: 1 1 auto`), so equal labels give equal Toggles and a long label is never cut while there is room. Inside a popup that sizes to its content, the group is as wide as its labels need. When the container is narrower than the labels, their text wraps and the group and key grow to fit; icon-only items keep their size.
+- At most as wide as its container. With `fullWidth`, exactly as wide: labeled Toggles start at their natural width and share the extra space equally (`flex: 1 1 auto`), so equal labels give equal Toggles and a long label is never cut while there is room. Inside a popup that sizes to its content, the group is as wide as its labels need. Labels wrap at word boundaries, and the group and key grow to fit. Items keep enough width for their longest word, icon and padding; when those minimum widths cannot fit together, the group scrolls horizontally instead of breaking words or widening the page. Icon-only items keep their size. Prefer a Select when a narrow panel regularly needs this fallback.
 - `multiple`: items 2px apart.
 - Inside a segmented key, the label's line box can tighten at xs and sm to leave room for the focus border without changing geometry; its font size stays in the size row. Long labels wrap and increase the group's height.
 - Use the existing `md` size for a labeled layout choice at the top of a settings popover: a 32px group, 28px selected face and 16px icons. Keep `sm` (24px) for dense contexts; do not invent a height between the size rows.

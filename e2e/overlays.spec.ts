@@ -253,6 +253,45 @@ test('Tooltip: opens at once on keyboard focus, and names the trigger', async ({
   await expect(tooltip).toHaveText('Archive⌘ E');
 });
 
+for (const theme of themes) {
+  test(`built-in close tooltips preserve keyboard activation in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    await page.keyboard.press('Tab');
+    for (const [name, selector] of [['Create access token', '.mu-dialog-x'], ['Note details', '.mu-drawer-x']] as const) {
+      const trigger = page.getByRole('button', { name, exact: true });
+      await trigger.click();
+      const close = page.locator(selector);
+      await close.focus();
+      await page.keyboard.press('Shift+Tab');
+      await page.keyboard.press('Tab');
+      await expect(close).toBeFocused();
+      await expect(page.locator('.mu-tooltip-popup[data-open]')).toHaveText('Close');
+      await page.keyboard.press('Enter');
+      await expect(close).toHaveCount(0);
+      await expect(trigger).toBeFocused();
+    }
+    await page.locator('#toast').getByRole('button', { name: 'Fail', exact: true }).click();
+    const close = page.locator('.mu-toast-close');
+    await close.hover();
+    await expect(page.locator('.mu-tooltip-popup[data-open]')).toHaveText('Close');
+    await close.click();
+    await expect(page.locator('.mu-toast')).toHaveCount(0);
+  });
+
+  test(`Combobox chevron tooltip preserves its list interaction in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    const trigger = page.locator('#combobox').getByRole('button', { name: 'Tag', exact: true });
+    await trigger.hover();
+    await expect(page.locator('.mu-tooltip-popup[data-open]')).toHaveText('Show options');
+    await trigger.click();
+    await expect(page.locator('.mu-combobox-popup')).toBeVisible();
+    await expect(page.locator('.mu-tooltip-popup[data-open]')).toHaveCount(0);
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('combobox', { name: 'Tag', exact: true })).toHaveValue('book');
+  });
+}
+
 test('Toast: shows a toast with its action, and the X closes it', async ({ page }) => {
   await open(page);
   await page.locator('#toast').getByRole('button', { name: 'Archive' }).click();

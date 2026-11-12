@@ -1,7 +1,7 @@
 /* Select: a neutral key that opens a list with a check on the current value. See docs/components/select.md. */
 .mu-select-trigger { justify-content: space-between; min-width: 0; padding-inline-end: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); text-align: start; }
-.mu-select-value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.mu-select-value[data-placeholder] { color: var(--mu-text-secondary); font-weight: 400; }
+.mu-select-value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 400; }
+.mu-select-value[data-placeholder] { color: var(--mu-text-secondary); }
 .mu-select-icon { display: flex; flex: none; color: var(--mu-text-secondary); }
 /* Ghost: a row that shows a value, so its text is ink, not text-secondary. */
 .mu-select-trigger.mu-button-ghost:not([data-disabled]) { color: var(--mu-text); }

@@ -96,7 +96,7 @@ Base UI's props pass through: `items`, `value`, `defaultValue`, `onValueChange`,
 
 ## Style
 
-- The box is an [Input](input.md): flat `surface`, `edge`, and the focused edge on the box. The search icon and chevron are `text-secondary`; the chevron turns `text` on hover.
+- The box is an [Input](input.md): flat `surface`, `edge`, and the focused edge on the box. The search icon and chevron are `text-secondary`; the chevron turns `text` on hover. Disabled text and both icons use `text-disabled`. The chevron has a built-in Tooltip using `triggerLabel`.
 - List: `mu-popup`, 6px padding, as wide as the input and at least `menu-width`. Rows like [Menu](menu.md) items: 28px at sm, 32px at md, highlight in the row's radius. The list is at most `list-height` (240px) tall, then it scrolls.
 - Rows are text weight 400; the highlighted row uses `hover`; the chosen row has a check at the end.
 - Empty text: `body` in `text-secondary`, `space-3` by `space-4` padding.

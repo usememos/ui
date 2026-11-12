@@ -46,6 +46,25 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
   { name: 'drawer', open: (page) => page.getByRole('button', { name: 'Note details' }).click(), shot: (page) => page.getByRole('dialog') },
   { name: 'tooltip', open: (page) => page.locator('#tooltip').getByRole('button', { name: 'Archive' }).focus(), shot: (page) => page.locator('.mu-tooltip-popup') },
   { name: 'dialog', open: (page) => page.getByRole('button', { name: 'Create access token' }).click(), shot: (page) => page.getByRole('dialog') },
+  {
+    name: 'dialog-close-tooltip',
+    open: async (page) => {
+      await page.getByRole('button', { name: 'Create access token' }).click();
+      await page.locator('.mu-dialog-x').hover();
+      await expect(page.locator('.mu-tooltip-popup[data-open]')).toBeVisible();
+    },
+    shot: (page) => page.locator('.mu-dialog-popup, .mu-tooltip-popup[data-open]'),
+    union: true,
+  },
+  {
+    name: 'combobox-trigger-tooltip',
+    open: async (page) => {
+      await page.locator('#combobox .mu-combobox-trigger').first().hover();
+      await expect(page.locator('.mu-tooltip-popup[data-open]')).toBeVisible();
+    },
+    shot: (page) => page.locator('#combobox .mu-combobox-input-root').first().or(page.locator('.mu-tooltip-popup[data-open]')),
+    union: true,
+  },
   { name: 'alert-dialog', open: (page) => page.getByRole('button', { name: 'Delete note' }).click(), shot: (page) => page.getByRole('alertdialog') },
   {
     name: 'toast',
@@ -72,9 +91,18 @@ test.describe('touch reference screens', () => {
     test(`${theme} mobile`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await open(page, { theme });
-      for (const id of ['screen-settings', 'screen-timeline', 'screen-empty', 'toggle-group']) {
-        await expect(page.locator(`#${id}`)).toHaveScreenshot(`${id}-${theme}-mobile.png`, options);
+      expect(await page.evaluate(() => matchMedia('(pointer: coarse)').matches)).toBe(true);
+      const task = page.locator('#prose input[type="checkbox"]:not(:disabled)').first();
+      await expect(task).toHaveCSS('width', '44px');
+      for (const id of ['screen-settings', 'screen-timeline', 'screen-empty', 'toggle-group', 'prose']) {
+        const section = page.locator(`#${id}`);
+        // Chromium can clear touch emulation when capturing beyond the viewport.
+        const box = (await section.boundingBox())!;
+        await page.setViewportSize({ width: 390, height: Math.max(844, Math.ceil(box.height)) });
+        await expect(section).toHaveScreenshot(`${id}-${theme}-mobile.png`, options);
+        await expect(task).toHaveCSS('width', '44px');
       }
+      await page.setViewportSize({ width: 390, height: 844 });
       await page.locator('#menu').getByRole('button', { name: 'More actions', exact: true }).tap();
       await expect(page.getByRole('menu')).toHaveScreenshot(`overlay-menu-${theme}-mobile.png`, options);
     });

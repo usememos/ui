@@ -26,7 +26,7 @@
 .mu-toggle.mu-toggle-icon { flex: none; width: var(--mu-row-height); padding: 0; }
 
 /* Labels stay readable when the group is narrower than their natural width. */
-.mu-toggle-label { min-width: 0; overflow-wrap: anywhere; }
+.mu-toggle-label { min-width: 0; overflow-wrap: break-word; }
 .mu-toggle > svg { flex: none; }
 
 @media (hover: hover) {
@@ -38,6 +38,7 @@
   border-color: var(--mu-control-edge);
 }
 .mu-toggle[data-disabled] { color: var(--mu-text-disabled); cursor: not-allowed; }
+.mu-toggle[data-disabled]:where([data-pressed]) { border-color: var(--mu-edge); }
 
 @media (pointer: coarse) {
   .mu-toggle { min-width: var(--mu-hit-area); min-height: var(--mu-hit-area); }

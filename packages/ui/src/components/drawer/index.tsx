@@ -3,6 +3,7 @@ import { Drawer as BaseDrawer } from '@base-ui/react/drawer';
 import { X } from 'lucide-react';
 import { createContext, forwardRef, useContext } from 'react';
 import { cx, withClass } from '../../internal/class-name';
+import { IconTooltip } from '../../internal/icon-tooltip';
 import { SizeContext } from '../../internal/size';
 import { Button } from '../button';
 
@@ -78,7 +79,9 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function DrawerPopup
               {closeLabel}
             </BaseDrawer.Close>
           ) : (
-            <BaseDrawer.Close className="mu-drawer-x" render={<Button variant="ghost" size="sm" icon={<X />} aria-label={closeLabel} />} />
+            <IconTooltip label={closeLabel} container={container}>
+              <BaseDrawer.Close className="mu-drawer-x" render={<Button variant="ghost" size="sm" icon={<X />} aria-label={closeLabel} />} />
+            </IconTooltip>
           )}
         </BaseDrawer.Popup>
       </BaseDrawer.Viewport>

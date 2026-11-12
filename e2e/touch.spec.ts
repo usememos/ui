@@ -25,6 +25,38 @@ for (const size of ['xs', 'sm', 'md'] as const) {
 }
 
 for (const theme of themes) {
+  for (const size of ['sm', 'md'] as const) {
+    test(`Prose task targets reserve 44px without overlap at ${size} in ${theme}`, async ({ page }) => {
+      await open(page, { theme, size });
+      const tasks = page.locator('#prose input[type="checkbox"]:not(:disabled)');
+      const boxes = [];
+      for (const task of await tasks.all()) {
+        await task.scrollIntoViewIfNeeded();
+        const box = (await task.boundingBox())!;
+        expect([box.width, box.height]).toEqual([44, 44]);
+        const mark = await task.evaluate((element) => {
+          const style = getComputedStyle(element, '::before');
+          return [parseFloat(style.width), parseFloat(style.height)];
+        });
+        expect(mark).toEqual([16, 16]);
+        const before = await tasks.evaluateAll((elements) => elements.map((element) => (element as HTMLInputElement).checked));
+        for (const x of [box.x + 1, box.x + box.width - 1]) {
+          await page.touchscreen.tap(x, box.y + box.height / 2);
+          await expect(task).toBeChecked({ checked: !before[boxes.length] });
+          await page.touchscreen.tap(x, box.y + box.height / 2);
+        }
+        expect(await tasks.evaluateAll((elements) => elements.map((element) => (element as HTMLInputElement).checked))).toEqual(before);
+        boxes.push(box);
+      }
+      expect(boxes[1]!.y).toBeGreaterThanOrEqual(boxes[0]!.y + boxes[0]!.height);
+      const row = tasks.first().locator('..');
+      expect(await row.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+      const readOnly = page.locator('#prose input[type="checkbox"]:disabled');
+      expect((await readOnly.boundingBox())!.height).toBe(16);
+      expect((await readOnly.boundingBox())!.x).toBeCloseTo((await tasks.first().boundingBox())!.x + 14, 0);
+    });
+  }
+
   test(`touch: option rows reserve 44px in ${theme}`, async ({ page }) => {
     await open(page, { theme, size: 'sm' });
     await page.locator('#menu').getByRole('button', { name: 'More actions', exact: true }).tap();

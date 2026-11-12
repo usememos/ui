@@ -2,6 +2,7 @@ import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import { Check, ChevronsUpDown, Search } from 'lucide-react';
 import { createContext, forwardRef, useContext, type CSSProperties, type ReactNode } from 'react';
 import { cx, withClass } from '../../internal/class-name';
+import { IconTooltip } from '../../internal/icon-tooltip';
 import { splitPositioner } from '../../internal/popup';
 import { SizeContext, useRowSize } from '../../internal/size';
 import type { IconElement, Size } from '../../types';
@@ -64,9 +65,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function ComboboxI
       {/* An inline list is always shown, so there is nothing to open. */}
       {inline ? null : (
         <span className="mu-input-suffix">
-          <BaseCombobox.Trigger className="mu-combobox-trigger mu-focus" aria-label={triggerLabel}>
-            <ChevronsUpDown aria-hidden />
-          </BaseCombobox.Trigger>
+          <IconTooltip label={triggerLabel}>
+            <BaseCombobox.Trigger className="mu-combobox-trigger mu-focus" aria-label={triggerLabel}>
+              <ChevronsUpDown aria-hidden />
+            </BaseCombobox.Trigger>
+          </IconTooltip>
         </span>
       )}
     </BaseCombobox.InputGroup>

@@ -2,6 +2,7 @@ import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import { X } from 'lucide-react';
 import { forwardRef, type HTMLAttributes } from 'react';
 import { cx, withClass } from '../../internal/class-name';
+import { IconTooltip } from '../../internal/icon-tooltip';
 import { SizeContext } from '../../internal/size';
 import { Button } from '../button';
 
@@ -58,7 +59,9 @@ export function createDialogParts(Base: typeof BaseDialog, name: 'dialog' | 'ale
             {/* A dialog is md wherever it is declared: React context crosses the portal, so a size set by a parent Root (a sm Table) would leak in. */}
             <SizeContext.Provider value="md">{children}</SizeContext.Provider>
             {closeButton && !bare ? (
-              <Base.Close className="mu-dialog-x" render={<Button variant="ghost" size="sm" icon={<X />} aria-label={closeLabel} />} />
+              <IconTooltip label={closeLabel} container={container}>
+                <Base.Close className="mu-dialog-x" render={<Button variant="ghost" size="sm" icon={<X />} aria-label={closeLabel} />} />
+              </IconTooltip>
             ) : null}
           </Base.Popup>
         </Base.Viewport>

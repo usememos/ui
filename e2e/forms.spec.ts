@@ -142,7 +142,7 @@ test.describe('on a touch screen', () => {
   });
 });
 
-test('ToggleGroup: narrow labels wrap completely and the key grows with them', async ({ page }) => {
+test('ToggleGroup: narrow labels keep whole words and the key follows the scrolled choice', async ({ page }) => {
   await open(page);
   const group = page.locator('#toggle-group [data-narrow] .mu-toggle-group');
   const box = await group.boundingBox();
@@ -150,9 +150,45 @@ test('ToggleGroup: narrow labels wrap completely and the key grows with them', a
   for (const label of await group.locator('.mu-toggle-label').all()) {
     expect(await label.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true);
     expect((await label.boundingBox())!.height).toBeGreaterThan(20);
+    const linesPerWord = await label.evaluate((element) => {
+      const node = element.firstChild!;
+      return [...element.textContent!.matchAll(/\S+/g)].map((match) => {
+        const range = document.createRange();
+        range.setStart(node, match.index);
+        range.setEnd(node, match.index + match[0].length);
+        return new Set([...range.getClientRects()].map((rect) => rect.top)).size;
+      });
+    });
+    expect(linesPerWord.every((lines) => lines === 1)).toBe(true);
   }
+  const last = group.getByRole('button').last();
+  await group.getByRole('button').first().focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(last).toBeFocused();
+  await page.keyboard.press('Space');
+  await expect(last).toHaveAttribute('aria-pressed', 'true');
+  await expect.poll(() => group.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
   const key = await group.locator('.mu-segmented-key').boundingBox();
-  expect(Math.round(key!.height)).toBe(Math.round(box!.height - 4));
+  const chosen = (await last.boundingBox())!;
+  expect(Math.round(key!.height)).toBe(Math.round(chosen.height));
+  await expect.poll(async () => Math.round((await group.locator('.mu-segmented-key').boundingBox())!.x)).toBe(Math.round(chosen.x));
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(page.viewportSize()!.width);
+});
+
+test('ToggleGroup: an unbroken label stays reachable without widening the page', async ({ page }) => {
+  await open(page);
+  const group = page.locator('#toggle-group [data-narrow] .mu-toggle-group');
+  const last = group.getByRole('button').last();
+  await last.locator('.mu-toggle-label').evaluate((element) => { element.textContent = 'Donaudampfschifffahrtsgesellschaft'; });
+  await group.hover();
+  await page.mouse.wheel(500, 0);
+  await expect.poll(() => group.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+  await last.focus();
+  await expect(last.locator('.mu-toggle-label')).toHaveCSS('height', '20px');
+  await page.keyboard.press('Space');
+  await expect(last).toHaveAttribute('aria-pressed', 'true');
+  expect((await group.boundingBox())!.width).toBeLessThanOrEqual(200);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(page.viewportSize()!.width);
 });
 
 test('Field horizontal: the label comes first at weight 400, the control at the end, and the label toggles a Switch', async ({ page }) => {

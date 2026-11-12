@@ -14,6 +14,9 @@ export function ToggleSection({ size }: SectionProps) {
       <Toggle size={size} disabled>
         Disabled
       </Toggle>
+      <Toggle size={size} disabled defaultPressed>
+        Disabled, on
+      </Toggle>
     </div>
   );
 }

@@ -32,4 +32,5 @@ Wraps Base UI's [Toggle](https://base-ui.com/react/components/toggle): `pressed`
 ## Style
 
 - Off: flat `text-secondary`. On: sits in a `well` with `control-edge` and the `text` color.
+- Disabled: `text-disabled`; an on Toggle keeps its well and uses the quiet `edge`, so its state remains visible without an enabled boundary.
 - A label wraps when its row runs out of room; an icon-only toggle never shrinks. A ToggleGroup is at most as wide as its container and grows in height to keep long translated labels readable. On touch screens each Toggle reserves at least 44px in each direction.

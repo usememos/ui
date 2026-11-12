@@ -2,6 +2,7 @@ import { Toast as BaseToast } from '@base-ui/react/toast';
 import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from 'lucide-react';
 import { forwardRef } from 'react';
 import { cx, withClass } from '../../internal/class-name';
+import { IconTooltip } from '../../internal/icon-tooltip';
 import type { Tone } from '../../types';
 import { Button, buttonClasses } from '../button';
 
@@ -31,7 +32,7 @@ export const Viewport = forwardRef<HTMLDivElement, ViewportProps>(function Toast
   return (
     <BaseToast.Portal container={container}>
       <BaseToast.Viewport ref={ref} {...props} className={withClass('mu-toast-viewport', className)}>
-        <ToastList closeLabel={closeLabel} />
+        <ToastList closeLabel={closeLabel} container={container} />
       </BaseToast.Viewport>
     </BaseToast.Portal>
   );
@@ -44,7 +45,7 @@ const toneOf = (type: string | undefined): Tone => (type === 'success' || type =
 /** Toasts sit at the top right, so they swipe away up or to the right. */
 const swipeDirection: BaseToast.Root.Props['swipeDirection'] = ['up', 'right'];
 
-function ToastList({ closeLabel }: { closeLabel: string }) {
+function ToastList({ closeLabel, container }: Pick<ViewportProps, 'container'> & { closeLabel: string }) {
   const { toasts } = BaseToast.useToastManager();
   return toasts.map((toast) => {
     const tone = toneOf(toast.type);
@@ -58,7 +59,9 @@ function ToastList({ closeLabel }: { closeLabel: string }) {
             <BaseToast.Description className="mu-toast-description mu-caption" />
           </div>
           <BaseToast.Action className={cx('mu-toast-action', buttonClasses({ variant: 'neutral', size: 'sm' }))} />
-          <BaseToast.Close className="mu-toast-close" render={<Button variant="ghost" size="sm" icon={<X />} aria-label={closeLabel} />} />
+          <IconTooltip label={closeLabel} container={container}>
+            <BaseToast.Close className="mu-toast-close" render={<Button variant="ghost" size="sm" icon={<X />} aria-label={closeLabel} />} />
+          </IconTooltip>
         </BaseToast.Content>
       </BaseToast.Root>
     );

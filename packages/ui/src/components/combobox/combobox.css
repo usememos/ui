@@ -15,7 +15,7 @@
   cursor: pointer;
 }
 .mu-combobox-trigger:hover:not([data-disabled]) { color: var(--mu-text); }
-.mu-combobox-trigger[data-disabled] { cursor: not-allowed; }
+.mu-combobox-trigger[data-disabled] { color: var(--mu-text-disabled); cursor: not-allowed; }
 
 .mu-combobox-popup {
   box-sizing: border-box;

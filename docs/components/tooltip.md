@@ -43,6 +43,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `disabled` 
 ## Rules
 
 - Give every icon-only Button and Toggle a tooltip with the same text as its `aria-label`. Two or three words.
+- Dialog, Drawer and Toast include the Tooltip on their built-in Close; it uses `closeLabel` and the popup's `container`. Combobox includes one on its chevron, using `triggerLabel`. These tooltips stay inside a shadow root when their trigger is mounted there.
 - Never put essential information only in a tooltip: it doesn't open on touch screens.
 - For text that explains something, use a [Popover](popover.md) instead.
 - Wrap a toolbar, or the whole app, in one `Tooltip.Provider`.
