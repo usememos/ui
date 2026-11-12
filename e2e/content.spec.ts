@@ -47,12 +47,14 @@ test('Collapsible: the trigger toggles the panel and says whether it is open', a
   await trigger.focus();
   await page.keyboard.press('Enter');
   await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  await expect(trigger.locator('.mu-collapsible-chevron')).toHaveCSS('rotate', '180deg');
+  await expect(trigger.locator('.mu-collapsible-chevron')).toHaveCSS('transition-duration', '0s');
   await expect(page.getByText('Webhooks, storage and the access token for scripts.')).toBeVisible();
   await page.keyboard.press('Space');
   await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 });
 
-test('Collapsible: the panel only fades under reduced motion', async ({ page }) => {
+test('Collapsible: the panel has no transition under reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await open(page);
   const translate = await page.evaluate(() => {
@@ -65,6 +67,8 @@ test('Collapsible: the panel only fades under reduced motion', async ({ page }) 
     return value;
   });
   expect(translate).toBe('none');
+  await page.getByRole('button', { name: 'Advanced settings' }).click();
+  await expect(page.getByText('Webhooks, storage and the access token for scripts.')).toHaveCSS('transition-duration', '0s');
 });
 
 test('Table: a Menu trigger in a row does not make the row taller than its text', async ({ page }) => {

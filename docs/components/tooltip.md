@@ -52,4 +52,4 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `disabled` 
 ## Style
 
 - `primary` background, `on-primary` text, `label-sm`, `radius-md`, `space-1` by `space-2` padding, at most `tooltip-width` wide.
-- Opens after 400ms of hover, or at once on keyboard focus. Fades in and rises `space-1`; no rise under reduced motion.
+- Waits 400ms on hover before opening; keyboard focus has no opening delay. Opening and closing use the shared [Motion](../motion.md) fade and `space-1` offset over `duration-fade`. Both transitions are disabled under reduced motion. Moving between tooltips in a group skips the delay and replayed entrance.

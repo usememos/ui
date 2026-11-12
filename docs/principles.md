@@ -2,12 +2,12 @@
 
 ## Principles
 
-1. **Content first.** The interface uses quiet neutrals, with a pale warm-gray paper canvas in Light and brighter surfaces. People's words, tags and images carry the color on the page.
-2. **Ink is the emphasis.** The primary action, a checked box and a switch that is on use `primary` (near-black in Light, near-white in Dark). There is no brand hue in controls.
-3. **Flat surfaces, clear states.** Fills show controls and state; borders separate surfaces. No shadows, sheen, focus rings or visible outlines. Content stays unboxed. See [Surfaces and boundaries](depth.md).
-4. **Calm by default.** Hierarchy comes from text color, lightness steps and spacing, not from weight, size or extra color. Interaction uses a few shared treatments, not a separate effect for every event. Controls stay still while pressed; passive content does not highlight on hover. Few sizes and two weights: see [Typography](typography.md).
-5. **Dense, not cramped.** Controls are 32px tall by default, and every gap comes from the 4px scale. See [Size, spacing and layout](layout.md).
-6. **One system, many products.** Components are generic. A product's screens are built from them and from the [patterns](patterns.md); nothing in the package knows what a note or a memo is.
+1. **Work first.** Content and editing get attention; supporting navigation and controls recede. Light uses a pale warm-gray canvas with bright surfaces. A control should not become more prominent merely because the pointer crosses it.
+2. **Hierarchy before decoration.** Use alignment, spacing, text contrast and surface lightness before adding boundaries or icons. Ink emphasizes the primary action and saved on states. Brand hues do not fill controls.
+3. **One shared vocabulary.** Components and public classes carry the same roles across products. Solve visual problems in that contract instead of accumulating local overrides. Our [Linear reference](design-reference.md) explains the evidence and the choices we make from it.
+4. **Complete behavior, few visual treatments.** An interaction event is not a visual variant. Text entry stays stable through hover, focus and press; the caret or selection shows typing focus. Actions reuse one highlight, persistent choices retain a selected fill or mark, and errors, unavailable controls and waiting remain understandable.
+5. **Immediate feedback, minimal opening and closing.** Hover, press, focus and frequent selection update immediately. Tabs do not animate every navigation step. Keep short shared transitions when popups, dialogs and panels appear or disappear. Motion explains content visibility, useful position changes or progress. No press movement, scaling, brightness filters or decorative event fades. See [Motion](motion.md) for the shared timings and reduced-motion rules.
+6. **Dense and predictable.** Use the documented size rows, type scale, spacing ladder and icon system: controls default to 32px, on a 4px spacing scale. Components stay generic; products compose their screens from them and the shared patterns.
 
 ## Voice and interface text
 

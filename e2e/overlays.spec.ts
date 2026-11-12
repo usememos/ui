@@ -324,21 +324,22 @@ test('Toast: a toast behind hides its text at once and shows its edge; fanned ou
   await expect(behind.locator('..')).toHaveCSS('border-top-color', 'oklch(0.858 0.006 95)');
 });
 
-test('popups only fade under reduced motion', async ({ page }) => {
+test('popup motion is disabled under reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await open(page);
-  const translate = await page.evaluate(() =>
+  const styles = await page.evaluate(() =>
     ['mu-popup-motion', 'mu-dialog-popup'].map((className) => {
       const element = document.createElement('div');
       element.className = className;
       element.setAttribute('data-starting-style', '');
       document.body.append(element);
-      const value = getComputedStyle(element).translate;
+      const style = getComputedStyle(element);
+      const value = { translate: style.translate, duration: style.transitionDuration };
       element.remove();
       return value;
     }),
   );
-  expect(translate).toEqual(['none', 'none']);
+  expect(styles).toEqual([{ translate: 'none', duration: '0s' }, { translate: 'none', duration: '0s' }]);
 });
 
 test('Menu: a row with a description grows, keeps the check on the label line, and closes on click', async ({ page }) => {
@@ -447,6 +448,28 @@ test('Drawer: slides from its edge, closes on Escape, and returns focus', async 
 });
 
 for (const theme of themes) {
+  test(`Select uses one anchored list with shared motion in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    const trigger = page.locator('#select').getByRole('combobox', { name: 'Visibility' });
+    await expect(trigger.locator('.lucide-chevron-down')).toHaveCount(1);
+    await expect(trigger.locator('.lucide-chevrons-up-down')).toHaveCount(0);
+    await trigger.click();
+    const popup = page.locator('.mu-select-popup');
+    await expect(popup).toBeVisible();
+    await expect(popup).toHaveCSS('transition-duration', '0.1s, 0.1s');
+    await expect(popup).toHaveCSS('translate', 'none');
+    const anchor = (await trigger.boundingBox())!;
+    const list = (await popup.boundingBox())!;
+    expect(list.y).toBeGreaterThanOrEqual(anchor.y + anchor.height);
+    expect(Math.abs(list.x - anchor.x)).toBeLessThanOrEqual(1);
+    await expect(popup.locator('.mu-select-indicator svg')).toHaveCount(1);
+    await page.keyboard.press('End');
+    await page.keyboard.press('Enter');
+    await expect(trigger).toHaveText('Public');
+    await expect(popup).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
+
   test(`open overlays have no axe violations in ${theme}`, async ({ page }) => {
     await open(page, { theme });
     await moreActions(page).click();
@@ -468,6 +491,7 @@ for (const theme of themes) {
     await expectNoAxeViolations(page, '.mu-drawer-popup');
     await page.keyboard.press('Escape');
     await page.locator('#toast').getByRole('button', { name: 'Fail' }).click();
+    await expect(page.locator('.mu-toast')).toBeVisible();
     await expectNoAxeViolations(page, '.mu-toast-viewport');
   });
 }

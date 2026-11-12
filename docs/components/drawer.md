@@ -58,4 +58,4 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `onOpenChan
 - `panel`: content `space-5` in, stacked `space-4` apart, as in a Dialog; the X is a small ghost Button at `space-4` from the top end corner. On touch screens it reserves 44px, and the title leaves room for that target. Title: `title`. Description: `body` in `text-secondary`, `space-1` under the title.
 - `bare`: no padding, gap or X. A visually hidden `Drawer.Close` named `closeLabel` follows the content, so screen readers on touch screens can close it.
 - The backdrop is `overlay`; it fades as the drawer is swiped away.
-- Slides in from its edge over `duration-settle` with `ease-settle` and follows the finger while swiped. Under reduced motion it fades instead.
+- Opens and closes from its attached edge over `duration-settle` with `ease-settle`, with a backdrop fade of the same duration. It follows the finger while swiped. Under reduced motion both panel and backdrop change immediately, without a slide or fade. See [Motion](../motion.md).

@@ -25,22 +25,26 @@ for (const theme of themes) {
     await page.mouse.up();
   });
 
-  test(`filled actions show a quiet press edge without moving in ${theme}`, async ({ page }) => {
+  test(`actions reuse their hover highlight while held without moving in ${theme}`, async ({ page }) => {
     await open(page, { theme });
-    for (const variant of ['primary', 'danger']) {
+    for (const variant of ['primary', 'neutral', 'ghost', 'danger']) {
       const button = page.locator(`#button [data-variant="${variant}"] button`).first();
       await button.hover();
-      await expect(button).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+      await expect(button).toHaveCSS('transition-duration', '0s');
       const before = await button.boundingBox();
-      const text = await button.evaluate((element) => getComputedStyle(element).color);
+      const highlight = await button.evaluate((element) => {
+        const style = getComputedStyle(element);
+        return { fill: style.backgroundColor, edge: style.borderTopColor };
+      });
       await page.mouse.down();
-      await expect(button).toHaveCSS('border-top-color', text);
+      await expect(button).toHaveCSS('background-color', highlight.fill);
+      await expect(button).toHaveCSS('border-top-color', highlight.edge);
       await expect(button).toHaveCSS('translate', 'none');
       await expect(button).toHaveCSS('scale', 'none');
       await expect(button).toHaveCSS('filter', 'none');
       expect(await button.boundingBox()).toEqual(before);
       await page.mouse.up();
-      await expect(button).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+      await expect(button).toHaveCSS('border-top-color', highlight.edge);
     }
   });
 }
@@ -86,7 +90,7 @@ test('changes fill without moving while held', async ({ page }) => {
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
   await expect(button).toHaveCSS('translate', 'none');
-  await expect(button).toHaveCSS('background-color', 'oklch(0.934 0.008 95)');
+  await expect(button).toHaveCSS('background-color', 'oklch(0.982 0.004 95)');
   expect(await button.boundingBox()).toEqual(box);
   await page.mouse.up();
 });
@@ -99,7 +103,7 @@ test('does not move under reduced motion', async ({ page }) => {
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
   await expect(button).toHaveCSS('box-shadow', 'none');
-  await expect(button).toHaveCSS('background-color', 'oklch(0.934 0.008 95)');
+  await expect(button).toHaveCSS('background-color', 'oklch(0.982 0.004 95)');
   await expect(button).toHaveCSS('translate', 'none');
   await page.mouse.up();
 });

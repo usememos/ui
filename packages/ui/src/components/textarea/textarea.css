@@ -16,11 +16,8 @@
   line-height: var(--mu-row-field-line-height);
   font-weight: 400;
   resize: vertical;
-  transition: border-color var(--mu-duration-fade) var(--mu-ease-out);
 }
 .mu-textarea::placeholder { color: var(--mu-text-secondary); opacity: 1; }
-/* Focus darkens the existing edge, like Input. */
-.mu-textarea:focus-within { --mu-field-edge: var(--mu-focus-edge-width); border-color: var(--mu-focus-edge); }
 .mu-textarea:is([data-invalid], [aria-invalid="true"]) { border-color: var(--mu-danger); }
 .mu-textarea:is([data-disabled], [aria-disabled="true"]) { color: var(--mu-text-disabled); background-color: var(--mu-well); border-color: var(--mu-edge); cursor: not-allowed; }
 

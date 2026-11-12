@@ -69,6 +69,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .mu-dialog-popup, .mu-dialog-backdrop { transition: none; }
   .mu-dialog-popup[data-starting-style], .mu-dialog-popup[data-ending-style],
   .mu-dialog-sheet > .mu-dialog-popup[data-starting-style], .mu-dialog-sheet > .mu-dialog-popup[data-ending-style] { translate: none; }
 }

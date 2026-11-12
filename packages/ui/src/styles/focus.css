@@ -8,7 +8,7 @@
 
 @media (forced-colors: active) {
   .mu-focus:focus-visible, .mu-toast:focus-visible, .mu-prose li > input[type="checkbox"]:first-child:focus-visible::before { border-color: var(--mu-focus); }
-  .mu-input-root:focus-within, .mu-textarea:focus-within { border-color: var(--mu-focus); }
+  .mu-input-root:focus-within, .mu-textarea:focus-within { --mu-field-edge: var(--mu-focus-edge-width); border-color: var(--mu-focus-edge); }
   .mu-switch-thumb { forced-color-adjust: none; background-color: var(--mu-key); }
   .mu-switch-thumb[data-checked] { background-color: var(--mu-on-primary); }
 }

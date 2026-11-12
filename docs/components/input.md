@@ -32,11 +32,11 @@ Wraps Base UI's [Input](https://base-ui.com/react/components/input), so inside a
 - Provide a `Field.Label` or `aria-label`. Never a placeholder alone.
 - `prefix` and `suffix` hold an icon, a short word or a small ghost Button.
 - `sm` for filters inside panels, `md` everywhere else.
-- An app's own one-line field, such as a tag input around a native `<input>`, takes `inputClasses()` on its box: focus anywhere inside darkens the edge, and `aria-invalid="true"` or `aria-disabled="true"` on the box show those states. See [Class functions](../custom-components.md#class-functions).
+- An app's own one-line field, such as a tag input around a native `<input>`, takes `inputClasses()` on its box: typing focus keeps the edge unchanged, and `aria-invalid="true"` or `aria-disabled="true"` on the box show those states. See [Class functions](../custom-components.md#class-functions).
 
 ## Style
 
 - Enabled fields use flat `surface` with a quiet 1px `edge` border. A gray well is reserved for the disabled state.
 - Typed text weight 400; placeholder `text-secondary`. On touch screens typed text is 16px at every size, so iOS Safari does not zoom in on focus; the field keeps its height.
-- Hover keeps the quiet `edge`; focus recolors the 1px edge to `focus-edge` (ink), on click and keyboard alike. There is no ring around the field. The background stays fixed on hover and focus. Invalid fields keep their `danger` edge on hover and focus. Disabled fields use `well`, a quiet `edge` and `text-disabled` text. See [boundary contrast](../depth.md#rules) for the resting edge's contrast tradeoff.
+- Hover, focus and press keep the same `edge` border and `surface` fill. The caret or text selection indicates typing focus; there is no focus border change, ring or animation. Invalid fields retain their `danger` edge while focused. Disabled fields use `well`, a quiet `edge` and `text-disabled` text. Forced colors uses a 2px system focus edge. See [boundary contrast](../depth.md#rules) for the resting edge's contrast tradeoff.
 - The side with a prefix or suffix has 2px less padding.

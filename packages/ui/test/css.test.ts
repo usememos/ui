@@ -68,6 +68,14 @@ describe('stylesheets', () => {
     expect(stripComments(foundationCss)).not.toContain('var(--mu-control-edge)');
   });
 
+  it('keeps text-entry event styling out of component CSS', () => {
+    for (const name of ['input', 'textarea']) {
+      const css = stripComments(componentCss[`../src/components/${name}/${name}.css`]!);
+      expect(css, name).not.toMatch(/:(?:hover|active|focus(?:-within|-visible)?)\b/);
+      expect(css, name).not.toMatch(/\b(?:transition|animation)(?:-[\w-]+)?\s*:/);
+    }
+  });
+
   it('import every component stylesheet into styles.css', () => {
     for (const path of Object.keys(componentCss)) {
       const file = path.replace('../src/', '../');

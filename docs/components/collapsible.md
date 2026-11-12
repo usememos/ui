@@ -18,7 +18,7 @@ import { Collapsible } from "@usememos/ui";
 | Part | Base UI part | Renders |
 | --- | --- | --- |
 | `Collapsible.Root` | `Collapsible.Root` | A `<div>` around the trigger and panel. Takes `size` |
-| `Collapsible.Trigger` | `Collapsible.Trigger` | A ghost [Button](button.md) with a chevron at the end that turns while open |
+| `Collapsible.Trigger` | `Collapsible.Trigger` | A ghost [Button](button.md) with a chevron at the end that points up while open |
 | `Collapsible.Panel` | `Collapsible.Panel` | The content, a `<div>`; unmounted while closed unless `keepMounted` |
 
 ## Props
@@ -41,6 +41,6 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `disabled` 
 ## Style
 
 - The trigger is a ghost key that bleeds `px` to the left, so its label lines up with the content below.
-- The chevron is `text-secondary` and turns 180° over `duration-settle` with `ease-settle`.
+- The chevron is `text-secondary` and changes orientation by 180° immediately when open; no rotation transition.
 - Disabled labels and chevrons use `text-disabled`.
-- The panel fades in and rises `space-1` over `duration-fade`. Its height never animates. No rise or turn under reduced motion.
+- The panel opens and closes with the shared [Motion](../motion.md) fade and `space-1` offset over `duration-fade`. Its height never animates. Opening and closing are immediate under reduced motion.

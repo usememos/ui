@@ -1,6 +1,6 @@
 # Memos UI design system
 
-Memos UI is one calm, dense and flat system for every product we build: memos (the app), the website, the web clipper and whatever comes next. Pure grays and ink emphasis keep attention on people's content. Hierarchy comes from type, spacing and fills. Components reuse a few shared state treatments; pointer events do not add decorative motion or effects.
+Memos UI is one calm, dense and flat system for every product we build: memos (the app), the website, the web clipper and whatever comes next. Quiet neutrals, a warm Light canvas and ink emphasis keep attention on people's content. Hierarchy comes from type, spacing and fills. Components reuse a few shared state treatments; pointer events do not add decorative motion or effects.
 
 These docs describe the target system. They are the source of truth for `@usememos/ui`. Where the code in `packages/` differs from them, the code is out of date and should move toward the docs.
 
@@ -15,12 +15,13 @@ It is not a general-purpose UI library for outside developers. Components are ge
 
 | Doc | What it covers |
 | --- | --- |
+| [Design reference: Linear](design-reference.md) | Official source evidence and how we apply it to Memos UI |
 | [Principles and voice](principles.md) | The taste in six rules, and how interface text is written |
 | [Color](color.md) | Color roles, every color token in Light and Dark, and how themes are chosen |
 | [Depth](depth.md) | Flat surface roles, borders and focus without shadows or outlines |
 | [Typography](typography.md) | The system font, the type scale and text rules |
 | [Size, spacing and layout](layout.md) | Control sizes, the 4px scale, radius, layout widths, breakpoints and layers |
-| [Motion](motion.md) | Press, settle and fade timing, and reduced motion |
+| [Motion](motion.md) | Immediate feedback, minimal opening and closing, and reduced motion |
 | [States](states.md) | Hover, pressed, loading, disabled, invalid and focus |
 | [Icons](icons.md) | Lucide, sizes, the fixed stroke and accessibility |
 | [Components](components/README.md) | The 31 components, what was left out, and one page per component |
@@ -34,8 +35,8 @@ It is not a general-purpose UI library for outside developers. Components are ge
 - **Behavior from Base UI.** Focus management, keyboard support, ARIA, portals and positioning come from [Base UI](https://base-ui.com). Styling, tokens and the component API are our own.
 - **No shadcn.** No shadcn dependency, no copied shadcn code, and no shadcn-compatible component or token names (`card`, `muted`, `destructive`, `foreground` and so on are not used).
 - **Flat and calm by default.** Fills identify controls and state. Reuse shared interaction treatments without press movement, scaling or brightness filters. Light is the default theme; Dark ships with it.
-- **Ink is the accent.** The primary action and every on state use `primary`: near-black in Light, near-white in Dark.
-- **One quiet hue.** `accent` is a quiet blue used only for links and text selection, never as a fill. Focus is ink.
+- **Ink is the accent.** The primary action and checked marks use `primary`: near-black in Light, near-white in Dark. Toggles and single choices use quiet saved-state fills.
+- **One quiet hue.** `accent` is a quiet blue used only for links and text selection, never as a fill. Non-text keyboard focus is ink; text-entry focus uses its caret or selection.
 - **Status colors only for status.** Green means success, amber means warning, red means danger or error. None of them is used for emphasis.
 - **Lucide icons** at one fixed screen-pixel stroke, 1.25px, at every size.
 - **The system UI font** for all text. The package ships no font files.

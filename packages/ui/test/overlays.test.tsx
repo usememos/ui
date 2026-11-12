@@ -98,7 +98,8 @@ describe('Select', () => {
     expect(trigger.className).toContain('mu-button-neutral');
     expect(trigger.className).toContain('mu-s-sm');
     expect(trigger.querySelector('.mu-select-value')!.textContent).toBe('Banana');
-    expect(trigger.querySelector('svg.lucide-chevrons-up-down')).not.toBeNull();
+    expect(trigger.querySelector('svg.lucide-chevron-down')).not.toBeNull();
+    expect(trigger.querySelector('svg.lucide-chevrons-up-down')).toBeNull();
   });
 
   it('marks the placeholder', async () => {

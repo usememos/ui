@@ -25,8 +25,15 @@ export async function open(page: Page, { theme = 'light', size = 'md', hash = ''
 
 /** Fails on any axe violation inside `selector`. */
 export async function expectNoAxeViolations(page: Page, selector: string) {
-  // Colors are checked after popups finish fading in. Spinners and shimmers loop forever, so only transitions count.
-  await page.evaluate(() => Promise.all(document.getAnimations().filter((animation) => animation instanceof CSSTransition).map((animation) => animation.finished.catch(() => undefined))));
+  const scope = page.locator(selector);
+  await expect(scope.first()).toBeAttached();
+  // Base UI's entry/exit attributes can change before a CSS transition exists.
+  // Check the whole lifecycle; progress animations are intentionally excluded.
+  await expect.poll(() => scope.evaluateAll((roots) => roots.length > 0 && roots.every((root) =>
+    !root.matches('[data-starting-style], [data-ending-style]')
+    && !root.querySelector('[data-starting-style], [data-ending-style]')
+    && root.getAnimations({ subtree: true }).every((animation) => !(animation instanceof CSSTransition) || animation.playState === 'finished' || animation.playState === 'idle'),
+  ))).toBe(true);
   const { violations } = await new AxeBuilder({ page }).include(selector).analyze();
   expect(violations.map(({ id, nodes }) => `${id}: ${nodes.map((node) => node.target.join(' ')).join(', ')}`)).toEqual([]);
 }

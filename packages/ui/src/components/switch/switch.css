@@ -15,7 +15,6 @@
   background-color: var(--mu-well);
   border: var(--mu-control-border-width) solid var(--mu-edge);
   cursor: pointer;
-  transition: background-color var(--mu-duration-settle) var(--mu-ease-settle), border-color var(--mu-duration-settle) var(--mu-ease-settle);
 }
 .mu-switch[data-checked] { --mu-control-focus: var(--mu-on-primary); background-color: var(--mu-primary); border-color: transparent; }
 .mu-switch[data-invalid] { border-color: var(--mu-danger); }
@@ -27,7 +26,7 @@
   height: var(--knob);
   border-radius: var(--mu-radius-full);
   background-color: var(--mu-text);
-  transition: translate var(--mu-duration-settle) var(--mu-ease-settle), background-color var(--mu-duration-settle) var(--mu-ease-settle);
+  transition: translate var(--mu-duration-settle) var(--mu-ease-settle);
 }
 .mu-switch-thumb[data-checked] { translate: calc(var(--switch-w) - var(--switch-h)) 0; background-color: var(--mu-on-primary); }
 .mu-switch[data-disabled] > .mu-switch-thumb { background-color: var(--mu-text-disabled); }
@@ -37,5 +36,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mu-switch-thumb { transition-property: background-color; }
+  .mu-switch-thumb { transition: none; }
 }

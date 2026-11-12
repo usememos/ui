@@ -2,6 +2,16 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
+## Unreleased
+
+- Select uses one downward chevron and opens its list below the trigger, aligned to its start edge. The selected value has one check; pointer and keyboard targets reuse the shared row highlight. `alignItemWithTrigger={true}` remains available for value-aligned positioning.
+
+- Components retain minimal opening and closing transitions: 100ms for shared popups, including Select, and 150ms for Dialog and Drawer. Keyboard opening and dismissal use the same short transitions; grouped tooltips skip repeated entrances. Hover, focus, press and row navigation remain immediate; Collapsible chevrons change orientation without rotating through a transition. Reduced motion removes content transitions, including fades and backdrops.
+
+- Design rules now use Linear's product-interface principles as an explicit reference: quiet supporting chrome, consistent styling contracts, fewer visual state treatments and purposeful motion. Actions reuse their hover highlight while held, without an extra border. Hover, press, focus and Tabs/ToggleGroup selection update immediately; Switch animates only the knob's position.
+
+- Input, Textarea and Combobox keep the same border and surface under hover, focus and press. The caret or text selection identifies typing focus, without an edge transition or other event animation. Invalid fields keep their error edge; non-text control focus and forced-colors focus retain their treatments.
+
 ## 26.11.16
 
 Published 12 November 2026.

@@ -43,7 +43,7 @@
   --mu-danger-soft: #fbeaea;
   --mu-on-danger: #ffffff;
   --mu-focus: var(--mu-primary);
-  --mu-focus-edge: var(--mu-text);
+  --mu-focus-edge: var(--mu-edge);
 }
 [data-theme="dark"] {
   --mu-canvas: #0f0f0f;
@@ -73,7 +73,7 @@
   --mu-danger-soft: #2c1616;
   --mu-on-danger: #ffffff;
   --mu-focus: var(--mu-primary);
-  --mu-focus-edge: var(--mu-text);
+  --mu-focus-edge: var(--mu-edge);
   color-scheme: dark;
 }
 :where(:root, :host, .mu-root) {
@@ -117,7 +117,7 @@
   --mu-layer-popup: 50;
   --mu-layer-overlay: 50;
   --mu-layer-toast: 60;
-  --mu-duration-press: 80ms;
+  --mu-duration-press: 0ms;
   --mu-duration-settle: 150ms;
   --mu-duration-fade: 100ms;
   --mu-duration-spin: 800ms;

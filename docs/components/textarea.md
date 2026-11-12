@@ -30,9 +30,9 @@ Base UI has no textarea part, so this renders Base UI's `Field.Control` as a `<t
 
 - Provide a `Field.Label` or `aria-label`.
 - Rich content is not a textarea: use the editor (`@usememos/editor`) with [Prose](prose.md).
-- An app's own multi-line field, such as a content-editable editor, takes `textareaClasses()`: focus darkens the edge, and `aria-invalid="true"` or `aria-disabled="true"` show those states. See [Class functions](../custom-components.md#class-functions).
+- An app's own multi-line field, such as a content-editable editor, takes `textareaClasses()`: the caret or text selection indicates focus without changing the edge, and `aria-invalid="true"` or `aria-disabled="true"` show those states. See [Class functions](../custom-components.md#class-functions).
 
 ## Style
 
-- Looks like [Input](input.md). Resizes vertically only.
+- Looks like [Input](input.md), including an unchanged border and surface under mouse and keyboard focus. The caret or text selection identifies the active field; state changes have no animation. Resizes vertically only.
 - On touch screens typed text is 16px on a 20px line at every size, like Input, so iOS Safari does not zoom in on focus.

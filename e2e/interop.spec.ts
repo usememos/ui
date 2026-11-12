@@ -52,6 +52,27 @@ test('an app theme reaches popups, which render outside the app root', async ({ 
   await expect(popup).toHaveCSS('background-color', 'rgb(251, 246, 240)');
 });
 
+test('text-entry focus stays quiet even when an app supplies a strong focus-edge', async ({ page }) => {
+  await page.goto('/interop.html?theme=paper');
+  await page.locator('html').evaluate((element) => element.style.setProperty('--mu-focus-edge', 'var(--mu-text)'));
+  for (const [selector, control] of [
+    ['.mu-input-root:has(#input)', '#input'],
+    ['#input-custom', '#input-custom input'],
+    ['#textarea', '#textarea'],
+    ['#textarea-custom', '#textarea-custom'],
+  ] as const) {
+    const field = page.locator(selector);
+    const before = await field.evaluate((element) => {
+      const style = getComputedStyle(element);
+      return { border: style.borderTopColor, fill: style.backgroundColor };
+    });
+    await page.locator(control).focus();
+    await expect(field).toHaveCSS('border-top-color', before.border);
+    await expect(field).toHaveCSS('background-color', before.fill);
+    await expect(field).toHaveCSS('outline-style', 'none');
+  }
+});
+
 /** Computed values of `properties` on the element `selector` finds. */
 const styles = (page: Page, selector: string, properties: string[]) =>
   page.locator(selector).first().evaluate((element, properties) => {
@@ -90,13 +111,13 @@ test("an app's own parts show states from attributes", async ({ page }) => {
   await expect(page.locator('#menu-custom-active')).toHaveCSS('background-color', 'oklch(0.95 0.006 95)');
   await expect(page.locator('#menu-custom-item')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
 
-  // A field's edge turns 1px `focus-edge` ink (#1a1a1a in Light) while anything inside it has focus.
+  // Custom fields keep the same quiet edge while their text input has focus.
   const field = page.locator('#input-custom');
   await expect(field).toHaveCSS('border-top-color', 'oklch(0.858 0.006 95)');
   await page.getByRole('textbox', { name: 'Custom tag' }).focus();
-  await expect(field).toHaveCSS('border-top-color', 'rgb(26, 26, 26)');
+  await expect(field).toHaveCSS('border-top-color', 'oklch(0.858 0.006 95)');
   await page.getByRole('textbox', { name: 'Custom note' }).focus();
-  await expect(page.locator('#textarea-custom')).toHaveCSS('border-top-color', 'rgb(26, 26, 26)');
+  await expect(page.locator('#textarea-custom')).toHaveCSS('border-top-color', 'oklch(0.858 0.006 95)');
 
   // aria-invalid and aria-disabled on the box.
   await field.evaluate((element) => element.setAttribute('aria-invalid', 'true'));

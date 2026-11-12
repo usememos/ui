@@ -1,23 +1,25 @@
 # States
 
-Every interactive component handles these states the same way.
+Behavioral states are complete, but they do not each require a different appearance. Reuse the smallest treatment that communicates the action or saved state. See the [Linear reference](design-reference.md) for the basis of this contract.
 
 | State | Looks like |
 | --- | --- |
 | Hover | Interactive keys go to `key-hover`; actionable rows and ghost buttons use `hover`. Passive content and ordinary table rows do not highlight. Bounded controls keep their quiet `edge`; fields and switches keep their fill. Invalid fields keep `danger`. Muted labels go to `text`. Primary keys go to `primary-hover`. |
-| Pressed (while held) | Buttons keep their geometry: neutral and ghost use `well`, primary uses `primary-hover`, danger retains `danger-key`. Filled primary and danger actions use their contrasting text color on the existing edge. Toggles do not imitate a selected state before activation |
+| Pressed (while held) | Actions reuse their hover highlight immediately: neutral uses `key-hover`, ghost and actionable rows use `hover`, primary uses `primary-hover`, danger retains `danger-key`. No extra border, movement, scale or filter. Toggles do not imitate a selected state before activation |
 | Pressed toggle (on) | Uses `well` and the `text` color; the reserved border stays transparent |
-| Selected (one of several) | A flat `key` fill in a quiet well that slides to the chosen item, with `text` for its label and icon; no visible group or selected-key border in normal colors. Hover only changes label and icon contrast; focus reuses `mu-focus` |
+| Selected (one of several) | A flat `key` fill in a quiet well that updates immediately to the chosen item, with `text` for its label and icon; no visible group or selected-key border in normal colors. Hover only changes label and icon contrast; focus reuses `mu-focus` |
 | Checked | A flat `primary` fill with an `on-primary` mark |
 | Loading | The control becomes inert at once. After 300ms it hides its label and shows a Spinner without changing size; short waits keep the label |
 | Disabled | `text-disabled` text, quiet borders and `well` on all Button variants and other filled controls; no whole-control opacity, hover or press response |
 | Invalid | A `danger` edge on the field, plus an error line with an icon under it |
-| Focus (field) | The 1px edge darkens from `edge` to `focus-edge` (ink), on click and keyboard alike. No ring around it. Invalid text fields keep danger; the caret identifies typing focus |
+| Focus (field) | The caret or text selection identifies typing focus. Border and surface stay the same under mouse and keyboard focus, with no ring or animation. Invalid fields keep their danger edge; forced colors uses a 2px system edge |
 | Focus (everything else) | Reuse the shared 1px border on `:focus-visible`; primary/checked fills use `on-primary`, danger buttons use `on-danger`; text links get a double underline. Invalid non-text controls reuse the same focus edge; their error message keeps communicating the error |
 | Focus (inside a widget) | Menu items and options take the `hover` fill. No ring |
 
 ## Rules
 
+- An event does not need its own visual style. Text entry keeps its border, surface and geometry under hover, focus and press. Validation alone changes the ordinary field edge, immediately and without animation.
+- Hover, press and keyboard focus feedback are immediate. Actionable rows and actions reuse a highlight for pointer hover and touch press; do not invent a second held-state frame. Tabs and single-choice groups update their selected key without a slide.
 - Keep state styling minimal. Reuse the shared component and foundation treatments; add a separate treatment only when it communicates a distinct action or state. A component does not need a new fill, border, scale or animation for every pointer or focus event.
 - Persistent states and hover never strengthen a quiet boundary. Reserve `control-edge` for small checkbox/radio markers; text colors are not border colors. Focus and invalid states keep their explicit boundary treatments.
 - Keep selection persistent and independent of transient events. A selected fill is not a focus border. Reuse `mu-focus` for the shared focus behavior instead of defining component-specific focus variants.
@@ -25,9 +27,10 @@ Every interactive component handles these states the same way.
 - Press feedback does not move or resize a control, apply a brightness filter, or animate its mark. Checkbox and Radio marks change immediately. A Switch's knob still moves to show its saved state.
 - Hover never changes size, weight or layout.
 - An input never changes its background on hover or focus, so it never looks disabled.
-- Control focus borders show for keyboard focus only (`:focus-visible`), never on mouse click. Fields are the exception: a clicked field is focused for typing, so its edge darkens, but it still gets no ring.
-- Focus changes the existing edge, never adds a ring or visible outline. Filled controls use their contrasting text color at the edge.
+- Control focus borders show for keyboard focus only (`:focus-visible`), never on mouse click. Text fields use the visible caret or text selection for typing focus and keep their normal boundary.
+- Focus changes the existing edge, never adds a ring or visible outline. Filled controls use their contrasting text color at the edge for keyboard focus, not as a new pointer-held border.
 - Popups, dialogs and panels never show a focus ring when they open and take focus.
+- Opening and closing content retain the minimal shared [Motion](motion.md) transition. This does not animate focus, hover, press or navigation within the content; those respond immediately.
 - Focused borders use 2px in the system `Highlight` color in forced-colors mode. No shadow or outline fallback is needed.
 - In forced-colors mode, segmented selection keeps a system-colored key border and on toggles get a system-colored boundary, distinct from the shared focus treatment.
 - Disabled controls stay in place. Prefer explaining why something is unavailable over hiding it.
@@ -38,7 +41,7 @@ Every interactive component handles these states the same way.
 | Component family | Default feedback |
 | --- | --- |
 | Actions: Button and Link | Shared fill, edge or underline feedback, without movement or filters. All Button variants share the disabled well and edge |
-| Fields: Input, Textarea and Combobox input | Recolor the existing edge. Keep the surface and geometry fixed |
+| Fields: Input, Textarea and Combobox input | Keep the border, surface and geometry fixed through hover, focus and press. The caret or text selection indicates typing focus; validation alone recolors the ordinary edge |
 | Choices: Checkbox, Radio, Switch, Toggle, ToggleGroup and Tabs | Keep the saved state explicit through a mark, knob position or selected fill. Do not resize on press or imitate selection before activation |
 | Actionable rows: Menu, Select, Combobox options and List.ItemButton | Use the shared highlighted fill. Keep Base UI's interaction behavior |
 | Containers: Dialog, Drawer, Popover and Toast | Feedback belongs to their controls, not an extra container hover effect. Keep visibility, dismissal and Toast expansion behavior |

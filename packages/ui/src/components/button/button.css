@@ -36,20 +36,20 @@
   .mu-button-ghost:hover:not([data-disabled]) { background-color: var(--mu-hover); color: var(--mu-text); }
 }
 
-.mu-button:active:not([data-disabled]) { background-color: var(--mu-well); }
+.mu-button:active:not([data-disabled]) { background-color: var(--mu-key-hover); }
 
 .mu-button-primary { --mu-control-focus: var(--mu-on-primary); border-color: transparent; color: var(--mu-on-primary); background-color: var(--mu-primary); }
 .mu-button-danger { --mu-control-focus: var(--mu-on-danger); border-color: transparent; color: var(--mu-on-danger); background-color: var(--mu-danger-key); }
 
-/* Filled actions retain their contrasting text while held. */
-.mu-button-primary:active:not([data-disabled]) { background-color: var(--mu-primary-hover); border-color: var(--mu-on-primary); }
-.mu-button-danger:active:not([data-disabled]) { background-color: var(--mu-danger-key); border-color: var(--mu-on-danger); }
+/* Holding an action reuses its hover fill; keyboard focus owns the contrasting edge. */
+.mu-button-primary:active:not([data-disabled]) { background-color: var(--mu-primary-hover); }
+.mu-button-danger:active:not([data-disabled]) { background-color: var(--mu-danger-key); }
 
 /* Ghost: no visible boundary at rest. */
 .mu-button-ghost { border-color: transparent; color: var(--mu-text-secondary); background-color: transparent; }
 /* A ghost trigger stays highlighted while its menu or popover is open. */
 .mu-button-ghost[data-popup-open] { background-color: var(--mu-hover); color: var(--mu-text); }
-.mu-button-ghost:active:not([data-disabled]) { background-color: var(--mu-well); }
+.mu-button-ghost:active:not([data-disabled]) { background-color: var(--mu-hover); }
 
 .mu-button[data-disabled]:not([data-loading]) { --mu-control-focus: var(--mu-focus); background-color: var(--mu-well); border-color: var(--mu-edge); color: var(--mu-text-disabled); cursor: not-allowed; }
 

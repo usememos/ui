@@ -22,7 +22,7 @@ export const Root = forwardRef<HTMLDivElement, RootProps>(function CollapsibleRo
 
 export interface TriggerProps extends BaseCollapsible.Trigger.Props {}
 
-/** A ghost key with a chevron at the end that turns while the panel is open. */
+/** A ghost key with a chevron at the end that points up while the panel is open. */
 export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function CollapsibleTrigger({ className, children, ...props }, ref) {
   const size = useRowSize();
   return (

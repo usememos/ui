@@ -10,6 +10,19 @@ const contentPosition = (control: Locator) => control.evaluate((element) => {
 });
 
 for (const theme of themes) {
+  test(`frequent feedback is immediate in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    for (const selector of ['#button .mu-button', '#toggle .mu-toggle', '#list .mu-list-item-button', '#tabs .mu-tabs-tab', '#switch .mu-switch']) {
+      const control = page.locator(selector).first();
+      await expect(control).toHaveCSS('transition-duration', '0s');
+      await control.hover();
+      expect(await control.evaluate((element) => element.getAnimations().length), selector).toBe(0);
+    }
+    for (const selector of ['#tabs .mu-segmented-key', '#toggle-group .mu-segmented-key']) {
+      await expect(page.locator(selector).first()).toHaveCSS('transition-duration', '0s');
+    }
+  });
+
   test(`resting surfaces stay quiet while state markers stay distinct in ${theme}`, async ({ page }) => {
     await open(page, { theme });
     await page.mouse.move(0, 0);
@@ -113,20 +126,36 @@ for (const theme of themes) {
     await expect(cell).toHaveCSS('background-color', fill);
   });
 
-  test(`text fields keep quiet boundaries until typing focus in ${theme}`, async ({ page }) => {
+  test(`text fields keep the same appearance through hover focus and press in ${theme}`, async ({ page }) => {
     await open(page, { theme });
     const edge = theme === 'light' ? 'oklch(0.858 0.006 95)' : 'rgb(52, 52, 52)';
-    const hover = theme === 'light' ? 'oklch(0.858 0.006 95)' : 'rgb(52, 52, 52)';
-    const focus = theme === 'light' ? 'rgb(26, 26, 26)' : 'rgb(237, 237, 237)';
     for (const selector of ['#input .mu-input-root', '#textarea .mu-textarea', '#combobox .mu-input-root']) {
       await page.mouse.move(0, 0);
       const field = page.locator(selector).first();
       const control = selector.includes('input-root') ? field.locator('input') : field;
+      const background = await field.evaluate((element) => getComputedStyle(element).backgroundColor);
+      const before = (await field.boundingBox())!;
+      await expect(field).toHaveCSS('transition-duration', '0s');
       await expect(field).toHaveCSS('border-top-color', edge);
       await field.hover();
-      await expect(field).toHaveCSS('border-top-color', hover);
+      await expect(field).toHaveCSS('border-top-color', edge);
+      await control.click();
+      await expect(control).toBeFocused();
+      await expect(control).not.toHaveCSS('caret-color', 'rgba(0, 0, 0, 0)');
+      await expect(field).toHaveCSS('border-top-color', edge);
+      await page.mouse.down();
+      await expect(field).toHaveCSS('background-color', background);
+      await expect(field).toHaveCSS('translate', 'none');
+      await expect(field).toHaveCSS('scale', 'none');
+      const after = (await field.boundingBox())!;
+      expect([after.width, after.height]).toEqual([before.width, before.height]);
+      await page.mouse.up();
+      expect(await field.evaluate((element) => element.getAnimations().length)).toBe(0);
+      await control.blur();
+      await expect(field).toHaveCSS('border-top-color', edge);
+      await page.keyboard.press('Tab');
       await control.focus();
-      await expect(field).toHaveCSS('border-top-color', focus);
+      await expect(field).toHaveCSS('border-top-color', edge);
       await expect(field).toHaveCSS('border-top-width', '1px');
       await field.evaluate((element) => element.setAttribute('aria-invalid', 'true'));
       const danger = await field.evaluate((element) => getComputedStyle(element).getPropertyValue('--mu-danger').trim());
@@ -236,7 +265,8 @@ for (const theme of themes) {
 
   test(`field focus preserves size and text position in ${theme}`, async ({ page }) => {
     await open(page, { theme });
-    for (const selector of ['#input .mu-input-root', '#textarea .mu-textarea']) {
+    const edge = theme === 'light' ? 'oklch(0.858 0.006 95)' : 'rgb(52, 52, 52)';
+    for (const selector of ['#input .mu-input-root', '#textarea .mu-textarea', '#combobox .mu-input-root']) {
       const field = page.locator(selector).first();
       const metrics = () => field.evaluate((element) => {
         const box = element.getBoundingClientRect();
@@ -246,6 +276,7 @@ for (const theme of themes) {
       const before = await metrics();
       await (selector.includes('input-root') ? field.locator('input') : field).focus();
       await expect(field).toHaveCSS('border-top-width', '1px');
+      await expect(field).toHaveCSS('border-top-color', edge);
       expect(await metrics()).toEqual(before);
       await expect(field).toHaveCSS('outline-style', 'none');
     }
@@ -322,9 +353,17 @@ test('focus borders and switch knobs survive forced colors', async ({ page }) =>
     expect(colors[0], selector).not.toBe(colors[1]);
     await expect(control).toHaveCSS('outline-style', 'none');
   }
-  const input = page.locator('#input input').first();
-  await input.focus();
-  await expect(input.locator('..')).toHaveCSS('border-top-width', '2px');
+  for (const selector of ['#input .mu-input-root', '#textarea .mu-textarea', '#combobox .mu-input-root']) {
+    const field = page.locator(selector).first();
+    await (selector.includes('input-root') ? field.locator('input') : field).focus();
+    await expect(field).toHaveCSS('border-top-width', '2px');
+    await expect(field).toHaveCSS('outline-style', 'none');
+    const colors = await field.evaluate((element) => {
+      const style = getComputedStyle(element);
+      return [style.borderTopColor, style.backgroundColor];
+    });
+    expect(colors[0], selector).not.toBe(colors[1]);
+  }
   const task = page.locator('#prose input[type="checkbox"]').first();
   await task.focus();
   const mark = await task.evaluate((element) => {

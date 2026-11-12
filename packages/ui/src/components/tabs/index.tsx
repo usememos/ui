@@ -20,7 +20,7 @@ export const Root = forwardRef<HTMLDivElement, RootProps>(function TabsRoot({ si
 
 export interface ListProps extends BaseTabs.List.Props {}
 
-/** The well that holds the tabs, with the sliding key built in. */
+/** The well that holds the tabs, with the selected key built in. */
 export const List = forwardRef<HTMLDivElement, ListProps>(function TabsList({ className, children, ...props }, ref) {
   const size = useRowSize();
   return (

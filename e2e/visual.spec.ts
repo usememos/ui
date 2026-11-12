@@ -37,6 +37,13 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
   { name: 'menu-checkbox', open: (page) => page.locator('#menu').getByRole('button', { name: 'View' }).click(), shot: (page) => page.getByRole('menu') },
   { name: 'combobox', open: (page) => page.getByRole('combobox', { name: 'Tag', exact: true }).fill('de'), shot: (page) => page.locator('.mu-combobox-popup') },
   { name: 'select', open: (page) => page.locator('#select').getByRole('combobox').nth(1).click(), shot: (page) => page.locator('.mu-select-popup') },
+  { name: 'collapsible', open: (page) => page.locator('#collapsible').getByRole('button', { name: 'Advanced settings' }).click(), shot: (page) => page.locator('#collapsible') },
+  {
+    name: 'select-value',
+    open: (page) => page.locator('#select').getByRole('combobox', { name: 'Visibility' }).click(),
+    shot: (page) => page.locator('#select [role="combobox"]').first().or(page.locator('.mu-select-popup')),
+    union: true,
+  },
   { name: 'popover', open: (page) => page.locator('#popover').getByRole('button', { name: 'Share' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'popover-view', open: (page) => page.locator('#popover').getByRole('button', { name: 'View options' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'popover-list', open: (page) => page.locator('#popover').getByRole('button', { name: 'Account' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
@@ -126,6 +133,40 @@ for (const theme of themes) {
 
     // Overlays have no xs: at xs they are the sm screenshots.
     if (size === 'xs') continue;
+    test(`${theme} ${size} action highlights`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await open(page, { theme, size });
+      await expect(page.locator('#button [data-loading-visible]')).toHaveCount(4);
+      for (const variant of ['primary', 'neutral', 'ghost', 'danger']) {
+        const row = page.locator(`#button [data-variant="${variant}"]`);
+        const button = row.locator('button').first();
+        const name = `highlight-button-${variant}-${theme}-${size}.png`;
+        await button.hover();
+        await expect(row).toHaveScreenshot(name, options);
+        await page.mouse.down();
+        await expect(row).toHaveScreenshot(name, options);
+        await page.mouse.up();
+      }
+    });
+
+    test(`${theme} ${size} field focus`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      for (const [name, selector] of [
+        ['input', '#input .mu-input-root'],
+        ['textarea', '#textarea .mu-textarea'],
+        ['combobox', '#combobox .mu-input-root'],
+      ] as const) {
+        await open(page, { theme, size });
+        const field = page.locator(selector).first();
+        const control = name === 'textarea' ? field : field.locator('input');
+        const edge = await field.evaluate((element) => getComputedStyle(element).borderTopColor);
+        await control.focus();
+        await expect(control).toBeFocused();
+        await expect(field).toHaveCSS('border-top-color', edge);
+        await expect(page).toHaveScreenshot(`focus-${name}-${theme}-${size}.png`, { ...options, clip: await around(field) });
+      }
+    });
+
     test(`${theme} ${size} overlays`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       for (const overlay of overlays) {
@@ -133,8 +174,12 @@ for (const theme of themes) {
         await expect(page.locator('#button [data-loading-visible]')).toHaveCount(4);
         await overlay.open(page);
         const shot = overlay.shot(page);
-        await expect(shot.first()).toBeVisible();
-        await page.evaluate(() => Promise.all(document.getAnimations().filter((animation) => animation instanceof CSSTransition).map((animation) => animation.finished.catch(() => undefined))));
+        if (overlay.union) await expect(shot).toHaveCount(2);
+        for (const element of await shot.all()) await expect(element).toBeVisible();
+        await expect.poll(() => shot.evaluateAll((elements) => elements.every((element) =>
+          !element.matches('[data-starting-style], [data-ending-style]')
+          && element.getAnimations({ subtree: true }).every((animation) => !(animation instanceof CSSTransition) || animation.playState === 'finished' || animation.playState === 'idle'),
+        ))).toBe(true);
         const name = `overlay-${overlay.name}-${theme}-${size}.png`;
         if (overlay.union) await expect(page, overlay.name).toHaveScreenshot(name, { ...options, clip: await around(shot) });
         else await expect(shot, overlay.name).toHaveScreenshot(name, options);

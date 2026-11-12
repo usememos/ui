@@ -26,7 +26,7 @@ import { Bold, Code, Italic } from "lucide-react";
 
 | Part | Base UI part | Renders |
 | --- | --- | --- |
-| `ToggleGroup` | `ToggleGroup` | A `<div role="group">`. Takes `size`. Without `multiple`, adds the sliding key |
+| `ToggleGroup` | `ToggleGroup` | A `<div role="group">`. Takes `size`. Without `multiple`, adds the selected key |
 | `Toggle` | `Toggle` | One item, a `<button aria-pressed>` |
 | `Separator` | `Separator` | A line between clusters, `multiple` groups only |
 
@@ -59,4 +59,4 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange`, `multipl
 - `multiple`: items 2px apart, using Toggle's `well` fill and `text` when on, with no visible border in normal colors. Keyboard focus stays separate from selection.
 - Inside a segmented key, the label's line box can tighten at xs and sm to leave room for the focus border without changing geometry; its font size stays in the size row. Long labels wrap and increase the group's height.
 - Use the existing `md` size for a labeled layout choice at the top of a settings popover: a 32px group, 28px selected face and 16px icons. Keep `sm` (24px) for dense contexts; do not invent a height between the size rows.
-- Without `multiple`: a quiet `well` and contrasting `key` fill, with no visible group or selected-key border in normal colors. The selected label and icon use `text`; hover only changes label and icon contrast, without adding a fill or moving the key. Focus reuses `mu-focus`; do not add a component-specific focus treatment. In forced colors the selected key retains its text-colored border. The key slides to the chosen item over `duration-settle` with `ease-settle` and re-measures when an item changes width. Under reduced motion it jumps. On touch screens every item reserves at least 44px in each direction, without overlapping its neighbor.
+- Without `multiple`: a quiet `well` and contrasting `key` fill, with no visible group or selected-key border in normal colors. The selected label and icon use `text`; hover only changes label and icon contrast, without adding a fill or moving the key. Focus reuses `mu-focus`; do not add a component-specific focus treatment. In forced colors the selected key retains its text-colored border. The key updates immediately and re-measures when an item changes width. Selection and label changes do not animate. On touch screens every item reserves at least 44px in each direction, without overlapping its neighbor.

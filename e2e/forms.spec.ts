@@ -1,7 +1,7 @@
 import { expect, test, type Locator } from '@playwright/test';
 import { open } from './helpers';
 
-/** Left edge and width of the sliding key, relative to its well. */
+/** Left edge and width of the selected key, relative to its well. */
 const keyBox = (well: Locator) =>
   well.evaluate((element) => {
     const key = element.querySelector(':scope > .mu-segmented-key')!.getBoundingClientRect();
@@ -27,7 +27,7 @@ test('Tabs: arrow keys move between tabs and the key follows', async ({ page }) 
   await expect(tabs.first()).toBeFocused();
 });
 
-test('ToggleGroup: arrow keys move focus, Space picks, and the key slides', async ({ page }) => {
+test('ToggleGroup: arrow keys move focus, Space picks, and the key updates immediately', async ({ page }) => {
   await open(page);
   const group = page.locator('#toggle-group [aria-label="Show"]');
   const items = group.getByRole('button');
@@ -38,7 +38,8 @@ test('ToggleGroup: arrow keys move focus, Space picks, and the key slides', asyn
   await page.keyboard.press('Space');
   await expect(items.nth(1)).toHaveAttribute('aria-pressed', 'true');
   await expect(items.first()).toHaveAttribute('aria-pressed', 'false');
-  // The key takes duration-settle to arrive.
+  await expect(group.locator('.mu-segmented-key')).toHaveCSS('transition-duration', '0s');
+  await expect(items.nth(1)).toHaveCSS('transition-duration', '0s');
   await expect.poll(() => keyBox(group)).toEqual(await itemBox(group, items.nth(1)));
 });
 
@@ -106,24 +107,25 @@ test('Field: an error replaces the description and marks the input', async ({ pa
   await expect(field.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
 });
 
-test('Input: the label focuses the input and the box darkens its edge, with no ring', async ({ page }) => {
+test('Input: the label focuses the input while the box keeps its quiet edge', async ({ page }) => {
   await open(page);
   await page.locator('#field label', { hasText: 'Name' }).click();
   const input = page.getByRole('textbox', { name: 'Name' });
   await expect(input).toBeFocused();
   const box = page.locator('#field .mu-input-root').first();
-  // The existing 1px edge takes `focus-edge` ink (#1a1a1a in Light).
-  await expect(box).toHaveCSS('border-top-color', 'rgb(26, 26, 26)');
+  // Typing focus uses the caret; the existing border stays quiet.
+  await expect(box).toHaveCSS('border-top-color', 'oklch(0.858 0.006 95)');
   // The border provides focus; no external outline or shadow.
   await expect(box).toHaveCSS('outline-style', 'none');
 });
 
-test('Switch: the knob slides when on, and only fades under reduced motion', async ({ page }) => {
+test('Switch: only the knob position moves and reduced motion has no transition', async ({ page }) => {
   await open(page);
   const thumb = page.locator('#switch .mu-switch-thumb').first();
-  expect(await thumb.evaluate((element) => getComputedStyle(element).transitionProperty)).toContain('translate');
+  await expect(thumb.locator('..')).toHaveCSS('transition-duration', '0s');
+  await expect(thumb).toHaveCSS('transition-property', 'translate');
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  expect(await thumb.evaluate((element) => getComputedStyle(element).transitionProperty)).toBe('background-color');
+  await expect(thumb).toHaveCSS('transition-duration', '0s');
 });
 
 test.describe('on a touch screen', () => {

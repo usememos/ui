@@ -1,5 +1,5 @@
 import { Select as BaseSelect } from '@base-ui/react/select';
-import { Check, ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { forwardRef, type ReactNode } from 'react';
 import { withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
@@ -36,7 +36,7 @@ export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function Sele
     <BaseSelect.Trigger ref={ref} {...props} className={withClass(`mu-select-trigger ${buttonClasses({ variant, size })}`, className)}>
       {children}
       <BaseSelect.Icon className="mu-select-icon">
-        <ChevronsUpDown aria-hidden />
+        <ChevronDown aria-hidden />
       </BaseSelect.Icon>
     </BaseSelect.Trigger>
   );
@@ -68,15 +68,15 @@ export interface PopupProps extends BaseSelect.Popup.Props, PositionerProps {
 }
 
 /**
- * The list of items. By default it opens over the trigger with the chosen
- * item on top of the value; `alignItemWithTrigger={false}` opens it below.
+ * The list of items. By default it opens below the trigger, aligned to its
+ * start edge. `alignItemWithTrigger` can opt into value-aligned positioning.
  */
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(function SelectPopup({ container, className, children, ...props }, ref) {
   const size = useRowSize();
   const [positioner, rest] = splitPositioner(props);
   return (
     <BaseSelect.Portal container={container}>
-      <BaseSelect.Positioner sideOffset={4} {...positioner} className="mu-positioner mu-select-positioner">
+      <BaseSelect.Positioner sideOffset={4} align="start" alignItemWithTrigger={false} {...positioner} className="mu-positioner mu-select-positioner">
         <BaseSelect.Popup ref={ref} {...rest} className={withClass(`mu-select-popup mu-popup mu-popup-motion mu-base mu-s-${size}`, className)}>
           <BaseSelect.ScrollUpArrow className="mu-select-scroll-arrow" render={(arrowProps) => <div {...arrowProps}><ChevronUp aria-hidden /></div>} />
           <BaseSelect.List className="mu-select-list">{children}</BaseSelect.List>

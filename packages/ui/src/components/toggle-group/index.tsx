@@ -13,7 +13,7 @@ export interface ToggleGroupProps extends BaseToggleGroup.Props {
 
 /**
  * A row of Toggles. With `multiple` it is a toolbar of independent on/off
- * toggles. Without it, one choice among peers: a well with one sliding key,
+ * toggles. Without it, one choice among peers: a well with one selected key,
  * the same control as Tabs.
  */
 export const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(function ToggleGroup({ size, multiple = false, fullWidth = false, className, children, ...props }, forwardedRef) {

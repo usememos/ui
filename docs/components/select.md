@@ -47,7 +47,7 @@ interface Select.TriggerProps extends BaseSelect.Trigger.Props {
   variant?: "neutral" | "ghost"; // default "neutral"; ghost: a flat row, for a switcher in a sidebar or toolbar
 }
 interface Select.PopupProps extends BaseSelect.Popup.Props {
-  alignItemWithTrigger?: boolean; // default true: the list opens over the trigger with the chosen item on the value
+  alignItemWithTrigger?: boolean; // default false: open below the trigger
   side?: Side; align?: Align; // used when alignItemWithTrigger is false
   container?: HTMLElement | ShadowRoot | React.RefObject<HTMLElement | ShadowRoot | null> | null; // portal target
 }
@@ -68,6 +68,6 @@ Base UI's props pass through: `items`, `value`, `defaultValue`, `onValueChange`,
 
 ## Style
 
-- Trigger: a neutral key ([Button](button.md) `neutral`), a quiet `edge` at rest and on hover, value left-aligned at weight 400, `ChevronsUpDown` in `text-secondary`. `ghost`: a ghost Button with the `text` color, `hover` on hover and while open. Placeholder in `text-secondary`, also weight 400. Invalid: a `danger` edge at rest and on hover; focus reuses the shared 1px edge while the error message stays visible.
+- Trigger: a neutral key ([Button](button.md) `neutral`), a quiet `edge` at rest and on hover, value left-aligned at weight 400, a single `ChevronDown` in `text-secondary`. `ghost`: a ghost Button with the `text` color, `hover` on hover and while open. Placeholder in `text-secondary`, also weight 400. Invalid: a `danger` edge at rest and on hover; focus reuses the shared 1px edge while the error message stays visible.
 - List: `mu-popup`, 6px padding, at least `menu-width` and the trigger's width, at most `menu-max-width` or the trigger's width when that is wider. Rows like [Menu](menu.md) items: 28px at sm, 32px at md, highlight in the row's radius; the highlighted row uses `hover`.
-- Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.
+- Opens below the trigger, aligned to its start edge; collision handling can flip it when space is limited. `alignItemWithTrigger={true}` opts into value-aligned positioning. Opening and closing use the shared [Motion](../motion.md) treatment: a 100ms fade and `space-1` offset, with no scale or chevron rotation. Under reduced motion both are immediate. The chosen value uses one check; row highlighting identifies the current pointer or keyboard target and updates without animation.
