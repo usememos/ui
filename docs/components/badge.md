@@ -42,7 +42,7 @@ function badgeClasses(options?: { tone?: Tone | "outline" | "primary" }): string
 
 ## Style
 
-- `control-xs` (20px) tall, `radius-full` (a pill: round marks a label, square marks a control), `caption-xs` text (11px, 400), optional `icon-xs` (12px) icon at a 1.25px stroke. It lines up with xs controls.
+- `control-xs` (20px) tall, `radius-full` (a pill: round marks a label, square marks a control), `caption` text (13px, 400), optional `icon-xs` (12px) icon at a 1.25px stroke. It lines up with xs controls.
 - Inline padding is the xs row's `--mu-row-padding` plus 2px (half of `space-1`) on each side, so the text clears the round ends. The gap between icon and text is `space-1`.
 - Regular weight, because a badge is a label, not a heading: hierarchy among badges comes from tone and fill, not weight. `outline` text is `text-secondary`, 5.1:1 or more on `canvas`, `surface` and `well` in both themes.
 - `neutral`: `text` on `well`. With `color`, the fill is an 18% tint of that color over the background, the same amount in both themes, and the text and icon stay `text`. The color's lightness is first kept between 50% and 75% (OKLCH), so an ink-like color (black in Dark, white in Light) still gives a visible gray chip instead of vanishing into the background; hues in that range are unchanged. The prop sets `--mu-badge-color` on the badge; an app's own element with `badgeClasses()` sets that variable itself (see [Class functions](../custom-components.md#class-functions)). `primary`: `on-primary` on `primary`, the colors of a primary Button. Status tones: their `-soft` background with full-strength text.

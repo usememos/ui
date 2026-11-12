@@ -26,7 +26,7 @@ export interface BadgeClassesOptions {
  * `<a className={badgeClasses()} href="/tags/work">work</a>`.
  */
 export function badgeClasses({ tone = 'neutral' }: BadgeClassesOptions = {}) {
-  return cx('mu-badge', `mu-badge-${tone}`, 'mu-base', 'mu-s-xs', 'mu-caption-xs');
+  return cx('mu-badge', `mu-badge-${tone}`, 'mu-base', 'mu-s-xs', 'mu-caption');
 }
 
 /** A tag or status label: one or two words, in a pill. A label wider than its container ends in an ellipsis. */

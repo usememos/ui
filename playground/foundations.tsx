@@ -30,7 +30,7 @@ export function Foundations() {
         <div className="pg-row mu-base mu-s-md">
           <div className="pg-box mu-well">Well</div>
           <div className="pg-well mu-well">
-            <span className="mu-key">Key</span>
+            <span className="mu-key" data-selected>Key</span>
             <span>Off</span>
           </div>
           <div className="pg-box mu-popup">Popup</div>

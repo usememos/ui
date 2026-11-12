@@ -31,5 +31,5 @@ Wraps Base UI's [Toggle](https://base-ui.com/react/components/toggle): `pressed`
 
 ## Style
 
-- Off: flat `text-secondary`. On: sits in a `well` with the `text` color.
-- A label shrinks with an ellipsis when its row runs out of room, as Select's value does; an icon-only toggle never shrinks. A ToggleGroup is at most as wide as its container, so long translated labels truncate instead of overflowing.
+- Off: flat `text-secondary`. On: sits in a `well` with `control-edge` and the `text` color.
+- A label wraps when its row runs out of room; an icon-only toggle never shrinks. A ToggleGroup is at most as wide as its container and grows in height to keep long translated labels readable. On touch screens each Toggle reserves at least 44px in each direction.

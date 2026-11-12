@@ -34,6 +34,10 @@
 }
 .mu-radio-indicator[data-starting-style], .mu-radio-indicator[data-ending-style] { opacity: 0; scale: 0.4; }
 
+@media (pointer: coarse) {
+  .mu-radio { min-width: 0; min-height: 0; margin: calc((var(--mu-hit-area) - var(--mu-row-check-box)) / 2); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mu-radio:active:not([data-disabled], [data-readonly]) { scale: none; }
   .mu-radio-indicator[data-starting-style], .mu-radio-indicator[data-ending-style] { scale: none; }

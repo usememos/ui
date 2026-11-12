@@ -46,12 +46,14 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange`, `multipl
 - Give the group an `aria-label`.
 - A single choice among peers is a flat selected fill in a well; an on/off state is a pressed toggle. Never mix the two in one row.
 - Without `multiple`: filters and view switches that don't change the whole page. For sections of a page, use Tabs.
+- When long translated options would need several lines in a narrow panel, use a Select. Wrapping keeps a constrained group readable; it is not a reason to force every choice into a segmented group.
 - Base UI lets people press the chosen item to clear it. When one item must stay chosen, ignore an empty value, as in the example.
 - Arrow keys move focus between items; Space or Enter presses one.
 - Set `fullWidth` when the group is the only control on its row and should line up with the edges, such as a view switch across a popover. Don't set `className="w-full"` and `flex-1` on the Toggles yourself.
 
 ## Style
 
-- At most as wide as its container. With `fullWidth`, exactly as wide: labeled Toggles start at their natural width and share the extra space equally (`flex: 1 1 auto`), so equal labels give equal Toggles and a long label is never cut while there is room. Inside a popup that sizes to its content, the group is as wide as its labels need. When the container is narrower than the labels, they shrink with an ellipsis; icon-only items keep their size.
+- At most as wide as its container. With `fullWidth`, exactly as wide: labeled Toggles start at their natural width and share the extra space equally (`flex: 1 1 auto`), so equal labels give equal Toggles and a long label is never cut while there is room. Inside a popup that sizes to its content, the group is as wide as its labels need. When the container is narrower than the labels, their text wraps and the group and key grow to fit; icon-only items keep their size.
 - `multiple`: items 2px apart.
-- Without `multiple`: a segmented well and contrasting selected fill, with no visible border around either at rest. Keyboard focus uses the strong item border; forced colors gives the selected key a text-colored border. The key slides to the chosen item over `duration-settle` with `ease-settle` and re-measures when an item changes width. Under reduced motion it jumps.
+- Inside a segmented key, the label's line box can tighten at xs and sm to leave room for the focus border without changing geometry; its font size stays in the size row. Long labels wrap and increase the group's height.
+- Without `multiple`: a segmented well and contrasting selected fill, with no visible group border and a `text-secondary` border around the selected key. Keyboard focus uses the strong item border; forced colors gives the selected key a text-colored border. The key slides to the chosen item over `duration-settle` with `ease-settle` and re-measures when an item changes width. Under reduced motion it jumps. On touch screens every item reserves at least 44px in each direction, without overlapping its neighbor.

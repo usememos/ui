@@ -1,4 +1,4 @@
-/* Badge: a 20px pill in 11px regular text (`caption-xs`), as tall as an xs control. Round marks a label; controls are square. The inline padding is the xs row's plus 2px, so the text clears the round ends. A label wider than its container ends in an ellipsis. See docs/components/badge.md. */
+/* Badge: a 20px pill in 13px regular text (`caption`). Round marks a label; controls are square. The inline padding is the xs row's plus 2px, so the text clears the round ends. A label wider than its container ends in an ellipsis. See docs/components/badge.md. */
 .mu-badge {
   display: inline-flex;
   align-items: center;

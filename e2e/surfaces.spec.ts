@@ -10,7 +10,76 @@ const contentPosition = (control: Locator) => control.evaluate((element) => {
 });
 
 for (const theme of themes) {
-  test(`view options use quiet resting boundaries in ${theme}`, async ({ page }) => {
+  test(`resting surfaces stay quiet while state markers stay distinct in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    await page.mouse.move(0, 0);
+    const edge = theme === 'light' ? 'rgb(208, 208, 208)' : 'rgb(52, 52, 52)';
+    const state = theme === 'light' ? 'rgb(144, 144, 144)' : 'rgb(119, 119, 119)';
+    for (const selector of ['#button .mu-button-neutral', '#select .mu-select-trigger.mu-button-neutral', '#switch .mu-switch:not([data-checked], [data-disabled])', '#depth .mu-well', '#depth .mu-popup']) {
+      await expect(page.locator(selector).first()).toHaveCSS('border-top-color', edge);
+    }
+    for (const selector of ['#checkbox .mu-checkbox:not([data-checked], [data-disabled], [data-indeterminate])', '#radio-group .mu-radio:not([data-checked], [data-disabled])', '#toggle .mu-toggle[data-pressed]']) {
+      await expect(page.locator(selector).first()).toHaveCSS('border-top-color', state);
+    }
+    const key = page.locator('#depth .mu-key');
+    const selected = theme === 'light' ? 'rgb(94, 94, 94)' : 'rgb(173, 173, 173)';
+    await expect(key).toHaveCSS('border-top-color', selected);
+    await key.evaluate((element) => element.removeAttribute('data-selected'));
+    await expect(key).toHaveCSS('border-top-color', edge);
+  });
+
+  test(`neutral controls keep focus stronger than hover in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    await page.keyboard.press('Tab');
+    const hover = theme === 'light' ? 'rgb(144, 144, 144)' : 'rgb(119, 119, 119)';
+    const focus = theme === 'light' ? 'rgb(26, 26, 26)' : 'rgb(230, 230, 230)';
+    for (const selector of ['#button .mu-button-neutral', '#select .mu-select-trigger.mu-button-neutral', '#switch .mu-switch:not([data-checked], [data-disabled])']) {
+      const control = page.locator(selector).first();
+      await control.hover();
+      await expect(control).toHaveCSS('border-top-color', hover);
+      const before = (await control.boundingBox())!;
+      await control.focus();
+      await expect(control).toHaveCSS('border-top-color', focus);
+      await expect(control).toHaveCSS('border-top-width', '1px');
+      const after = (await control.boundingBox())!;
+      expect([after.width, after.height]).toEqual([before.width, before.height]);
+    }
+    const select = page.locator('#select .mu-select-trigger.mu-button-neutral').first();
+    await select.evaluate((element) => element.setAttribute('data-invalid', ''));
+    const danger = await select.evaluate((element) => getComputedStyle(element).getPropertyValue('--mu-danger').trim());
+    await select.hover();
+    await expect(select).toHaveCSS('border-top-color', danger);
+    await select.focus();
+    await expect(select).toHaveCSS('border-top-color', danger);
+    await expect(select).toHaveCSS('border-top-width', '2px');
+  });
+
+  test(`text fields use quiet, hover and focus boundaries in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    const edge = theme === 'light' ? 'rgb(208, 208, 208)' : 'rgb(52, 52, 52)';
+    const hover = theme === 'light' ? 'rgb(144, 144, 144)' : 'rgb(119, 119, 119)';
+    const focus = theme === 'light' ? 'rgb(26, 26, 26)' : 'rgb(237, 237, 237)';
+    for (const selector of ['#input .mu-input-root', '#textarea .mu-textarea', '#combobox .mu-input-root']) {
+      await page.mouse.move(0, 0);
+      const field = page.locator(selector).first();
+      const control = selector.includes('input-root') ? field.locator('input') : field;
+      await expect(field).toHaveCSS('border-top-color', edge);
+      await field.hover();
+      await expect(field).toHaveCSS('border-top-color', hover);
+      await control.focus();
+      await expect(field).toHaveCSS('border-top-color', focus);
+      await expect(field).toHaveCSS('border-top-width', '1px');
+      await field.evaluate((element) => element.setAttribute('aria-invalid', 'true'));
+      const danger = await field.evaluate((element) => getComputedStyle(element).getPropertyValue('--mu-danger').trim());
+      await control.blur();
+      await field.hover();
+      await expect(field).toHaveCSS('border-top-color', danger);
+      await control.focus();
+      await expect(field).toHaveCSS('border-top-color', danger);
+    }
+  });
+
+  test(`view options keep selection and off switches distinct in ${theme}`, async ({ page }) => {
     await open(page, { theme });
     await page.locator('#popover').getByRole('button', { name: 'View options' }).click();
     const popup = page.locator('.mu-popover-popup');
@@ -18,12 +87,25 @@ for (const theme of themes) {
     await expect(popup.getByRole('combobox')).toHaveCSS('border-top-color', edge);
     const off = page.locator('#switch .mu-switch:not([data-checked], [data-disabled])');
     await expect(off).toHaveCSS('border-top-color', edge);
+    await expect(off.locator('.mu-switch-thumb')).toHaveCSS('background-color', theme === 'light' ? 'rgb(26, 26, 26)' : 'rgb(237, 237, 237)');
     const group = popup.locator('.mu-segmented');
     await expect(group).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
     const key = group.locator('.mu-segmented-key');
-    await expect(key).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+    await expect(key).toHaveCSS('border-top-color', theme === 'light' ? 'rgb(94, 94, 94)' : 'rgb(173, 173, 173)');
     const fill = await group.evaluate((element) => getComputedStyle(element).backgroundColor);
     await expect(key).not.toHaveCSS('background-color', fill);
+  });
+
+  test(`Quick find results show keyboard focus in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    await page.getByRole('button', { name: 'Quick find', exact: true }).click();
+    await expect(page.getByRole('textbox', { name: 'Find', exact: true })).toBeFocused();
+    await page.keyboard.press('Tab');
+    const result = page.getByRole('dialog').getByRole('button', { name: 'Reading list', exact: true });
+    await expect(result).toBeFocused();
+    await expect(result).toHaveCSS('background-color', theme === 'light' ? 'rgb(236, 236, 236)' : 'rgb(37, 37, 37)');
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
   });
 
   test(`focus stays visible within flat controls in ${theme}`, async ({ page }) => {
@@ -65,7 +147,7 @@ for (const theme of themes) {
         const style = getComputedStyle(element);
         return { edge: style.borderTopColor, width: style.borderTopWidth, fill: style.backgroundColor };
       });
-      expect(colors.width, selector).toBe('2px');
+      expect(colors.width, selector).toBe('1px');
       expect(colors.edge, selector).not.toBe('rgba(0, 0, 0, 0)');
       expect(colors.edge, selector).not.toBe(colors.fill);
       const after = (await control.boundingBox())!;
@@ -85,7 +167,7 @@ for (const theme of themes) {
       });
       const before = await metrics();
       await (selector.includes('input-root') ? field.locator('input') : field).focus();
-      await expect(field).toHaveCSS('border-top-width', '2px');
+      await expect(field).toHaveCSS('border-top-width', '1px');
       expect(await metrics()).toEqual(before);
       await expect(field).toHaveCSS('outline-style', 'none');
     }

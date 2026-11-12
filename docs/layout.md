@@ -2,7 +2,7 @@
 
 ## Control sizes
 
-Every control takes one `size` prop: `xs`, `sm` or `md` (the default). There is no `lg`. The size sets every value in its row together. Never mix rows in one component.
+The table gives desktop sizes. Touch targets reserve additional space as described below. Every control takes one `size` prop: `xs`, `sm` or `md` (the default). There is no `lg`. The size sets every value in its row together. Never mix rows in one component.
 
 | Size | Height | Padding | Icon | Icon gap | Text | Radius | Check box |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -10,11 +10,11 @@ Every control takes one `size` prop: `xs`, `sm` or `md` (the default). There is 
 | sm | `control-sm` 24px | 8px | 14px | 4px | 13 / 18px | `radius-sm` 4px | 16px |
 | md (default) | `control-md` 32px | 12px | 16px | 6px | 14 / 20px | `radius-md` 6px | 18px |
 
-- Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding and sheets. A sidebar with 28px rows puts the `mu-compact` class on itself: md controls and rows inside are `control-compact` (28px) tall, with md text, icons, padding and radius (see [A sidebar navigation row](usage.md#a-sidebar-navigation-row)). It is the only height between sizes, and it is not a `size` value. Floating lists (Menu, Select and Combobox lists) use it for their sm rows too: an sm list has 28px rows with sm text and icons, because a 24px row is cramped inside a 12px-radius popup. Emphasis comes from the `primary` variant, not from a bigger control. On touch screens the hit area, not the visual size, grows.
+- Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding and sheets. A sidebar with 28px rows puts the `mu-compact` class on itself: md controls and rows inside are `control-compact` (28px) tall, with md text, icons, padding and radius (see [A sidebar navigation row](usage.md#a-sidebar-navigation-row)). It is the only height between sizes, and it is not a `size` value. Floating lists (Menu, Select and Combobox lists) use it for their sm rows too: an sm list has 28px rows with sm text and icons, because a 24px row is cramped inside a 12px-radius popup. Emphasis comes from the `primary` variant, not from a bigger control. On touch screens buttons, fields and option rows grow to at least 44px; checkboxes, radios and switches keep their small marks and reserve 44px of layout space around them.
 - Use `xs` for secondary actions beside 13px text: actions on a row or an entry, inline formatting, filters in a tight header, checkboxes in a dense list. It is the height of a Badge or a Kbd, so they line up. Don't use `xs` for forms, for navigation, or for the main action of a screen.
 - Only Button, Toggle, ToggleGroup, Checkbox, RadioGroup and Radio, Switch, Avatar, Spinner and Skeleton take `xs`. Text entry, menus, tabs and tables are too cramped at 20px, so their `size` is `sm | md`, and an `xs` inherited from a parent renders them at `sm`.
 - The icon side of a control has 2px less padding, so text and icon look centered.
-- On touch screens (`pointer: coarse`), every control gets an invisible hit area of at least `hit-area` (44px) without changing its visual size.
+- On touch screens (`pointer: coarse`), every control reserves at least `hit-area` (44px) in the layout. Buttons and option rows grow; checkboxes, radios and switches reserve margins around their visual marks. Adjacent hit areas must never overlap. A segmented group adds its 2px inset around 44px items.
 
 ## Spacing
 
@@ -108,8 +108,8 @@ Buttons and inputs are never pills; badges always are, so a label is never mista
 | `control-md` | 32px | Default control height |
 | `control-compact` | 28px | md height inside `mu-compact`, for an app's sidebar; sm row height in menus, select lists and combobox lists |
 | `inset` | 2px | Well-to-key inset at every size |
-| `hit-area` | 44px | Minimum touch target on `pointer: coarse`, added invisibly around a control |
-| `focus-edge-width` | 2px | Edge width of a focused control or field |
+| `hit-area` | 44px | Minimum touch target on `pointer: coarse`, with non-overlapping space reserved in layout |
+| `focus-edge-width` | 1px | Normal focus edge width; 2px in forced-colors mode |
 | `icon-xs` | 12px | Icons in xs controls and badges |
 | `icon-sm` | 14px | Icons in sm controls |
 | `icon-md` | 16px | Icons in md controls and rows |

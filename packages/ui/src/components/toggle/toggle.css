@@ -8,14 +8,14 @@
   gap: var(--mu-row-gap);
   box-sizing: border-box;
   min-width: 0;
-  height: var(--mu-row-height);
+  min-height: var(--mu-row-height);
   margin: 0;
-  padding: 0 calc(var(--mu-row-padding) - var(--mu-control-border-width));
+  padding: calc((var(--mu-row-height) - var(--mu-row-line-height)) / 2 - var(--mu-control-border-width)) calc(var(--mu-row-padding) - var(--mu-control-border-width));
   border: var(--mu-control-border-width) solid transparent;
   border-radius: var(--mu-row-radius);
   color: var(--mu-text-secondary);
   background-color: transparent;
-  white-space: nowrap;
+  white-space: normal;
   cursor: pointer;
   user-select: none;
   transition-property: background-color, border-color, color;
@@ -25,8 +25,8 @@
 .mu-toggle:where(:has(> svg:first-child)) { padding-inline-start: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
 .mu-toggle.mu-toggle-icon { flex: none; width: var(--mu-row-height); padding: 0; }
 
-/* A label shrinks with an ellipsis when its row runs out of room, as Select's value does. */
-.mu-toggle-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+/* Labels stay readable when the group is narrower than their natural width. */
+.mu-toggle-label { min-width: 0; overflow-wrap: anywhere; }
 .mu-toggle > svg { flex: none; }
 
 @media (hover: hover) {
@@ -38,3 +38,7 @@
   border-color: var(--mu-control-edge);
 }
 .mu-toggle[data-disabled] { color: var(--mu-text-disabled); cursor: not-allowed; }
+
+@media (pointer: coarse) {
+  .mu-toggle { min-width: var(--mu-hit-area); min-height: var(--mu-hit-area); }
+}

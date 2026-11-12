@@ -65,6 +65,22 @@ async function around(locator: Locator) {
   return { x: Math.floor(x), y: Math.floor(y), width: Math.ceil(right - x), height: Math.ceil(bottom - y) };
 }
 
+test.describe('touch reference screens', () => {
+  test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
+
+  for (const theme of themes) {
+    test(`${theme} mobile`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await open(page, { theme });
+      for (const id of ['screen-settings', 'screen-timeline', 'screen-empty', 'toggle-group']) {
+        await expect(page.locator(`#${id}`)).toHaveScreenshot(`${id}-${theme}-mobile.png`, options);
+      }
+      await page.locator('#menu').getByRole('button', { name: 'More actions', exact: true }).tap();
+      await expect(page.getByRole('menu')).toHaveScreenshot(`overlay-menu-${theme}-mobile.png`, options);
+    });
+  }
+});
+
 for (const theme of themes) {
   for (const size of sizes) {
     test(`${theme} ${size}`, async ({ page }) => {

@@ -9,7 +9,7 @@
   align-items: stretch;
   gap: 0;
   box-sizing: border-box;
-  height: var(--mu-row-height);
+  min-height: var(--mu-row-height);
   padding: calc(var(--mu-inset) - 1px);
   border-radius: var(--mu-row-radius);
   background-color: var(--mu-well);
@@ -22,11 +22,11 @@
   top: calc(var(--mu-inset) - 1px);
   left: 0;
   width: var(--key-width);
-  height: calc(var(--mu-row-height) - 2 * var(--mu-inset));
+  bottom: calc(var(--mu-inset) - 1px);
   translate: var(--key-left) 0;
   border-radius: calc(var(--mu-row-radius) - var(--mu-inset));
   box-sizing: border-box;
-  border: 1px solid transparent;
+  border: 1px solid var(--mu-text-secondary);
   background-color: var(--mu-key);
   transition: translate var(--mu-duration-settle) var(--mu-ease-settle), width var(--mu-duration-settle) var(--mu-ease-settle);
 }
@@ -35,21 +35,25 @@
 
 /* Items: labels only change color, never weight, so they don't shift. */
 .mu-segmented-item, .mu-segmented > .mu-toggle {
+  --segment-line: min(var(--mu-row-line-height), calc(var(--mu-row-height) - 2 * var(--mu-inset) - 2 * var(--mu-focus-edge-width)));
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--mu-row-gap);
   box-sizing: border-box;
-  height: 100%;
+  min-width: 0;
+  min-height: calc(var(--mu-row-height) - 2 * var(--mu-inset));
   margin: 0;
-  padding: 0 calc(var(--mu-row-padding) - var(--mu-inset) - var(--mu-control-border-width));
+  padding: calc((var(--mu-row-height) - 2 * var(--mu-inset) - var(--segment-line)) / 2 - var(--mu-control-border-width)) calc(var(--mu-row-padding) - var(--mu-inset) - var(--mu-control-border-width));
   border: var(--mu-control-border-width) solid transparent;
   border-radius: calc(var(--mu-row-radius) - var(--mu-inset));
   color: var(--mu-text-secondary);
   background: none;
   font: inherit;
-  white-space: nowrap;
+  line-height: var(--segment-line);
+  white-space: normal;
+  overflow-wrap: anywhere;
   cursor: pointer;
   user-select: none;
   transition: color var(--mu-duration-fade) var(--mu-ease-out);
@@ -64,6 +68,10 @@
 .mu-tabs-root { display: flex; flex-direction: column; gap: var(--mu-space-4); }
 .mu-tabs-list { align-self: flex-start; }
 .mu-tabs-panel { border: var(--mu-focus-edge-width) solid transparent; border-radius: var(--mu-radius-sm); }
+
+@media (pointer: coarse) {
+  .mu-segmented-item, .mu-segmented > .mu-toggle { min-width: var(--mu-hit-area); min-height: var(--mu-hit-area); }
+}
 
 @media (forced-colors: active) {
   .mu-segmented-key { forced-color-adjust: none; background-color: transparent; border-color: var(--mu-key); }

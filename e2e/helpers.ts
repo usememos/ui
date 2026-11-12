@@ -1,8 +1,21 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
 export const themes = ['light', 'dark'] as const;
 export type Theme = (typeof themes)[number];
+
+/** Compare the complete stack after the browser normalizes platform aliases and quotes. */
+export async function expectSystemFont(locator: Locator) {
+  const { actual, expected } = await locator.evaluate((element) => {
+    const reference = document.createElement('span');
+    reference.style.setProperty('font-family', '-apple-system, BlinkMacSystemFont, "Segoe UI (mu)", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', 'important');
+    document.body.append(reference);
+    const fonts = { actual: getComputedStyle(element).fontFamily, expected: getComputedStyle(reference).fontFamily };
+    reference.remove();
+    return fonts;
+  });
+  expect(actual).toBe(expected);
+}
 
 /** Opens the playground in a theme and size, once fonts are ready. */
 export async function open(page: Page, { theme = 'light', size = 'md', hash = '' }: { theme?: Theme; size?: 'xs' | 'sm' | 'md'; hash?: string } = {}) {

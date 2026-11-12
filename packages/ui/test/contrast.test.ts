@@ -76,6 +76,15 @@ describe('color contrast', () => {
   });
 
   for (const theme of themes) {
+    it(`keeps off knobs and selected-key boundaries at 3:1 in ${theme}`, () => {
+      const color = (name: string) => table.get(name)![theme];
+      expect(contrast(color('text'), color('well'))).toBeGreaterThanOrEqual(3);
+      for (const background of ['key', 'well']) {
+        expect(contrast(color('text-secondary'), color(background)), background).toBeGreaterThanOrEqual(3);
+      }
+      expect(contrast(color('text'), color('well'))).toBeGreaterThan(contrast(color('text-disabled'), color('well')));
+    });
+
     it(`keeps control-edge at 3:1 or more in ${theme}`, () => {
       for (const background of ['canvas', 'surface']) {
         expect(contrast(table.get('control-edge')![theme], table.get(background)![theme]), background).toBeGreaterThanOrEqual(3);

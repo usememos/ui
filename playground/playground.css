@@ -1,10 +1,11 @@
 /* Layout for the test page only. It is not part of the package. */
 body { margin: 0; background: var(--mu-canvas); color: var(--mu-text); font-family: var(--mu-font-sans); }
-.pg-main { max-width: 960px; margin: 0 auto; padding: var(--mu-space-6); display: grid; gap: var(--mu-space-12); }
-.pg-section { display: grid; gap: var(--mu-space-4); }
+.pg-main { max-width: 960px; margin: 0 auto; padding: var(--mu-space-6); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--mu-space-12); }
+.pg-section { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--mu-space-4); min-width: 0; }
 .pg-section > h2 { margin: 0; }
 .pg-section h3:not(.mu-prose *) { margin: var(--mu-space-2) 0 0; color: var(--mu-text-secondary); }
 .pg-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-4); }
+.pg-row > * { max-width: 100%; }
 .pg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--mu-space-3); }
 .pg-swatch { display: grid; gap: var(--mu-space-1); }
 .pg-swatch > span:first-child { height: 40px; border-radius: var(--mu-radius-md); border: 1px solid var(--mu-line); }
@@ -36,7 +37,12 @@ body { margin: 0; background: var(--mu-canvas); color: var(--mu-text); font-fami
 .pg-screen-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-2); }
 .pg-screen-composer, .pg-screen-entry { display: flex; flex-direction: column; gap: var(--mu-space-2); min-width: 0; }
 .pg-screen-bar { display: flex; align-items: center; justify-content: space-between; gap: var(--mu-space-2); }
-.pg-screen-entry-head { display: flex; align-items: center; gap: var(--mu-space-2); color: var(--mu-text-secondary); }
-.pg-screen-spacer { flex: 1; }
+.pg-screen-entry-head { display: flex; align-items: center; justify-content: space-between; gap: var(--mu-space-2); color: var(--mu-text-secondary); }
+.pg-screen-entry-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-2); min-width: 0; }
 /* An empty state: centered, space-1 from the title to its body line, space-4 from the text to the Button, space-8 above and below. */
 .pg-screen-empty { display: flex; flex-direction: column; align-items: center; gap: var(--mu-space-4); padding-block: var(--mu-space-8); text-align: center; }
+
+@media (max-width: 639.98px) {
+  .pg-main, .pg-screen { padding: var(--mu-space-4); }
+  .pg-list-record { flex-wrap: wrap; }
+}

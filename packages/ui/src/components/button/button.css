@@ -9,7 +9,7 @@
   height: var(--mu-row-height);
   margin: 0;
   padding: 0 calc(var(--mu-row-padding) - var(--mu-control-border-width));
-  border: var(--mu-control-border-width) solid var(--mu-control-edge);
+  border: var(--mu-control-border-width) solid var(--mu-edge);
   border-radius: var(--mu-row-radius);
   color: var(--mu-text);
   background-color: var(--mu-key);
@@ -31,6 +31,7 @@
 
 @media (hover: hover) {
   .mu-button:hover:not([data-disabled]) { background-color: var(--mu-key-hover); }
+  .mu-button-neutral:hover:where(:not([data-disabled])) { border-color: var(--mu-control-edge); }
   .mu-button-primary:hover:not([data-disabled]) { background-color: var(--mu-primary-hover); }
   .mu-button-danger:hover:not([data-disabled]) { background-color: var(--mu-danger-key); filter: brightness(1.08); }
   .mu-button-ghost:hover:not([data-disabled]) { background-color: var(--mu-hover); color: var(--mu-text); }
@@ -58,6 +59,10 @@
 .mu-button[data-loading] { cursor: progress; }
 .mu-button[data-loading-visible] > :not(.mu-spinner) { opacity: 0; }
 .mu-button > .mu-spinner { position: absolute; inset: 0; margin: auto; }
+
+@media (pointer: coarse) {
+  .mu-button { min-width: var(--mu-hit-area); min-height: var(--mu-hit-area); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .mu-button:active:not([data-disabled]) { translate: none; }

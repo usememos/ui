@@ -62,7 +62,7 @@ No illustration.
 Under `breakpoint-sm` (640px):
 
 - One column.
-- Dialogs and menus become sheets.
+- Dialogs become sheets. Menus, Select and Combobox lists stay anchored to their triggers and use at least 44px touch rows.
 - Toasts span the top of the screen.
 - Every control keeps its 44px hit area.
 - Controls stay `md`.

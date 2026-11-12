@@ -84,7 +84,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 - Rows are 28px at sm (`control-compact`, with sm text and icons) and 32px at md, text weight 400; icons in `text-secondary`; the shortcut right-aligned in `text-secondary`. Text starts at the start edge.
 - A row with a description grows: the label, then the description in `caption` and `text-secondary`, with the row's vertical padding above and below. The icon and the check stay on the label's line.
 - A Separator has 6px above and below, the same as the popup padding, and runs edge to edge.
-- The highlighted row uses `hover` with the row's radius (`radius-sm` at sm, `radius-md` at md), and so does a row whose menu is open (a SubmenuTrigger, or a `menuClasses().item` row that is a `Menu.Trigger`). Disabled rows and their icons use `text-disabled` without fading the whole row. `danger` rows use `danger`.
+- On touch screens rows are at least 44px tall; menus remain anchored floating lists, including submenus. The highlighted or keyboard-focused row uses `hover` with the row's radius (`radius-sm` at sm, `radius-md` at md), and so does a row whose menu is open (a SubmenuTrigger, or a `menuClasses().item` row that is a `Menu.Trigger`). Disabled rows and their icons use `text-disabled` without fading the whole row. `danger` rows use `danger`.
 - A ghost trigger keeps its `hover` background while the menu is open.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.
 - A menu below or above its trigger sits 4px from it. A submenu opens beside its trigger row, its own padding (6px) from the row. The row sits the same 6px inside the parent menu, so the submenu's edge touches the parent's edge.

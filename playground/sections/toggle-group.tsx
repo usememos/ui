@@ -4,7 +4,7 @@ import type { SectionProps } from '.';
 
 export function ToggleGroupSection({ size }: SectionProps) {
   return (
-    <div style={{ display: 'grid', gap: 16, justifyItems: 'start' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16, justifyItems: 'start' }}>
       <ToggleGroup size={size} multiple defaultValue={['bold']} aria-label="Formatting">
         <Toggle value="bold" icon={<Bold />} aria-label="Bold" />
         <Toggle value="italic" icon={<Italic />} aria-label="Italic" />
@@ -21,7 +21,7 @@ export function ToggleGroupSection({ size }: SectionProps) {
         <Toggle value="list" icon={<List />} aria-label="List" />
         <Toggle value="grid" icon={<LayoutGrid />} aria-label="Grid" />
       </ToggleGroup>
-      <div style={{ width: 320 }} data-full-width>
+      <div style={{ width: 320, maxWidth: '100%' }} data-full-width>
         <ToggleGroup size={size} fullWidth defaultValue={['list']} aria-label="View">
           <Toggle value="list" icon={<List />}>List</Toggle>
           <Toggle value="grid" icon={<LayoutGrid />}>Masonry</Toggle>

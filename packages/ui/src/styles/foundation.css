@@ -73,8 +73,9 @@
 .mu-compact { --mu-control-md: var(--mu-control-compact); }
 
 /* Flat surfaces: wells group state, keys identify controls, popups separate overlapping content. */
-.mu-well { box-sizing: border-box; background-color: var(--mu-well); border: var(--mu-control-border-width, 1px) solid var(--mu-control-edge); }
-.mu-key { box-sizing: border-box; background-color: var(--mu-key); border: var(--mu-control-border-width, 1px) solid var(--mu-control-edge); }
+.mu-well { box-sizing: border-box; background-color: var(--mu-well); border: var(--mu-control-border-width, 1px) solid var(--mu-edge); }
+.mu-key { box-sizing: border-box; background-color: var(--mu-key); border: var(--mu-control-border-width, 1px) solid var(--mu-edge); }
+.mu-key:where([data-selected], [data-pressed], [aria-selected="true"], [aria-pressed="true"]) { border-color: var(--mu-text-secondary); }
 .mu-popup { background: var(--mu-surface); border: 1px solid var(--mu-edge); border-radius: var(--mu-radius-xl); }
 
 /* Popups: every Positioner sits on the popup layer; popups fade in and rise. See docs/motion.md. */
@@ -96,9 +97,10 @@
 /* The control reserves its own border; focus.css changes that edge after component states. */
 .mu-focus { --mu-control-border-width: 1px; outline: none; }
 
-/* An invisible 44px touch target on coarse pointers, without changing the visual size. */
+/* Reserve touch space in layout; a compact check or switch reserves it with margins instead. */
 .mu-hit { position: relative; }
 @media (pointer: coarse) {
+  .mu-hit { min-width: var(--mu-hit-area); min-height: var(--mu-hit-area); }
   .mu-hit::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, var(--mu-hit-area)); height: max(100%, var(--mu-hit-area)); transform: translate(-50%, -50%); }
 }
 

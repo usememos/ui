@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { expectNoAxeViolations, open, themes } from './helpers';
+import { expectNoAxeViolations, expectSystemFont, open, themes } from './helpers';
 
 const canvas = { light: 'rgb(250, 250, 250)', dark: 'rgb(15, 15, 15)' };
 
@@ -21,7 +21,7 @@ test('loads no web fonts: text uses the system UI font', async ({ page }) => {
   // The only font faces are the local() alias of Segoe UI, which loads no file.
   expect(await page.evaluate(() => [...new Set([...document.fonts].map((face) => face.family.replace(/"/g, '')))])).toEqual(['Segoe UI (mu)']);
   expect(await page.evaluate(() => performance.getEntriesByType('resource').filter((entry) => /\.(woff2?|ttf|otf)(\?|$)/.test(entry.name)).length)).toBe(0);
-  expect(await page.locator('main').evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/^-apple-system, BlinkMacSystemFont, "Segoe UI \(mu\)", system-ui,/);
+  await expectSystemFont(page.locator('main'));
 });
 
 test('sizes set the control height', async ({ page }) => {

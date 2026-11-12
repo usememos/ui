@@ -10,7 +10,7 @@ An app always has parts the package doesn't ship and shouldn't: product parts (a
 2. **Behavior from Base UI.** Build anything with focus, keyboard, an open state or a popup on [`@base-ui/react`](https://base-ui.com), as the package does. It is a peer dependency of the package at one exact version, so the app's components and the package's share one copy. Upgrade it only with the package.
 3. **Looks from a class function** when the part should look like a component: an anchor that looks like a Button, an editor that looks like a Textarea, a suggestion list that looks like a Menu. See [Class functions](#class-functions).
 4. **Otherwise, from the public classes and tokens.** Size the part with a size row class and read the [row variables](#row-variables); give it a surface with a [surface class](depth.md); set text with a [type class](typography.md); color it with `var(--mu-<token>)` or the [Tailwind utilities](#tailwind-css).
-5. **Check it like a component.** It works in Light and Dark and under reduced motion; text keeps 4.5:1 contrast; focus shows on `:focus-visible` (`mu-focus`); touch targets reach 44px (`mu-hit`); icon-only controls have an `aria-label` and a [Tooltip](components/tooltip.md).
+5. **Check it like a component.** It works in Light and Dark and under reduced motion; text keeps 4.5:1 contrast; focus shows on `:focus-visible` (`mu-focus`); touch targets reach 44px (`mu-hit`) with enough layout space that neighboring targets never overlap; icon-only controls have an `aria-label` and a [Tooltip](components/tooltip.md).
 
 ## Class functions
 
@@ -28,7 +28,7 @@ A class function returns the classes that make any element look like a component
 State is set with attributes, never with extra classes:
 
 - A field darkens its edge to `focus-edge` when it or anything inside it has focus. `aria-invalid="true"` shows the error edge, and `aria-disabled="true"` dims it.
-- A menu row is highlighted while it has `data-highlighted`, and dimmed with `data-disabled`. Base UI sets both; a list the app drives itself sets them on the active row. `item` works on a `<div>`, `<button>` or `<a>`. For a two-line row, wrap `label` and `description` in a `text` span.
+- A menu row is highlighted while it has `data-highlighted`, and dimmed with `data-disabled`. Base UI sets both; a list the app drives itself sets them on the active row. A directly focusable button or anchor also gets the row highlight on `:focus-visible`, even without `data-highlighted`. `item` works on a `<div>`, `<button>` or `<a>`. For a two-line row, wrap `label` and `description` in a `text` span.
 - A popup fades in with `data-starting-style` and out with `data-ending-style`, which Base UI's popups set.
 - A tag with a user's color sets `--mu-badge-color` on the element: `style={{ "--mu-badge-color": tag.color } as React.CSSProperties}`. The fill becomes a tint of it; the text stays ink.
 
@@ -64,20 +64,20 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-s-md` | The md size row: 32px | Everything else |
 | `mu-compact` | md controls and rows inside are `control-compact` (28px) tall; text, icons, padding and radius stay md | An app's sidebar with 28px rows, or a list Popover beside it |
 | `mu-base` | The system font, the row's text size and weight 500, the `text` color, and icon sizing for Lucide icons inside | The root of a control |
-| `mu-well` | `well` and a 1px `control-edge` | A part that holds a value |
-| `mu-key` | `key` and a 1px `control-edge` | A control or a selected choice |
+| `mu-well` | `well` and a quiet 1px `edge` | A recessed surface; add a separate treatment for selection |
+| `mu-key` | `key` and a quiet 1px `edge`; selected or pressed keys use `text-secondary` at the edge | A bounded control surface; Base UI's `data-selected` / `data-pressed`, or `aria-selected="true"` / `aria-pressed="true"`, identify its active state |
 | `mu-popup` | `surface`, a 1px `edge` and `radius-xl` | A part that floats |
 | `mu-popup-motion` | The popup fade and rise, none under reduced motion | A popup Base UI opens |
 | `mu-positioner` | The popup layer | A popup's positioner |
-| `mu-focus` | Thickens the existing border on `:focus-visible`; use its `--mu-control-border-width` for border and compensating padding | Anything focusable |
-| `mu-hit` | An invisible 44px touch target on `pointer: coarse` | Anything pressable smaller than 44px |
+| `mu-focus` | Recolors the existing 1px border on `:focus-visible`; use its `--mu-control-border-width` for border and compensating padding | Anything focusable |
+| `mu-hit` | A 44px minimum touch target on `pointer: coarse`, reserving layout space | Anything pressable smaller than 44px |
 | `mu-icon` | Icon size and stroke from the nearest size row, 16px outside one | A Lucide icon inside an app's own row |
 | `mu-icon-xs` | A 12px icon with a 1.25px stroke | A Lucide icon beside 11px or 13px text, outside a control |
 | `mu-icon-sm` | A 14px icon with a 1.25px stroke | A Lucide icon beside 13px or 14px text, outside a control |
 | `mu-icon-md` | A 16px icon with a 1.25px stroke | A Lucide icon beside 14px or 16px text, outside a control |
 | `mu-visually-hidden` | Hidden on screen, read by screen readers | Text for screen readers only |
 | `mu-label-xs` | 11 / 16px, 500 | Labels of 20px controls and kbd |
-| `mu-caption-xs` | 11 / 16px, 400 | Text of 20px labels (badges) |
+| `mu-caption-xs` | 11 / 16px, 400 | Initials and brief counts inside 20px parts; badges use `mu-caption` |
 | `mu-caption` | 13 / 18px, 400 | Secondary text |
 | `mu-label-sm` | 13 / 18px, 500 | Small labels |
 | `mu-body` | 14 / 20px, 400 | Body text |

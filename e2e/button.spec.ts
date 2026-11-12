@@ -20,7 +20,7 @@ test('shows the ink border on keyboard focus only', async ({ page }) => {
   await page.keyboard.press('Tab');
   await expect(button).toBeFocused();
   await expect(button).toHaveCSS('outline-style', 'none');
-  await expect(button).toHaveCSS('border-top-width', '2px');
+  await expect(button).toHaveCSS('border-top-width', '1px');
   await expect(button).toHaveCSS('border-top-color', 'rgb(26, 26, 26)');
 });
 

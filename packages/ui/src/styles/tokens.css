@@ -76,17 +76,6 @@
   --mu-focus-edge: var(--mu-text);
   color-scheme: dark;
 }
-@media (forced-colors: active) {
-  :where(:root, :host, .mu-root), [data-theme] {
-    --mu-control-edge: ButtonText;
-    --mu-text-disabled: GrayText;
-    --mu-focus: Highlight;
-    --mu-focus-edge: Highlight;
-    --mu-on-primary: Highlight;
-    --mu-on-danger: Highlight;
-    --mu-key: ButtonText;
-  }
-}
 :where(:root, :host, .mu-root) {
   --mu-space-1: 4px;
   --mu-space-2: 8px;
@@ -110,7 +99,7 @@
   --mu-control-compact: 28px;
   --mu-inset: 2px;
   --mu-hit-area: 44px;
-  --mu-focus-edge-width: 2px;
+  --mu-focus-edge-width: 1px;
   --mu-icon-xs: 12px;
   --mu-icon-sm: 14px;
   --mu-icon-md: 16px;
@@ -138,6 +127,18 @@
   --mu-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI (mu)", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mu-font-display: -apple-system, BlinkMacSystemFont, "Segoe UI (mu)", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mu-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (forced-colors: active) {
+  :where(:root, :host, .mu-root), [data-theme] {
+    --mu-focus-edge-width: 2px;
+    --mu-control-edge: ButtonText;
+    --mu-text-disabled: GrayText;
+    --mu-focus: Highlight;
+    --mu-focus-edge: Highlight;
+    --mu-on-primary: Highlight;
+    --mu-on-danger: Highlight;
+    --mu-key: ButtonText;
+  }
 }
 
 }

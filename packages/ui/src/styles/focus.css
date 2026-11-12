@@ -1,5 +1,7 @@
 /* Focus changes the existing boundary, never adds an external shape. */
 .mu-focus:focus-visible { --mu-control-border-width: var(--mu-focus-edge-width); border-color: var(--mu-control-focus, var(--mu-focus)); }
+/* Width supplies a focus cue when an invalid control keeps its error color. */
+.mu-focus:focus-visible:where([data-invalid], [aria-invalid="true"]) { --mu-control-border-width: calc(2 * var(--mu-focus-edge-width)); }
 .mu-link:focus-visible, .mu-prose a:focus-visible { text-decoration: underline; text-decoration-style: double; }
 .mu-toast:focus-visible { --mu-control-border-width: var(--mu-focus-edge-width); border-color: var(--mu-focus); }
 
@@ -7,6 +9,7 @@
 .mu-prose li > input[type="checkbox"]:first-child:checked:focus-visible { border-color: var(--mu-on-primary); }
 
 @media (forced-colors: active) {
+  .mu-focus:focus-visible { --mu-control-border-width: var(--mu-focus-edge-width); }
   .mu-focus:focus-visible, .mu-toast:focus-visible, .mu-prose li > input[type="checkbox"]:first-child:focus-visible { border-color: var(--mu-focus); }
   .mu-input-root:focus-within, .mu-textarea:focus-within { border-color: var(--mu-focus); }
   .mu-switch-thumb { forced-color-adjust: none; background-color: var(--mu-key); }

@@ -142,14 +142,17 @@ test.describe('on a touch screen', () => {
   });
 });
 
-test('ToggleGroup: labels shrink with an ellipsis when the group runs out of room', async ({ page }) => {
+test('ToggleGroup: narrow labels wrap completely and the key grows with them', async ({ page }) => {
   await open(page);
   const group = page.locator('#toggle-group [data-narrow] .mu-toggle-group');
   const box = await group.boundingBox();
   expect(box!.width).toBeLessThanOrEqual(200);
-  const label = group.locator('.mu-toggle-label').first();
-  await expect(label).toHaveCSS('text-overflow', 'ellipsis');
-  expect(await label.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+  for (const label of await group.locator('.mu-toggle-label').all()) {
+    expect(await label.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true);
+    expect((await label.boundingBox())!.height).toBeGreaterThan(20);
+  }
+  const key = await group.locator('.mu-segmented-key').boundingBox();
+  expect(Math.round(key!.height)).toBe(Math.round(box!.height - 4));
 });
 
 test('Field horizontal: the label comes first at weight 400, the control at the end, and the label toggles a Switch', async ({ page }) => {

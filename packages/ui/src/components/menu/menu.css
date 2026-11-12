@@ -40,6 +40,7 @@
 .mu-menu-item:where(:has(> svg:first-child)) { padding-inline-start: var(--mu-row-padding-icon); }
 .mu-menu-item > svg { color: var(--mu-text-secondary); }
 .mu-menu-item[data-highlighted], .mu-menu-item[data-popup-open] { background-color: var(--mu-hover); }
+.mu-menu-item:focus-visible:not([data-disabled]) { background-color: var(--mu-hover); }
 .mu-menu-item[data-disabled] { color: var(--mu-text-disabled); }
 .mu-menu-item-danger, .mu-menu-item-danger > svg { color: var(--mu-danger); }
 
@@ -61,3 +62,8 @@
 .mu-menu-separator { height: 1px; margin: calc(var(--mu-radius-xl) - var(--mu-radius-md)) calc(var(--mu-radius-md) - var(--mu-radius-xl)); background-color: var(--mu-line); }
 
 .mu-menu-item[data-disabled] > svg { color: var(--mu-text-disabled); }
+
+@media (pointer: coarse) {
+  .mu-menu-item { min-height: var(--mu-hit-area); }
+  .mu-menu-item:where(:has(> .mu-menu-text)) { min-height: var(--mu-hit-area); }
+}

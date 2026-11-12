@@ -179,12 +179,13 @@ function TimelineScreen() {
       {entries.map((entry) => (
         <article className="pg-screen-entry" key={entry.who}>
           <header className="pg-screen-entry-head mu-caption">
-            <span>{entry.who}</span>
-            <span>{entry.when}</span>
-            <Badge tone="outline" icon={entry.visibility === 'Private' ? <Lock /> : <Globe />}>
-              {entry.visibility}
-            </Badge>
-            <span className="pg-screen-spacer" />
+            <div className="pg-screen-entry-meta">
+              <span>{entry.who}</span>
+              <span>{entry.when}</span>
+              <Badge tone="outline" icon={entry.visibility === 'Private' ? <Lock /> : <Globe />}>
+                {entry.visibility}
+              </Badge>
+            </div>
             <Button variant="ghost" size="sm" icon={<Ellipsis />} aria-label={`Options for the note by ${entry.who}`} />
           </header>
           <Prose>{entry.body}</Prose>

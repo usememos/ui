@@ -2,7 +2,7 @@
 // the mu cascade layer and app themes, as docs/building.md and color.md describe,
 // and an app's own parts styled with the class functions (docs/custom-components.md).
 import { expect, type Page, test } from '@playwright/test';
-import { themes } from './helpers';
+import { expectSystemFont, themes } from './helpers';
 
 /** A custom property's value on the root element. */
 const rootVar = (page: Page, name: string) => page.locator('html').evaluate((element, name) => getComputedStyle(element).getPropertyValue(name).trim(), name);
@@ -14,7 +14,7 @@ test("the app's own variables don't reach the components", async ({ page }) => {
   await expect(button).toHaveCSS('background-color', 'rgb(26, 26, 26)');
   await expect(button).toHaveCSS('border-top-left-radius', '6px');
   expect(await button.evaluate((element) => { const style = getComputedStyle(element); return parseFloat(style.paddingLeft) + parseFloat(style.borderLeftWidth); })).toBe(12);
-  expect(await button.evaluate((element) => getComputedStyle(element).fontFamily)).toMatch(/^-apple-system, BlinkMacSystemFont, "Segoe UI \(mu\)", system-ui,/);
+  await expectSystemFont(button);
   // And the tokens don't overwrite the app's variables.
   expect(await rootVar(page, '--primary')).toBe('rgb(255, 0, 0)');
 });
@@ -90,9 +90,9 @@ test("an app's own parts show states from attributes", async ({ page }) => {
   await expect(page.locator('#menu-custom-active')).toHaveCSS('background-color', 'rgb(236, 236, 236)');
   await expect(page.locator('#menu-custom-item')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
 
-  // A field's edge turns 2px `focus-edge` ink (#1a1a1a in Light) while anything inside it has focus.
+  // A field's edge turns 1px `focus-edge` ink (#1a1a1a in Light) while anything inside it has focus.
   const field = page.locator('#input-custom');
-  await expect(field).toHaveCSS('border-top-color', 'rgb(144, 144, 144)');
+  await expect(field).toHaveCSS('border-top-color', 'rgb(208, 208, 208)');
   await page.getByRole('textbox', { name: 'Custom tag' }).focus();
   await expect(field).toHaveCSS('border-top-color', 'rgb(26, 26, 26)');
   await page.getByRole('textbox', { name: 'Custom note' }).focus();

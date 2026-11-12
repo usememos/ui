@@ -4,9 +4,19 @@ Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"
 
 ## Unreleased
 
+### Interaction fixes
+
+- **Touch targets no longer cover neighboring controls.** Buttons, tabs, toggles, fields and option rows reserve at least 44px on coarse pointers. Checkboxes, radios and switches keep their small visual marks, with space reserved around their 44px targets. Menus stay anchored on phones.
+- **Custom menu rows show keyboard focus.** Focusable buttons and anchors styled with `menuClasses().item` use the highlighted fill on keyboard focus, including Quick find results.
+- **Long toggle and tab labels wrap.** Narrow groups grow to show the complete label instead of cutting off the text; the sliding key follows the group's height.
+
 ### Visual changes
 
-- **Selects, switches and segmented choices have quieter resting boundaries.** Select triggers and switch tracks use `edge` instead of `control-edge`. Tabs and single-choice ToggleGroups use contrasting group and selected fills without visible borders at rest. Keyboard focus stays strong, and selection remains bordered in forced colors. Heights, padding and token values are unchanged.
+- **Focus uses a finer border.** Normal keyboard and field focus recolor the existing 1px edge instead of thickening it to 2px. Filled controls keep a contrasting fine edge, selected states retain their boundaries, and invalid non-text controls and forced-colors mode keep a 2px cue.
+- **Text fields have quieter resting borders.** Input, Textarea and Combobox use `edge` at rest, `control-edge` on hover and a fine 1px ink edge on focus. Invalid borders stay `danger` on hover and focus. The resting field boundary no longer promises 3:1 contrast; text colors and field fills are unchanged.
+- **Resting control surfaces have quiet boundaries.** Neutral buttons, Select triggers, switch tracks and the public `mu-well` / `mu-key` surfaces use `edge`. Neutral buttons, Selects and off switches strengthen to `control-edge` on hover. Checkbox/Radio markers, pressed Toggles, selected keys and keyboard focus retain their contrasting boundaries. `mu-key` uses a `text-secondary` edge when `data-selected`, `data-pressed`, `aria-selected="true"` or `aria-pressed="true"` identifies its active state. Off switch knobs stay `text`, and disabled knobs stay `text-disabled`. Select errors stay danger on hover and keyboard focus.
+- **Selected tabs and single-choice toggles have one clear boundary.** The group remains borderless; only the selected key has a `text-secondary` border. Select triggers retain their quiet `edge`.
+- **Badges use 13px regular text.** Tags and status names stay as readable as the metadata beside them. Badge height remains 20px; xs control labels and keyboard shortcuts remain 11px.
 
 ## 26.11.10
 

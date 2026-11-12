@@ -303,7 +303,7 @@ The package ships no navigation component: the sidebar's rows are the app's link
 - `mu-s-md` gives the rows 14px text, 16px icons with a 1.25px stroke, and md padding and radius; `mu-base` sets the font. Never set the `--mu-row-*` variables or the size tokens yourself; `mu-compact` is the only way to change a row's height.
 - Rows are weight 400 (`body`), like Menu items, Select items and settings row names. A column of rows is content people scan; at 500 every row competes and the sidebar reads as bold. 500 is for what names a group: a section title in the sidebar and the "New" Button's label. The current row stands out by its fill and `text` color, not by weight, so the text doesn't shift when the current page changes.
 - Mark the current page with `aria-current="page"`, not with color alone; the fill shows it too.
-- Rows stack `inset` (2px) apart. Don't add `mu-hit` to stacked rows: their 44px touch areas would overlap. 28px is above the 24px minimum target size.
+- Rows stack `inset` (2px) apart. On `pointer: coarse`, set `min-height: var(--mu-hit-area)` on each navigation row so it reserves 44px in the layout; never extend overlapping hit areas around tightly stacked rows.
 - A row with a count or a menu at its end adds it after the label with `margin-inline-start: auto`.
 
 ### Buttons over a photo
