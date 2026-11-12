@@ -118,7 +118,7 @@ test('stays focusable while loading, keeps its width and ignores presses', async
 test('delays only the spinner, keeps its width, and restores the label when work ends', async ({ page }) => {
   await page.clock.install({ time: 0 });
   await open(page);
-  await page.clock.pauseAt(1000);
+  await page.clock.pauseAt(60_000);
   const button = page.locator('#button button').filter({ hasText: 'Save changes' });
   const before = (await button.boundingBox())!.width;
   await button.click();
