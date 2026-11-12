@@ -10,8 +10,8 @@ for (const theme of themes) {
     const row = page.locator('#button [data-variant="ghost"]');
     const disabled = row.locator('button[data-disabled]:not([data-loading])');
     const enabled = row.locator('button').first();
-    const well = theme === 'light' ? 'rgb(228, 228, 228)' : 'rgb(37, 37, 37)';
-    const edge = theme === 'light' ? 'rgb(208, 208, 208)' : 'rgb(52, 52, 52)';
+    const well = theme === 'light' ? 'oklch(0.934 0.008 95)' : 'rgb(37, 37, 37)';
+    const edge = theme === 'light' ? 'oklch(0.858 0.006 95)' : 'rgb(52, 52, 52)';
     await expect(disabled).toBeDisabled();
     await expect(disabled).toHaveCSS('background-color', well);
     await expect(disabled).toHaveCSS('border-top-color', edge);
@@ -86,7 +86,7 @@ test('changes fill without moving while held', async ({ page }) => {
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
   await expect(button).toHaveCSS('translate', 'none');
-  await expect(button).toHaveCSS('background-color', 'rgb(228, 228, 228)');
+  await expect(button).toHaveCSS('background-color', 'oklch(0.934 0.008 95)');
   expect(await button.boundingBox()).toEqual(box);
   await page.mouse.up();
 });
@@ -99,7 +99,7 @@ test('does not move under reduced motion', async ({ page }) => {
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
   await expect(button).toHaveCSS('box-shadow', 'none');
-  await expect(button).toHaveCSS('background-color', 'rgb(228, 228, 228)');
+  await expect(button).toHaveCSS('background-color', 'oklch(0.934 0.008 95)');
   await expect(button).toHaveCSS('translate', 'none');
   await page.mouse.up();
 });

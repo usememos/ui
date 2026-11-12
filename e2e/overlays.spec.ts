@@ -11,12 +11,12 @@ test('Menu: keyboard opens it, moves through items, and returns focus on close',
   const menu = page.getByRole('menu');
   await expect(menu).toBeVisible();
   await expect(trigger).toHaveAttribute('data-popup-open', '');
-  // The popup takes focus without a ring; the highlighted item shows the `hover` fill (#ececec in Light), not a ring.
+  // The popup takes focus without a ring; the highlighted item shows the `hover` fill (oklch(0.95 0.006 95) in Light), not a ring.
   await expect(menu).toHaveCSS('outline-style', 'none');
   await page.keyboard.press('ArrowDown');
   const edit = page.getByRole('menuitem', { name: /Edit/ });
   await expect(edit).toHaveAttribute('data-highlighted', '');
-  await expect(edit).toHaveCSS('background-color', 'rgb(236, 236, 236)');
+  await expect(edit).toHaveCSS('background-color', 'oklch(0.95 0.006 95)');
   await expect(edit).toHaveCSS('outline-style', 'none');
   await page.keyboard.press('Escape');
   await expect(menu).toBeHidden();
@@ -316,12 +316,12 @@ test('Toast: a toast behind hides its text at once and shows its edge; fanned ou
   await expect(behind).toHaveAttribute('data-behind', '');
   await expect(behind).toHaveCSS('transition-duration', '0s');
   await expect(behind).toHaveCSS('opacity', '0');
-  // The 1px `edge` (#d0d0d0 in Light) keeps the peek visible.
-  await expect(behind.locator('..')).toHaveCSS('border-top-color', 'rgb(208, 208, 208)');
+  // The 1px `edge` (oklch(0.858 0.006 95) in Light) keeps the peek visible.
+  await expect(behind.locator('..')).toHaveCSS('border-top-color', 'oklch(0.858 0.006 95)');
   await page.locator('.mu-toast', { hasText: 'Settings saved' }).hover();
   await expect(behind).toHaveAttribute('data-expanded', '');
   await expect(behind).toHaveCSS('opacity', '1');
-  await expect(behind.locator('..')).toHaveCSS('border-top-color', 'rgb(208, 208, 208)');
+  await expect(behind.locator('..')).toHaveCSS('border-top-color', 'oklch(0.858 0.006 95)');
 });
 
 test('popups only fade under reduced motion', async ({ page }) => {

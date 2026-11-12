@@ -38,5 +38,5 @@ Wraps Base UI's [Input](https://base-ui.com/react/components/input), so inside a
 
 - Enabled fields use flat `surface` with a quiet 1px `edge` border. A gray well is reserved for the disabled state.
 - Typed text weight 400; placeholder `text-secondary`. On touch screens typed text is 16px at every size, so iOS Safari does not zoom in on focus; the field keeps its height.
-- Hover darkens the edge to `control-edge`; focus recolors the 1px edge to `focus-edge` (ink), on click and keyboard alike. There is no ring around the field. The background stays fixed on hover and focus. Invalid fields keep their `danger` edge on hover and focus. Disabled fields use `well`, a quiet `edge` and `text-disabled` text. See [boundary contrast](../depth.md#rules) for the resting edge's contrast tradeoff.
+- Hover keeps the quiet `edge`; focus recolors the 1px edge to `focus-edge` (ink), on click and keyboard alike. There is no ring around the field. The background stays fixed on hover and focus. Invalid fields keep their `danger` edge on hover and focus. Disabled fields use `well`, a quiet `edge` and `text-disabled` text. See [boundary contrast](../depth.md#rules) for the resting edge's contrast tradeoff.
 - The side with a prefix or suffix has 2px less padding.

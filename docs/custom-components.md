@@ -65,7 +65,7 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-compact` | md controls and rows inside are `control-compact` (28px) tall; text, icons, padding and radius stay md | An app's sidebar with 28px rows, or a list Popover beside it |
 | `mu-base` | The system font, the row's text size and weight 500, the `text` color, and icon sizing for Lucide icons inside | The root of a control |
 | `mu-well` | `well` and a quiet 1px `edge` | A recessed surface; add a separate treatment for selection |
-| `mu-key` | `key` and a quiet 1px `edge`; selected or pressed keys use `text-secondary` at the edge | A bounded control surface; Base UI's `data-selected` / `data-pressed`, or `aria-selected="true"` / `aria-pressed="true"`, identify its active state |
+| `mu-key` | `key` and a quiet 1px `edge`, including with selected or pressed attributes | A bounded control surface, or the bright selected face inside a well. It does not add interaction-state styling; use Toggle or ToggleGroup for choices |
 | `mu-popup` | `surface`, a 1px `edge` and `radius-xl` | A part that floats |
 | `mu-popup-motion` | The popup fade and rise, none under reduced motion | A popup Base UI opens |
 | `mu-positioner` | The popup layer | A popup's positioner |

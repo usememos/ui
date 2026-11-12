@@ -16,15 +16,15 @@
 :where(:root, :host, .mu-root:not([data-theme] *)),
 [data-theme="light"] {
   color-scheme: light;
-  --mu-canvas: #fafafa;
+  --mu-canvas: oklch(0.982 0.004 95);
   --mu-surface: #ffffff;
-  --mu-well: #e4e4e4;
-  --mu-hover: #ececec;
+  --mu-well: oklch(0.934 0.008 95);
+  --mu-hover: oklch(0.95 0.006 95);
   --mu-key: #ffffff;
-  --mu-key-hover: #fafafa;
-  --mu-edge: #d0d0d0;
+  --mu-key-hover: oklch(0.982 0.004 95);
+  --mu-edge: oklch(0.858 0.006 95);
   --mu-control-edge: #909090;
-  --mu-line: #dedede;
+  --mu-line: oklch(0.919 0.004 95);
   --mu-overlay: rgba(0,0,0,0.32);
   --mu-text: #1a1a1a;
   --mu-text-secondary: #5e5e5e;

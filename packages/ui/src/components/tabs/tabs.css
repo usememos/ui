@@ -77,7 +77,7 @@
 @media (forced-colors: active) {
   .mu-segmented { --mu-text: var(--mu-key); --mu-text-secondary: var(--mu-key); }
   /* Keep unselected borders transparent; the key and focus still use system colors. */
-  .mu-segmented-item, .mu-segmented > .mu-toggle { forced-color-adjust: none; background: none; }
+  .mu-segmented-item, .mu-segmented > .mu-toggle { forced-color-adjust: none; background: none; border-color: transparent; }
   .mu-segmented-key { forced-color-adjust: none; background-color: transparent; border-color: var(--mu-key); }
 }
 

@@ -75,7 +75,6 @@
 /* Flat surfaces: wells group state, keys identify controls, popups separate overlapping content. */
 .mu-well { box-sizing: border-box; background-color: var(--mu-well); border: var(--mu-control-border-width, 1px) solid var(--mu-edge); }
 .mu-key { box-sizing: border-box; background-color: var(--mu-key); border: var(--mu-control-border-width, 1px) solid var(--mu-edge); }
-.mu-key:where([data-selected], [data-pressed], [aria-selected="true"], [aria-pressed="true"]) { border-color: var(--mu-text-secondary); }
 .mu-popup { background: var(--mu-surface); border: 1px solid var(--mu-edge); border-radius: var(--mu-radius-xl); }
 
 /* Popups: every Positioner sits on the popup layer; popups fade in and rise. See docs/motion.md. */

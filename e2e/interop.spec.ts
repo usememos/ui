@@ -86,13 +86,13 @@ for (const theme of themes) {
 
 test("an app's own parts show states from attributes", async ({ page }) => {
   await page.goto('/interop.html');
-  // A menu row the app highlights itself gets `hover` (#ececec in Light).
-  await expect(page.locator('#menu-custom-active')).toHaveCSS('background-color', 'rgb(236, 236, 236)');
+  // A menu row the app highlights itself gets `hover` (oklch(0.95 0.006 95) in Light).
+  await expect(page.locator('#menu-custom-active')).toHaveCSS('background-color', 'oklch(0.95 0.006 95)');
   await expect(page.locator('#menu-custom-item')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
 
   // A field's edge turns 1px `focus-edge` ink (#1a1a1a in Light) while anything inside it has focus.
   const field = page.locator('#input-custom');
-  await expect(field).toHaveCSS('border-top-color', 'rgb(208, 208, 208)');
+  await expect(field).toHaveCSS('border-top-color', 'oklch(0.858 0.006 95)');
   await page.getByRole('textbox', { name: 'Custom tag' }).focus();
   await expect(field).toHaveCSS('border-top-color', 'rgb(26, 26, 26)');
   await page.getByRole('textbox', { name: 'Custom note' }).focus();
@@ -105,5 +105,5 @@ test("an app's own parts show states from attributes", async ({ page }) => {
   await field.evaluate((element) => element.setAttribute('aria-disabled', 'true'));
   await expect(field).toHaveCSS('opacity', '1');
   await expect(field).toHaveCSS('color', 'rgb(102, 102, 102)');
-  await expect(field).toHaveCSS('background-color', 'rgb(228, 228, 228)');
+  await expect(field).toHaveCSS('background-color', 'oklch(0.934 0.008 95)');
 });

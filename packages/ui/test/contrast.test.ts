@@ -30,7 +30,7 @@ function colorTable() {
   return table;
 }
 
-/** Linear sRGB channels (0 to 1) of a #rrggbb or oklch() color. */
+/** Linear sRGB channels of a #rrggbb or oklch() color, before gamut clipping. */
 function linearRgb(color: string): [number, number, number] {
   const hex = color.match(/^#([0-9a-f]{6})$/i)?.[1];
   if (hex) {
@@ -47,18 +47,17 @@ function linearRgb(color: string): [number, number, number] {
     const l_ = (l + 0.3963377774 * a + 0.2158037573 * b) ** 3;
     const m_ = (l - 0.1055613458 * a - 0.0638541728 * b) ** 3;
     const s_ = (l - 0.0894841775 * a - 1.291485548 * b) ** 3;
-    const clamp = (v: number) => Math.min(1, Math.max(0, v));
     return [
-      clamp(4.0767416621 * l_ - 3.3077115913 * m_ + 0.2309699292 * s_),
-      clamp(-1.2684380046 * l_ + 2.6097574011 * m_ - 0.3413193965 * s_),
-      clamp(-0.0041960863 * l_ - 0.7034186147 * m_ + 1.707614701 * s_),
+      4.0767416621 * l_ - 3.3077115913 * m_ + 0.2309699292 * s_,
+      -1.2684380046 * l_ + 2.6097574011 * m_ - 0.3413193965 * s_,
+      -0.0041960863 * l_ - 0.7034186147 * m_ + 1.707614701 * s_,
     ];
   }
   throw new Error(`Can't read the color ${color}`);
 }
 
 const luminance = (color: string) => {
-  const [r, g, b] = linearRgb(color);
+  const [r, g, b] = linearRgb(color).map((v) => Math.min(1, Math.max(0, v))) as [number, number, number];
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 };
 
@@ -75,14 +74,57 @@ describe('color contrast', () => {
     expect(contrast('#000000', '#ffffff')).toBeCloseTo(21, 5);
   });
 
+  it('keeps Light paper neutrals subtly warm and inside sRGB', () => {
+    const hues = new Set<number>();
+    for (const name of ['canvas', 'well', 'hover', 'key-hover', 'edge', 'line']) {
+      const color = table.get(name)!.light;
+      const match = color.match(/^oklch\(([\d.]+)\s+([\d.]+)\s+([\d.]+)\)$/);
+      expect(match, name).not.toBeNull();
+      const [, lightness, chroma, hue] = match!;
+      expect(Number(lightness), name).toBeGreaterThanOrEqual(0.85);
+      expect(Number(chroma), name).toBeGreaterThan(0);
+      expect(Number(chroma), name).toBeLessThanOrEqual(0.008);
+      hues.add(Number(hue));
+      const [r, g, b] = linearRgb(color);
+      for (const channel of [r, g, b]) {
+        expect(channel, name).toBeGreaterThanOrEqual(0);
+        expect(channel, name).toBeLessThanOrEqual(1);
+      }
+      expect(r, name).toBeGreaterThan(g);
+      expect(g, name).toBeGreaterThan(b);
+    }
+    expect(hues.size).toBe(1);
+  });
+
+  it('keeps Light surfaces brighter than paper and preserves neutral ink', () => {
+    const color = (name: string) => table.get(name)!.light;
+    const steps = ['edge', 'line', 'well', 'hover', 'canvas', 'surface'];
+    for (let i = 1; i < steps.length; i++) {
+      expect(luminance(color(steps[i]!)), steps[i]).toBeGreaterThan(luminance(color(steps[i - 1]!)));
+    }
+    expect(color('surface')).toBe('#ffffff');
+    expect(color('key')).toBe(color('surface'));
+    expect(color('key-hover')).toBe(color('canvas'));
+    for (const name of ['text', 'text-secondary', 'text-disabled', 'primary', 'primary-hover', 'control-edge']) {
+      const [r, g, b] = linearRgb(color(name));
+      expect(r, name).toBe(g);
+      expect(g, name).toBe(b);
+    }
+  });
+
   for (const theme of themes) {
-    it(`keeps off knobs and public mu-key state boundaries at 3:1 in ${theme}`, () => {
+    it(`keeps off switch knobs distinct in ${theme}`, () => {
       const color = (name: string) => table.get(name)![theme];
       expect(contrast(color('text'), color('well'))).toBeGreaterThanOrEqual(3);
-      for (const background of ['key', 'well']) {
-        expect(contrast(color('text-secondary'), color(background)), background).toBeGreaterThanOrEqual(3);
-      }
       expect(contrast(color('text'), color('well'))).toBeGreaterThan(contrast(color('text-disabled'), color('well')));
+    });
+
+    it(`keeps ordinary surface boundaries below 2:1 in ${theme}`, () => {
+      for (const edge of ['edge', 'line']) {
+        for (const background of ['canvas', 'surface']) {
+          expect(contrast(table.get(edge)![theme], table.get(background)![theme]), `${edge} on ${background}`).toBeLessThan(2);
+        }
+      }
     });
 
     it(`keeps control-edge at 3:1 or more in ${theme}`, () => {

@@ -30,16 +30,20 @@
 .mu-toggle > svg { flex: none; }
 
 @media (hover: hover) {
-  .mu-toggle:hover:not([data-disabled]) { color: var(--mu-text); background-color: var(--mu-hover); }
+  .mu-toggle:hover:where(:not([data-disabled])) { color: var(--mu-text); background-color: var(--mu-hover); }
 }
 .mu-toggle[data-pressed] {
   color: var(--mu-text);
   background-color: var(--mu-well);
-  border-color: var(--mu-control-edge);
 }
 .mu-toggle[data-disabled] { color: var(--mu-text-disabled); cursor: not-allowed; }
-.mu-toggle[data-disabled]:where([data-pressed]) { border-color: var(--mu-edge); }
 
 @media (pointer: coarse) {
   .mu-toggle { min-width: var(--mu-hit-area); min-height: var(--mu-hit-area); }
+}
+
+@media (forced-colors: active) {
+  .mu-toggle { forced-color-adjust: none; --mu-text: var(--mu-key); --mu-text-secondary: var(--mu-key); --mu-hover: transparent; --mu-well: transparent; }
+  .mu-toggle:where([data-pressed]) { border-color: var(--mu-key); }
+  .mu-toggle:where([data-pressed])[data-disabled] { border-color: var(--mu-text-disabled); }
 }

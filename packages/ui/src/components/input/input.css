@@ -19,9 +19,6 @@
 .mu-input-root:where(:has(> .mu-input-prefix)) { padding-inline-start: calc(var(--mu-row-padding-icon) - var(--mu-field-edge)); }
 .mu-input-root:where(:has(> .mu-input-suffix)) { padding-inline-end: calc(var(--mu-row-padding-icon) - var(--mu-field-edge)); }
 
-@media (hover: hover) {
-  .mu-input-root:hover:where(:not([data-disabled], [aria-disabled="true"], :has(> [data-disabled]), :focus-within)) { border-color: var(--mu-control-edge); }
-}
 /* An app's own field, styled with inputClasses(), has no .mu-input inside: it takes focus itself or in any child, and states come as attributes on the box.
    Focus darkens the field's own edge to ink, on click and keyboard alike. No external focus decoration. */
 .mu-input-root:where(:has(> .mu-input:focus)), .mu-input-root:where(:not(:has(> .mu-input))):focus-within {

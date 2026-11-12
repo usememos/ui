@@ -13,25 +13,26 @@ for (const theme of themes) {
   test(`resting surfaces stay quiet while state markers stay distinct in ${theme}`, async ({ page }) => {
     await open(page, { theme });
     await page.mouse.move(0, 0);
-    const edge = theme === 'light' ? 'rgb(208, 208, 208)' : 'rgb(52, 52, 52)';
+    const edge = theme === 'light' ? 'oklch(0.858 0.006 95)' : 'rgb(52, 52, 52)';
     const state = theme === 'light' ? 'rgb(144, 144, 144)' : 'rgb(119, 119, 119)';
     for (const selector of ['#button .mu-button-neutral', '#select .mu-select-trigger.mu-button-neutral', '#switch .mu-switch:not([data-checked], [data-disabled])', '#depth .mu-well', '#depth .mu-popup']) {
       await expect(page.locator(selector).first()).toHaveCSS('border-top-color', edge);
     }
-    for (const selector of ['#checkbox .mu-checkbox:not([data-checked], [data-disabled], [data-indeterminate])', '#radio-group .mu-radio:not([data-checked], [data-disabled])', '#toggle .mu-toggle[data-pressed]']) {
+    for (const selector of ['#checkbox .mu-checkbox:not([data-checked], [data-disabled], [data-indeterminate])', '#radio-group .mu-radio:not([data-checked], [data-disabled])']) {
       await expect(page.locator(selector).first()).toHaveCSS('border-top-color', state);
     }
     const key = page.locator('#depth .mu-key');
-    const selected = theme === 'light' ? 'rgb(94, 94, 94)' : 'rgb(173, 173, 173)';
-    await expect(key).toHaveCSS('border-top-color', selected);
-    await key.evaluate((element) => element.removeAttribute('data-selected'));
-    await expect(key).toHaveCSS('border-top-color', edge);
+    for (const [attribute, value] of [['data-selected', ''], ['data-pressed', ''], ['aria-selected', 'true'], ['aria-pressed', 'true']] as const) {
+      await key.evaluate((element, { attribute, value }) => element.setAttribute(attribute, value), { attribute, value });
+      await expect(key).toHaveCSS('border-top-color', edge);
+      await key.evaluate((element, name) => element.removeAttribute(name), attribute);
+    }
   });
 
   test(`neutral controls keep focus stronger than hover in ${theme}`, async ({ page }) => {
     await open(page, { theme });
     await page.keyboard.press('Tab');
-    const hover = theme === 'light' ? 'rgb(144, 144, 144)' : 'rgb(119, 119, 119)';
+    const hover = theme === 'light' ? 'oklch(0.858 0.006 95)' : 'rgb(52, 52, 52)';
     const focus = theme === 'light' ? 'rgb(26, 26, 26)' : 'rgb(230, 230, 230)';
     for (const selector of ['#button .mu-button-neutral', '#select .mu-select-trigger.mu-button-neutral', '#switch .mu-switch:not([data-checked], [data-disabled])']) {
       const control = page.locator(selector).first();
@@ -52,6 +53,39 @@ for (const theme of themes) {
     await select.focus();
     await expect(select).toHaveCSS('border-top-color', focus);
     await expect(select).toHaveCSS('border-top-width', '1px');
+  });
+
+  test(`toolbar choices use fill until keyboard focus in ${theme}`, async ({ page }) => {
+    for (const size of ['xs', 'sm', 'md'] as const) {
+      await open(page, { theme, size });
+      const fill = theme === 'light' ? 'oklch(0.934 0.008 95)' : 'rgb(37, 37, 37)';
+      const ink = theme === 'light' ? 'rgb(26, 26, 26)' : 'rgb(237, 237, 237)';
+      const focus = theme === 'light' ? 'rgb(26, 26, 26)' : 'rgb(230, 230, 230)';
+      for (const toggle of [page.locator('#toggle').getByRole('button', { name: 'Pinned', exact: true }), page.getByRole('group', { name: 'Formatting', exact: true }).getByRole('button', { name: 'Bold', exact: true })]) {
+        await toggle.scrollIntoViewIfNeeded();
+        const before = (await toggle.boundingBox())!;
+        await expect(toggle).toHaveCSS('background-color', fill);
+        await expect(toggle).toHaveCSS('color', ink);
+        await expect(toggle).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+        await toggle.hover();
+        await expect(toggle).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+        await toggle.click();
+        await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+        await toggle.click();
+        await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+        await expect(toggle).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+        await expect(toggle).toHaveCSS('background-color', fill);
+        await page.keyboard.press('Tab');
+        await toggle.focus();
+        await expect(toggle).toHaveCSS('border-top-color', focus);
+        await expect(toggle).toHaveCSS('border-top-width', '1px');
+        const after = (await toggle.boundingBox())!;
+        expect([after.width, after.height]).toEqual([before.width, before.height]);
+        await toggle.blur();
+        await expect(toggle).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+        await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+      }
+    }
   });
 
   test(`press feedback keeps controls still in ${theme}`, async ({ page }) => {
@@ -79,10 +113,10 @@ for (const theme of themes) {
     await expect(cell).toHaveCSS('background-color', fill);
   });
 
-  test(`text fields use quiet, hover and focus boundaries in ${theme}`, async ({ page }) => {
+  test(`text fields keep quiet boundaries until typing focus in ${theme}`, async ({ page }) => {
     await open(page, { theme });
-    const edge = theme === 'light' ? 'rgb(208, 208, 208)' : 'rgb(52, 52, 52)';
-    const hover = theme === 'light' ? 'rgb(144, 144, 144)' : 'rgb(119, 119, 119)';
+    const edge = theme === 'light' ? 'oklch(0.858 0.006 95)' : 'rgb(52, 52, 52)';
+    const hover = theme === 'light' ? 'oklch(0.858 0.006 95)' : 'rgb(52, 52, 52)';
     const focus = theme === 'light' ? 'rgb(26, 26, 26)' : 'rgb(237, 237, 237)';
     for (const selector of ['#input .mu-input-root', '#textarea .mu-textarea', '#combobox .mu-input-root']) {
       await page.mouse.move(0, 0);
@@ -108,7 +142,7 @@ for (const theme of themes) {
     await open(page, { theme });
     await page.locator('#popover').getByRole('button', { name: 'View options' }).click();
     const popup = page.locator('.mu-popover-popup');
-    const edge = theme === 'light' ? 'rgb(208, 208, 208)' : 'rgb(52, 52, 52)';
+    const edge = theme === 'light' ? 'oklch(0.858 0.006 95)' : 'rgb(52, 52, 52)';
     await expect(popup.getByRole('combobox')).toHaveCSS('border-top-color', edge);
     const off = page.locator('#switch .mu-switch:not([data-checked], [data-disabled])');
     await expect(off).toHaveCSS('border-top-color', edge);
@@ -147,7 +181,7 @@ for (const theme of themes) {
     await page.keyboard.press('Tab');
     const result = page.getByRole('dialog').getByRole('button', { name: 'Reading list', exact: true });
     await expect(result).toBeFocused();
-    await expect(result).toHaveCSS('background-color', theme === 'light' ? 'rgb(236, 236, 236)' : 'rgb(37, 37, 37)');
+    await expect(result).toHaveCSS('background-color', theme === 'light' ? 'oklch(0.95 0.006 95)' : 'rgb(37, 37, 37)');
     await page.keyboard.press('Enter');
     await expect(page.getByRole('dialog')).toHaveCount(0);
   });
@@ -244,11 +278,10 @@ for (const theme of themes) {
       await expect(page.locator(selector)).toHaveCSS('color', disabled);
     }
     const toggle = page.locator('#toggle .mu-toggle[data-pressed][data-disabled]');
-    const edge = theme === 'light' ? 'rgb(208, 208, 208)' : 'rgb(52, 52, 52)';
-    await expect(toggle).toHaveCSS('border-top-color', edge);
+    await expect(toggle).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
     const fill = await toggle.evaluate((element) => getComputedStyle(element).backgroundColor);
     await toggle.hover();
-    await expect(toggle).toHaveCSS('border-top-color', edge);
+    await expect(toggle).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
     await expect(toggle).toHaveCSS('background-color', fill);
     await expect(toggle).toHaveAttribute('aria-pressed', 'true');
     const segment = page.locator('#toggle-group [aria-label="Show"] .mu-toggle[data-pressed]');
@@ -269,6 +302,15 @@ for (const theme of themes) {
 test('focus borders and switch knobs survive forced colors', async ({ page }) => {
   await page.emulateMedia({ forcedColors: 'active' });
   await open(page);
+  const on = page.locator('#toggle .mu-toggle[data-pressed]:not([data-disabled])').first();
+  await expect(on).toHaveAttribute('aria-pressed', 'true');
+  const onColors = await on.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return [style.borderTopColor, style.backgroundColor];
+  });
+  expect(onColors[0]).not.toBe(onColors[1]);
+  const off = page.locator('#toggle .mu-toggle:not([data-pressed], [data-disabled])').first();
+  await expect(off).toHaveCSS('border-top-color', await off.evaluate((element) => getComputedStyle(element).backgroundColor));
   await page.keyboard.press('Tab');
   for (const selector of ['#button .mu-button-primary', '#button .mu-button-ghost', '#checkbox .mu-checkbox[data-checked]', '#toggle .mu-toggle[data-pressed]']) {
     const control = page.locator(selector).first();

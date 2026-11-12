@@ -2,7 +2,7 @@
 
 ## Principles
 
-1. **Content first.** The interface stays gray, so people's words, tags and images are the color on the page.
+1. **Content first.** The interface uses quiet neutrals, with a pale warm-gray paper canvas in Light and brighter surfaces. People's words, tags and images carry the color on the page.
 2. **Ink is the emphasis.** The primary action, a checked box and a switch that is on use `primary` (near-black in Light, near-white in Dark). There is no brand hue in controls.
 3. **Flat surfaces, clear states.** Fills show controls and state; borders separate surfaces. No shadows, sheen, focus rings or visible outlines. Content stays unboxed. See [Surfaces and boundaries](depth.md).
 4. **Calm by default.** Hierarchy comes from text color, lightness steps and spacing, not from weight, size or extra color. Interaction uses a few shared treatments, not a separate effect for every event. Controls stay still while pressed; passive content does not highlight on hover. Few sizes and two weights: see [Typography](typography.md).

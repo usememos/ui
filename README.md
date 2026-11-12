@@ -2,7 +2,7 @@
 
 The Memos UI design system: tokens, foundation styles and React components for memos, the website, the web clipper and future usememos projects.
 
-- Calm, dense and flat: pure grays, ink for emphasis, and clear fills and borders for controls and state.
+- Calm, dense and flat: a warm-gray paper canvas in Light, ink for emphasis, and clear fills and borders for controls and state.
 - Light and Dark themes, all from CSS custom properties. Apps can add their own.
 - One package, `@usememos/ui`. ESM only, for React 18 or later, with behavior from [Base UI](https://base-ui.com).
 

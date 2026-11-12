@@ -31,7 +31,6 @@
 
 @media (hover: hover) {
   .mu-button:hover:not([data-disabled]) { background-color: var(--mu-key-hover); }
-  .mu-button-neutral:hover:where(:not([data-disabled])) { border-color: var(--mu-control-edge); }
   .mu-button-primary:hover:not([data-disabled]) { background-color: var(--mu-primary-hover); }
   .mu-button-danger:hover:not([data-disabled]) { background-color: var(--mu-danger-key); }
   .mu-button-ghost:hover:not([data-disabled]) { background-color: var(--mu-hover); color: var(--mu-text); }

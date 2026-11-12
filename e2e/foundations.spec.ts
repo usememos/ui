@@ -1,7 +1,17 @@
 import { expect, test } from '@playwright/test';
 import { expectNoAxeViolations, expectSystemFont, open, themes } from './helpers';
 
-const canvas = { light: 'rgb(250, 250, 250)', dark: 'rgb(15, 15, 15)' };
+const canvas = { light: 'oklch(0.982 0.004 95)', dark: 'rgb(15, 15, 15)' };
+
+test('defaults to Light paper with white surfaces and neutral ink', async ({ page }) => {
+  await open(page, { theme: 'dark' });
+  await page.locator('html').evaluate((element) => element.removeAttribute('data-theme'));
+  await expect(page.locator('body')).toHaveCSS('background-color', canvas.light);
+  await expect(page.locator('#depth .mu-popup')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await expect(page.locator('#depth .mu-key')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await expect(page.locator('#input .mu-input-root').first()).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await expect(page.locator('#type .mu-body')).toHaveCSS('color', 'rgb(26, 26, 26)');
+});
 
 for (const theme of themes) {
   test(`applies the ${theme} theme`, async ({ page }) => {

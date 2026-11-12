@@ -131,8 +131,8 @@ test('Table: a bordered head row sits on canvas, and Table.Actions keeps the row
   await open(page);
   const bordered = page.locator('#table .mu-table-bordered');
   const canvas = await bordered.evaluate((element) => getComputedStyle(element).getPropertyValue('--mu-canvas').trim());
-  expect(canvas).toBe('#fafafa');
-  await expect(bordered.locator('th').first()).toHaveCSS('background-color', 'rgb(250, 250, 250)');
+  expect(canvas).toBe('oklch(0.982 0.004 95)');
+  await expect(bordered.locator('th').first()).toHaveCSS('background-color', 'oklch(0.982 0.004 95)');
   await expect(page.locator('#table .mu-table-scroll').first().locator('th').first()).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
   // Two Buttons in Actions sit side by side and the row is as tall as a row with one Button in its Cell.
   const actionsRow = bordered.locator('tbody tr').first();
@@ -179,11 +179,11 @@ test('ToggleGroup: fullWidth in a popup that sizes to its content keeps whole la
 test('Badge: color tints the fill and keeps ink text; without it the fill is well', async ({ page }) => {
   await open(page);
   const plain = page.locator('#badge .mu-badge-neutral').first();
-  await expect(plain).toHaveCSS('background-color', 'rgb(228, 228, 228)');
+  await expect(plain).toHaveCSS('background-color', 'oklch(0.934 0.008 95)');
   const work = page.locator('[data-tag-colors] .mu-badge').first();
   await expect(work).toHaveCSS('color', 'rgb(26, 26, 26)');
   const fill = await work.evaluate((element) => getComputedStyle(element).backgroundColor);
-  expect(fill).not.toBe('rgb(228, 228, 228)');
+  expect(fill).not.toBe('oklch(0.934 0.008 95)');
   expect(fill).toMatch(/^(oklch|color\(srgb|rgba)/);
 });
 
@@ -228,7 +228,7 @@ test('Form: bordered has a List edge and a canvas footer bar that runs to the ed
   await expect(form).toHaveCSS('border-top-width', '1px');
   await expect(page.getByRole('form', { name: 'Add a tag rule' })).toBeVisible();
   const footer = form.locator('.mu-form-footer');
-  await expect(footer).toHaveCSS('background-color', 'rgb(250, 250, 250)');
+  await expect(footer).toHaveCSS('background-color', 'oklch(0.982 0.004 95)');
   const [formBox, footerBox] = [await form.boundingBox(), await footer.boundingBox()];
   expect(Math.round(footerBox!.width)).toBe(Math.round(formBox!.width) - 2);
   expect(Math.round(footerBox!.y + footerBox!.height)).toBe(Math.round(formBox!.y + formBox!.height) - 1);

@@ -2,6 +2,12 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
+## Unreleased
+
+- Persistent choices no longer draw heavy borders: on Toggles use a well fill and ink text, and public `mu-key` surfaces keep their quiet edge under selected/pressed attributes. Hover no longer strengthens Button, Select, Input, Textarea, Combobox or Switch boundaries. Keyboard focus, errors and small checkbox/radio markers retain their distinct edges; forced colors preserves on-toggle selection.
+
+- Default Light uses a pale warm-gray paper canvas, with matching wells, hover fills and quiet boundaries. Surfaces and keys stay white; text, ink emphasis, focus and Dark keep their existing colors.
+
 ## 26.11.15
 
 Published 12 November 2026.

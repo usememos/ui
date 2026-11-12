@@ -32,10 +32,6 @@
 .mu-switch-thumb[data-checked] { translate: calc(var(--switch-w) - var(--switch-h)) 0; background-color: var(--mu-on-primary); }
 .mu-switch[data-disabled] > .mu-switch-thumb { background-color: var(--mu-text-disabled); }
 
-@media (hover: hover) {
-  .mu-switch:hover:where(:not([data-checked], [data-disabled], [data-invalid])) { border-color: var(--mu-control-edge); }
-}
-
 @media (pointer: coarse) {
   .mu-switch { min-width: 0; min-height: 0; margin-block: calc((var(--mu-hit-area) - var(--switch-h)) / 2); margin-inline: calc((var(--mu-hit-area) - var(--switch-w)) / 2); }
 }

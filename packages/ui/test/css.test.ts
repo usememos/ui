@@ -56,6 +56,18 @@ describe('stylesheets', () => {
     }
   });
 
+  it('reserves control-edge for small checkbox and radio markers', () => {
+    const uses = Object.entries(componentCss)
+      .filter(([, css]) => stripComments(css).includes('var(--mu-control-edge)'))
+      .map(([path]) => path);
+    expect(uses.sort()).toEqual([
+      '../src/components/checkbox/checkbox.css',
+      '../src/components/prose/prose.css',
+      '../src/components/radio-group/radio-group.css',
+    ]);
+    expect(stripComments(foundationCss)).not.toContain('var(--mu-control-edge)');
+  });
+
   it('import every component stylesheet into styles.css', () => {
     for (const path of Object.keys(componentCss)) {
       const file = path.replace('../src/', '../');
