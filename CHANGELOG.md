@@ -2,7 +2,9 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
-## Unreleased
+## 26.11.13
+
+Published 12 November 2026.
 
 - **Breaking: Badge custom colors are restricted to neutral tags in TypeScript.** Omit `tone` or use `tone="neutral"` with `color`. Other tones never used the custom tint and now reject that combination at compile time. `BadgeProps` is now a union type; wrappers use a type intersection instead of extending it with an interface. Existing tones and rendering are unchanged.
 - **Disabled ghost actions and held danger actions stay distinguishable.** Disabled ghost buttons share the existing disabled well and edge. Filled primary and danger buttons recolor their reserved edge to the contrasting text color while held, with no movement, filters, new colors or new tokens.
