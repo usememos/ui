@@ -17,13 +17,13 @@
 - Destructive confirmations name the object and the outcome: "Delete this note?" and "This can't be undone."
 - Name an action with its verb, never "OK".
 - Errors say how to fix the problem, not only what went wrong.
-- No emoji in the interface. Numbers use digits ("3 notes").
+- No decorative emoji in interface labels. User content and reaction choices may contain emoji; compose those as content, not Lucide icons. Numbers use digits ("3 notes").
 
 ## What to avoid
 
 - A brand hue on controls, or blue anywhere at rest except links.
 - Cards and boxes around content. Group with spacing, a heading and a `Separator`. The exceptions are rows of settings or records: a [List](components/list.md), or a [Table](components/table.md) with `bordered`.
 - Textures, glass or blur behind text, and neumorphism.
-- Pills for buttons or inputs.
+- Pills as the default for buttons or inputs. Use the opt-in Button/Toggle `shape="pill"` for compact reaction controls and similar content choices; ordinary actions keep the size-row corners.
 - Color as the only signal. Status colors always come with a word or an icon.
 - Illustrations in empty states.

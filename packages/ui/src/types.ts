@@ -7,6 +7,9 @@ import type { ReactElement } from 'react';
  */
 export type Size = 'xs' | 'sm' | 'md';
 
+/** The usual size-row corners, or a pill with equal horizontal padding. */
+export type ControlShape = 'default' | 'pill';
+
 /** Status tone for components that report a status, such as Badge and toasts. */
 export type Tone = 'neutral' | 'success' | 'warning' | 'danger';
 

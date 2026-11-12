@@ -1,10 +1,17 @@
 import { Avatar, Button, Field, Input, Menu, menuClasses, Popover, Select, Switch, ToggleGroup, Toggle } from '@usememos/ui';
 import { ChevronRight, Copy, LogOut, Palette, Settings, Share, SlidersHorizontal, User } from 'lucide-react';
 import type { SectionProps } from '.';
+import { useState } from 'react';
+import { CompactReactions } from '../reactions';
+import '../reactions.css';
 
 const menu = menuClasses();
 
 export function PopoverSection({ size }: SectionProps) {
+  const [reactions, setReactions] = useState([
+    { emoji: '👍', label: 'Thumbs up', count: 3, pressed: false },
+    { emoji: '❤️', label: 'Heart', count: 2, pressed: true },
+  ]);
   return (
     <div className="pg-row">
       <Popover.Root>
@@ -78,6 +85,14 @@ export function PopoverSection({ size }: SectionProps) {
           </ToggleGroup>
         </Popover.Popup>
       </Popover.Root>
+      <CompactReactions reactions={reactions} onPressedChange={(emoji, pressed) => {
+        setReactions((current) => {
+          const existing = current.find((reaction) => reaction.emoji === emoji);
+          return existing
+            ? current.map((reaction) => reaction.emoji === emoji ? { ...reaction, pressed, count: reaction.count + (pressed ? 1 : -1) } : reaction)
+            : [...current, { emoji, label: emoji, count: 1, pressed }];
+        });
+      }} />
     </div>
   );
 }

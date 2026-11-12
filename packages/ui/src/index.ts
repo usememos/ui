@@ -1,4 +1,4 @@
-export type { IconElement, Size, Tone } from './types';
+export type { ControlShape, IconElement, Size, Tone } from './types';
 export { themeTokens } from './theme-tokens';
 export { offLadderSpacing, spacingSteps } from './spacing';
 
@@ -34,6 +34,6 @@ export * as Table from './components/table';
 export * as Tabs from './components/tabs';
 export { Textarea, textareaClasses, type TextareaClassesOptions, type TextareaProps } from './components/textarea';
 export * as Toast from './components/toast';
-export { Toggle, type ToggleProps } from './components/toggle';
+export { Toggle, type ToggleProps, type ToggleVariant } from './components/toggle';
 export { ToggleGroup, type ToggleGroupProps } from './components/toggle-group';
 export * as Tooltip from './components/tooltip';

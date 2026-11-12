@@ -29,6 +29,14 @@ export function ButtonSection({ size }: SectionProps) {
           </Button>
         </div>
       ))}
+      <div className="pg-row" data-shape="pill">
+        <Button shape="pill" size={size}>Save</Button>
+        <Button shape="pill" size={size} icon={<Plus />}>New note</Button>
+        <Button shape="pill" size={size} iconEnd={<ChevronDown />}>Show more</Button>
+        <Button shape="pill" variant="ghost" size={size} icon={<Plus />} aria-label="Add" />
+        <Button shape="pill" size={size} disabled>Save</Button>
+        <a className={buttonClasses({ shape: 'pill', size })} href="#button">Open docs</a>
+      </div>
       <div className="pg-row">
         <Button
           variant="primary"

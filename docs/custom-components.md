@@ -18,7 +18,7 @@ A class function returns the classes that make any element look like a component
 
 | Function | Returns | For an app's own |
 | --- | --- | --- |
-| `buttonClasses({ variant, size, iconOnly })` | A string | Anchor that looks like an action |
+| `buttonClasses({ variant, size, shape, iconOnly })` | A string | Anchor that looks like an action |
 | `inputClasses({ size })` | A string | One-line field, such as a tag input around a native `<input>` |
 | `textareaClasses({ size })` | A string | Multi-line field, such as a content-editable editor |
 | `badgeClasses({ tone })` | A string | Label, such as a tag that is also a link |
@@ -62,7 +62,7 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-s-xs` | The xs size row: 20px | Secondary actions beside 13px text |
 | `mu-s-sm` | The sm size row: 24px | Dense toolbars, table rows, filters |
 | `mu-s-md` | The md size row: 32px | Everything else |
-| `mu-compact` | md controls and rows inside are `control-compact` (28px) tall; text, icons, padding and radius stay md | An app's sidebar with 28px rows, or a list Popover beside it |
+| `mu-compact` | md controls and rows inside are `control-compact` (28px) tall; text, icons, padding and radius stay md | An app's sidebar with 28px rows, a list Popover beside it, or a [compact picker](components/popover.md#compact-reaction-picker) |
 | `mu-base` | The system font, the row's text size and weight 500, the `text` color, and icon sizing for Lucide icons inside | The root of a control |
 | `mu-well` | `well` and a quiet 1px `edge` | A recessed surface; add a separate treatment for selection |
 | `mu-key` | `key` and a quiet 1px `edge`, including with selected or pressed attributes | A bounded control surface, or the bright selected face inside a well. It does not add interaction-state styling; use Toggle or ToggleGroup for choices |
@@ -127,7 +127,7 @@ An app on Tailwind CSS v4 loads `tailwind.css` after the package's other stylesh
 @import "@usememos/ui/tailwind.css";
 ```
 
-It maps the 28 color tokens, seven radius tokens and three font tokens to utilities with an `mu-` prefix, so they never clash with an app's own colors:
+It maps the 29 color tokens, seven radius tokens and three font tokens to utilities with an `mu-` prefix, so they never clash with an app's own colors:
 
 | Token | Utility |
 | --- | --- |

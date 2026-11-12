@@ -107,6 +107,7 @@ describe('class functions', () => {
   it('return only classes the stylesheets define', () => {
     const returned = [
       buttonClasses({ variant: 'primary', iconOnly: true }),
+      buttonClasses({ variant: 'primary', shape: 'pill' }),
       inputClasses(),
       textareaClasses(),
       badgeClasses({ tone: 'outline' }),

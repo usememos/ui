@@ -58,3 +58,102 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 - Title: `label`. Description: `caption` in `text-secondary`, `space-1` under the title.
 - `list`: 6px padding and no gap, like a Menu. A title and description inside line up with the rows' text, with `space-2` above the title and below the description.
 - Opening and closing use the shared [Motion](../motion.md) fade and `space-1` offset over `duration-fade`. Both are immediate under reduced motion.
+
+
+## Compact reaction picker
+
+Compose Popover, Toggle and Button; the library does not ship a ReactionPicker. The app owns counts, user identity, requests, pending/disabled state and whether a successful choice closes the popup. Both places read the same controlled `pressed` values; do not give the picker a separate selection state. This example keeps the popup open so several choices can be toggled.
+
+On desktop the strip is 24px high (`sm`): soft pills, 14px emoji, 13px counts and 4px between them. The ghost add button is circular and the same height. The picker uses `mu-compact` for 28px cells, 2px between cells and 8px total inset (including its border). It sizes to its contents and Base UI anchors it to the add button. The default eight choices form one row; narrow viewports and coarse pointers use four columns. On coarse pointers all controls actually reserve at least 44px in the layout, so adjacent hit areas never overlap. Text and emoji stay the same size.
+
+`icon` remains a Lucide slot. An emoji is content in `children`, with its own type class; the small layout class below makes an emoji-only Toggle square without depending on undocumented icon-slot behavior or internal `mu-*` classes. This is a CSS grid of ordinary toggles, not an ARIA grid or menu: Tab reaches each choice, Space/Enter toggles it, Escape dismisses an open Tooltip first, then the popup and restores trigger focus. Give each emoji a localized accessible name and a matching Tooltip. The popup is named with `aria-label` because this compact example has no visible title.
+
+```tsx
+import { Button, Popover, Toggle, Tooltip } from "@usememos/ui";
+import { SmilePlus } from "lucide-react";
+
+const choices = [
+  { emoji: "👍", label: "Thumbs up" },
+  { emoji: "❤️", label: "Heart" },
+  { emoji: "🎉", label: "Celebrate" },
+  { emoji: "😄", label: "Smile" },
+  { emoji: "🤔", label: "Thinking" },
+  { emoji: "👀", label: "Eyes" },
+  { emoji: "🚀", label: "Rocket" },
+  { emoji: "🙏", label: "Thanks" },
+];
+
+type Reaction = { emoji: string; label: string; count: number; pressed: boolean };
+
+// The parent supplies server counts and the current user's selected choices.
+function CompactReactions({ reactions, onPressedChange }: {
+  reactions: Reaction[];
+  onPressedChange: (emoji: string, pressed: boolean) => void;
+}) {
+  return (
+    <Tooltip.Provider>
+      <div className="reaction-strip" role="group" aria-label="Reactions">
+        {reactions.filter((reaction) => reaction.count > 0).map((reaction) => (
+          <Toggle
+            key={reaction.emoji}
+            variant="soft" shape="pill" size="sm"
+            aria-label={`${reaction.label}, ${reaction.count} reactions`}
+            pressed={reaction.pressed}
+            onPressedChange={(pressed) => onPressedChange(reaction.emoji, pressed)}
+          >
+            <span className="reaction-label">
+              <span className="mu-body" aria-hidden>{reaction.emoji}</span>
+              <span className="mu-caption reaction-count" aria-hidden>{reaction.count}</span>
+            </span>
+          </Toggle>
+        ))}
+        <Popover.Root>
+          <Tooltip.Root>
+            <Tooltip.Trigger render={
+              <Popover.Trigger render={
+                <Button variant="ghost" shape="pill" size="sm" icon={<SmilePlus />} aria-label="Add reaction" />
+              } />
+            } />
+            <Tooltip.Popup>Add reaction</Tooltip.Popup>
+          </Tooltip.Root>
+          <Popover.Popup align="start" aria-label="Choose reactions" className="mu-compact reaction-popup">
+            <div className="reaction-options">
+              {choices.map(({ emoji, label }) => (
+                <Tooltip.Root key={emoji}>
+                  <Tooltip.Trigger render={
+                    <Toggle
+                      variant="soft" className="reaction-option"
+                      aria-label={label}
+                      pressed={reactions.some((reaction) => reaction.emoji === emoji && reaction.pressed)}
+                      onPressedChange={(pressed) => onPressedChange(emoji, pressed)}
+                    >
+                      <span className="mu-body" aria-hidden>{emoji}</span>
+                    </Toggle>
+                  } />
+                  <Tooltip.Popup>{label}</Tooltip.Popup>
+                </Tooltip.Root>
+              ))}
+            </div>
+          </Popover.Popup>
+        </Popover.Root>
+      </div>
+    </Tooltip.Provider>
+  );
+}
+```
+
+The remaining CSS describes content and layout, not control colors, borders, focus or disabled states. Put it in the app's stylesheet, after the library (or in a later cascade layer). `Popover.Popup` supplies the surface and viewport collision constraints; keep its `max-width`. Its size context is md even if the trigger is sm. `mu-compact` must be on the popup itself because it is portaled.
+
+```css
+.reaction-strip { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-1); }
+.reaction-label { display: inline-flex; align-items: center; gap: var(--mu-space-1); }
+.reaction-count { font-variant-numeric: tabular-nums; }
+.reaction-popup { width: max-content; padding: calc(var(--mu-space-2) - 1px); }
+.reaction-options { display: grid; grid-auto-flow: column; gap: var(--mu-inset); max-height: var(--mu-list-height); overflow-y: auto; }
+.reaction-option { width: var(--mu-row-height); padding: 0; }
+@media (max-width: 639px), (pointer: coarse) {
+  .reaction-options { grid-auto-flow: row; grid-template-columns: repeat(4, max-content); }
+}
+```
+
+A custom app theme now supplies `selected` alongside its other [color tokens](../color.md#app-themes); it must stay distinct from `hover`/`well` and keep at least 4.5:1 with `text` and `text-disabled`. Consumers do not need `data-pressed:bg-*`, `data-pressed:hover:bg-*`, forced-color rules, a custom focus treatment, control corner overrides or touch-size overrides.

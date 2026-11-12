@@ -50,6 +50,15 @@ describe('Button', () => {
     expect(button.getAttribute('aria-label')).toBe('Pin');
   });
 
+  it('shares pill classes with custom actions without forwarding shape to the DOM', () => {
+    const { container } = render(<Button shape="pill" size="sm" icon={<Pin />} aria-label="Pin" />);
+    const button = container.querySelector('button')!;
+    expect(button.className).toBe(buttonClasses({ shape: 'pill', size: 'sm', iconOnly: true }));
+    expect(button.className).toContain('mu-button-pill');
+    expect(button.hasAttribute('shape')).toBe(false);
+    expect(buttonClasses({ shape: 'default' })).toBe(buttonClasses());
+  });
+
   it('ignores presses while loading, stays focusable and names the wait', () => {
     let clicks = 0;
     const { container, unmount } = render(

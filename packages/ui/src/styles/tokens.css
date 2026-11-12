@@ -20,6 +20,7 @@
   --mu-surface: #ffffff;
   --mu-well: oklch(0.934 0.008 95);
   --mu-hover: oklch(0.95 0.006 95);
+  --mu-selected: oklch(0.919 0.004 95);
   --mu-key: #ffffff;
   --mu-key-hover: oklch(0.982 0.004 95);
   --mu-edge: oklch(0.858 0.006 95);
@@ -50,6 +51,7 @@
   --mu-surface: #1a1a1a;
   --mu-well: #252525;
   --mu-hover: #252525;
+  --mu-selected: #343434;
   --mu-key: #343434;
   --mu-key-hover: #3c3c3c;
   --mu-edge: #343434;

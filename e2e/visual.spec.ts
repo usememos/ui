@@ -44,6 +44,7 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
     shot: (page) => page.locator('#select [role="combobox"]').first().or(page.locator('.mu-select-popup')),
     union: true,
   },
+  { name: 'reactions', open: (page) => page.locator('#popover').getByRole('button', { name: 'Add reaction', exact: true }).click(), shot: (page) => page.locator('.reaction-popup') },
   { name: 'popover', open: (page) => page.locator('#popover').getByRole('button', { name: 'Share' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'popover-view', open: (page) => page.locator('#popover').getByRole('button', { name: 'View options' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'popover-list', open: (page) => page.locator('#popover').getByRole('button', { name: 'Account' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
@@ -110,6 +111,9 @@ test.describe('touch reference screens', () => {
         await expect(task).toHaveCSS('width', '44px');
       }
       await page.setViewportSize({ width: 390, height: 844 });
+      await page.locator('#popover').getByRole('button', { name: 'Add reaction', exact: true }).tap();
+      await expect(page.locator('.reaction-popup')).toHaveScreenshot(`overlay-reactions-${theme}-mobile.png`, options);
+      await page.keyboard.press('Escape');
       await page.locator('#menu').getByRole('button', { name: 'More actions', exact: true }).tap();
       await expect(page.getByRole('menu')).toHaveScreenshot(`overlay-menu-${theme}-mobile.png`, options);
     });

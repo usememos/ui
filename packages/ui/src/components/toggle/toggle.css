@@ -17,19 +17,21 @@
   background-color: transparent;
   white-space: normal;
   cursor: pointer;
+  touch-action: manipulation;
   user-select: none;
   transition-property: background-color, border-color, color;
   transition-duration: var(--mu-duration-press);
   transition-timing-function: var(--mu-ease-out);
 }
 .mu-toggle:where(:has(> svg:first-child)) { padding-inline-start: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
+.mu-toggle-pill { border-radius: var(--mu-radius-full); padding-block: 0; padding-inline: calc(var(--mu-row-padding) - var(--mu-control-border-width)); }
 .mu-toggle.mu-toggle-icon { flex: none; width: var(--mu-row-height); padding: 0; }
 
 /* Labels stay readable when the group is narrower than their natural width. */
 .mu-toggle-label { min-width: 0; overflow-wrap: break-word; }
 .mu-toggle > svg { flex: none; }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .mu-toggle:hover:where(:not([data-disabled])) { color: var(--mu-text); background-color: var(--mu-hover); }
 }
 .mu-toggle[data-pressed] {
@@ -38,12 +40,19 @@
 }
 .mu-toggle[data-disabled] { color: var(--mu-text-disabled); cursor: not-allowed; }
 
+.mu-toggle-soft { background-color: var(--mu-hover); }
+@media (hover: hover) and (pointer: fine) {
+  .mu-toggle-soft:hover:where(:not([data-disabled])) { background-color: var(--mu-well); }
+}
+.mu-toggle-soft[data-pressed] { background-color: var(--mu-selected); }
+.mu-toggle-soft:where([data-disabled]:not([data-pressed])) { background-color: var(--mu-well); }
+
 @media (pointer: coarse) {
   .mu-toggle { min-width: var(--mu-hit-area); min-height: var(--mu-hit-area); }
 }
 
 @media (forced-colors: active) {
-  .mu-toggle { forced-color-adjust: none; --mu-text: var(--mu-key); --mu-text-secondary: var(--mu-key); --mu-hover: transparent; --mu-well: transparent; }
+  .mu-toggle { forced-color-adjust: none; --mu-text: var(--mu-key); --mu-text-secondary: var(--mu-key); --mu-hover: transparent; --mu-well: transparent; --mu-selected: transparent; }
   .mu-toggle:where([data-pressed]) { border-color: var(--mu-key); }
   .mu-toggle:where([data-pressed])[data-disabled] { border-color: var(--mu-text-disabled); }
 }

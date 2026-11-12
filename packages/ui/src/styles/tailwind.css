@@ -21,6 +21,7 @@
   --color-mu-surface: var(--mu-surface);
   --color-mu-well: var(--mu-well);
   --color-mu-hover: var(--mu-hover);
+  --color-mu-selected: var(--mu-selected);
   --color-mu-key: var(--mu-key);
   --color-mu-key-hover: var(--mu-key-hover);
   --color-mu-edge: var(--mu-edge);

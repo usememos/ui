@@ -7,9 +7,9 @@ const themes = ['light', 'dark'] as const;
 
 /** Text colors and the backgrounds each one is used on. */
 const pairs: [text: string, backgrounds: string[]][] = [
-  ['text', ['canvas', 'surface', 'well', 'hover', 'key', 'key-hover']],
-  ['text-disabled', ['canvas', 'surface', 'well', 'key']],
-  ['text-secondary', ['canvas', 'surface', 'well', 'hover', 'key', 'key-hover']],
+  ['text', ['canvas', 'surface', 'well', 'hover', 'key', 'key-hover', 'selected']],
+  ['text-disabled', ['canvas', 'surface', 'well', 'key', 'selected']],
+  ['text-secondary', ['canvas', 'surface', 'well', 'hover', 'key', 'key-hover', 'selected']],
   ['on-primary', ['primary', 'primary-hover']],
   ['on-danger', ['danger-key']],
   ['accent', ['canvas', 'surface']],

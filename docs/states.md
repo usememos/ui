@@ -6,7 +6,7 @@ Behavioral states are complete, but they do not each require a different appeara
 | --- | --- |
 | Hover | Interactive keys go to `key-hover`; actionable rows and ghost buttons use `hover`. Passive content and ordinary table rows do not highlight. Bounded controls keep their quiet `edge`; fields and switches keep their fill. Invalid fields keep `danger`. Muted labels go to `text`. Primary keys go to `primary-hover`. |
 | Pressed (while held) | Actions reuse their hover highlight immediately: neutral uses `key-hover`, ghost and actionable rows use `hover`, primary uses `primary-hover`, danger retains `danger-key`. No extra border, movement, scale or filter. Toggles do not imitate a selected state before activation |
-| Pressed toggle (on) | Uses `well` and the `text` color; the reserved border stays transparent |
+| Pressed toggle (on) | Default: `well` and `text`. Soft: `selected` and `text`, retained on hover; the reserved border stays transparent |
 | Selected (one of several) | A flat `key` fill in a quiet well that updates immediately to the chosen item, with `text` for its label and icon; no visible group or selected-key border in normal colors. Hover only changes label and icon contrast; focus reuses `mu-focus` |
 | Checked | A flat `primary` fill with an `on-primary` mark |
 | Loading | The control becomes inert at once. After 300ms it hides its label and shows a Spinner without changing size; short waits keep the label |

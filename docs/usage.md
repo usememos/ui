@@ -367,6 +367,10 @@ In an extension or an embed, pass the same `container` to every `Popup` and to `
 <Toast.Viewport container={shadowRoot} />
 ```
 
+## Compact reactions
+
+Use `Toggle variant="soft" shape="pill" size="sm"` for the display strip and a ghost pill Button for its add action. Compose the picker from Popover and controlled Toggles with `mu-compact`. See the [complete compact reaction picker recipe](components/popover.md#compact-reaction-picker) for emoji content, shared state, content-sized placement and the four-column touch layout. Counts and requests stay in the app.
+
 ## Size
 
 - **Set `size` once, on the outermost part that takes it.** `Menu.Root`, `Select.Root`, `Combobox.Root`, `Tabs.Root`, `Collapsible.Root`, `Table.Root`, `Field.Root`, `Fieldset.Root`, `RadioGroup` and `ToggleGroup` pass their size to every part and every Button, Toggle, Checkbox or Input inside them. Don't repeat it on the parts.

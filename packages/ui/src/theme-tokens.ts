@@ -1,5 +1,5 @@
 /**
- * The custom properties an app theme sets: the 28 color tokens in
+ * The custom properties an app theme sets: the 29 color tokens in
  * docs/color.md. A token a theme leaves out keeps its Light value, so an app's tests can check its theme
  * against this list. See docs/color.md#app-themes.
  */
@@ -8,6 +8,7 @@ export const themeTokens = [
   '--mu-surface',
   '--mu-well',
   '--mu-hover',
+  '--mu-selected',
   '--mu-key',
   '--mu-key-hover',
   '--mu-edge',

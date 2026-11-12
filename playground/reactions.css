@@ -1,0 +1,9 @@
+.reaction-strip { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-1); }
+.reaction-label { display: inline-flex; align-items: center; gap: var(--mu-space-1); }
+.reaction-count { font-variant-numeric: tabular-nums; }
+.reaction-popup { width: max-content; padding: calc(var(--mu-space-2) - 1px); }
+.reaction-options { display: grid; grid-auto-flow: column; gap: var(--mu-inset); max-height: var(--mu-list-height); overflow-y: auto; }
+.reaction-option { width: var(--mu-row-height); padding: 0; }
+@media (max-width: 639px), (pointer: coarse) {
+  .reaction-options { grid-auto-flow: row; grid-template-columns: repeat(4, max-content); }
+}

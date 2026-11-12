@@ -140,6 +140,39 @@ describe('RadioGroup', () => {
 });
 
 describe('Toggle', () => {
+  it('keeps the default classes and passes soft pill state through Base UI', () => {
+    const { container, rerender } = render(<Toggle>Filter</Toggle>);
+    const button = container.querySelector('button')!;
+    const original = button.className;
+    rerender(<Toggle variant="ghost" shape="default">Filter</Toggle>);
+    expect(button.className).toBe(original);
+    rerender(<Toggle variant="soft" shape="pill" size="sm" disabled>Filter</Toggle>);
+    expect(button.classList.contains('mu-toggle-soft')).toBe(true);
+    expect(button.classList.contains('mu-toggle-pill')).toBe(true);
+    expect(button.classList.contains('mu-s-sm')).toBe(true);
+    expect(button.hasAttribute('variant')).toBe(false);
+    expect(button.hasAttribute('shape')).toBe(false);
+    expect(button.hasAttribute('data-disabled')).toBe(true);
+  });
+
+  it('keeps soft emoji content controlled without using the Lucide icon slot', () => {
+    let next: boolean | undefined;
+    const { container, rerender } = render(
+      <Toggle variant="soft" pressed={false} onPressedChange={(pressed) => { next = pressed; }} aria-label="Heart">
+        <span aria-hidden>❤️</span>
+      </Toggle>,
+    );
+    const button = container.querySelector('button')!;
+    click(button);
+    expect(next).toBe(true);
+    expect(button.getAttribute('aria-pressed')).toBe('false');
+    expect(button.className).not.toContain('mu-toggle-icon');
+    expect(button.querySelector('.mu-toggle-label')!.textContent).toBe('❤️');
+    rerender(<Toggle variant="soft" pressed aria-label="Heart"><span aria-hidden>❤️</span></Toggle>);
+    expect(button.getAttribute('aria-pressed')).toBe('true');
+    expect(button.hasAttribute('data-pressed')).toBe(true);
+  });
+
   it('is square with only an icon', () => {
     const { container } = render(<Toggle icon={<Bold />} aria-label="Bold" />);
     const button = container.querySelector('button')!;

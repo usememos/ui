@@ -74,7 +74,7 @@ for (const theme of themes) {
       const fill = theme === 'light' ? 'oklch(0.934 0.008 95)' : 'rgb(37, 37, 37)';
       const ink = theme === 'light' ? 'rgb(26, 26, 26)' : 'rgb(237, 237, 237)';
       const focus = theme === 'light' ? 'rgb(26, 26, 26)' : 'rgb(230, 230, 230)';
-      for (const toggle of [page.locator('#toggle').getByRole('button', { name: 'Pinned', exact: true }), page.getByRole('group', { name: 'Formatting', exact: true }).getByRole('button', { name: 'Bold', exact: true })]) {
+      for (const toggle of [page.locator('#toggle [data-variant="ghost"]').getByRole('button', { name: 'Pinned', exact: true }), page.getByRole('group', { name: 'Formatting', exact: true }).getByRole('button', { name: 'Bold', exact: true })]) {
         await toggle.scrollIntoViewIfNeeded();
         const before = (await toggle.boundingBox())!;
         await expect(toggle).toHaveCSS('background-color', fill);
@@ -308,7 +308,7 @@ for (const theme of themes) {
     for (const selector of ['#combobox .mu-combobox-trigger[data-disabled]', '#collapsible [data-disabled] > .mu-collapsible-chevron']) {
       await expect(page.locator(selector)).toHaveCSS('color', disabled);
     }
-    const toggle = page.locator('#toggle .mu-toggle[data-pressed][data-disabled]');
+    const toggle = page.locator('#toggle [data-variant="ghost"] .mu-toggle[data-pressed][data-disabled]');
     await expect(toggle).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
     const fill = await toggle.evaluate((element) => getComputedStyle(element).backgroundColor);
     await toggle.hover();

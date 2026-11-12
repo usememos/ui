@@ -2,6 +2,12 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
+## Unreleased
+
+- Toggle adds `variant="soft"`: a quiet resting fill and a distinct saved-state fill that remains selected on hover, with the shared disabled, keyboard focus and forced-colors treatments. Existing Toggles keep their default appearance. App themes now supply the `selected` color token alongside their other colors.
+- Button and Toggle add `shape="pill"`, also supported by `buttonClasses()`. Pills use equal horizontal padding; icon-only controls are circular. Default shapes, size rows and 44px touch targets stay unchanged.
+- The Popover guide includes a compact reaction strip and picker composed from Toggle, Button, Tooltip and `mu-compact`. Emoji are child content rather than Lucide icons; the strip and picker share controlled selection. Counts, identity, requests and closing after selection remain in the app.
+
 ## 26.11.17
 
 Published 13 November 2026.

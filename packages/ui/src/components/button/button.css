@@ -16,6 +16,7 @@
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
+  touch-action: manipulation;
   user-select: none;
   transition-property: background-color, border-color, color;
   transition-duration: var(--mu-duration-press);
@@ -25,6 +26,7 @@
 /* The icon side has 2px less padding, so text and icon look centered. An icon after the label is an end icon. */
 .mu-button:where(:has(> svg:first-child)) { padding-inline-start: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
 .mu-button:where(:has(> .mu-button-label + svg)) { padding-inline-end: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
+.mu-button-pill { border-radius: var(--mu-radius-full); padding-inline: calc(var(--mu-row-padding) - var(--mu-control-border-width)); }
 .mu-button.mu-button-icon { width: var(--mu-row-height); padding: 0; }
 
 .mu-button-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }

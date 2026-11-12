@@ -17,13 +17,14 @@ import { Plus } from "lucide-react";
 interface ButtonProps extends BaseButton.Props {
   variant?: "primary" | "neutral" | "ghost" | "danger"; // default "neutral"
   size?: Size;
+  shape?: "default" | "pill"; // default "default"; icon-only pills are circular
   icon?: IconElement;    // before the label
   iconEnd?: IconElement; // after the label: "Show more" with a chevron, "Next" with an arrow
   loading?: boolean;
   loadingLabel?: string; // accessible name while loading, such as "Saving"
 }
 
-function buttonClasses(options?: { variant?: ButtonVariant; size?: Size; iconOnly?: boolean }): string;
+function buttonClasses(options?: { variant?: ButtonVariant; size?: Size; shape?: ControlShape; iconOnly?: boolean }): string;
 ```
 
 Wraps Base UI's [Button](https://base-ui.com/react/components/button): `disabled`, `focusableWhenDisabled`, `render`, `nativeButton` and native button attributes pass through. Renders `<button type="button">`.
@@ -47,7 +48,8 @@ Wraps Base UI's [Button](https://base-ui.com/react/components/button): `disabled
 
 - A flat control: 20, 24 or 32px tall. `primary` is an ink key with `on-primary` text; `neutral` a `key` with a quiet `edge` boundary; `ghost` flat `text-secondary` with `hover` on hover; `danger` a `danger-key` with `on-danger` text.
 - A neutral button keeps its quiet `edge` on hover; its `key-hover` fill provides feedback. Keyboard focus changes the 1px edge to ink; filled actions retain their contrasting focus edge.
-- Only an icon: square. The side with an icon (`icon` at the start, `iconEnd` at the end) has 2px less padding.
+- `shape="pill"` uses `radius-full` and equal size-row horizontal padding, even with an icon beside a label. Default shape and padding stay unchanged.
+- Only an icon: square (circular with `shape="pill"`). With the default shape, the side with an icon (`icon` at the start, `iconEnd` at the end) has 2px less padding.
 - Hover and press reuse one immediate highlight: `key-hover` for neutral, `hover` for ghost, `primary-hover` for primary; danger retains `danger-key`. Holding the pointer adds no new boundary. Keyboard focus owns the contrasting edge. No color fade, translation, scale or brightness filter.
 - `loading` immediately sets `aria-busy` and `aria-disabled`, ignores presses and stays focusable. The label stays visible for 300ms; if still loading, a Spinner replaces it without changing width. Finishing cancels the delay and restores the label immediately.
 - Disabled: every variant uses `text-disabled` text, a `well` fill and a quiet `edge`, including ghost buttons. This keeps disabled toolbar actions distinct from enabled ghost actions without dimming the text. Opacity stays 1.
