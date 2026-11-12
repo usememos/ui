@@ -90,7 +90,7 @@ Every native attribute passes through.
 
 ## Style
 
-- No stripes: a `line` under the head row and between body rows. Body rows highlight with `hover`.
+- No stripes: a `line` under the head row and between body rows. Ordinary data rows do not highlight on hover; action buttons inside cells keep their own shared feedback.
 - `bordered`: `surface` fill, a 1px `line` edge and `radius-lg` on the scrolling wrapper; the head row has a `canvas` fill, so it reads as the head inside the box; the Caption sits inside the edge, under a `line`. The outer columns pad `space-1` more, so the text lines up with a [List](list.md) row's.
 - Heads: `label-sm` (13px, 500) in `text-secondary`, a control height tall.
 - Cells: `caption` at sm and `body` at md, with tabular numbers. Rows are 34 or 40px; a Button in a cell, or a `Table.Actions` group of them (`space-1` apart), overlaps the padding, so rows keep that height.

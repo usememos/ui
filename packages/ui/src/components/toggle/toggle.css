@@ -32,7 +32,7 @@
 @media (hover: hover) {
   .mu-toggle:hover:not([data-disabled]) { color: var(--mu-text); background-color: var(--mu-hover); }
 }
-.mu-toggle[data-pressed], .mu-toggle:active:not([data-disabled]) {
+.mu-toggle[data-pressed] {
   color: var(--mu-text);
   background-color: var(--mu-well);
   border-color: var(--mu-control-edge);

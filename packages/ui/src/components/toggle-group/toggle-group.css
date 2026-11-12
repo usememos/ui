@@ -1,6 +1,7 @@
 /* ToggleGroup: a toolbar of toggles, or one choice as a sliding key in a well (shared with Tabs). See docs/components/toggle-group.md. */
 .mu-toggle-group { display: inline-flex; align-items: center; gap: var(--mu-inset); box-sizing: border-box; min-width: 0; max-width: 100%; }
+.mu-toggle-group.mu-segmented { align-items: stretch; gap: 0; }
 .mu-toggle-group > .mu-separator { align-self: center; height: max(var(--mu-space-2), calc(var(--mu-row-height) - 2 * var(--mu-space-2))); margin-inline: var(--mu-space-1); }
-/* Full width: the group fills its container. Labeled Toggles grow from their natural width, so a group in a popup that sizes to its content keeps whole labels, and shrink with an ellipsis only when the container is narrower than the labels. */
+/* Full width: labeled items grow from their natural widths, including in a popup that sizes to its content. */
 .mu-toggle-group.mu-toggle-group-full { display: flex; width: 100%; }
 .mu-toggle-group-full > .mu-toggle:not(.mu-toggle-icon) { flex: 1 1 auto; }

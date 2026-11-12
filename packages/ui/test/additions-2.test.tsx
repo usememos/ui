@@ -4,8 +4,8 @@
 // List.ItemButton.
 import { act } from 'react';
 import { Pencil, Trash2 } from 'lucide-react';
-import { afterEach, describe, expect, it } from 'vitest';
-import { Badge, badgeClasses, Button, Dialog, Drawer, Field, Form, Input, List, Table, Toggle, ToggleGroup } from '../src';
+import { afterEach, describe, expect, expectTypeOf, it } from 'vitest';
+import { Badge, badgeClasses, type BadgeProps, Button, Dialog, Drawer, Field, Form, Input, List, Table, Toggle, ToggleGroup, type Tone } from '../src';
 import { render } from './render';
 
 afterEach(() => {
@@ -23,6 +23,14 @@ describe('Badge primary', () => {
 });
 
 describe('Badge color', () => {
+  it('allows custom colors only on neutral tags in its public props', () => {
+    expectTypeOf<{ color: string }>().toMatchTypeOf<BadgeProps>();
+    expectTypeOf<{ tone: 'neutral'; color: string }>().toMatchTypeOf<BadgeProps>();
+    expectTypeOf<BadgeProps['tone']>().toEqualTypeOf<Tone | 'outline' | 'primary' | undefined>();
+    type NonNeutralBadge = Extract<BadgeProps, { tone: Exclude<NonNullable<BadgeProps['tone']>, 'neutral'> }>;
+    expectTypeOf<NonNeutralBadge['color']>().toEqualTypeOf<undefined>();
+  });
+
   it('sets --mu-badge-color from color and keeps the caller style', () => {
     const { container } = render(
       <Badge color="#e5484d" style={{ marginInlineStart: 4 }}>

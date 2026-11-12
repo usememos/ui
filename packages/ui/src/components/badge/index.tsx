@@ -4,17 +4,22 @@ import { forwardRef, type CSSProperties } from 'react';
 import { cx } from '../../internal/class-name';
 import type { IconElement, Tone } from '../../types';
 
-export interface BadgeProps extends useRender.ComponentProps<'span'> {
-  /** A status tone, `outline` for a quiet label such as visibility, or `primary` (ink) for the one label that should stand out, such as New. */
-  tone?: Tone | 'outline' | 'primary';
+export type BadgeProps = Omit<useRender.ComponentProps<'span'>, 'color'> & {
   /** A Lucide element before the text, drawn at 12px. */
   icon?: IconElement;
-  /**
-   * A color the user gave this tag, as any CSS color. It tints the fill;
-   * the text and icon stay ink. `neutral` tone only. Sets `--mu-badge-color`.
-   */
-  color?: string;
-}
+} & (
+  | {
+      /** A tag, with an optional color chosen by the user. The default tone. */
+      tone?: 'neutral';
+      /** Any CSS color. Tints the fill; text and icon stay ink. Sets `--mu-badge-color`. */
+      color?: string;
+    }
+  | {
+      /** A status tone, `outline` for a quiet label, or `primary` for the one label that should stand out. */
+      tone: Exclude<Tone, 'neutral'> | 'outline' | 'primary';
+      color?: never;
+    }
+);
 
 export interface BadgeClassesOptions {
   tone?: BadgeProps['tone'];

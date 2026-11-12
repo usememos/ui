@@ -112,8 +112,9 @@ import { Ellipsis, Pin, Trash2 } from "lucide-react";
 - **`render`** on every component and part swaps the rendered element, as in Base UI: a router's link in `Link`, a Button as a `Menu.Trigger`. Base UI doesn't render links through Button; a link that looks like a button is an anchor with `buttonClasses()` (see [Button](components/button.md#rules)).
 - **`className` and `style`** pass through to the part's element, after our classes.
 - **Accessible names.** A control without a visible label takes `aria-label`. Icon-only controls always do.
-- **`tone`**: `"neutral" | "success" | "warning" | "danger"` on status components (Badge, toasts).
-- **`variant`** is for Button only: `"primary" | "neutral" | "ghost" | "danger"`.
+- **`tone`** describes a label or status treatment. The shared status tones are `"neutral" | "success" | "warning" | "danger"`. Badge also keeps `"outline"` for a quiet label and `"primary"` for emphasis; these are label treatments, not statuses. Badge's user-chosen `color` is allowed only with `"neutral"` (or an omitted tone). Toasts use the shared status tones through Base UI's `type` prop.
+- **`variant`** selects a component's predefined appearance or structure. Values belong to that component, not a global variant set: Button has `"primary" | "neutral" | "ghost" | "danger"`; Select.Trigger has `"neutral" | "ghost"`; Popover.Popup has `"panel" | "list"`; Dialog.Popup and Drawer.Popup have `"panel" | "bare"`. See each component's page for usage and defaults.
+- **Interaction states are not variants.** Hover, focus, pressed, selected, disabled, invalid and loading use the component's behavior props and state attributes, with the shared treatments in [States](states.md). Do not add variants or component-specific tokens for these states.
 - **Native props pass through** to the element a component or part renders.
 
 ### Styling hooks

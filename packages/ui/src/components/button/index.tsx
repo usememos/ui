@@ -36,7 +36,7 @@ export function buttonClasses({ variant = 'neutral', size = 'md', iconOnly = fal
   return cx('mu-button', `mu-button-${variant}`, iconOnly && 'mu-button-icon', 'mu-base', `mu-s-${size}`, 'mu-focus', 'mu-hit');
 }
 
-/** Starts an action. A flat control with a distinct pressed fill. */
+/** Starts an action. A flat control with shared pressed feedback. */
 export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
   { variant = 'neutral', size, icon, iconEnd, loading = false, loadingLabel, disabled, focusableWhenDisabled, className, children, ...props },
   ref,

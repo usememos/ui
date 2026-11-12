@@ -50,8 +50,33 @@ for (const theme of themes) {
     await select.hover();
     await expect(select).toHaveCSS('border-top-color', danger);
     await select.focus();
-    await expect(select).toHaveCSS('border-top-color', danger);
-    await expect(select).toHaveCSS('border-top-width', '2px');
+    await expect(select).toHaveCSS('border-top-color', focus);
+    await expect(select).toHaveCSS('border-top-width', '1px');
+  });
+
+  test(`press feedback keeps controls still in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    for (const selector of ['#button .mu-button-primary', '#button .mu-button-neutral', '#button .mu-button-ghost', '#button .mu-button-danger', '#checkbox .mu-checkbox:not([data-disabled])', '#radio-group .mu-radio:not([data-disabled])', '#switch .mu-switch:not([data-disabled])']) {
+      const control = page.locator(selector).first();
+      await control.hover();
+      const before = (await control.boundingBox())!;
+      await page.mouse.down();
+      await expect(control).toHaveCSS('translate', 'none');
+      await expect(control).toHaveCSS('scale', 'none');
+      await expect(control).toHaveCSS('filter', 'none');
+      expect(await control.boundingBox()).toEqual(before);
+      if (selector.startsWith('#switch')) await expect(control.locator('.mu-switch-thumb')).toHaveCSS('scale', 'none');
+      await page.mouse.up();
+    }
+  });
+
+  test(`passive table rows keep their surface on hover in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    await page.mouse.move(0, 0);
+    const cell = page.locator('#table .mu-table-body .mu-table-row').first().locator('.mu-table-cell').first();
+    const fill = await cell.evaluate((element) => getComputedStyle(element).backgroundColor);
+    await cell.hover();
+    await expect(cell).toHaveCSS('background-color', fill);
   });
 
   test(`text fields use quiet, hover and focus boundaries in ${theme}`, async ({ page }) => {
@@ -91,9 +116,28 @@ for (const theme of themes) {
     const group = popup.locator('.mu-segmented');
     await expect(group).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
     const key = group.locator('.mu-segmented-key');
-    await expect(key).toHaveCSS('border-top-color', theme === 'light' ? 'rgb(94, 94, 94)' : 'rgb(173, 173, 173)');
+    await expect(key).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
     const fill = await group.evaluate((element) => getComputedStyle(element).backgroundColor);
     await expect(key).not.toHaveCSS('background-color', fill);
+  });
+
+  test(`single-choice layout options keep standard sizes and quiet selection in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    await page.mouse.move(0, 0);
+    for (const [size, height, line] of [['sm', 24, 18], ['md', 32, 20]] as const) {
+      const group = page.getByRole('group', { name: `Column layout ${size}`, exact: true });
+      const key = group.locator('.mu-segmented-key');
+      await expect(group).toHaveCSS('height', `${height}px`);
+      await expect(group).toHaveCSS('width', '248px');
+      await expect(key).toHaveCSS('height', `${height - 4}px`);
+      await expect(key).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+      const fill = await group.evaluate((element) => getComputedStyle(element).backgroundColor);
+      await expect(key).not.toHaveCSS('background-color', fill);
+      for (const label of await group.locator('.mu-toggle-label').all()) {
+        await expect(label).toHaveCSS('height', `${line}px`);
+      }
+      await expect(group.getByRole('button', { name: 'List', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    }
   });
 
   test(`Quick find results show keyboard focus in ${theme}`, async ({ page }) => {

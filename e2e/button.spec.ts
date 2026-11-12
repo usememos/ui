@@ -1,7 +1,49 @@
 import { expect, test } from '@playwright/test';
-import { open } from './helpers';
+import { open, themes } from './helpers';
 
 const save = (page: import('@playwright/test').Page) => page.locator('#button [data-variant="neutral"] button').first();
+
+for (const theme of themes) {
+  test(`disabled ghost actions share the disabled surface in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    await page.mouse.move(0, 0);
+    const row = page.locator('#button [data-variant="ghost"]');
+    const disabled = row.locator('button[data-disabled]:not([data-loading])');
+    const enabled = row.locator('button').first();
+    const well = theme === 'light' ? 'rgb(228, 228, 228)' : 'rgb(37, 37, 37)';
+    const edge = theme === 'light' ? 'rgb(208, 208, 208)' : 'rgb(52, 52, 52)';
+    await expect(disabled).toBeDisabled();
+    await expect(disabled).toHaveCSS('background-color', well);
+    await expect(disabled).toHaveCSS('border-top-color', edge);
+    await expect(enabled).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    const before = await disabled.boundingBox();
+    await disabled.hover();
+    await page.mouse.down();
+    await expect(disabled).toHaveCSS('background-color', well);
+    await expect(disabled).toHaveCSS('border-top-color', edge);
+    expect(await disabled.boundingBox()).toEqual(before);
+    await page.mouse.up();
+  });
+
+  test(`filled actions show a quiet press edge without moving in ${theme}`, async ({ page }) => {
+    await open(page, { theme });
+    for (const variant of ['primary', 'danger']) {
+      const button = page.locator(`#button [data-variant="${variant}"] button`).first();
+      await button.hover();
+      await expect(button).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+      const before = await button.boundingBox();
+      const text = await button.evaluate((element) => getComputedStyle(element).color);
+      await page.mouse.down();
+      await expect(button).toHaveCSS('border-top-color', text);
+      await expect(button).toHaveCSS('translate', 'none');
+      await expect(button).toHaveCSS('scale', 'none');
+      await expect(button).toHaveCSS('filter', 'none');
+      expect(await button.boundingBox()).toEqual(before);
+      await page.mouse.up();
+      await expect(button).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+    }
+  });
+}
 
 test('sizes set the height', async ({ page }) => {
   for (const [size, height] of [['xs', 20], ['sm', 24], ['md', 32]] as const) {
@@ -37,13 +79,15 @@ test('Enter and Space press it', async ({ page }) => {
   expect(await page.evaluate(() => (window as unknown as { presses: number }).presses)).toBe(2);
 });
 
-test('sinks while held', async ({ page }) => {
+test('changes fill without moving while held', async ({ page }) => {
   await open(page);
   const button = save(page);
   const box = (await button.boundingBox())!;
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
-  await expect(button).toHaveCSS('translate', '0px 0.5px');
+  await expect(button).toHaveCSS('translate', 'none');
+  await expect(button).toHaveCSS('background-color', 'rgb(228, 228, 228)');
+  expect(await button.boundingBox()).toEqual(box);
   await page.mouse.up();
 });
 

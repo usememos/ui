@@ -5,7 +5,7 @@
 .mu-select-icon { display: flex; flex: none; color: var(--mu-text-secondary); }
 /* Ghost: a row that shows a value, so its text is ink, not text-secondary. */
 .mu-select-trigger.mu-button-ghost:not([data-disabled]) { color: var(--mu-text); }
-.mu-select-trigger[data-invalid] { --mu-control-focus: var(--mu-danger); border-color: var(--mu-danger); }
+.mu-select-trigger[data-invalid] { border-color: var(--mu-danger); }
 
 .mu-select-positioner { outline: 0; }
 .mu-select-popup {

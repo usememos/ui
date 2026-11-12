@@ -18,13 +18,14 @@ import { Hash, Lock } from "lucide-react";
 ## Props
 
 ```ts
-interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  tone?: Tone | "outline" | "primary"; // default "neutral"
+type BadgeProps = Omit<React.HTMLAttributes<HTMLSpanElement>, "color"> & {
   icon?: IconElement;
-  color?: string; // a color the user gave this tag, any CSS color; neutral only
   children: React.ReactNode; // one or two words
   render?: React.ReactElement;
-}
+} & (
+  | { tone?: "neutral"; color?: string } // default tone; any user-chosen CSS color
+  | { tone: Exclude<Tone, "neutral"> | "outline" | "primary"; color?: never }
+);
 
 function badgeClasses(options?: { tone?: Tone | "outline" | "primary" }): string;
 ```
@@ -34,7 +35,8 @@ function badgeClasses(options?: { tone?: Tone | "outline" | "primary" }): string
 - Tags: `neutral` with a `Hash` icon. Visibility: `outline` with its icon. Status: `success`, `warning` or `danger`, always with a word, never color alone. A label that should stand out, such as New on a feature: `primary`, in ink, the system's one emphasis. Use it for one badge in a view at most, and never for a status.
 - A tag in an entry's footer, or anywhere outside running text, is a `neutral` Badge with a `Hash` icon, in `text`: it is the user's own word, not secondary text, so it is never muted. A tag inside text is a Prose tag (see [Prose](prose.md)).
 - When people can give a tag a color, pass it as `color`. The color tints the fill; the text and the icon stay `text`, so every color the user can pick stays readable in both themes. Never set the text or the icon in the user's color: on its own tint it falls below 4.5:1 for most colors in one theme or the other. A tag without a color keeps `well`.
-- `color` is for colors people choose. The package's own meanings use tones: status is `success`, `warning` or `danger`, emphasis is `primary`.
+- `tone` is Badge's existing set of label treatments: `neutral` for tags, `outline` for quiet labels, `primary` for emphasis, and `success`, `warning` or `danger` for status. `outline` and `primary` are not status tones. There is no separate Badge `variant` prop.
+- `color` is for colors people choose, with `tone="neutral"` or no tone. TypeScript rejects `color` with every other tone; those combinations never used the tint. The package's own meanings use tones: status is `success`, `warning` or `danger`, emphasis is `primary`.
 - A badge is not a button. A clickable tag filter is a [Toggle](toggle.md).
 - A badge is round and a control is square. Kbd and Toggle stay square.
 - A label wider than its container ends in an ellipsis. Keep tags short; give a cut tag its full text in `title`.

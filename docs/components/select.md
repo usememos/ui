@@ -68,6 +68,6 @@ Base UI's props pass through: `items`, `value`, `defaultValue`, `onValueChange`,
 
 ## Style
 
-- Trigger: a neutral key ([Button](button.md) `neutral`), a quiet `edge` at rest and `control-edge` on hover, value left-aligned, `ChevronsUpDown` in `text-secondary`. `ghost`: a ghost Button with the `text` color, `hover` on hover and while open. Placeholder in `text-secondary`, weight 400. Invalid: a `danger` edge that stays danger on hover and keyboard focus.
+- Trigger: a neutral key ([Button](button.md) `neutral`), a quiet `edge` at rest and `control-edge` on hover, value left-aligned, `ChevronsUpDown` in `text-secondary`. `ghost`: a ghost Button with the `text` color, `hover` on hover and while open. Placeholder in `text-secondary`, weight 400. Invalid: a `danger` edge at rest and on hover; focus reuses the shared 1px edge while the error message stays visible.
 - List: `mu-popup`, 6px padding, at least `menu-width` and the trigger's width, at most `menu-max-width` or the trigger's width when that is wider. Rows like [Menu](menu.md) items: 28px at sm, 32px at md, highlight in the row's radius; the highlighted row uses `hover`.
 - Fades in and rises `space-1` over `duration-fade`; no rise under reduced motion.

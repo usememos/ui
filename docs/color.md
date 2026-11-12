@@ -20,7 +20,7 @@ Memos UI is ink on paper: pure-gray neutrals, `primary` ink for emphasis, one qu
 
 - Neutrals are pure gray, never tinted.
 - `accent` is a quiet blue used only for links and selection. If a screen has blue on it at rest, apart from links, something is wrong.
-- Focus is ink, not blue. A focused field darkens its own edge to `focus-edge`; a control reached by keyboard recolors its existing 1px border to `focus`. On primary and checked fills, the border uses `on-primary`; danger buttons use `on-danger`. Invalid non-text controls and forced-colors mode use 2px. See [States](states.md).
+- Focus is ink, not blue. A focused field darkens its own edge to `focus-edge`; controls reuse the existing 1px focus border. On primary and checked fills, the border uses `on-primary`; danger buttons use `on-danger`. Only forced-colors mode uses a 2px system focus edge. See [States](states.md).
 - Status colors appear only when there is a status. Red is for destructive actions and errors, never for emphasis.
 - `danger` is tuned for text. `danger-key` is the danger button's fill; it is darker in Dark so the button is not the loudest thing on screen.
 - Always pair a status color with a word or an icon.
@@ -34,7 +34,7 @@ There are two themes: **Light** (the default) and **Dark**.
 - `text`, `text-secondary` and `text-disabled` name content roles for text and icons, not fixed colors. App themes can set each one; they are not derived from `primary`.
 - Each theme sets every color token explicitly. The package's tests check the values against the table on this page and check the contrast promised here.
 - Dark keeps the same flat surface roles. Wells and keys are distinct gray fills, and `primary` flips to near-white with a dark `on-primary`.
-- Text fields use the quiet `edge` at rest, `control-edge` on hover and 1px ink on focus. Their resting boundary is below 3:1 in both built-in themes; see [boundary contrast](depth.md#rules). Neutral buttons, Select triggers, switch tracks and the public well/key surfaces also use quiet `edge` at rest. Neutral buttons, Selects and off switch tracks strengthen to `control-edge` on hover. Unchecked checkbox/radio markers and pressed toggles retain `control-edge`, at least 3:1 against `canvas` and `surface` in both themes. An off switch has a `text` knob. Segmented groups use a well without a visible border; the selected key has a `text-secondary` border. Focus remains a strong edge; `line` separates content.
+- Text fields use the quiet `edge` at rest, `control-edge` on hover and 1px ink on focus. Their resting boundary is below 3:1 in both built-in themes; see [boundary contrast](depth.md#rules). Neutral buttons, Select triggers, switch tracks and the public well/key surfaces also use quiet `edge` at rest. Neutral buttons, Selects and off switch tracks strengthen to `control-edge` on hover. Unchecked checkbox/radio markers and pressed toggles retain `control-edge`, at least 3:1 against `canvas` and `surface` in both themes. An off switch has a `text` knob. Segmented groups use a quiet well and a contrasting selected `key` fill without visible borders in normal colors; hover only changes label and icon contrast. Focus reuses the shared ink edge. Forced colors adds a text-colored border to the selected key; `line` separates content.
 
 ### Choosing a theme
 
@@ -90,7 +90,7 @@ An app can offer more themes than the two the package ships, such as a warm Pape
 | `surface` | `#ffffff` | `#1a1a1a` | One lightness step above canvas: inputs, menus, popovers, dialogs, toasts, table headers |
 | `well` | `#e4e4e4` | `#252525` | Flat parts that hold a state: switch, tab, checkbox and radio wells, pressed toggles, inline code. A boundary is added only where the component needs one. Not for enabled text entry |
 | `hover` | `#ececec` | `#252525` | Hover on rows, ghost buttons and wells; the highlighted row in menus and selects |
-| `key` | `#ffffff` | `#343434` | Controls and selected parts: neutral buttons, select triggers, the selected tab, kbd. Flat: neutral buttons and selects use `edge`, selected segments use a `text-secondary` border |
+| `key` | `#ffffff` | `#343434` | Controls and selected parts: neutral buttons, select triggers, the selected tab, kbd. Flat: neutral buttons and selects use `edge`; selected segments use fill without a visible border in normal colors |
 | `key-hover` | `#fafafa` | `#3c3c3c` | Hover on a neutral key |
 | `edge` | `#d0d0d0` | `#343434` | Quiet resting borders of fields, neutral buttons, switch tracks, well/key surfaces, popups, badges, selects and disabled controls |
 | `control-edge` | `#909090` | `#777777` | Hover boundaries on fields, neutral buttons, selects and off switch tracks; unchecked checkbox/radio markers and pressed toggles; at least 3:1 on `canvas` and `surface` |

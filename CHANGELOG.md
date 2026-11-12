@@ -2,6 +2,13 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
+## Unreleased
+
+- **Breaking: Badge custom colors are restricted to neutral tags in TypeScript.** Omit `tone` or use `tone="neutral"` with `color`. Other tones never used the custom tint and now reject that combination at compile time. `BadgeProps` is now a union type; wrappers use a type intersection instead of extending it with an interface. Existing tones and rendering are unchanged.
+- **Disabled ghost actions and held danger actions stay distinguishable.** Disabled ghost buttons share the existing disabled well and edge. Filled primary and danger buttons recolor their reserved edge to the contrasting text color while held, with no movement, filters, new colors or new tokens.
+- **Interaction styles use fewer shared effects across the system.** Buttons no longer move or use brightness filters when pressed; Checkboxes and Radios no longer shrink or animate their marks; Switch knobs no longer grow on press. Toggles no longer show selection before activation, and passive table rows no longer highlight on hover. Focus reuses the shared 1px edge without a thicker invalid-control variant; forced colors retains its system treatment. Existing color, size and motion tokens are unchanged.
+- **Single-choice ToggleGroups and Tabs have lighter selection.** A quiet well holds the selected key without a dark static border. Groups use the existing size rows, radii and inset; full-width items continue to grow from their natural widths. Hover only changes label and icon contrast, and focus reuses the shared foundation treatment. Forced colors retains the selected-key border.
+
 ## 26.11.12
 
 Published 12 November 2026.

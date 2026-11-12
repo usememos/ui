@@ -27,11 +27,10 @@
   height: var(--knob);
   border-radius: var(--mu-radius-full);
   background-color: var(--mu-text);
-  transition: translate var(--mu-duration-settle) var(--mu-ease-settle), scale var(--mu-duration-press) var(--mu-ease-out), background-color var(--mu-duration-settle) var(--mu-ease-settle);
+  transition: translate var(--mu-duration-settle) var(--mu-ease-settle), background-color var(--mu-duration-settle) var(--mu-ease-settle);
 }
 .mu-switch-thumb[data-checked] { translate: calc(var(--switch-w) - var(--switch-h)) 0; background-color: var(--mu-on-primary); }
 .mu-switch[data-disabled] > .mu-switch-thumb { background-color: var(--mu-text-disabled); }
-.mu-switch:active:not([data-disabled], [data-readonly]) > .mu-switch-thumb { scale: 1.1; }
 
 @media (hover: hover) {
   .mu-switch:hover:where(:not([data-checked], [data-disabled], [data-invalid])) { border-color: var(--mu-control-edge); }
@@ -43,5 +42,4 @@
 
 @media (prefers-reduced-motion: reduce) {
   .mu-switch-thumb { transition-property: background-color; }
-  .mu-switch:active:not([data-disabled], [data-readonly]) > .mu-switch-thumb { scale: none; }
 }

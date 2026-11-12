@@ -76,7 +76,7 @@ describe('color contrast', () => {
   });
 
   for (const theme of themes) {
-    it(`keeps off knobs and selected-key boundaries at 3:1 in ${theme}`, () => {
+    it(`keeps off knobs and public mu-key state boundaries at 3:1 in ${theme}`, () => {
       const color = (name: string) => table.get(name)![theme];
       expect(contrast(color('text'), color('well'))).toBeGreaterThanOrEqual(3);
       for (const background of ['key', 'well']) {

@@ -38,7 +38,6 @@
 @media (hover: hover) {
   .mu-list-item-button:hover:not(:disabled) { background-color: var(--mu-hover); }
 }
-.mu-list-item-button:active:not(:disabled) { background-color: var(--mu-hover); }
 .mu-list-item-button:disabled { color: var(--mu-text-disabled); cursor: not-allowed; }
 @media (pointer: coarse) {
   .mu-list-item-button { min-height: var(--mu-hit-area); }

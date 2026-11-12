@@ -112,7 +112,7 @@ test('Input: the label focuses the input and the box darkens its edge, with no r
   const input = page.getByRole('textbox', { name: 'Name' });
   await expect(input).toBeFocused();
   const box = page.locator('#field .mu-input-root').first();
-  // The edge turns 1.5px `focus-edge` ink (#1a1a1a in Light).
+  // The existing 1px edge takes `focus-edge` ink (#1a1a1a in Light).
   await expect(box).toHaveCSS('border-top-color', 'rgb(26, 26, 26)');
   // The border provides focus; no external outline or shadow.
   await expect(box).toHaveCSS('outline-style', 'none');

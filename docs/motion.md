@@ -1,11 +1,11 @@
 # Motion
 
-Motion confirms interaction: buttons respond when pressed, knobs and selections settle with a light spring, and popups fade in. It is quick and never decorative.
+Motion explains state and position: knobs and selections settle, and popups appear or disappear. Controls stay still under the pointer. Motion is quick and never added just to decorate an event.
 
 ## Rules
 
-- **Press.** Buttons move down 0.5px and change fill over `duration-press` (80ms). Switch knobs grow about 10%. Checkboxes and radios shrink 6%.
-- **Release and selection.** Knobs and the segment key slide over `duration-settle` (150ms) with `ease-settle`, which stops hard like a light spring. Content inside a control (a check mark, a value) fades in after the key stops.
+- **Press.** Buttons use shared fill and border color changes over `duration-press` (80ms). No press translation, scaling or brightness filters. Switch knobs, checkboxes and radios do not resize while held.
+- **Selection.** Knobs and the segment key slide over `duration-settle` (150ms) with `ease-settle`. Checkbox and Radio marks appear immediately with their state, without a delayed fade or scale animation.
 - **Popups.** Menus, popovers and collapsible content fade in and rise 4px over `duration-fade` (100ms). Dialogs do the same over `duration-settle`. Sheets slide up 24px.
 - **Tooltips** wait 400ms on hover before they open, and open at once on keyboard focus.
 - **Collapsible content** fades and rises in. There is no height animation, so long content never stutters.
@@ -16,7 +16,7 @@ Motion confirms interaction: buttons respond when pressed, knobs and selections 
 
 | Token | Value | Usage |
 | --- | --- | --- |
-| `duration-press` | 80ms | Pointer down: keys sink, knobs grow |
+| `duration-press` | 80ms | Short control fill and border changes |
 | `duration-settle` | 150ms | Knobs and keys slide on release; dialogs open |
 | `duration-fade` | 100ms | Popups open; content inside a control fades in after the key stops |
 | `duration-spin` | 800ms | One turn of a Spinner |

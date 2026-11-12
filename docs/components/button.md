@@ -48,6 +48,6 @@ Wraps Base UI's [Button](https://base-ui.com/react/components/button): `disabled
 - A flat control: 20, 24 or 32px tall. `primary` is an ink key with `on-primary` text; `neutral` a `key` with a quiet `edge` boundary; `ghost` flat `text-secondary` with `hover` on hover; `danger` a `danger-key` with `on-danger` text.
 - A neutral button strengthens its boundary to `control-edge` on hover. Keyboard focus changes the 1px edge to ink; filled actions retain their contrasting focus edge.
 - Only an icon: square. The side with an icon (`icon` at the start, `iconEnd` at the end) has 2px less padding.
-- Press moves the control down 0.5px and changes its fill: `well` for neutral and ghost, `primary-hover` for primary, a darker fill for danger. Under reduced motion only the fill changes.
+- Press uses `well` for neutral and ghost, and `primary-hover` for primary; danger retains `danger-key`. Filled primary and danger actions also recolor the existing edge to their contrasting text color. No translation, scale or brightness filter.
 - `loading` immediately sets `aria-busy` and `aria-disabled`, ignores presses and stays focusable. The label stays visible for 300ms; if still loading, a Spinner replaces it without changing width. Finishing cancels the delay and restores the label immediately.
-- Disabled: `text-disabled` text, a `well` fill and a quiet `edge`; ghost buttons keep their transparent fill and border. Opacity stays 1.
+- Disabled: every variant uses `text-disabled` text, a `well` fill and a quiet `edge`, including ghost buttons. This keeps disabled toolbar actions distinct from enabled ghost actions without dimming the text. Opacity stays 1.

@@ -1,6 +1,6 @@
 /*
- * Tabs, and the segmented well they share with a single-choice ToggleGroup:
- * a flat well with one contrasting selected fill that slides to the chosen item.
+ * Tabs and the segmented well they share with a single-choice ToggleGroup:
+ * a quiet well and one selected fill that slides to the chosen item.
  * See docs/components/tabs.md and docs/components/toggle-group.md.
  */
 .mu-segmented {
@@ -26,8 +26,9 @@
   translate: var(--key-left) 0;
   border-radius: calc(var(--mu-row-radius) - var(--mu-inset));
   box-sizing: border-box;
-  border: 1px solid var(--mu-text-secondary);
+  border: 1px solid transparent;
   background-color: var(--mu-key);
+  pointer-events: none;
   transition: translate var(--mu-duration-settle) var(--mu-ease-settle), width var(--mu-duration-settle) var(--mu-ease-settle);
 }
 .mu-toggle-group.mu-segmented:not([data-keyed]) > .mu-segmented-key { display: none; }
@@ -60,9 +61,9 @@
 }
 .mu-segmented > .mu-toggle.mu-toggle-icon { width: calc(var(--mu-row-height) - 2 * var(--mu-inset)); padding: 0; }
 @media (hover: hover) {
-  .mu-segmented-item:hover:not([data-disabled]), .mu-segmented > .mu-toggle:hover:not([data-disabled]) { color: var(--mu-text); background: none; }
+  .mu-segmented-item:hover:where(:not([data-disabled])), .mu-segmented > .mu-toggle:hover:where(:not([data-disabled])) { color: var(--mu-text); background: none; }
 }
-.mu-segmented-item[data-active], .mu-segmented > .mu-toggle[data-pressed], .mu-segmented > .mu-toggle:active:not([data-disabled]) { color: var(--mu-text); background: none; }
+.mu-segmented-item[data-active], .mu-segmented > .mu-toggle[data-pressed] { color: var(--mu-text); background: none; }
 .mu-segmented-item[data-disabled], .mu-segmented > .mu-toggle[data-disabled] { color: var(--mu-text-disabled); cursor: not-allowed; }
 
 .mu-tabs-root { display: flex; flex-direction: column; gap: var(--mu-space-4); }
@@ -74,6 +75,9 @@
 }
 
 @media (forced-colors: active) {
+  .mu-segmented { --mu-text: var(--mu-key); --mu-text-secondary: var(--mu-key); }
+  /* Keep unselected borders transparent; the key and focus still use system colors. */
+  .mu-segmented-item, .mu-segmented > .mu-toggle { forced-color-adjust: none; background: none; }
   .mu-segmented-key { forced-color-adjust: none; background-color: transparent; border-color: var(--mu-key); }
 }
 

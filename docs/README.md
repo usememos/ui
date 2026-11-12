@@ -1,6 +1,6 @@
 # Memos UI design system
 
-Memos UI is one calm, dense and tactile system for every product we build: memos (the app), the website, the web clipper and whatever comes next. It reads like ink on paper: pure grays, black ink for the one thing that matters, and no brand color competing with what people write. Controls have a little physical depth, so you can tell at a glance what holds a value and what you can press.
+Memos UI is one calm, dense and flat system for every product we build: memos (the app), the website, the web clipper and whatever comes next. Pure grays and ink emphasis keep attention on people's content. Hierarchy comes from type, spacing and fills. Components reuse a few shared state treatments; pointer events do not add decorative motion or effects.
 
 These docs describe the target system. They are the source of truth for `@usememos/ui`. Where the code in `packages/` differs from them, the code is out of date and should move toward the docs.
 
@@ -33,7 +33,7 @@ It is not a general-purpose UI library for outside developers. Components are ge
 
 - **Behavior from Base UI.** Focus management, keyboard support, ARIA, portals and positioning come from [Base UI](https://base-ui.com). Styling, tokens and the component API are our own.
 - **No shadcn.** No shadcn dependency, no copied shadcn code, and no shadcn-compatible component or token names (`card`, `muted`, `destructive`, `foreground` and so on are not used).
-- **Light, tactile by default.** Restrained depth that shows behavior. Light is the default theme; Dark ships with it.
+- **Flat and calm by default.** Fills identify controls and state. Reuse shared interaction treatments without press movement, scaling or brightness filters. Light is the default theme; Dark ships with it.
 - **Ink is the accent.** The primary action and every on state use `primary`: near-black in Light, near-white in Dark.
 - **One quiet hue.** `accent` is a quiet blue used only for links and text selection, never as a fill. Focus is ink.
 - **Status colors only for status.** Green means success, amber means warning, red means danger or error. None of them is used for emphasis.

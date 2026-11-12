@@ -1,5 +1,5 @@
 import { Separator, Toggle, ToggleGroup } from '@usememos/ui';
-import { Bold, Code, Italic, LayoutGrid, List, Strikethrough } from 'lucide-react';
+import { Bold, Code, Columns2, Columns3, Infinity, Italic, LayoutGrid, List, Rows3, Strikethrough } from 'lucide-react';
 import type { SectionProps } from '.';
 
 export function ToggleGroupSection({ size }: SectionProps) {
@@ -27,6 +27,16 @@ export function ToggleGroupSection({ size }: SectionProps) {
           <Toggle value="grid" icon={<LayoutGrid />}>Masonry</Toggle>
         </ToggleGroup>
       </div>
+      {(['sm', 'md'] as const).map((choiceSize) => (
+        <div key={choiceSize} style={{ width: 248, maxWidth: '100%' }} data-layout-choices={choiceSize}>
+          <ToggleGroup size={choiceSize} fullWidth defaultValue={['list']} aria-label={`Column layout ${choiceSize}`}>
+            <Toggle value="list" icon={<Rows3 />}>List</Toggle>
+            <Toggle value="two" icon={<Columns2 />} aria-label="2 columns">2</Toggle>
+            <Toggle value="three" icon={<Columns3 />} aria-label="3 columns">3</Toggle>
+            <Toggle value="auto" icon={<Infinity />}>Auto</Toggle>
+          </ToggleGroup>
+        </div>
+      ))}
       <div className="mu-popup" style={{ width: 'max-content', padding: 8 }} data-fit-content>
         <ToggleGroup size={size} fullWidth defaultValue={['auto']} aria-label="Ansicht">
           <Toggle value="list">Liste</Toggle>
