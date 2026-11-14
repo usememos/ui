@@ -2,7 +2,9 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
-## Unreleased
+## 26.11.19
+
+Published 14 November 2026.
 
 - Centered Dialog panels (`sheet={false}`) respect the viewport width on narrow screens, keeping their content and close button visible.
 - Shared collection rows preserve leading columns when an icon is absent and dim every owned text/icon part when disabled, including saved checks and danger actions. Form, List, bordered Table and Drawer content now measure their insets from the outer surface edge; borderless full-screen Dialogs keep their full content inset. Guides define rule ownership, styling boundaries, row anatomy, combined states and content fitting, with focused component prop fixtures and browser checks alongside Linux screenshots.
