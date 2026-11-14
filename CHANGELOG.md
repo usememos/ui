@@ -2,7 +2,9 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
-## Unreleased
+## 26.11.20
+
+Published 14 November 2026.
 
 - **Breaking:** use the same size rows, text, spacing and hit boundaries for mouse and touch input. Remove touch-only 44px minimum dimensions, checkbox/radio/switch margins, expanded hit areas, field text enlargement and Dialog/Drawer title padding. Remove the public `mu-hit` class and `hit-area` token. The reaction-picker recipe changes columns only with viewport width.
 
