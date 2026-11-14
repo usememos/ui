@@ -94,8 +94,8 @@
 .mu-focus { --mu-control-border-width: 1px; outline: none; }
 
 /* Icons: Lucide, sized by the control, with one `icon-stroke` width in screen pixels at every size. See docs/icons.md. */
-.mu-icon, .mu-icon-xs, .mu-icon-sm, .mu-icon-md, .mu-base svg.lucide, .mu-prose svg.lucide { width: var(--mu-row-icon, 16px); height: var(--mu-row-icon, 16px); flex: none; display: block; stroke-width: var(--mu-row-icon-stroke, var(--mu-icon-stroke)); }
-.mu-icon *, .mu-icon-xs *, .mu-icon-sm *, .mu-icon-md *, .mu-base svg.lucide *, .mu-prose svg.lucide * { vector-effect: non-scaling-stroke; }
+.mu-icon, .mu-icon-xs, .mu-icon-sm, .mu-icon-md, .mu-base svg.lucide { width: var(--mu-row-icon, 16px); height: var(--mu-row-icon, 16px); flex: none; display: block; stroke-width: var(--mu-row-icon-stroke, var(--mu-icon-stroke)); }
+.mu-icon *, .mu-icon-xs *, .mu-icon-sm *, .mu-icon-md *, .mu-base svg.lucide * { vector-effect: non-scaling-stroke; }
 /* A fixed icon size on its own, outside any size row: box and stroke together, as the xs, sm and md rows set them. */
 .mu-icon-xs { --mu-row-icon: var(--mu-icon-xs); --mu-row-icon-stroke: var(--mu-icon-stroke); }
 .mu-icon-sm { --mu-row-icon: var(--mu-icon-sm); --mu-row-icon-stroke: var(--mu-icon-stroke); }
@@ -112,7 +112,3 @@
 .mu-title { font-family: var(--mu-font-display); font-size: 16px; line-height: 24px; font-weight: 500; text-wrap: balance; }
 .mu-heading { font-family: var(--mu-font-display); font-size: 20px; line-height: 28px; font-weight: 500; text-wrap: balance; }
 .mu-display { font-family: var(--mu-font-display); font-size: 32px; line-height: 40px; font-weight: 500; text-wrap: balance; }
-
-/* Prose sizes: reading text is larger than UI text, with three heading sizes (h1, h2, then h3-h6 at the text size). prose.css sets the rest. See docs/components/prose.md. */
-.mu-prose { --prose-fs: 16px; --prose-lh: 24px; --prose-h1: 24px; --prose-h1-lh: 32px; --prose-h2: 20px; --prose-h2-lh: 28px; --prose-h3: 16px; --prose-h3-lh: 24px; --prose-head: 13px; --prose-head-lh: 18px; }
-.mu-prose-sm { --prose-fs: 14px; --prose-lh: 22px; --prose-h1: 16px; --prose-h1-lh: 24px; --prose-h2: 14px; --prose-h2-lh: 22px; --prose-h3: 14px; --prose-h3-lh: 22px; }

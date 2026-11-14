@@ -29,7 +29,7 @@ Base UI has no textarea part, so this renders Base UI's `Field.Control` as a `<t
 ## Rules
 
 - Provide a `Field.Label` or `aria-label`.
-- Rich content is not a textarea: use the editor (`@usememos/editor`) with [Prose](prose.md).
+- Rich content is not a textarea: use the editor (`@usememos/editor`) and its own content styles.
 - An app's own multi-line field, such as a content-editable editor, takes `textareaClasses()`: the caret or text selection indicates focus without changing the edge, and `aria-invalid="true"` or `aria-disabled="true"` show those states. See [Class functions](../custom-components.md#class-functions).
 
 ## Style

@@ -60,7 +60,7 @@ Supporting text outside an unavailable control is still information: a Field hin
 | Choices: Checkbox, Radio, Switch, Toggle, ToggleGroup and Tabs | Keep the saved state explicit through a mark, knob position or selected fill. Do not resize on press or imitate selection before activation |
 | Actionable rows: Menu, Select, Combobox options and List.ItemButton | Use the shared highlighted fill. Keep Base UI's interaction behavior |
 | Containers: Dialog, Drawer, Popover and Toast | Feedback belongs to their controls, not an extra container hover effect. Keep visibility, dismissal and Toast expansion behavior |
-| Passive content: ordinary Table/List rows, Badge, Avatar, Kbd, Separator and Prose | No automatic hover or press treatment. Interactive elements inside them use their own shared treatment |
+| Passive content: ordinary Table/List rows, Badge and Separator | No automatic hover or press treatment. Interactive elements inside them use their own shared treatment |
 | Loading: Spinner, Skeleton and loading actions | Show progress without changing layout. Keep their existing timing and reduced-motion behavior |
 
 These defaults apply to new components and app-built parts too. Reuse the existing tokens, size rows, classes and state behavior before introducing a new treatment.

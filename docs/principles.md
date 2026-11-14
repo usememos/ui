@@ -22,7 +22,7 @@
 ## What to avoid
 
 - A brand hue on controls, or blue anywhere at rest except links.
-- Cards and boxes around content. Group with spacing, a heading and a `Separator`. The exceptions are settings or records in a [List](components/list.md), a [Table](components/table.md) with `bordered`, or a small [Form](components/form.md) with `bordered` among them.
+- Cards and boxes around content. Group with spacing, a heading and a `Separator`. The exceptions are settings or records in a [List](components/list.md), a [Table](components/table.md) with `bordered`.
 - Textures, glass or blur behind text, and neumorphism.
 - Pills as the default for buttons or inputs. Use the opt-in Button/Toggle `shape="pill"` for compact reaction controls and similar content choices; ordinary actions keep the size-row corners.
 - Color as the only signal. Status colors always come with a word or an icon.

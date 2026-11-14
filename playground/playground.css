@@ -3,7 +3,7 @@ body { margin: 0; background: var(--mu-canvas); color: var(--mu-text); font-fami
 .pg-main { max-width: 960px; margin: 0 auto; padding: var(--mu-space-6); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--mu-space-12); }
 .pg-section { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--mu-space-4); min-width: 0; }
 .pg-section > h2 { margin: 0; }
-.pg-section h3:not(.mu-prose *) { margin: var(--mu-space-2) 0 0; color: var(--mu-text-secondary); }
+.pg-section h3 { margin: var(--mu-space-2) 0 0; color: var(--mu-text-secondary); }
 .pg-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-4); }
 .pg-row > * { max-width: 100%; }
 .pg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--mu-space-3); }

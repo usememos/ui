@@ -364,14 +364,6 @@ test('focus borders and switch knobs survive forced colors', async ({ page }) =>
     });
     expect(colors[0], selector).not.toBe(colors[1]);
   }
-  const task = page.locator('#prose input[type="checkbox"]').first();
-  await task.focus();
-  const mark = await task.evaluate((element) => {
-    const style = getComputedStyle(element, '::before');
-    return { width: style.borderTopWidth, edge: style.borderTopColor, fill: style.backgroundColor };
-  });
-  expect(mark.width).toBe('2px');
-  expect(mark.edge).not.toBe(mark.fill);
   for (const control of await page.locator('#switch .mu-switch:not([data-disabled])').all()) {
     const track = await control.evaluate((element) => getComputedStyle(element).backgroundColor);
     await expect(control.locator('.mu-switch-thumb')).not.toHaveCSS('background-color', track);

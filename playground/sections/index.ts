@@ -1,6 +1,5 @@
 import type { ComponentType } from 'react';
 import type { Size } from '@usememos/ui';
-import { AvatarSection } from './avatar';
 import { BadgeSection } from './badge';
 import { ButtonSection } from './button';
 import { CheckboxSection } from './checkbox';
@@ -9,14 +8,11 @@ import { ComboboxSection } from './combobox';
 import { DialogSection } from './dialog';
 import { DrawerSection } from './drawer';
 import { FieldSection } from './field';
-import { FormSection } from './form';
 import { InputSection } from './input';
-import { KbdSection } from './kbd';
 import { LinkSection } from './link';
 import { ListSection } from './list';
 import { MenuSection } from './menu';
 import { PopoverSection } from './popover';
-import { ProseSection } from './prose';
 import { RadioGroupSection } from './radio-group';
 import { SelectSection } from './select';
 import { SeparatorSection } from './separator';
@@ -56,7 +52,6 @@ export const sections: (
   { name: 'toggle-group', xs: true, title: 'ToggleGroup', Section: ToggleGroupSection },
   { name: 'menu', title: 'Menu', Section: MenuSection },
   { name: 'link', title: 'Link', Section: LinkSection },
-  { name: 'form', title: 'Form', Section: FormSection },
   { name: 'field', title: 'Field and Fieldset', Section: FieldSection },
   { name: 'input', title: 'Input', Section: InputSection },
   { name: 'textarea', title: 'Textarea', Section: TextareaSection },
@@ -72,13 +67,10 @@ export const sections: (
   { name: 'popover', title: 'Popover', Section: PopoverSection },
   { name: 'tooltip', title: 'Tooltip', Section: TooltipSection },
   { name: 'toast', title: 'Toast', Section: ToastSection },
-  { name: 'avatar', xs: true, title: 'Avatar', Section: AvatarSection },
   { name: 'badge', title: 'Badge', Section: BadgeSection },
-  { name: 'kbd', title: 'Kbd', Section: KbdSection },
   { name: 'separator', title: 'Separator', Section: SeparatorSection },
   { name: 'spinner', xs: true, title: 'Spinner', Section: SpinnerSection },
   { name: 'skeleton', xs: true, title: 'Skeleton', Section: SkeletonSection },
   { name: 'table', title: 'Table', Section: TableSection },
   { name: 'list', title: 'List', Section: ListSection },
-  { name: 'prose', title: 'Prose', Section: ProseSection },
 ];

@@ -42,7 +42,7 @@ for (const theme of themes) {
       for (const label of await page.locator('#field .mu-field-label, #radio-group .mu-field-label').all()) {
         await expect(label).toHaveCSS('font-weight', '500');
       }
-      for (const label of await page.locator('#field .mu-field-label:not([data-disabled]), #list .mu-field-label, #form .mu-field-label').all()) {
+      for (const label of await page.locator('#field .mu-field-label:not([data-disabled]), #list .mu-field-label').all()) {
         await expect(label).toHaveCSS('color', text);
       }
       const description = page.locator('#field .mu-field-description').first();

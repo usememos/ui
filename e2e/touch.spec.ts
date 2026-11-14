@@ -25,7 +25,7 @@ for (const theme of themes) {
           await open(page, { theme, size });
           expect(await page.evaluate(() => matchMedia('(pointer: coarse)').matches)).toBe(index === 1);
         }
-        const selectors = '.mu-button, .mu-input-root, .mu-input, .mu-textarea, .mu-select-trigger, .mu-combobox-trigger, .mu-checkbox, .mu-radio, .mu-switch, .mu-toggle, .mu-segmented, .mu-segmented-item, .mu-list-item-button, .mu-prose li, .mu-prose input[type="checkbox"]';
+        const selectors = '.mu-button, .mu-input-root, .mu-input, .mu-textarea, .mu-select-trigger, .mu-combobox-trigger, .mu-checkbox, .mu-radio, .mu-switch, .mu-toggle, .mu-segmented, .mu-segmented-item, .mu-list-item-button';
         const desktop = await geometry(pages[0]!.locator(selectors));
         expect(desktop.length).toBeGreaterThan(0);
         expect(await geometry(pages[1]!.locator(selectors))).toEqual(desktop);
@@ -87,38 +87,6 @@ for (const size of ['xs', 'sm', 'md'] as const) {
 }
 
 for (const theme of themes) {
-  for (const size of ['sm', 'md'] as const) {
-    test(`Prose task targets keep their 16px size without overlap at ${size} in ${theme}`, async ({ page }) => {
-      await open(page, { theme, size });
-      const tasks = page.locator('#prose input[type="checkbox"]:not(:disabled)');
-      const boxes = [];
-      for (const task of await tasks.all()) {
-        await task.scrollIntoViewIfNeeded();
-        const box = (await task.boundingBox())!;
-        expect([box.width, box.height]).toEqual([16, 16]);
-        const mark = await task.evaluate((element) => {
-          const style = getComputedStyle(element, '::before');
-          return [parseFloat(style.width), parseFloat(style.height)];
-        });
-        expect(mark).toEqual([16, 16]);
-        const before = await tasks.evaluateAll((elements) => elements.map((element) => (element as HTMLInputElement).checked));
-        for (const x of [box.x + 1, box.x + box.width - 1]) {
-          await page.touchscreen.tap(x, box.y + box.height / 2);
-          await expect(task).toBeChecked({ checked: !before[boxes.length] });
-          await page.touchscreen.tap(x, box.y + box.height / 2);
-        }
-        expect(await tasks.evaluateAll((elements) => elements.map((element) => (element as HTMLInputElement).checked))).toEqual(before);
-        boxes.push(box);
-      }
-      expect(boxes[1]!.y).toBeGreaterThanOrEqual(boxes[0]!.y + boxes[0]!.height);
-      const row = tasks.first().locator('..');
-      expect(await row.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
-      const readOnly = page.locator('#prose input[type="checkbox"]:disabled');
-      expect((await readOnly.boundingBox())!.height).toBe(16);
-      expect((await readOnly.boundingBox())!.x).toBeCloseTo((await tasks.first().boundingBox())!.x, 0);
-    });
-  }
-
   test(`touch: sm option rows stay 28px in ${theme}`, async ({ page }) => {
     await open(page, { theme, size: 'sm' });
     await page.locator('#menu').getByRole('button', { name: 'More actions', exact: true }).tap();

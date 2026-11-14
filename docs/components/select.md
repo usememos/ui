@@ -64,7 +64,7 @@ Base UI's props pass through: `items`, `value`, `defaultValue`, `onValueChange`,
 - Label it with a [Field](field.md), or `aria-label` on the trigger.
 - Use [RadioGroup](radio-group.md) for two or three options with room to show them, and [Combobox](combobox.md) for more than about 10 or when people type to find.
 - For actions, use [Menu](menu.md).
-- `variant="ghost"` draws the trigger as a row instead of a key, for a value people switch in place, such as the current space in a sidebar. In a sidebar with `mu-compact` it is 28px tall, like the rows around it. Put an icon or Avatar before `Select.Value`. In a form, keep `neutral`.
+- `variant="ghost"` draws the trigger as a row instead of a key, for a value people switch in place, such as the current space in a sidebar. In a sidebar with `mu-compact` it is 28px tall, like the rows around it. Put an icon before `Select.Value`. In a form, keep `neutral`.
 
 ## Style
 

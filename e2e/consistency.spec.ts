@@ -29,10 +29,8 @@ for (const theme of themes) {
     test(`${theme} ${size}: boxed content shares the measured outer inset`, async ({ page }) => {
       await open(page, { theme, size });
       const list = page.locator('#list .mu-list').first();
-      const form = page.locator('#form .mu-form-bordered');
       const table = page.locator('#table .mu-table-bordered');
       expect(await contentInset(list, list.locator('.mu-field-label').first())).toBe(size === 'sm' ? 12 : 16);
-      expect(await contentInset(form, form.locator('.mu-form-title'))).toBe(16);
       const tableInset = await table.evaluate((element) => {
         const cell = element.querySelector('th')!;
         return cell.getBoundingClientRect().left + parseFloat(getComputedStyle(cell).paddingLeft) - element.getBoundingClientRect().left;

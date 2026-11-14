@@ -10,7 +10,7 @@ Memos UI is ink on paper: a light warm-gray canvas, bright surfaces, `primary` i
 | Wells | `well` | Switch tracks, segmented groups, unchecked boxes and radios, pressed toggles, inline code |
 | Hover | `hover` | Rows, ghost buttons, the highlighted menu row |
 | Saved choices | `selected` | Persistent fill on soft toggles, distinct from hover |
-| Keys | `key`, `key-hover` | Neutral buttons, select triggers, the selected tab, kbd |
+| Keys | `key`, `key-hover` | Neutral buttons, select triggers, the selected tab |
 | Text | `text`, `text-secondary`, `text-disabled` | Primary, secondary and disabled text. Each keeps 4.5:1 on the backgrounds named in the token table below |
 | Emphasis | `primary`, `primary-hover`, `on-primary` | Primary button, checked checkbox and radio, switch when on, tooltip |
 | Meta | `accent`, `selection`, `focus`, `focus-edge` | Links and text selection (`accent`); the control keyboard focus edge and the forced-colors field focus edge (`focus`, `focus-edge`). Never a fill |
@@ -46,7 +46,7 @@ There are two themes: **Light** (the default) and **Dark**.
 - Each theme sets every color token explicitly. The package's tests check the values against the table on this page and check the contrast promised here.
 - Light starts with a pale warm-gray paper canvas. White surfaces and keys remain brighter; wells and hover fills are darker steps in the same warm-gray family. This is a flat color treatment, with no texture.
 - Dark keeps the same flat surface roles. Wells and keys are distinct gray fills, and `primary` flips to near-white with a dark `on-primary`.
-- `edge` separates bounded surfaces and stays quiet at rest, on hover and under selected/pressed attributes. Text fields keep it during typing focus too; neutral buttons, Selects and off switch tracks do not strengthen it on hover. `control-edge` is reserved for small unchecked Checkbox, Radio and Prose task marks, at least 3:1 against `canvas` and `surface` in both themes. On default toggles use a `well` fill with `text`, without a visible border; soft toggles use `hover` when off and `selected` with `text` when on; segmented choices use a contrasting `key` fill in a quiet well. Text tokens never become persistent borders. Non-text controls retain their focus treatment; invalid fields retain their error edge. Forced colors adds system-colored selection boundaries when fills disappear; `line` separates content. The quiet resting field boundary remains below 3:1; see [boundary contrast](depth.md#rules).
+- `edge` separates bounded surfaces and stays quiet at rest, on hover and under selected/pressed attributes. Text fields keep it during typing focus too; neutral buttons, Selects and off switch tracks do not strengthen it on hover. `control-edge` is reserved for small unchecked Checkbox and Radio marks, at least 3:1 against `canvas` and `surface` in both themes. On default toggles use a `well` fill with `text`, without a visible border; soft toggles use `hover` when off and `selected` with `text` when on; segmented choices use a contrasting `key` fill in a quiet well. Text tokens never become persistent borders. Non-text controls retain their focus treatment; invalid fields retain their error edge. Forced colors adds system-colored selection boundaries when fills disappear; `line` separates content. The quiet resting field boundary remains below 3:1; see [boundary contrast](depth.md#rules).
 
 ### Choosing a theme
 
@@ -103,10 +103,10 @@ An app can offer more themes than the two the package ships, such as a warm Pape
 | `well` | `oklch(0.934 0.008 95)` | `#252525` | Flat parts that hold a state: switch, tab, checkbox and radio wells, pressed toggles, inline code. A boundary is added only where the component needs one. Not for enabled text entry |
 | `hover` | `oklch(0.95 0.006 95)` | `#252525` | Hover on rows, ghost buttons and wells; the highlighted row in menus and selects |
 | `selected` | `oklch(0.919 0.004 95)` | `#343434` | Persistent soft-toggle fill, including while hovered; with `text` or `text-disabled`, never a selected border |
-| `key` | `#ffffff` | `#343434` | Controls and selected parts: neutral buttons, select triggers, the selected tab, kbd. Flat: neutral buttons and selects use `edge`; selected segments use fill without a visible border in normal colors |
+| `key` | `#ffffff` | `#343434` | Controls and selected parts: neutral buttons, select triggers, the selected tab. Flat: neutral buttons and selects use `edge`; selected segments use fill without a visible border in normal colors |
 | `key-hover` | `oklch(0.982 0.004 95)` | `#3c3c3c` | Hover on a neutral key |
 | `edge` | `oklch(0.858 0.006 95)` | `#343434` | Quiet resting borders of fields, neutral buttons, switch tracks, well/key surfaces, popups, badges, selects and disabled controls |
-| `control-edge` | `#909090` | `#777777` | Small unchecked Checkbox, Radio and Prose task markers only; never a full-control hover or selected boundary; at least 3:1 on `canvas` and `surface` |
+| `control-edge` | `#909090` | `#777777` | Small unchecked Checkbox and Radio markers only; never a full-control hover or selected boundary; at least 3:1 on `canvas` and `surface` |
 | `line` | `oklch(0.919 0.004 95)` | `#252525` | Separators, table rules and menu dividers. About 1.2:1 against canvas in Light, so structural lines also need spacing or a heading |
 | `overlay` | `rgba(0,0,0,0.32)` | `rgba(0,0,0,0.6)` | Backdrop behind dialogs and sheets |
 | `text` | `#1a1a1a` | `#ededed` | Primary text and icons on canvas, surface, well, key and selected (10:1 or more in both themes) |

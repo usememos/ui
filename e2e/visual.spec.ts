@@ -109,15 +109,13 @@ test.describe('touch component props', () => {
       await open(page, { theme });
       await expect(page.locator('#button [data-loading-visible]')).toHaveCount(4);
       expect(await page.evaluate(() => matchMedia('(pointer: coarse)').matches)).toBe(true);
-      const task = page.locator('#prose input[type="checkbox"]:not(:disabled)').first();
-      await expect(task).toHaveCSS('width', '44px');
       for (const id of await page.locator('main > section[id]').evaluateAll((sections) => sections.map((section) => section.id))) {
         const section = page.locator(`#${id}`);
         // Chromium can clear touch emulation when capturing beyond the viewport.
         const box = (await section.boundingBox())!;
         await page.setViewportSize({ width: 390, height: Math.max(844, Math.ceil(box.height)) });
         await expect(section).toHaveScreenshot(`${id}-${theme}-mobile.png`, options);
-        await expect(task).toHaveCSS('width', '44px');
+        expect(await page.evaluate(() => matchMedia('(pointer: coarse)').matches)).toBe(true);
       }
       await page.setViewportSize({ width: 390, height: 844 });
       await page.locator('#popover').getByRole('button', { name: 'Add reaction', exact: true }).tap();

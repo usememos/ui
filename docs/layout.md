@@ -11,8 +11,8 @@ The table applies to every input device. Visible dimensions, layout space and hi
 | md (default) | `control-md` 32px | 12px | 16px | 6px | 14 / 20px | `radius-md` 6px | 18px |
 
 - Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding and sheets. A sidebar with 28px rows puts the `mu-compact` class on itself: md controls and rows inside are `control-compact` (28px) tall, with md text, icons, padding and radius (see [A sidebar navigation row](usage.md#a-sidebar-navigation-row)). It is the only height between sizes, and it is not a `size` value. Floating lists (Menu, Select and Combobox lists) use it for their sm rows too: an sm list has 28px rows with sm text and icons, because a 24px row is cramped inside a 12px-radius popup. Emphasis comes from the `primary` variant, not from a bigger control.
-- Use `xs` for secondary actions beside 13px text: actions on a row or an entry, inline formatting, filters in a tight header, checkboxes in a dense list. It is the height of a Badge or a Kbd, so they line up. Don't use `xs` for forms, for navigation, or for the main action of a screen.
-- Only Button, Toggle, ToggleGroup, Checkbox, RadioGroup and Radio, Switch, Avatar, Spinner and Skeleton take `xs`. Text entry, menus, tabs and tables are too cramped at 20px, so their `size` is `sm | md`, and an `xs` inherited from a parent renders them at `sm`.
+- Use `xs` for secondary actions beside 13px text: actions on a row or an entry, inline formatting, filters in a tight header, checkboxes in a dense list. It is the height of a Badge, so they line up. Don't use `xs` for forms, for navigation, or for the main action of a screen.
+- Only Button, Toggle, ToggleGroup, Checkbox, RadioGroup and Radio, Switch, Spinner and Skeleton take `xs`. Text entry, menus, tabs and tables are too cramped at 20px, so their `size` is `sm | md`, and an `xs` inherited from a parent renders them at `sm`.
 - The icon side of a control has 2px less padding, so text and icon look centered. Floating-list items follow the separate contract below. Button and Toggle with `shape="pill"` instead keep equal size-row padding at both ends and use `radius-full`; an icon-only control is a circle. Heights, icon sizes and touch targets stay the same.
 - Input capabilities never override a size row. Do not add touch-only minimum dimensions, margins, padding, text sizes or transparent hit-area extensions. A control uses its own boundary for hit testing; native labels keep their normal activation behavior. Responsive composition may follow available width, but touch input alone never changes geometry.
 
@@ -46,7 +46,7 @@ Documented padding measures from a part's outer border edge to its content box, 
 | Row padding | Row's highlight edge to its leading/trailing content box |
 | Content gap | Adjacent content boxes; no container border is added |
 
-A boxed row collection's perimeter counts once in its outer rows/columns. Internal cell padding is measured from the cell edge; dividers separate rows and do not add horizontal indentation. At the same size, boxed records, forms and tables share their outer content edge. Measure SVG squares, not the painted glyph inside a viewBox. Only the shared optical corrections above may move those squares.
+A boxed row collection's perimeter counts once in its outer rows/columns. Internal cell padding is measured from the cell edge; dividers separate rows and do not add horizontal indentation. At the same size, boxed records and tables share their outer content edge. Measure SVG squares, not the painted glyph inside a viewBox. Only the shared optical corrections above may move those squares.
 
 ### Row anatomy
 
@@ -70,8 +70,8 @@ Layout spacing comes from one ladder of nine steps, and each step has a job. Two
 | `space-1` | 4px | Parts of one thing | Label to control, title to description, control to hint; the gap between sm controls |
 | `space-2` | 8px | Controls side by side; a title to its list | Buttons in a row, tags, a section title to its List, a Fieldset legend to its options, the lines of an entry |
 | `space-3` | 12px | Rows in a set; blocks on a small surface | Options in a Fieldset or RadioGroup, blocks in a Popover or Toast |
-| `space-4` | 16px | Blocks in a container | Fields in a form, two blocks of one section; padding of popovers and boxed forms; page padding on phones |
-| `space-5` | 20px | Padding of big surfaces; above a Prose heading | Padding of dialogs and drawers; the space above a heading and around a rule in Prose. Nowhere else: between other things use 16 or 24 |
+| `space-4` | 16px | Blocks in a container | Fields in a form, two blocks of one section; padding of popovers; page padding on phones |
+| `space-5` | 20px | Padding of big surfaces | Padding of dialogs and drawers. Between other things use 16 or 24 |
 | `space-6` | 24px | Groups | Sections and entries on a page, content to its footer; page padding on desktop |
 | `space-8` | 32px | Regions of a page | A page header band to the content, one column to the next; above and below an empty state |
 | `space-12` | 48px | Website sections | The rhythm between sections of a marketing page |
@@ -86,7 +86,6 @@ Every surface follows the same two tiers. Big surfaces pad `space-5` and stack `
 | Surface | Padding | Between blocks | Title to description | Content to footer |
 | --- | --- | --- | --- | --- |
 | Dialog, Drawer | 20px | 16px | 4px | 24px |
-| Form, `bordered` | 16px | 16px | 4px | 16px, then a footer bar |
 | Popover | 16px | 12px | 4px | |
 | Toast | 12px, 16px at the start | 12px | 0: one block of text | |
 | Fieldset | | 12px | 8px from the legend to its options | |
@@ -134,7 +133,7 @@ Concentric corners subtract the actual distance between their outer edges. A key
 | `radius-xs` | 2px | Keys inside sm wells (`radius-sm` minus the 2px inset); inline code |
 | `radius-sm` | 4px | sm controls |
 | `radius-md` | 6px | md controls, the default |
-| `radius-lg` | 8px | Boxed record/form/table surfaces and images in Prose |
+| `radius-lg` | 8px | Boxed record and table surfaces |
 | `radius-xl` | 12px | Menus, select lists, popovers and toasts |
 | `radius-2xl` | 16px | Dialogs and sheets |
 | `radius-full` | 9999px | Avatars, radios, switches and their knobs, badges, and opt-in pill controls |
@@ -145,7 +144,7 @@ Ordinary controls use their size-row radius; inputs never use a pill. Badges alw
 
 | Token | Value | Usage |
 | --- | --- | --- |
-| `control-xs` | 20px | xs control height; Badge and Kbd |
+| `control-xs` | 20px | xs control height; Badge |
 | `control-sm` | 24px | sm control height |
 | `control-md` | 32px | Default control height |
 | `control-compact` | 28px | md height inside `mu-compact`, for an app's sidebar; sm row height in menus, select lists and combobox lists |

@@ -211,16 +211,3 @@ for (const theme of themes) {
     await expectNoAxeViolations(page, '.mu-toast-viewport');
   });
 }
-
-test('Form: bordered has a List edge and a canvas footer bar that runs to the edges', async ({ page }) => {
-  await open(page);
-  const form = page.locator('#form form[data-bordered]');
-  await expect(form).toHaveCSS('border-top-width', '1px');
-  await expect(page.getByRole('form', { name: 'Add a tag rule' })).toBeVisible();
-  const footer = form.locator('.mu-form-footer');
-  await expect(footer).toHaveCSS('background-color', 'oklch(0.982 0.004 95)');
-  const [formBox, footerBox] = [await form.boundingBox(), await footer.boundingBox()];
-  expect(Math.round(footerBox!.width)).toBe(Math.round(formBox!.width) - 2);
-  expect(Math.round(footerBox!.y + footerBox!.height)).toBe(Math.round(formBox!.y + formBox!.height) - 1);
-  await expect(page.locator('#form form').nth(1)).toHaveCSS('border-top-width', '0px');
-});

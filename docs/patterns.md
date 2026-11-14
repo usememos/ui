@@ -9,17 +9,18 @@ How the components go together. Each product builds its screens from these patte
 - Sidebar navigation rows (pages, views, tags) are `body` text, weight 400, `text-secondary`, and the current row is `text` on the `hover` fill. A sidebar section title ("Tags") is `label-sm` or `label`, 500, and the "New" Button keeps its 500 label. Rows are scanned content; weight is for the few things that name them.
 - Content sits in a column of at most `content-width` (720px), padded `space-4` on phones and `space-6` on desktop.
 - A page header is a `heading` with an optional `body` line `space-1` under it, and the page's one primary action at the right. `heading` appears once per page.
-- Sections inside a page have a `label` title (14px, 500) with `space-6` above it and `space-2` below. Section titles are never larger than the text around them; space and grouping set them apart. A section's rows are horizontal Fields: the name at weight 500 in `text`, the description in `caption` and `text-secondary`, and any entered or selected value at 400. Space separates a section title from its rows; do not lower the rows' label weight. Two blocks of one section (a List and the Form that adds to it) are `space-4` apart.
+- Sections inside a page have a `label` title (14px, 500) with `space-6` above it and `space-2` below. Section titles are never larger than the text around them; space and grouping set them apart. A section's rows are horizontal Fields: the name at weight 500 in `text`, the description in `caption` and `text-secondary`, and any entered or selected value at 400. Space separates a section title from its rows; do not lower the rows' label weight. Two blocks of one section (a List and the form that adds to it) are `space-4` apart.
 
 ## Form
 
+- Use a native `<form>` or Base UI Form with this package’s Field, Fieldset and Button. The product owns submission and validation policy.
 - Fields stack `space-4` apart with the label above the control.
 - Related checkboxes or switches sit in a `Fieldset`.
 - Actions go at the end, right-aligned: a ghost Cancel, then the primary.
 - A form that saves at once (settings) uses switches and has no Save button. A form with a Save button uses checkboxes.
 - On a settings page, each section is a title and a [List](components/list.md) of horizontal Fields: the setting's name at the start, its Switch or Select at the end. A section of records (tokens, webhooks) is a List, or a `bordered` [Table](components/table.md) when the records have columns.
 - Errors appear under the field, in words that say how to fix it.
-- A small form on a settings page, among Lists ("Add a tag rule", a reactions picker), is a `bordered` [Form](components/form.md): a title, its fields, and the buttons in a footer bar.
+- Keep a small submitted form on a settings page unboxed, grouped by a section heading and spacing. A reaction picker uses a Popover; it is not a submitted form.
 
 ## Settings
 
@@ -34,8 +35,8 @@ How the components go together. Each product builds its screens from these patte
 A repeated unit of content in a list: a note, a comment, a changelog item.
 
 - **Header line** in `caption` (`text-secondary`): who or when, visibility as an outline Badge, and a ghost Menu trigger at the right that appears on hover. On touch screens the menu trigger is always visible.
-- **Body** in `Prose`.
-- **Footer line:** tags as `neutral` [Badge](components/badge.md)s with a `Hash` icon, in `text` (a tag is the user's own word, not metadata); a tag's own color goes in the Badge's `color`. Then attachments and reactions. Prose tags are only for tags inside the body's text.
+- **Body** uses the product’s rendered-content or editor styles.
+- **Footer line:** tags as `neutral` [Badge](components/badge.md)s with a `Hash` icon, in `text` (a tag is the user's own word, not metadata); a tag's own color goes in the Badge's `color`. Then attachments and reactions. Inline tags belong to the product’s content renderer.
 - The three lines of an entry are `space-2` apart.
 - Entries are separated by `space-6` of whitespace or a `Separator`, never by boxes.
 

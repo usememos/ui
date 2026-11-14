@@ -1,14 +1,14 @@
 # Components
 
-31 components in five groups, chosen from what Base UI and other popular libraries provide and what our products need today. Every component is generic: it works the same in memos, the website, the web clipper and any future product.
+Components in five groups, chosen from what Base UI and other popular libraries provide and what our products need today. Every component is generic: it works the same in memos, the website, the web clipper and any future product.
 
 | Group | Components |
 | --- | --- |
 | Actions | [Button](button.md), [Toggle](toggle.md), [ToggleGroup](toggle-group.md), [Menu](menu.md), [Link](link.md) |
-| Forms | [Form](form.md), [Field and Fieldset](field.md), [Input](input.md), [Textarea](textarea.md), [Select](select.md), [Combobox](combobox.md), [Checkbox](checkbox.md), [Switch](switch.md), [RadioGroup](radio-group.md) |
+| Forms | [Field and Fieldset](field.md), [Input](input.md), [Textarea](textarea.md), [Select](select.md), [Combobox](combobox.md), [Checkbox](checkbox.md), [Switch](switch.md), [RadioGroup](radio-group.md) |
 | Navigation | [Tabs](tabs.md), [Collapsible](collapsible.md) |
 | Overlays | [Dialog](dialog.md) (and its sheet form), [Drawer](drawer.md), [Popover](popover.md), [Tooltip](tooltip.md), [Toast](toast.md) |
-| Display | [Avatar](avatar.md), [Badge](badge.md), [Kbd](kbd.md), [Separator](separator.md), [Spinner](spinner.md), [Skeleton](skeleton.md), [Table](table.md), [List](list.md), [Prose](prose.md), plus [Lucide icons](../icons.md) |
+| Display | [Badge](badge.md), [Separator](separator.md), [Spinner](spinner.md), [Skeleton](skeleton.md), [Table](table.md), [List](list.md), plus [Lucide icons](../icons.md) |
 
 ## Page template
 
@@ -27,7 +27,8 @@ Components follow the [API conventions](../building.md#api-conventions): parts w
 
 ## Left out on purpose
 
-- **Card.** Content is grouped by spacing, headings and separators. The only boxes are a [List](list.md) of settings or records, a `bordered` [Table](table.md) and a `bordered` [Form](form.md) for a small form among them.
+- **Card.** Content is grouped by spacing, headings and separators. The only boxes are a [List](list.md) of settings or records and a `bordered` [Table](table.md).
+- **Avatar, Form, Kbd, Prose.** Products own avatar presentation and rendered content. Compose submitted forms from a native `<form>` or Base UI Form with Field, Fieldset and Button. Shortcut hints use Menu or Tooltip `shortcut`; standalone key labels use native `<kbd>`.
 - **Slider, Stepper.** No setting in our products needs a continuous range. Use an Input with `type="number"` or a Select.
 - **Chip, SegmentedControl, Accordion.** A Toggle covers filter chips, a single-choice ToggleGroup covers segmented choices, and stacked Collapsibles cover an accordion.
 - **Later, when a screen needs them:** multi-select Combobox, ContextMenu, ScrollArea, Progress, Calendar.
@@ -56,7 +57,7 @@ The short version. [Using the components](../usage.md) has the full decision gui
 | Confirm something happened | Toast |
 | Settings rows, or a short list of records with actions | List |
 | Data with columns | Table |
-| A small form (heading, a few fields, buttons) among Lists on a settings page | Form with `bordered` |
+| A submitted form | A native `<form>` or Base UI Form with Field, Fieldset and Button |
 | A status or tag label | Badge |
 | A clickable tag filter | Toggle |
 | Compact reactions and their picker | Soft pill Toggles, a ghost pill Button and Popover; see the [composition](popover.md#compact-reaction-picker) |

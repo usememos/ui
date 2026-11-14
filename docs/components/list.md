@@ -59,7 +59,6 @@ Every native attribute passes through.
     {spaces.map((space) => (
       <List.Item key={space.id}>
         <List.ItemButton render={<a href={`/s/${space.id}`} />}>
-          <Avatar.Root size="sm">…</Avatar.Root>
           {space.name}
         </List.ItemButton>
       </List.Item>

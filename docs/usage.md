@@ -88,7 +88,7 @@ For other form and settings values, answer in order; the first yes decides.
 4. **Is it one of up to about 10 options?** [Select](components/select.md).
 5. **Is it one of a long list, or do people know what they're looking for and type it?** [Combobox](components/combobox.md).
 6. **Is it several of a few options?** Checkboxes in a [Fieldset](components/field.md).
-7. **Is it text?** One line: [Input](components/input.md). A few plain lines: [Textarea](components/textarea.md). Formatted content: the editor (`@usememos/editor`) with [Prose](components/prose.md).
+7. **Is it text?** One line: [Input](components/input.md). A few plain lines: [Textarea](components/textarea.md). Formatted content: the editor (`@usememos/editor`) and its own styles.
 8. **Is it a number?** An Input with `type="number"` and `inputMode="numeric"`, or a Select of the sensible values. There is no Slider or Stepper.
 
 ### Grouping and moving between sections
@@ -428,11 +428,11 @@ Run through it for every screen.
 | A Checkbox that saves at once | A Switch |
 | A Select with 30 options | A Combobox |
 | A Select with two options and room to spare | A RadioGroup |
-| A boxed card around each item | Whitespace, a section title, or a Separator. Rows of settings or records go in one [List](components/list.md); a small form among them in a `bordered` [Form](components/form.md) |
+| A boxed card around each item | Whitespace, a section title, or a Separator. Rows of settings or records go in one [List](components/list.md); a submitted form stays unboxed under its section heading |
 | An icon after a Button's label inside `children` | `iconEnd` |
 | A `<button>` with its own classes as a row in a Popover | `menuClasses().item`, in a Popover with `variant="list"` |
 | A Dialog with `className` that removes its padding and X | `variant="bare"` |
-| A local box (a "settings panel") around a small form on a settings page | `Form.Root bordered` with `Form.Footer` |
+| A local box (a "settings panel") around a small form on a settings page | An unboxed native `<form>` or Base UI Form, with a section heading, Fields and actions |
 | A Dialog with `fixed inset-0 rounded-none` | `variant="bare" fullScreen` |
 | A lighter or clear backdrop for one Dialog, such as a search palette | The standard backdrop: every Dialog dims the page the same way |
 | A blue or custom-colored New badge | `tone="primary"` |
@@ -442,7 +442,7 @@ Run through it for every screen.
 | `h-dvh`, a `border-e` or your own Close on a bare Drawer's content | Nothing: bare does these; give your content `height: 100%` |
 | A 28px row class, or `--mu-row-height` set by hand | `mu-compact` on the sidebar or popup |
 | `mu-base` (weight 500) alone on sidebar navigation rows | `font-weight: 400` on the rows: they are `body` text, like Menu items |
-| A tag chip of your own in an entry's footer, or a Prose tag there | A `neutral` Badge with a `Hash` icon, in ink |
+| A tag chip of your own in an entry's footer, or an inline content tag there | A `neutral` Badge with a `Hash` icon, in ink |
 | A tag in the user's color as text, or on a fill you mixed yourself | `<Badge color={tag.color}>`: a tint, with ink text |
 | Text over a photo on a translucent, blurred fill | An opaque `surface` pill in a `data-theme="dark"` scope |
 | Tailwind `size-4` on a standalone icon | `mu-icon-sm` or `mu-icon-md`, which set the stroke too |
@@ -477,8 +477,8 @@ Names and parts from other libraries and where they go.
 | Tooltip with a `title` or `content` prop | [Tooltip](components/tooltip.md) parts: Root, Trigger, Popup |
 | Snackbar, Toaster, sonner's `toast()` | [Toast](components/toast.md) and `Toast.useToastManager().add()` |
 | Toast `variant="destructive"` | `type: "danger"` |
-| Card, Paper, Panel | No component: spacing, a section title and [Separator](components/separator.md). For a boxed group of rows, [List](components/list.md); for a boxed small form, a `bordered` [Form](components/form.md) |
-| Form (Base UI, React Hook Form wrappers) | [Form](components/form.md), with [Field](components/field.md)s inside |
+| Card, Paper, Panel | No component: spacing, a section title and [Separator](components/separator.md). For a boxed group of rows, [List](components/list.md) |
+| Form (Base UI, React Hook Form wrappers) | A native `<form>` or Base UI Form, with [Field](components/field.md)s inside |
 | Divider | [Separator](components/separator.md) |
 | Chip, Tag | [Badge](components/badge.md) to show, [Toggle](components/toggle.md) to filter |
 | SegmentedControl, RadioButtons in a row | [ToggleGroup](components/toggle-group.md) without `multiple` |
@@ -492,7 +492,7 @@ Names and parts from other libraries and where they go.
 | Loader, CircularProgress | [Spinner](components/spinner.md), or a control's `loading` |
 | Progress bar | Not built. Use Skeletons for loading, or text ("3 of 10") |
 | Typography, Text, Heading | The type classes (`mu-body`, `mu-caption`, `mu-heading`) from [Typography](typography.md) |
-| Markdown or rich-text body | [Prose](components/prose.md) |
+| Markdown or rich-text body | The product’s content renderer or `@usememos/editor`, with its own styles |
 | `variant="secondary"`, `"outline"` on a button | `neutral`; `ghost` in toolbars |
 | `variant="destructive"` on a button | `danger`, only inside a confirmation |
 | `size="lg"` | `md`; emphasis comes from `primary` |

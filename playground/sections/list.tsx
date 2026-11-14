@@ -1,4 +1,4 @@
-import { Avatar, Button, Field, List, Select, Switch } from '@usememos/ui';
+import { Button, Field, List, Select, Switch } from '@usememos/ui';
 import { ChevronRight } from 'lucide-react';
 import type { RowSize, SectionProps } from '.';
 
@@ -42,9 +42,6 @@ export function ListSection({ size }: SectionProps<RowSize>) {
         {['Personal', 'Design team'].map((name) => (
           <List.Item key={name}>
             <List.ItemButton render={<a href="#list" />}>
-              <Avatar.Root size="sm">
-                <Avatar.Fallback>{name.slice(0, 1)}</Avatar.Fallback>
-              </Avatar.Root>
               <span style={{ flex: 1 }}>{name}</span>
               <ChevronRight className="mu-icon-md" aria-hidden />
             </List.ItemButton>

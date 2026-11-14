@@ -4,7 +4,9 @@ Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"
 
 ## Unreleased
 
-- **Breaking:** use the same size rows, text, spacing and hit boundaries for mouse and touch input. Remove touch-only 44px minimum dimensions, checkbox/radio/switch margins, expanded hit areas, field text enlargement, Prose task-row expansion and Dialog/Drawer title padding. Remove the public `mu-hit` class and `hit-area` token. The reaction-picker recipe changes columns only with viewport width.
+- **Breaking:** use the same size rows, text, spacing and hit boundaries for mouse and touch input. Remove touch-only 44px minimum dimensions, checkbox/radio/switch margins, expanded hit areas, field text enlargement and Dialog/Drawer title padding. Remove the public `mu-hit` class and `hit-area` token. The reaction-picker recipe changes columns only with viewport width.
+
+- **Breaking:** remove Avatar, Form, Kbd and Prose, their public types and CSS classes. Products own avatars and rendered-content styles. Compose submitted forms with a native `<form>` or Base UI Form, Field, Fieldset and Button; use Menu/Tooltip `shortcut` hints or native `<kbd>` for key labels. Remove their fixtures, tests and screenshot baselines.
 
 ## 26.11.19
 

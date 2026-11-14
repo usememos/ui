@@ -29,7 +29,7 @@ Provide `href` and `children`.
 
 - A link navigates; a button acts. A "Get started" that goes to a page is an anchor with [`buttonClasses()`](button.md#rules). "View all" is a link.
 - Inside running text, use `underline="always"`, so the link isn't told apart by color alone.
-- Inside [Prose](prose.md), plain anchors get this style without the component.
+- For plain anchors inside rendered content, the product’s content renderer owns their styling.
 
 ## Style
 

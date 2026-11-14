@@ -75,7 +75,7 @@ Apply these classes to an app's own elements. Don't override their rules; see [S
 | `mu-icon-sm` | A 14px icon with a 1.25px stroke | A Lucide icon beside 13px or 14px text, outside a control |
 | `mu-icon-md` | A 16px icon with a 1.25px stroke | A Lucide icon beside 14px or 16px text, outside a control |
 | `mu-visually-hidden` | Hidden on screen, read by screen readers | Text for screen readers only |
-| `mu-label-xs` | 11 / 16px, 500 | Labels of 20px controls and kbd |
+| `mu-label-xs` | 11 / 16px, 500 | Labels of 20px controls |
 | `mu-caption-xs` | 11 / 16px, 400 | Initials and brief counts inside 20px parts; badges use `mu-caption` |
 | `mu-caption` | 13 / 18px, 400 | Secondary text |
 | `mu-label-sm` | 13 / 18px, 500 | Small labels |

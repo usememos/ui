@@ -57,7 +57,6 @@ An app changes only the color and font tokens. Every other token and every `mu-*
 - The [public classes](custom-components.md#public-classes) are for apps too: size rows (`mu-s-md`), surface roles (`mu-key`), focus, icons and the type scale. Apps apply them to their own parts and never override them.
 - `mu-positioner` puts a popup's positioner on `layer-popup`, and `mu-popup-motion` supplies the shared opening and closing fade and `space-1` offset over `duration-fade`. Under reduced motion it has no transition, including opacity. See [Motion](motion.md).
 - The surface classes `mu-well`, `mu-key` and `mu-popup` apply flat fills and borders. Use them for new parts. See [Surfaces and boundaries](depth.md).
-- `mu-prose` styles rendered content. See [Prose](components/prose.md).
 - `mu-icon` applies icon size and stroke rules outside a component, at the size of the nearest size row; `mu-icon-xs`, `mu-icon-sm` and `mu-icon-md` set a fixed size on their own. See [Icons](icons.md).
 - `mu-visually-hidden` hides text visually but keeps it for screen readers.
 - A size row class sets the `--mu-row-*` variables (height, padding, text, radius, gap, icon) that every part inside reads. See [Row variables](custom-components.md#row-variables).
@@ -97,7 +96,7 @@ import { Ellipsis, Pin, Trash2 } from "lucide-react";
 - **Base UI's names.** `Root`, `Trigger`, `Popup`, `Item`, `Title`, `Description`, `Close`, `Panel` and so on. No shadcn names (`DropdownMenuContent`, `CardHeader`).
 - **One `Popup` per overlay.** Base UI's `Portal`, `Positioner` and `Backdrop` are folded into our `Popup`. It takes `side`, `align`, Base UI's other placement behavior (`anchor`, `sticky`, `collisionAvoidance`, `collisionBoundary`, `positionMethod`, `disableAnchorTracking`) and its portal `container`, and draws the backdrop where the component has one (Dialog). The gap to the trigger and the distance kept from the viewport edge are fixed by the system (4px for menus and lists, 6px for popovers and tooltips; Base UI's default edge distance), so `sideOffset`, `alignOffset` and `collisionPadding` are not props.
 - **Indicators are built in.** The check in a menu or select item, the chevron in a select trigger and the knob in a switch render by themselves. See [built-in glyphs](icons.md#built-in-glyphs).
-- **One element, one component.** Button, Input, Textarea, Badge, Kbd, Separator, Spinner, Skeleton, Link, Checkbox, Switch and Toggle are single components, not namespaces.
+- **One element, one component.** Button, Input, Textarea, Badge, Separator, Spinner, Skeleton, Link, Checkbox, Switch and Toggle are single components, not namespaces.
 - **No data props.** Collections are built from parts (`Menu.Item`, `Select.Item`, `Tabs.Tab`), not passed as `items` or `options` arrays.
 
 ### Props
@@ -132,9 +131,9 @@ const toast = Toast.useToastManager();
 toast.add({ title: "Note archived", type: "success" });
 ```
 
-## Shared styles for content
+## Product-owned content
 
-`Prose` is one stylesheet shared by every place content is rendered or edited, including the editor (`@usememos/editor`). Content never shifts between editing and reading.
+Rendered content and avatars belong to the product. The editor (`@usememos/editor`) owns its reading and editing styles; this package does not style Markdown. Build submitted forms with a native `<form>` or Base UI Form and this package’s Field, Fieldset and Button.
 
 ## What every new component needs
 

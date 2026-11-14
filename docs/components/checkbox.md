@@ -28,7 +28,6 @@ Wraps Base UI's [Checkbox](https://base-ui.com/react/components/checkbox) root w
 
 - Name it with a `Field.Label` around it, or `aria-label`.
 - For a setting that applies at once, use [Switch](switch.md). For a labeled group, wrap the boxes in a [Fieldset](field.md).
-- Task lists in [Prose](prose.md) use this component at 16px.
 
 ## Style
 

@@ -11,10 +11,8 @@
 @import "./option-rows.css" layer(mu);
 @import "../components/spinner/spinner.css" layer(mu);
 @import "../components/button/button.css" layer(mu);
-@import "../components/kbd/kbd.css" layer(mu);
 @import "../components/separator/separator.css" layer(mu);
 @import "../components/badge/badge.css" layer(mu);
-@import "../components/avatar/avatar.css" layer(mu);
 @import "../components/link/link.css" layer(mu);
 @import "../components/skeleton/skeleton.css" layer(mu);
 @import "../components/field/field.css" layer(mu);
@@ -37,6 +35,4 @@
 @import "../components/collapsible/collapsible.css" layer(mu);
 @import "../components/table/table.css" layer(mu);
 @import "../components/list/list.css" layer(mu);
-@import "../components/form/form.css" layer(mu);
-@import "../components/prose/prose.css" layer(mu);
 @import "./focus.css" layer(mu);

@@ -173,7 +173,7 @@ describe('specificity', () => {
     expect(specificity('.mu-button:where(:has(> svg:first-child))')).toEqual([0, 1, 0]);
     expect(specificity('.mu-button.mu-button-icon')).toEqual([0, 2, 0]);
     expect(specificity('.mu-input-root:hover:not([data-disabled], [aria-disabled="true"], :has(> [data-disabled]))')).toEqual([0, 3, 0]);
-    expect(specificity('.mu-prose :not(pre) > code')).toEqual([0, 1, 2]);
+    expect(specificity('.mu-content :not(pre) > code')).toEqual([0, 1, 2]);
     expect(specificity('#x li::marker')).toEqual([1, 0, 2]);
     expect(specificity('a:nth-child(2 of .x, #y)')).toEqual([1, 1, 1]);
     expect(specificity('.mu-x:before')).toEqual([0, 1, 1]);

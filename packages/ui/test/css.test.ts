@@ -63,7 +63,6 @@ describe('stylesheets', () => {
       .map(([path]) => path);
     expect(uses.sort()).toEqual([
       '../src/components/checkbox/checkbox.css',
-      '../src/components/prose/prose.css',
       '../src/components/radio-group/radio-group.css',
     ]);
     expect(stripComments(foundationCss)).not.toContain('var(--mu-control-edge)');
