@@ -9,8 +9,8 @@
   background-color: var(--mu-surface);
   list-style: none;
 }
-.mu-list { --list-pad-block: var(--mu-space-3); --list-pad-inline: var(--mu-space-4); }
-.mu-list.mu-s-sm { --list-pad-block: var(--mu-space-2); --list-pad-inline: var(--mu-space-3); }
+.mu-list { --list-pad-block: calc(var(--mu-space-3) - 1px); --list-pad-inline: calc(var(--mu-space-4) - 1px); }
+.mu-list.mu-s-sm { --list-pad-block: calc(var(--mu-space-2) - 1px); --list-pad-inline: calc(var(--mu-space-3) - 1px); }
 .mu-list-item { box-sizing: border-box; min-width: 0; padding: var(--list-pad-block) var(--list-pad-inline); }
 .mu-list-item + .mu-list-item { border-top: 1px solid var(--mu-line); }
 

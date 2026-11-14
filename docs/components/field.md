@@ -71,7 +71,8 @@ Base UI's props pass through: `name`, `invalid`, `disabled`, `validate`, `valida
 
 ## Style
 
-- Label: `label` style (14px, 500), `space-1` above the control; weight 400 when it wraps a Checkbox, Switch or Radio.
-- Horizontal: a two-column grid. The label (weight 400, as every settings row name is; see [Page](../patterns.md#page)) and description fill the first column; the control sits at the end, centered on them, `space-4` from the text. The error spans the row under them.
+- Label: `label` style (14px, 500), `text`, `space-1` above the control. It stays 500 when it wraps a Checkbox, Switch or Radio, and in horizontal rows. A control's name is distinct from the value someone enters or selects, which stays 400.
+- Horizontal: a two-column grid. The label and description fill the first column; the control sits at the end, centered on them, `space-4` from the text. The error spans the row under them. In a Popover, the horizontal label uses `text-secondary`; in forms, settings pages and Dialogs it uses `text`. Vertical labels keep `text` in either context. See [Settings](../patterns.md#settings).
+- Disabled labels use `text-disabled`, including inside a Popover, without changing weight. This applies when the Field is disabled or a directly wrapped Checkbox, Switch or Radio is individually disabled. Hover, focus, checked and invalid states do not change a label's contextual color; errors retain their separate `danger` text.
 - Description and error: `caption` (13px), `space-1` below the control. The error hides the description and turns the control's edge `danger`.
 - Fieldset: its options stack `space-3` apart. The legend (`label`) sits `space-2` above the first one, closer than the options are to each other, so it reads as their name.

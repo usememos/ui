@@ -63,6 +63,8 @@ for (const theme of themes) {
     await expect(page.getByRole('menu')).toBeVisible();
     for (const item of await page.getByRole('menuitem').all()) {
       expect(Math.round((await item.boundingBox())!.height)).toBeGreaterThanOrEqual(44);
+      await expect(item).toHaveCSS('padding-inline-start', '8px');
+      await expect(item).toHaveCSS('padding-inline-end', '8px');
     }
     await page.getByRole('menuitem').first().tap();
     await expect(page.getByRole('menu')).toHaveCount(0);
@@ -70,6 +72,8 @@ for (const theme of themes) {
     await expect(page.getByRole('option').first()).toBeVisible();
     for (const item of await page.getByRole('option').all()) {
       expect(Math.round((await item.boundingBox())!.height)).toBeGreaterThanOrEqual(44);
+      await expect(item).toHaveCSS('padding-inline-start', '8px');
+      await expect(item).toHaveCSS('padding-inline-end', '8px');
     }
     await page.getByRole('option').first().tap();
     await expect(page.getByRole('option')).toHaveCount(0);
@@ -77,15 +81,17 @@ for (const theme of themes) {
     await expect(page.getByRole('option').first()).toBeVisible();
     for (const item of await page.getByRole('option').all()) {
       expect(Math.round((await item.boundingBox())!.height)).toBeGreaterThanOrEqual(44);
+      await expect(item).toHaveCSS('padding-inline-start', '8px');
+      await expect(item).toHaveCSS('padding-inline-end', '8px');
     }
   });
 
   for (const width of [320, 390]) {
-    test(`reference screens fit ${width}px in ${theme}`, async ({ page }) => {
+    test(`component fixtures fit ${width}px in ${theme}`, async ({ page }) => {
       await page.setViewportSize({ width, height: 844 });
       await open(page, { theme });
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
-      for (const screen of await page.locator('.pg-screen').all()) {
+      for (const screen of await page.locator('main > section').all()) {
         const box = (await screen.boundingBox())!;
         expect(box.x).toBeGreaterThanOrEqual(0);
         expect(box.x + box.width).toBeLessThanOrEqual(width);

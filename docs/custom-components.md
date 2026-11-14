@@ -22,7 +22,7 @@ A class function returns the classes that make any element look like a component
 | `inputClasses({ size })` | A string | One-line field, such as a tag input around a native `<input>` |
 | `textareaClasses({ size })` | A string | Multi-line field, such as a content-editable editor |
 | `badgeClasses({ tone })` | A string | Label, such as a tag that is also a link |
-| `menuClasses({ size })` | `popup`, `item`, `dangerItem`, `label`, `text`, `description`, `shortcut`, `separator`, `groupLabel` | Floating list, such as an editor's suggestion list, or rows inside a Popover with `variant="list"`. Rows are 28px at sm and 32px at md, as in a Menu |
+| `menuClasses({ size })` | `popup`, `item`, `dangerItem`, `label`, `text`, `description`, `shortcut`, `separator`, `groupLabel` | Floating list, such as an editor's suggestion list, or rows inside a Popover with `variant="list"`. Rows are 28px at sm and 32px at md, with fixed 8px inline padding; see [Floating-list items](layout.md#floating-list-items) |
 | `popoverClasses({ variant })` | `popup`, `title`, `description` | Floating panel, such as an emoji picker |
 
 State is set with attributes, never with extra classes:
@@ -55,7 +55,7 @@ A popup built this way still needs its behavior from Base UI or the editor it be
 
 ## Public classes
 
-Apply these classes to an app's own elements. Don't override their rules: the products would drift apart, and the package's tests cover only its own values. Every other `mu-*` class, such as a component part's `mu-menu-item`, is internal; reach it through a class function.
+Apply these classes to an app's own elements. Don't override their rules; see [Styling ownership](consistency.md#styling-ownership). Every other `mu-*` class, such as a component part's `mu-menu-item`, is internal; reach it through a class function. Text roles are defined in [Typography](typography.md#text-roles); the class table is an index of those styles.
 
 | Class | What it applies | Use it for |
 | --- | --- | --- |
@@ -81,8 +81,8 @@ Apply these classes to an app's own elements. Don't override their rules: the pr
 | `mu-caption` | 13 / 18px, 400 | Secondary text |
 | `mu-label-sm` | 13 / 18px, 500 | Small labels |
 | `mu-body` | 14 / 20px, 400 | Body text |
-| `mu-label` | 14 / 20px, 500 | Labels and buttons |
-| `mu-title` | 16 / 24px, 500 | Section titles |
+| `mu-label` | 14 / 20px, 500 | Labels, buttons and section titles |
+| `mu-title` | 16 / 24px, 500 | Dialog, Drawer and empty-state titles |
 | `mu-heading` | 20 / 28px, 500 | The page title |
 | `mu-display` | 32 / 40px, 500 | A website hero only |
 
@@ -105,7 +105,7 @@ A size row class sets these variables on its element, and children inherit them.
 | `--mu-row-icon-stroke` | 1.25px | 1.25px | 1.25px |
 | `--mu-row-check-box` | 14px | 16px | 18px |
 
-`--mu-row-padding-icon` is the padding on the side of a control that starts or ends with an icon. Inside `mu-compact`, the md `--mu-row-height` is 28px. `--mu-row-field-font-size` and `--mu-row-field-line-height` are for text people type; on touch screens they are 16px and 20px at every size, so iOS Safari does not zoom in when a field takes focus.
+`--mu-row-padding-icon` is the padding on the side of a control that starts or ends with an icon. Floating-list items use their [fixed 8px spacing](layout.md#floating-list-items) instead of these control-padding values; `menuClasses().item` supplies it for app-built rows too. Inside `mu-compact`, the md `--mu-row-height` is 28px. `--mu-row-field-font-size` and `--mu-row-field-line-height` are for text people type; on touch screens they are 16px and 20px at every size, so iOS Safari does not zoom in when a field takes focus.
 
 ```css
 .app-tag-input-chip {

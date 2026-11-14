@@ -12,6 +12,8 @@
 
 ## Page template
 
+Map parts to the shared rules in [Keeping the system consistent](../consistency.md#rule-ownership). This page template does not authorize component-specific versions of typography, geometry or combined states. Put an exception beside its owning rule, then link it from the component page and cover it in the shared reference or an existing fixture.
+
 Pages are reference for agents: short, imperative, no narrative. Every page has these sections, in this order:
 
 1. **Title and purpose.** `# Name`, then one line: what it is for.

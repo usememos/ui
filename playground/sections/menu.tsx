@@ -1,3 +1,4 @@
+import { MenuRowParts } from '../fixtures/option-rows';
 import { Button, Menu } from '@usememos/ui';
 import { Archive, Copy, Ellipsis, FolderInput, Globe, Lock, Pencil, Pin, Trash2, Users } from 'lucide-react';
 import type { RowSize, SectionProps } from '.';
@@ -63,6 +64,7 @@ export function MenuSection({ size }: SectionProps<RowSize>) {
           </Menu.RadioGroup>
         </Menu.Popup>
       </Menu.Root>
+      <MenuRowParts size={size} />
     </div>
   );
 }

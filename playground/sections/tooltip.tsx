@@ -18,6 +18,10 @@ export function TooltipSection({ size }: SectionProps) {
           <Tooltip.Trigger render={<Button variant="ghost" size={size} icon={<Share />} aria-label="Share" />} />
           <Tooltip.Popup side="bottom">Share</Tooltip.Popup>
         </Tooltip.Root>
+        <Tooltip.Root>
+          <Tooltip.Trigger delay={75} render={<Button variant="ghost" size={size}>Short delay</Button>} />
+          <Tooltip.Popup>Short delay</Tooltip.Popup>
+        </Tooltip.Root>
       </div>
     </Tooltip.Provider>
   );

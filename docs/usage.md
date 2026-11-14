@@ -235,7 +235,7 @@ const [confirming, setConfirming] = useState(false);
 </List.Root>
 ```
 
-A horizontal Field puts the setting's name first, at weight 400, and the Switch or Select at the end of the row. The section title above it is the `label` (500). A [List](components/list.md) boxes the rows of one section and divides them with lines. Inside a Dialog, leave out the List and stack the Fields. For a short list of options under one heading (notification types), a Switch or Checkbox inside its `Field.Label` also works.
+A horizontal Field puts the setting's name first at weight 500 and the Switch or Select at the end of the row. Selected values stay 400. A [List](components/list.md) boxes the rows of one section and divides them with lines. Inside a Dialog or Popover, leave out the List and stack the Fields. Names use `text` on a settings page or in a Dialog; horizontal names inside a Popover use `text-secondary`, with the chosen values in `text`. The package supplies the label colors. A Switch, Checkbox or Radio inside its `Field.Label` also keeps a 500 label. See [Settings](patterns.md#settings).
 
 No Save button and no toast: the Switch shows the result. If saving fails, move the Switch back and show a danger Toast.
 
@@ -305,7 +305,7 @@ The package ships no navigation component: the sidebar's rows are the app's link
 - `mu-compact` changes only md. sm (24px) and xs (20px) controls inside keep their heights, so an xs ghost Button for a row action still fits.
 - Popups opened from the sidebar (the Select's list, a Menu) mount outside it, at the normal 32px. To give a panel of rows the same 28px, put `mu-compact` on its popup: `<Popover.Popup variant="list" className="mu-compact">`.
 - `mu-s-md` gives the rows 14px text, 16px icons with a 1.25px stroke, and md padding and radius; `mu-base` sets the font. Never set the `--mu-row-*` variables or the size tokens yourself; `mu-compact` is the only way to change a row's height.
-- Rows are weight 400 (`body`), like Menu items, Select items and settings row names. A column of rows is content people scan; at 500 every row competes and the sidebar reads as bold. 500 is for what names a group: a section title in the sidebar and the "New" Button's label. The current row stands out by its fill and `text` color, not by weight, so the text doesn't shift when the current page changes.
+- Navigation rows are weight 400 (`body`), like Menu and Select items. A column of navigation is content people scan; at 500 every row competes and the sidebar reads as bold. 500 is for a section title, the "New" Button's label and Field labels that name settings. The current navigation row stands out by its fill and `text` color, not by weight, so the text doesn't shift when the current page changes.
 - Mark the current page with `aria-current="page"`, not with color alone; the fill shows it too.
 - Rows stack `inset` (2px) apart. On `pointer: coarse`, set `min-height: var(--mu-hit-area)` on each navigation row so it reserves 44px in the layout; never extend overlapping hit areas around tightly stacked rows.
 - A row with a count or a menu at its end adds it after the label with `margin-inline-start: auto`.

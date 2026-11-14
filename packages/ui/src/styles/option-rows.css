@@ -1,0 +1,17 @@
+/* Sibling sets own their columns; groups and nested lists reset the inherited slot. */
+:is(.mu-menu-popup, .mu-popover-list, .mu-menu-group, .mu-menu-radio-group, .mu-select-list, .mu-select-group, .mu-combobox-list, .mu-combobox-group) { --option-leading-display: none; }
+:is(.mu-menu-popup, .mu-popover-list, .mu-menu-group, .mu-menu-radio-group, .mu-select-list, .mu-select-group, .mu-combobox-list, .mu-combobox-group):where(:has(> :is(.mu-menu-item, .mu-select-item, .mu-combobox-item) > svg:first-child)) { --option-leading-display: block; }
+:is(.mu-menu-item, .mu-select-item, .mu-combobox-item):where(:not(:has(> svg:first-child)))::before {
+  content: "";
+  display: var(--option-leading-display, none);
+  flex: none;
+  width: var(--mu-row-icon);
+  height: var(--mu-row-icon);
+}
+.mu-combobox-row > .mu-combobox-item::before { display: none; }
+.mu-menu-shortcut { flex: none; }
+
+/* Unavailability covers every owned part, regardless of its normal text role. */
+:is(.mu-menu-item, .mu-select-item, .mu-combobox-item)[data-highlighted]:not([data-disabled]) { background-color: var(--mu-hover); }
+:is(.mu-menu-item, .mu-select-item, .mu-combobox-item)[data-disabled] { color: var(--mu-text-disabled); }
+:is(.mu-menu-item, .mu-select-item, .mu-combobox-item)[data-disabled] :where(svg, .mu-menu-description, .mu-menu-shortcut, .mu-menu-indicator, .mu-select-indicator, .mu-combobox-indicator) { color: inherit; }

@@ -24,7 +24,7 @@ Use these classes before writing new surface styles. `mu-key` covers both a cont
 - Surface classes describe a surface, not an interaction state. `mu-key` keeps its `key` fill and quiet `edge` even with selected or pressed attributes. Use Toggle for a persistent on/off fill, or a key inside a well for one selected choice. Never turn a text token into a persistent border. Non-text focus and invalid fields are the explicit exceptions to quiet control boundaries.
 - Floating surfaces have a border so they remain distinct over the same surface color. Modal backdrops still use `overlay`.
 - Content is grouped by spacing, headings and separators. The boxed exceptions are List, bordered Table and bordered Form.
-- Borders count toward the documented padding. Reserve their space and compensate inner padding so states never move text or change a control's size.
+- Reserve border space so states never move text or change a control's size. [Measured insets](layout.md#measured-insets) defines which border a documented padding includes.
 
 ## Focus
 

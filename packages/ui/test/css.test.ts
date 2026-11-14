@@ -5,6 +5,7 @@ import { build } from 'esbuild';
 import { describe, expect, it } from 'vitest';
 import foundationCss from '../src/styles/foundation.css?raw';
 import focusCss from '../src/styles/focus.css?raw';
+import optionRowsCss from '../src/styles/option-rows.css?raw';
 import stylesCss from '../src/styles/styles.css?raw';
 import tokensCss from '../src/styles/tokens.css?raw';
 
@@ -41,14 +42,14 @@ function findRawValues(css: string) {
 
 describe('stylesheets', () => {
   it('only use classes that start with mu-', () => {
-    for (const css of [tokensCss, foundationCss, focusCss, stylesCss, ...Object.values(componentCss)]) {
+    for (const css of [tokensCss, foundationCss, focusCss, optionRowsCss, stylesCss, ...Object.values(componentCss)]) {
       const classes = [...stripComments(css).replace(/"[^"]*"|'[^']*'/g, '').matchAll(/\.([a-zA-Z][\w-]*)/g)].map(([, name = '']) => name);
       expect(classes.filter((name) => !name.startsWith('mu-') && name !== 'lucide')).toEqual([]);
     }
   });
 
   it('has no shadows, sheen or visible outlines in the shipped CSS', () => {
-    for (const [name, source] of Object.entries({ foundationCss, focusCss, ...componentCss })) {
+    for (const [name, source] of Object.entries({ foundationCss, focusCss, optionRowsCss, ...componentCss })) {
       const css = stripComments(source);
       expect(css, name).not.toMatch(/\b(?:box-shadow|text-shadow|drop-shadow|key-sheen)\b|outline-(?:color|offset|width)\s*:/);
       const outlines = [...css.matchAll(/\boutline(?:-style)?:\s*([^;]+);/g)].map(([, value]) => value?.trim());
@@ -100,7 +101,7 @@ describe('stylesheets', () => {
     expect(findRawValues('.mu-x { --t: oklch(from var(--mu-badge-color) clamp(0.5, l, 0.75) c h / 18%); }')).toEqual([]);
   });
 
-  for (const [path, css] of Object.entries(componentCss)) {
+  for (const [path, css] of Object.entries({ optionRowsCss, ...componentCss })) {
     it(`${path} uses tokens, not raw values`, () => {
       expect(findRawValues(css)).toEqual([]);
     });

@@ -1,4 +1,4 @@
-import { Avatar, Button, Field, Input, Menu, menuClasses, Popover, Select, Switch, ToggleGroup, Toggle } from '@usememos/ui';
+import { Button, Field, Input, Menu, menuClasses, Popover, Select, Switch, ToggleGroup, Toggle } from '@usememos/ui';
 import { ChevronRight, Copy, LogOut, Palette, Settings, Share, SlidersHorizontal, User } from 'lucide-react';
 import type { SectionProps } from '.';
 import { useState } from 'react';

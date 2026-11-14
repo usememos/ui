@@ -10,6 +10,10 @@ const options = { animations: 'disabled', maxDiffPixelRatio: 0.002 } as const;
 
 /** Each overlay: how to open it, and the element to capture (or, with `union`, the box around several). */
 const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (page: Page) => Locator; union?: boolean }[] = [
+  { name: 'menu-parts', open: (page) => page.getByRole('button', { name: 'Collection actions', exact: true }).click(), shot: (page) => page.getByRole('menu') },
+  { name: 'select-disabled-selected', open: (page) => page.getByRole('combobox', { name: 'Collection choice', exact: true }).click(), shot: (page) => page.locator('.mu-select-popup') },
+  { name: 'select-aligned', open: (page) => page.getByRole('combobox', { name: 'Value-aligned choice', exact: true }).click(), shot: (page) => page.locator('.mu-select-popup') },
+  { name: 'combobox-mixed-icons', open: (page) => page.locator('#combobox').getByRole('button', { name: 'Filter collections', exact: true }).click(), shot: (page) => page.locator('.mu-combobox-popup') },
   { name: 'menu', open: (page) => page.locator('#menu').getByRole('button', { name: 'More actions' }).click(), shot: (page) => page.getByRole('menu') },
   // The submenu beside its trigger row: the two lists side by side, the first submenu row level with the trigger.
   {
@@ -52,8 +56,12 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
   { name: 'dialog-bare', open: (page) => page.getByRole('button', { name: 'Quick find' }).click(), shot: (page) => page.getByRole('dialog') },
   { name: 'combobox-grid', open: (page) => page.locator('#combobox').getByRole('button', { name: 'Choose icon' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'drawer', open: (page) => page.getByRole('button', { name: 'Note details' }).click(), shot: (page) => page.getByRole('dialog') },
+  { name: 'drawer-bare', open: (page) => page.getByRole('button', { name: 'Open navigation', exact: true }).click(), shot: (page) => page.getByRole('dialog') },
+  { name: 'drawer-bottom', open: (page) => page.getByRole('button', { name: 'Open sheet', exact: true }).click(), shot: (page) => page.getByRole('dialog') },
   { name: 'tooltip', open: (page) => page.locator('#tooltip').getByRole('button', { name: 'Archive' }).focus(), shot: (page) => page.locator('.mu-tooltip-popup') },
   { name: 'dialog', open: (page) => page.getByRole('button', { name: 'Create access token' }).click(), shot: (page) => page.getByRole('dialog') },
+  { name: 'dialog-full', open: (page) => page.getByRole('button', { name: 'Read full screen', exact: true }).click(), shot: (page) => page.getByRole('dialog') },
+  { name: 'dialog-centered', open: (page) => page.getByRole('button', { name: 'Centered panel', exact: true }).click(), shot: (page) => page.getByRole('dialog') },
   {
     name: 'dialog-close-tooltip',
     open: async (page) => {
@@ -92,17 +100,18 @@ async function around(locator: Locator) {
   return { x: Math.floor(x), y: Math.floor(y), width: Math.ceil(right - x), height: Math.ceil(bottom - y) };
 }
 
-test.describe('touch reference screens', () => {
+test.describe('touch component props', () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
 
   for (const theme of themes) {
     test(`${theme} mobile`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await open(page, { theme });
+      await expect(page.locator('#button [data-loading-visible]')).toHaveCount(4);
       expect(await page.evaluate(() => matchMedia('(pointer: coarse)').matches)).toBe(true);
       const task = page.locator('#prose input[type="checkbox"]:not(:disabled)').first();
       await expect(task).toHaveCSS('width', '44px');
-      for (const id of ['screen-settings', 'screen-timeline', 'screen-empty', 'toggle-group', 'prose']) {
+      for (const id of await page.locator('main > section[id]').evaluateAll((sections) => sections.map((section) => section.id))) {
         const section = page.locator(`#${id}`);
         // Chromium can clear touch emulation when capturing beyond the viewport.
         const box = (await section.boundingBox())!;
@@ -116,6 +125,14 @@ test.describe('touch reference screens', () => {
       await page.keyboard.press('Escape');
       await page.locator('#menu').getByRole('button', { name: 'More actions', exact: true }).tap();
       await expect(page.getByRole('menu')).toHaveScreenshot(`overlay-menu-${theme}-mobile.png`, options);
+      await page.keyboard.press('Escape');
+      for (const name of ['menu-parts', 'select-disabled-selected', 'combobox-mixed-icons', 'dialog', 'dialog-centered', 'drawer', 'drawer-bare', 'drawer-bottom']) {
+        const overlay = overlays.find((item) => item.name === name)!;
+        await overlay.open(page);
+        await expect(overlay.shot(page)).toHaveScreenshot(`overlay-${name}-${theme}-mobile.png`, options);
+        await page.keyboard.press('Escape');
+        await expect(overlay.shot(page)).toBeHidden();
+      }
     });
   }
 });
@@ -127,8 +144,7 @@ for (const theme of themes) {
       await open(page, { theme, size });
       await expect(page.locator('#button [data-loading-visible]')).toHaveCount(4);
       // At xs, only the sections with xs: the rest render at sm, as in the sm screenshots.
-      // The reference screens are md at every size, so they are captured at md only.
-      const selector = size === 'xs' ? 'main > section[id][data-xs]' : size === 'sm' ? 'main > section[id]:not([data-screen])' : 'main > section[id]';
+      const selector = size === 'xs' ? 'main > section[id][data-xs]' : 'main > section[id]';
       const ids = await page.locator(selector).evaluateAll((sections) => sections.map((section) => section.id));
       for (const id of ids) {
         await expect(page.locator(`#${id}`), id).toHaveScreenshot(`${id}-${theme}-${size}.png`, options);

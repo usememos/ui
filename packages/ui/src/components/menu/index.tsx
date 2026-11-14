@@ -102,14 +102,15 @@ interface RowProps {
 function useRow({ icon, shortcut, description, children }: RowProps) {
   const id = useId();
   const hasDescription = description !== undefined && description !== null && description !== false;
-  const label = <span className={classes.label} id={hasDescription ? `${id}-label` : undefined}>{children}</span>;
+  const label = <span className={classes.label}>{children}</span>;
   const content = (
     <>
       {icon}
       {hasDescription ? (
         <span className={classes.text}>
           {label}
-          <span className={classes.description} id={`${id}-description`}>{description}</span>
+          {/* Referenced as a description, without also becoming part of the name from content. */}
+          <span className={classes.description} id={`${id}-description`} aria-hidden="true">{description}</span>
         </span>
       ) : (
         label
@@ -117,7 +118,7 @@ function useRow({ icon, shortcut, description, children }: RowProps) {
       {shortcut !== undefined ? <span className={classes.shortcut}>{shortcut}</span> : null}
     </>
   );
-  const aria = hasDescription ? { 'aria-labelledby': `${id}-label`, 'aria-describedby': `${id}-description` } : null;
+  const aria = hasDescription ? { 'aria-describedby': `${id}-description` } : null;
   return [content, aria] as const;
 }
 
@@ -210,7 +211,7 @@ export const SubmenuTrigger = forwardRef<HTMLDivElement, SubmenuTriggerProps>(fu
   return (
     <BaseMenu.SubmenuTrigger ref={ref} {...props} className={withClass(cx(classes.item, 'mu-menu-submenu-trigger'), className)}>
       {row}
-      <ChevronRight className="mu-menu-chevron" aria-hidden />
+      <ChevronRight aria-hidden />
     </BaseMenu.SubmenuTrigger>
   );
 });

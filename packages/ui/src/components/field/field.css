@@ -2,23 +2,24 @@
 .mu-field-root { display: flex; flex-direction: column; gap: var(--mu-space-1); min-width: 0; }
 
 .mu-field-label { color: var(--mu-text); }
+:where(.mu-popover-popup .mu-field-horizontal) > .mu-field-label { color: var(--mu-text-secondary); }
 .mu-field-item { display: flex; }
 /* A Checkbox, Switch or Radio inside the label sits beside its text. */
 .mu-field-label:where(:has(> .mu-checkbox, > .mu-switch, > .mu-radio)) {
   display: inline-flex;
   align-items: center;
   gap: var(--mu-space-2);
-  font-weight: 400;
   cursor: pointer;
 }
-.mu-field-label[data-disabled] { color: var(--mu-text-disabled); cursor: not-allowed; }
+.mu-field-label[data-disabled],
+.mu-field-label:where(:has(> .mu-checkbox[data-disabled], > .mu-switch[data-disabled], > .mu-radio[data-disabled])) { color: var(--mu-text-disabled); cursor: not-allowed; }
 
-.mu-field-description { margin: 0; color: var(--mu-text-secondary); }
+.mu-field-description { margin: 0; color: var(--mu-text-secondary); overflow-wrap: anywhere; }
 .mu-field-root[data-invalid] > .mu-field-description { display: none; }
 
 /*
  * Horizontal: the label and description in the first column, the control at
- * the end of the row, centered on them. The label is weight 400, as a setting's name.
+ * the end of the row, centered on them. Labels keep the shared 500 weight.
  */
 .mu-field-horizontal {
   display: grid;
@@ -29,11 +30,11 @@
 }
 .mu-field-horizontal > * { grid-column: 2; grid-row: 1; justify-self: end; }
 .mu-field-horizontal:where(:has(> .mu-field-description)) > * { grid-row: 1 / span 2; }
-.mu-field-horizontal > .mu-field-label { grid-column: 1; grid-row: 1; justify-self: stretch; font-weight: 400; }
+.mu-field-horizontal > .mu-field-label { grid-column: 1; grid-row: 1; justify-self: stretch; }
 .mu-field-horizontal > .mu-field-description { grid-column: 1; grid-row: 2; justify-self: stretch; margin-top: var(--mu-space-1); }
 .mu-field-horizontal > .mu-field-error { grid-column: 1 / -1; grid-row: 3; justify-self: stretch; margin-top: var(--mu-space-1); }
 
-.mu-field-error { display: flex; align-items: flex-start; gap: var(--mu-space-1); color: var(--mu-danger); }
+.mu-field-error { display: flex; align-items: flex-start; gap: var(--mu-space-1); color: var(--mu-danger); overflow-wrap: anywhere; }
 .mu-field-error > .mu-icon { --mu-row-icon: var(--mu-icon-sm); margin-block: calc((1lh - var(--mu-icon-sm)) / 2); }
 
 .mu-fieldset-root { display: flex; flex-direction: column; gap: var(--mu-space-3); min-width: 0; margin: 0; padding: 0; border: 0; }

@@ -1,3 +1,4 @@
+import { ComboboxMixedIcons } from '../fixtures/option-rows';
 import { Button, Combobox, Field, Popover } from '@usememos/ui';
 import { Bookmark, Camera, Coffee, Heart, Leaf, Music, Plane, Star, Sun } from 'lucide-react';
 import { useState, type ReactElement } from 'react';
@@ -84,6 +85,7 @@ export function ComboboxSection({ size }: SectionProps<RowSize>) {
           </Combobox.Root>
         </Popover.Popup>
       </Popover.Root>
+      <ComboboxMixedIcons size={size} />
     </div>
   );
 }

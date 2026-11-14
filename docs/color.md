@@ -17,6 +17,16 @@ Memos UI is ink on paper: a light warm-gray canvas, bright surfaces, `primary` i
 | Status | `success`, `warning`, `danger` and their `-soft` pairs; `danger-key`, `on-danger` | Toasts, badges, field errors, danger buttons |
 | Lines | `edge`, `control-edge`, `line` | Quiet resting borders on fields, neutral buttons, switch tracks and surfaces; small checkbox/radio markers; separators and table rules |
 
+## Text hierarchy
+
+Weight identifies a name or content; color determines how much attention it gets. Keep the [text-role weights](typography.md#text-roles) when changing context.
+
+- Forms, settings pages and Dialogs: Field labels and setting names use `text`; descriptions, helper text and metadata use `text-secondary`.
+- Compact controls in a Popover: horizontal Field labels use `text-secondary`, while entered text and selected values use `text`. Vertical Field labels keep `text`. The package supplies this treatment; apps do not recolor each label.
+- Menu, Select and Combobox items use `text`, with secondary descriptions and shortcuts. Selection does not lower the text's contrast or change its weight; the component's fill or check identifies the choice.
+- Disabled labels and values use `text-disabled` at their ordinary weight. Invalid fields keep their label's contextual color; the error text and existing control edge use `danger`.
+- A label's contextual color stays fixed under hover, focus and checked states. Interactive Button, Toggle and Tabs labels keep their component's state colors. Never use opacity to make ordinary labels or values quieter.
+
 ## Rules
 
 - Light uses near-neutral warm grays for its canvas, wells, hover fills and quiet boundaries: one OKLCH hue (95), with chroma at most 0.008. Surfaces and keys stay white. Text, ink emphasis and stronger control boundaries stay pure gray; Dark keeps its pure-gray neutrals.
@@ -51,7 +61,7 @@ An app sets only these tokens:
 - the 29 color tokens in the [table below](#color-tokens),
 - the three font tokens in [Typography](typography.md#fonts): `font-sans`, `font-display` and `font-mono`.
 
-Every other token (space, radius, sizes, layout widths, layers, motion) and every `mu-*` class rule is internal. Read those tokens in app CSS (`var(--mu-space-4)`), but don't override them, even though the cascade layer lets an app rule win: the products would drift apart, and the package's tests and screenshots cover only its own values. To change one element, pass `className` or `style` to that component (see [API conventions](building.md#api-conventions)).
+Every other token (space, radius, sizes, layout widths, layers, motion) and every `mu-*` class rule is internal. Read those tokens in app CSS (`var(--mu-space-4)`), but don't override them, even though the cascade layer lets an app rule win. `className` and `style` support app-owned layout, not changes to a component's internal appearance. See [Styling ownership](consistency.md#styling-ownership) for the boundary.
 
 Internal rules are not private classes. An app applies the [public classes](custom-components.md#public-classes) and the class functions to its own elements; it only never changes what they do.
 
@@ -100,7 +110,7 @@ An app can offer more themes than the two the package ships, such as a warm Pape
 | `line` | `oklch(0.919 0.004 95)` | `#252525` | Separators, table rules and menu dividers. About 1.2:1 against canvas in Light, so structural lines also need spacing or a heading |
 | `overlay` | `rgba(0,0,0,0.32)` | `rgba(0,0,0,0.6)` | Backdrop behind dialogs and sheets |
 | `text` | `#1a1a1a` | `#ededed` | Primary text and icons on canvas, surface, well, key and selected (10:1 or more in both themes) |
-| `text-secondary` | `#5e5e5e` | `#adadad` | Secondary text: descriptions, placeholders, unselected tabs and toggles, shortcuts, timestamps (4.9:1 or more on every surface) |
+| `text-secondary` | `#5e5e5e` | `#adadad` | Secondary text: descriptions, placeholders, horizontal Field labels in Popovers, unselected tabs and toggles, shortcuts, timestamps (4.9:1 or more on every surface) |
 | `text-disabled` | `#666666` | `#9e9e9e` | Disabled text and icons, at least 4.5:1 on `canvas`, `surface`, `well`, `key` and `selected`; never fade the whole control |
 | `primary` | `#1a1a1a` | `#e6e6e6` | The one emphasized action and every on state: primary buttons, checked boxes and radios, switches when on, tooltips. Ink, not a hue |
 | `primary-hover` | `#333333` | `#ffffff` | Hover on a primary key |

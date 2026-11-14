@@ -34,5 +34,5 @@
 .mu-table-bordered .mu-table-head { background-color: var(--mu-canvas); }
 /* Inside the edge, the outer columns pad as a List row does, so a bordered Table and a List line up. */
 .mu-table-bordered :is(.mu-table-head, .mu-table-cell):first-child,
-.mu-table-bordered .mu-table-caption { padding-inline-start: calc(var(--mu-row-padding) + var(--mu-space-1)); }
-.mu-table-bordered :is(.mu-table-head, .mu-table-cell):last-child { padding-inline-end: calc(var(--mu-row-padding) + var(--mu-space-1)); }
+.mu-table-bordered .mu-table-caption { padding-inline-start: calc(var(--mu-row-padding) + var(--mu-space-1) - 1px); }
+.mu-table-bordered :is(.mu-table-head, .mu-table-cell):last-child { padding-inline-end: calc(var(--mu-row-padding) + var(--mu-space-1) - 1px); }

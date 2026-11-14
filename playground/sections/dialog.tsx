@@ -57,6 +57,20 @@ export function DialogSection({ size }: SectionProps) {
           </div>
         </Dialog.Popup>
       </Dialog.Root>
+      <Dialog.Root>
+        <Dialog.Trigger render={<Button size={size}>Read full screen</Button>} />
+        <Dialog.Popup fullScreen>
+          <Dialog.Title>Reading view</Dialog.Title>
+          <Dialog.Description>A borderless panel keeps the same content inset.</Dialog.Description>
+        </Dialog.Popup>
+      </Dialog.Root>
+      <Dialog.Root>
+        <Dialog.Trigger render={<Button size={size}>Centered panel</Button>} />
+        <Dialog.Popup sheet={false}>
+          <Dialog.Title>Centered panel</Dialog.Title>
+          <Dialog.Description>Stays centered on narrow screens.</Dialog.Description>
+        </Dialog.Popup>
+      </Dialog.Root>
       <AlertDialog.Root>
         <AlertDialog.Trigger render={<Button size={size} icon={<Trash2 />}>Delete note</Button>} />
         <AlertDialog.Popup>

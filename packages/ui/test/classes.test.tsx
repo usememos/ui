@@ -3,7 +3,7 @@
 // (docs/custom-components.md): each component uses its own function, and
 // everything the docs promise exists in the stylesheets.
 import { act } from 'react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import customDocs from '../../../docs/custom-components.md?raw';
 import foundationCss from '../src/styles/foundation.css?raw';
 import {
@@ -35,10 +35,6 @@ function firstCells(heading: string) {
   const section = customDocs.slice(start, customDocs.indexOf('\n## ', start + 1));
   return [...section.matchAll(/^\| `([^`]+)` \|/gm)].map(([, name = '']) => name);
 }
-
-afterEach(() => {
-  document.body.innerHTML = '';
-});
 
 const settle = () => act(() => new Promise((resolve) => setTimeout(resolve, 20)));
 

@@ -2,6 +2,7 @@ import './interop.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Badge, badgeClasses, Button, Input, inputClasses, Menu, menuClasses, Popover, popoverClasses, Textarea, textareaClasses } from '@usememos/ui';
+import { Pin } from 'lucide-react';
 
 /** ?theme=paper puts the app theme on the root, as an app would. */
 const theme = new URLSearchParams(location.search).get('theme');
@@ -29,6 +30,7 @@ function CustomParts() {
       <div id="textarea-custom" className={textareaClasses()} contentEditable suppressContentEditableWarning role="textbox" aria-multiline="true" aria-label="Custom note" />
       <div id="menu-custom" className={menu.popup} role="listbox" aria-label="Suggestions">
         <div id="menu-custom-item" className={menu.item} role="option" aria-selected="false">
+          <Pin aria-hidden />
           <span className={menu.label}>Pin</span>
         </div>
         <div id="menu-custom-active" className={menu.item} role="option" aria-selected="true" data-highlighted="">
@@ -55,17 +57,17 @@ function App() {
         Save
       </Button>
       <div style={{ width: 400 }}>
-        <Button id="utility" className="w-full px-8">
+        <Button id="utility" className="w-full">
           Full width
         </Button>
       </div>
-      <Button id="unlayered" className="app-tall">
-        Tall
+      <Button id="unlayered" className="app-placed">
+        Save
       </Button>
       <Menu.Root>
         <Menu.Trigger render={<Button id="menu-trigger">Options</Button>} />
         <Menu.Popup>
-          <Menu.Item>Pin</Menu.Item>
+          <Menu.Item icon={<Pin />}>Pin</Menu.Item>
         </Menu.Popup>
       </Menu.Root>
       <CustomParts />

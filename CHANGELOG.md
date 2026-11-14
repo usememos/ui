@@ -4,6 +4,14 @@ Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"
 
 ## Unreleased
 
+- Centered Dialog panels (`sheet={false}`) respect the viewport width on narrow screens, keeping their content and close button visible.
+- Shared collection rows preserve leading columns when an icon is absent and dim every owned text/icon part when disabled, including saved checks and danger actions. Form, List, bordered Table and Drawer content now measure their insets from the outer surface edge; borderless full-screen Dialogs keep their full content inset. Guides define rule ownership, styling boundaries, row anatomy, combined states and content fitting, with focused component prop fixtures and browser checks alongside Linux screenshots.
+- Field labels stay at weight 500 in horizontal settings rows and around Checkbox, Switch and Radio. Horizontal labels inside a Popover use `text-secondary`, while selected values remain weight 400 in `text`; other Field labels keep `text`. Disabled labels use `text-disabled`, including when a wrapped choice control is individually disabled. The design-system guides now define these name, value and description roles together.
+- Menu, Select and Combobox list items use fixed 8px inline padding at both sizes, including with leading icons. Group labels and list Popover headings use the same inset. Standalone trailing Menu icons share the 2px optical correction in built-in and app-built rows; popup padding, row heights and touch targets stay the same.
+## 26.11.18
+
+Published 13 November 2026.
+
 - Toggle adds `variant="soft"`: a quiet resting fill and a distinct saved-state fill that remains selected on hover, with the shared disabled, keyboard focus and forced-colors treatments. Existing Toggles keep their default appearance. App themes now supply the `selected` color token alongside their other colors.
 - Button and Toggle add `shape="pill"`, also supported by `buttonClasses()`. Pills use equal horizontal padding; icon-only controls are circular. Default shapes, size rows and 44px touch targets stay unchanged.
 - The Popover guide includes a compact reaction strip and picker composed from Toggle, Button, Tooltip and `mu-compact`. Emoji are child content rather than Lucide icons; the strip and picker share controlled selection. Counts, identity, requests and closing after selection remain in the app.

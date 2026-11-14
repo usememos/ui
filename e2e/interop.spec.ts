@@ -27,13 +27,13 @@ test('components win over a reset in an earlier layer', async ({ page }) => {
   await expect(button).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
 });
 
-test('utility classes in a later layer and unlayered app rules override a component', async ({ page }) => {
+test('later utilities and unlayered app rules own layout while preserving component geometry', async ({ page }) => {
   await page.goto('/interop.html');
-  // The button sets its own padding and height; .px-8 and :where(.app-tall) still win.
   const utility = page.locator('#utility');
-  await expect(utility).toHaveCSS('padding-left', '32px');
+  await expect(utility).toHaveCSS('padding-left', '11px');
   expect(await utility.evaluate((element) => element.getBoundingClientRect().width)).toBe(400);
-  await expect(page.locator('#unlayered')).toHaveCSS('height', '48px');
+  await expect(page.locator('#unlayered')).toHaveCSS('height', '32px');
+  await expect(page.locator('#unlayered')).toHaveCSS('justify-self', 'stretch');
 });
 
 test('an app theme overrides the tokens it sets and keeps Light for the rest', async ({ page }) => {
@@ -107,6 +107,8 @@ for (const theme of themes) {
 
 test("an app's own parts show states from attributes", async ({ page }) => {
   await page.goto('/interop.html');
+  const labelStarts = await page.locator('#menu-custom .mu-menu-label').evaluateAll((labels) => labels.map((label) => label.getBoundingClientRect().left));
+  expect(labelStarts[0]).toBe(labelStarts[1]);
   // A menu row the app highlights itself gets `hover` (oklch(0.95 0.006 95) in Light).
   await expect(page.locator('#menu-custom-active')).toHaveCSS('background-color', 'oklch(0.95 0.006 95)');
   await expect(page.locator('#menu-custom-item')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');

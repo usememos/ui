@@ -1,3 +1,4 @@
+import { SelectDisabledChoice } from '../fixtures/option-rows';
 import { Field, Select } from '@usememos/ui';
 import { Globe, Lock, Notebook, Users } from 'lucide-react';
 import type { RowSize, SectionProps } from '.';
@@ -82,6 +83,14 @@ export function SelectSection({ size }: SectionProps<RowSize>) {
           </Select.Popup>
         </Select.Root>
       </div>
+      <SelectDisabledChoice size={size} />
+      <Select.Root size={size} items={{ a: 'Alpha', b: 'Beta' }} defaultValue="b">
+        <Select.Trigger aria-label="Value-aligned choice"><Select.Value /></Select.Trigger>
+        <Select.Popup alignItemWithTrigger>
+          <Select.Item value="a">Alpha</Select.Item>
+          <Select.Item value="b">Beta</Select.Item>
+        </Select.Popup>
+      </Select.Root>
     </div>
   );
 }

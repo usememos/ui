@@ -55,8 +55,9 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 ## Style
 
 - `mu-popup` (`surface`, a 1px `edge`, `radius-xl`), `space-4` padding, `popover-width` wide. Children stack `space-3` apart.
+- Horizontal Field labels are 500 in `text-secondary`; selected and entered values remain 400 in `text`. Vertical Field labels stay 500 in `text`. Disabled labels keep `text-disabled`, and state changes never promote a setting name's color. See [Settings](../patterns.md#settings).
 - Title: `label`. Description: `caption` in `text-secondary`, `space-1` under the title.
-- `list`: 6px padding and no gap, like a Menu. A title and description inside line up with the rows' text, with `space-2` above the title and below the description.
+- `list`: 6px padding and no gap, like a Menu. Rows use the [floating-list item contract](../layout.md#floating-list-items). A title and description use the same 8px inline padding as text-only rows, with `space-2` above the title and below the description; they do not reserve a leading icon column.
 - Opening and closing use the shared [Motion](../motion.md) fade and `space-1` offset over `duration-fade`. Both are immediate under reduced motion.
 
 

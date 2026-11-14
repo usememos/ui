@@ -20,11 +20,10 @@
 
 @layer utilities {
   .w-full { width: 100%; }
-  .px-8 { padding-inline: 32px; }
 }
 
 /* Unlayered, with no specificity at all: it still wins over the component. */
-:where(.app-tall) { height: 48px; }
+:where(.app-placed) { width: 100%; justify-self: stretch; }
 
 /* An app theme: a user's choice, like Paper in memos (docs/color.md#app-themes). */
 [data-theme="paper"] {

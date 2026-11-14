@@ -44,8 +44,11 @@
 .mu-drawer-popup[data-swiping] { transition: none; user-select: none; }
 
 .mu-drawer-content { display: flex; flex-direction: column; gap: var(--mu-space-4); box-sizing: border-box; min-height: 100%; padding: var(--mu-space-5); }
+.mu-drawer-left > .mu-drawer-popup > .mu-drawer-content { padding-right: calc(var(--mu-space-5) - 1px); }
+.mu-drawer-right > .mu-drawer-popup > .mu-drawer-content { padding-left: calc(var(--mu-space-5) - 1px); }
+.mu-drawer-bottom > .mu-drawer-popup > .mu-drawer-content { padding-top: calc(var(--mu-space-5) - 1px); }
 /* Bare: from the start or end, the content is exactly the drawer's height, so a region inside it can scroll on its own. */
-.mu-drawer-bare > .mu-drawer-content { gap: 0; height: 100%; min-height: 0; padding: 0; }
+:is(.mu-drawer-left, .mu-drawer-right, .mu-drawer-bottom) > .mu-drawer-bare > .mu-drawer-content { gap: 0; height: 100%; min-height: 0; padding: 0; }
 /* Room for the X at the top end. */
 .mu-drawer-popup:where(:has(> .mu-drawer-x)) > .mu-drawer-content > .mu-drawer-title { padding-inline-end: var(--mu-space-6); }
 

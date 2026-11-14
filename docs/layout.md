@@ -13,15 +13,57 @@ The table gives desktop sizes. Touch targets reserve additional space as describ
 - Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding and sheets. A sidebar with 28px rows puts the `mu-compact` class on itself: md controls and rows inside are `control-compact` (28px) tall, with md text, icons, padding and radius (see [A sidebar navigation row](usage.md#a-sidebar-navigation-row)). It is the only height between sizes, and it is not a `size` value. Floating lists (Menu, Select and Combobox lists) use it for their sm rows too: an sm list has 28px rows with sm text and icons, because a 24px row is cramped inside a 12px-radius popup. Emphasis comes from the `primary` variant, not from a bigger control. On touch screens buttons, fields and option rows grow to at least 44px; checkboxes, radios and switches keep their small marks and reserve 44px of layout space around them.
 - Use `xs` for secondary actions beside 13px text: actions on a row or an entry, inline formatting, filters in a tight header, checkboxes in a dense list. It is the height of a Badge or a Kbd, so they line up. Don't use `xs` for forms, for navigation, or for the main action of a screen.
 - Only Button, Toggle, ToggleGroup, Checkbox, RadioGroup and Radio, Switch, Avatar, Spinner and Skeleton take `xs`. Text entry, menus, tabs and tables are too cramped at 20px, so their `size` is `sm | md`, and an `xs` inherited from a parent renders them at `sm`.
-- The icon side of a control has 2px less padding, so text and icon look centered. Button and Toggle with `shape="pill"` instead keep equal size-row padding at both ends and use `radius-full`; an icon-only control is a circle. Heights, icon sizes and touch targets stay the same.
+- The icon side of a control has 2px less padding, so text and icon look centered. Floating-list items follow the separate contract below. Button and Toggle with `shape="pill"` instead keep equal size-row padding at both ends and use `radius-full`; an icon-only control is a circle. Heights, icon sizes and touch targets stay the same.
 - On touch screens (`pointer: coarse`), every control reserves at least `hit-area` (44px) in the layout. Buttons and option rows grow; checkboxes, radios and switches reserve margins around their visual marks. Adjacent hit areas must never overlap. A segmented group adds its 2px inset around 44px items.
+
+### Floating-list items
+
+Menu, Select and Combobox list items, including inline Combobox lists and rows drawn with `menuClasses().item`, share this contract. They do not inherit a button's horizontal padding: changing a list's size changes its height, type, icons and radius, while its content edges stay fixed.
+
+| Measurement | sm | md |
+| --- | --- | --- |
+| Row height | 28px | 32px |
+| Row padding, both inline edges | 8px | 8px |
+| Leading icon to label | 8px | 8px |
+| Standalone trailing Menu icon box to row end | 6px | 6px |
+| Group-label inline padding | 8px | 8px |
+
+- Leading icons keep the same 8px inset as text-only items; do not apply the control's 2px icon-side reduction. This keeps the row's content edge independent of its children.
+- A standalone trailing icon in a Menu row uses the control's shared 2px optical correction toward the inline end. This applies to built-in submenu arrows and app-supplied trailing icons alike. Icons keep their size-row square; do not add offsets for individual glyphs. Wrapped selection checks keep the ordinary 8px end inset.
+- Menu and Select popups, Combobox lists and list Popovers keep 6px outer padding, including the surface border. A list Popover's title and description use the same 8px inline padding as its rows. Separators retain their 6px block spacing and extend to the surface edges.
+- On coarse pointers rows grow to at least 44px; horizontal spacing stays the same. Combobox grid cells keep their square-cell layout instead of list-item padding.
+- Triggers, text fields, boxed List rows and panel Popovers keep their own spacing contracts. Apps reuse the list classes instead of adding another layer of horizontal padding.
+
+### Measured insets
+
+Documented padding measures from a part's outer border edge to its content box, including that part's border. A bordered container and an unbordered container with the same inset therefore align. Subtract each perimeter border from the CSS padding on that side; do not subtract it twice when the padded content is a child. Borderless and full-screen variants restore the full inset. Safe-area space is additional where the component documents it.
+
+| Measurement | Reference edges |
+| --- | --- |
+| Control padding | Control's outer edge to text or the SVG square; reserve the control's own focus border |
+| Surface padding | Surface's outer edge to its first/last content box, even when a child supplies the padding |
+| Collection outer inset | Popup's outer edge to the row's highlight box |
+| Row padding | Row's highlight edge to its leading/trailing content box |
+| Content gap | Adjacent content boxes; no container border is added |
+
+A boxed row collection's perimeter counts once in its outer rows/columns. Internal cell padding is measured from the cell edge; dividers separate rows and do not add horizontal indentation. At the same size, boxed records, forms and tables share their outer content edge. Measure SVG squares, not the painted glyph inside a viewBox. Only the shared optical corrections above may move those squares.
+
+### Row anatomy
+
+Rows in one sibling set share content columns: leading icon, label (and optional description), then trailing information or state. This applies to action and option lists, including app-owned lists built from the class functions.
+
+- If any sibling has a leading icon, reserve the same icon square and gap in siblings without one. A wholly text-only set reserves neither. A named group starts its own set; a nested popup never changes its parent's columns. Grid pickers are cells, not list rows.
+- The label and its description start on the same line. Multi-line rows grow; the icon and state marker align with the label's first line. Do not vertically center them against the combined text block.
+- Labels take the remaining width and may shrink. Shortcuts, values and state markers do not shrink into the label. Choice rows reserve their check slot even when unchecked; ordinary action rows do not reserve a check they never show.
+- Group headings align to the row's content edge before the icon column. A separator divides sibling sets without introducing another text inset; it bleeds to the surface's inner border edge, never across the perimeter border or into horizontal overflow.
+- Missing content, selection, hover and disabled states do not change columns, padding or text weight. Text fitting follows [Content fitting](typography.md#content-fitting).
 
 ## Spacing
 
 Layout spacing comes from one ladder of nine steps, and each step has a job. Two rules decide every gap:
 
 - Closer means more related. A title is nearer to its own text than to the block before it.
-- A container's padding is never smaller than the gap between its blocks.
+- Within a bounded panel, the content inset is at least the ordinary gap between peer blocks. Page gutters, separation between page regions, and content-to-footer spacing have different jobs; use their documented steps instead of comparing them to a panel's stack gap.
 
 | Token | Value | Job | Where |
 | --- | --- | --- | --- |
@@ -36,8 +78,8 @@ Layout spacing comes from one ladder of nine steps, and each step has a job. Two
 | `space-16` | 64px | Website hero and footer | The padding of a hero or a footer |
 
 - `inset` (2px) is not a layout step. It is the gap between a well and the key inside it, and between items inside one cluster (a toolbar). Inside a well the gap is 0.
-- Inside a control the size row sets the spacing (see [Control sizes](#control-sizes)): 6px between an md icon and its text, 6px of padding at xs and in a menu, 2px less padding on a control's icon side. These are optical values of the control, not layout steps. Don't use 6px or 10px between things.
-- `space-8`, `space-12` and `space-16` are for an app's page layout. No component uses them.
+- Inside a control the size row sets the spacing (see [Control sizes](#control-sizes)): 6px between an md icon and its text, 6px of padding at xs, and 2px less padding on a control's icon side. Floating lists use the separate item contract above and a 6px outer inset. These are optical values of the control, not layout steps. Don't use 6px or 10px between things.
+- `space-8`, `space-12` and `space-16` are for page and viewport layout, never ordinary padding or gaps inside controls and panels. Overlay viewports may reserve this space around a panel.
 
 Every surface follows the same two tiers. Big surfaces pad `space-5` and stack `space-4`; small ones pad `space-4` and stack `space-3`.
 
@@ -50,7 +92,7 @@ Every surface follows the same two tiers. Big surfaces pad `space-5` and stack `
 | Fieldset | | 12px | 8px from the legend to its options | |
 | Field | | 4px between label, control and hint | | |
 
-The playground has three reference screens built only from these steps: a settings page, a timeline and an empty page (`#screen-settings`, `#screen-timeline` and `#screen-empty`, in `playground/screens.tsx`). The screenshot tests cover them, so a spacing change is judged on a whole screen, not only on one component. An app's pages copy their spacing.
+The playground's component sections exercise size rows, insets and prop combinations. Focused option-row fixtures cover missing icons, long content and disabled saved choices across actions, choices and filtering. Browser assertions check measured edges and cross-component alignment; Linux screenshots check each component and open overlay. See [Component verification](testing.md).
 
 ### Spacing in an app
 
@@ -85,19 +127,19 @@ it("uses only ladder steps for padding, margin and gap", () => {
 
 ## Radius
 
-Inner radius = outer radius − `inset`, so nested corners stay concentric. Floating lists follow the same rule with their padding: 6px (`radius-xl` − `radius-md`), so an md row's highlight is concentric with the popup's corner, and an sm row's 4px corner sits inside it.
+Concentric corners subtract the actual distance between their outer edges. A key inside a well uses outer radius − `inset`; content clipped just inside a border subtracts that border. Floating lists use their 6px outer inset (`radius-xl` − `radius-md`), so an md row's highlight is concentric with the popup's corner. Sm keeps its documented 4px size-row radius rather than inventing another radius for that context.
 
 | Token | Value | Usage |
 | --- | --- | --- |
 | `radius-xs` | 2px | Keys inside sm wells (`radius-sm` minus the 2px inset); inline code |
 | `radius-sm` | 4px | sm controls |
 | `radius-md` | 6px | md controls, the default |
-| `radius-lg` | 8px | Images in Prose |
+| `radius-lg` | 8px | Boxed record/form/table surfaces and images in Prose |
 | `radius-xl` | 12px | Menus, select lists, popovers and toasts |
 | `radius-2xl` | 16px | Dialogs and sheets |
-| `radius-full` | 9999px | Avatars, radios, switches and their knobs, and badges only |
+| `radius-full` | 9999px | Avatars, radios, switches and their knobs, badges, and opt-in pill controls |
 
-Buttons and inputs are never pills; badges always are, so a label is never mistaken for a control.
+Ordinary controls use their size-row radius; inputs never use a pill. Badges always use `radius-full`. The explicit exception is Button/Toggle `shape="pill"` for compact reactions and similar content choices: their text controls are pills and their icon-only controls are circles. The shape changes corners and the documented optical padding, never size, text role or interaction treatment. Do not turn ordinary form actions or fields into pills with CSS.
 
 ## Sizes
 

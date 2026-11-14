@@ -4,7 +4,7 @@
 
 - Font decisions follow Apple's [typography guidelines](https://developer.apple.com/design/human-interface-guidelines/typography): the system font, no weight lighter than Regular, hierarchy from color, weight and size, no text under its 11pt minimum for iPhone, and no added letter spacing. The package follows these rules; it does not copy Apple's size tables, which differ per platform (13pt text on Mac, 17pt on iPhone). One set of sizes serves every device, and text does not grow on touch screens, except typed text in fields (see the last rule).
 - Use few sizes and few weights. App text uses four sizes (13, 14, 16 and 20px) and two weights (400 and 500); 11px is reserved for compact control labels, keyboard shortcuts and initials (see `label-xs` and `caption-xs`); user tags and status labels use 13px `caption` even inside a 20px Badge. Hierarchy comes from text color, spacing and grouping first, then from weight, and from size last.
-- Weight 400 is for running text, values people typed or chose, and badge text (a badge's tone and fill carry its weight). Weight 500 is for labels, controls, titles and headings. The UI uses no 600 or 700. The one exception is [Prose](components/prose.md): bold text and headings that people wrote are 600, because 500 does not read as bold in system fonts.
+- Weight 500 names a control, setting or section: Field labels, including horizontal settings rows and labels around Checkbox, Switch or Radio, button and layout-toggle labels, titles and headings. Weight 400 is for entered or selected values, Menu/Select/Combobox items, running text, descriptions, metadata and badge text. A row's layout or control type never lowers its label's weight. The UI uses no 450, 600 or 700. The one exception is [Prose](components/prose.md): bold text and headings that people wrote are 600, because 500 does not read as bold in system fonts.
 - 20px (`heading`) is for the page title only, once per page. 32px (`display`) is for the hero headline on a website only, once per page. Nothing else in the UI is larger than 16px, and 16px is only for `title` and Prose text. Headings that people write inside Prose have their own sizes (see [Prose](#prose)).
 - A section title inside a page or panel is `label` (14px, 500), set apart by space above it, not by a larger size. See [Page](patterns.md#page).
 - Secondary text (descriptions, helper text, metadata) is `caption` (13px) in `text-secondary`. No text is smaller than 13px, except `label-xs` and `caption-xs` inside 20px parts.
@@ -17,6 +17,21 @@
 - The platform's UI font for everything (San Francisco on Apple, Segoe UI on Windows, Roboto on Android), smoothed with antialiasing. The package ships no font files.
 - Titles and headings (`title`, `heading`, `display`, and headings in Prose) use `text-wrap: balance`, so a heading that wraps does not leave one word on its last line. Prose paragraphs and list items use `text-wrap: pretty`. Browsers without these wrap as usual.
 - Typed text in fields is 16px on touch screens (`pointer: coarse`), whatever the field's size: below 16px, iOS Safari zooms the page in when a field takes focus. The field keeps its height; its label and placeholder layout do not change.
+
+## Text roles
+
+Choose weight by what the text does, then color by its context. A less prominent color never calls for a lighter weight. See [Text hierarchy](color.md#text-hierarchy) for the color contract and [Settings](patterns.md#settings) for composition.
+
+| Role | Weight | Color |
+| --- | --- | --- |
+| Field labels in forms, settings pages and Dialogs, including labels around Checkbox, Switch or Radio | 500 | `text` |
+| Horizontal Field labels inside a Popover | 500 | `text-secondary` |
+| Entered text and selected values | 400 | `text`; placeholders use `text-secondary` |
+| Menu, Select and Combobox item text, selected or not | 400 | `text`; destructive Menu items keep `danger` |
+| Button, Toggle and Tabs labels; section titles | 500 | The component's documented color or state |
+| Descriptions, helper text and metadata | 400 | `text-secondary`; errors keep `danger` |
+
+Disabled text uses `text-disabled` without changing its weight. Selected and unselected items keep the same weight; fill, color or a check communicates selection. Do not apply the settings-name rule to Menu items or sidebar navigation rows: those remain scanned content at 400.
 
 ## Fonts
 
@@ -40,14 +55,14 @@ Nine styles over six sizes. 11, 13 and 14px each have a 400 style for text and a
 | `caption-xs` | 11 / 16px | 400 | Initials and brief counts inside 20px parts. Never for user tags, status names, running or secondary text. Badges use `caption`: their words need to be as readable as the metadata beside them |
 | `caption` | 13 / 18px | 400 | Badge text; secondary text: field descriptions and errors, metadata, timestamps, toast and popover descriptions, table captions, sm table cells. Usually in `text-secondary` |
 | `label-sm` | 13 / 18px | 500 | Labels inside sm controls, tooltips, group labels in menus and lists, table heads |
-| `body` | 14 / 20px | 400 | Default running text in app UI; dialog descriptions; the names in rows people scan: Menu and Select items, settings row names, sidebar navigation rows |
+| `body` | 14 / 20px | 400 | Default running text in app UI; entered and selected values; dialog descriptions; Menu and Select items and sidebar navigation rows. Field and settings labels use `label` |
 | `label` | 14 / 20px | 500 | Labels inside md controls, field labels, buttons, section titles, popover and toast titles. The default control text |
 
 ### Headings (`--mu-font-display`)
 
 | Style | Size / line | Weight | Usage |
 | --- | --- | --- | --- |
-| `title` | 16 / 24px | 500 | Dialog titles; empty-state titles |
+| `title` | 16 / 24px | 500 | Dialog and Drawer titles; empty-state titles |
 | `heading` | 20 / 28px | 500 | The page title in an app or on a website. One per page |
 | `display` | 32 / 40px | 500 | The hero headline on a website. Never in an app |
 
@@ -65,6 +80,21 @@ The scale used to have 12 sizes and 3 weights. These styles were removed; use th
 | `heading-1` | 32 / 40px, 600 | `display` on a website; `heading` in an app |
 | `body-lg` | 16 / 24px, 400 | `body`, or `Prose` for long-form copy |
 | `label-lg` | 16 / 24px, 500 | `label` (there is no `lg` control size) |
+
+## Content fitting
+
+Choose fitting by content role, not by language or a one-off width override. Never reduce the type size or weight to make a string fit.
+
+| Content | Fitting rule |
+| --- | --- |
+| Single-line action keys and list option names/selected values | Preserve the full accessible text; allow the label box to shrink and ellipsize within its width constraint. Icons and state slots stay visible |
+| Descriptions, hints, errors and prose | Wrap and grow the block; break an unbroken string when necessary rather than overflow the surface |
+| Setting names and multi-line choice labels | Wrap at word boundaries and grow the row. Keep the associated control usable and aligned |
+| Numeric data in aligned columns | Use tabular numbers and preserve the value; allow the data region to scroll when columns cannot fit |
+
+When truncation hides information needed to distinguish choices, the product provides a wrapping presentation, a keyboard/touch-accessible detail view, or a full-text Tooltip as appropriate. A hover-only native `title` is not the sole recovery path. The DOM's accessible name alone is not a visual recovery path. Layout groups wrap or use their documented scroll behavior before clipping controls. Verify with a long localized label and an unbroken value at a 320px viewport; the page must not gain horizontal overflow from controls or hints.
+
+Derive an action's accessible name from its visible label, including a displayed shortcut when it is part of that label. Supplementary descriptions are separate accessible descriptions, not replacements for the label or duplicate announcements. Keep those roles intact when a row wraps or truncates.
 
 ## Prose
 

@@ -17,6 +17,8 @@ It is not a general-purpose UI library for outside developers. Components are ge
 | --- | --- |
 | [Design reference: Linear](design-reference.md) | Official source evidence and how we apply it to Memos UI |
 | [Principles and voice](principles.md) | The taste in six rules, and how interface text is written |
+| [Keeping the system consistent](consistency.md) | Rule ownership, app styling boundaries and the documentation-to-verification loop |
+| [Component verification](testing.md) | Prop coverage, component fixtures, browser checks and screenshot maintenance |
 | [Color](color.md) | Color roles, every color token in Light and Dark, and how themes are chosen |
 | [Depth](depth.md) | Flat surface roles, borders and focus without shadows or outlines |
 | [Typography](typography.md) | The system font, the type scale and text rules |

@@ -72,4 +72,4 @@ Every native attribute passes through.
 
 - `surface` fill, a 1px `line` edge, `radius-lg`. No shadow: it is flat, like a field.
 - Rows pad `space-3` × `space-4` at md and `space-2` × `space-3` at sm, divided by a 1px `line`. No hover on a plain row. An ItemButton fills its row, padded as the row is, lays out its children in a row `space-3` apart, highlights immediately with `hover` on pointer hover or touch press, and rounds with the box at the first and last row; keyboard focus darkens the row's reserved border.
-- Text is `body` in `text`.
+- Record text is `body` in `text`. Settings rows follow [Field](field.md): the name is 500 in `text`, values are 400, and descriptions are `caption` in `text-secondary`.

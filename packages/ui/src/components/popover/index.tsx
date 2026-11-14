@@ -31,7 +31,7 @@ export interface PopupProps extends BasePopover.Popup.Props, PositionerProps {
   /**
    * `panel` (default) pads its content `space-4` and stacks it `space-3` apart.
    * `list` holds rows, such as an account menu with a header: a Menu's
-   * `space-1` padding and no gap, for rows with `menuClasses().item`.
+   * 6px outer padding and no gap, for rows with `menuClasses().item`.
    */
   variant?: PopoverVariant;
 }
