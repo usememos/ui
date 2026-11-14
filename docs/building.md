@@ -54,7 +54,7 @@ An app changes only the color and font tokens. Every other token and every `mu-*
 ## Class names
 
 - Every class the package ships starts with `mu-`.
-- The [public classes](custom-components.md#public-classes) are for apps too: size rows (`mu-s-md`), surface roles (`mu-key`), focus, touch targets, icons and the type scale. Apps apply them to their own parts and never override them.
+- The [public classes](custom-components.md#public-classes) are for apps too: size rows (`mu-s-md`), surface roles (`mu-key`), focus, icons and the type scale. Apps apply them to their own parts and never override them.
 - `mu-positioner` puts a popup's positioner on `layer-popup`, and `mu-popup-motion` supplies the shared opening and closing fade and `space-1` offset over `duration-fade`. Under reduced motion it has no transition, including opacity. See [Motion](motion.md).
 - The surface classes `mu-well`, `mu-key` and `mu-popup` apply flat fills and borders. Use them for new parts. See [Surfaces and boundaries](depth.md).
 - `mu-prose` styles rendered content. See [Prose](components/prose.md).

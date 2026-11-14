@@ -46,7 +46,3 @@
 .mu-input-root:where([data-disabled], [aria-disabled="true"], :has(> [data-disabled])) :where(.mu-input, .mu-input-prefix, .mu-input-suffix) { color: var(--mu-text-disabled); }
 
 .mu-input-root:where([data-disabled], [aria-disabled="true"], :has(> [data-disabled])) .mu-input::placeholder { color: var(--mu-text-disabled); }
-
-@media (pointer: coarse) {
-  .mu-input-root { min-height: var(--mu-hit-area); }
-}

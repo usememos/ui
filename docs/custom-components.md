@@ -10,7 +10,7 @@ An app always has parts the package doesn't ship and shouldn't: product parts (a
 2. **Behavior from Base UI.** Build anything with focus, keyboard, an open state or a popup on [`@base-ui/react`](https://base-ui.com), as the package does. It is a peer dependency of the package at one exact version, so the app's components and the package's share one copy. Upgrade it only with the package.
 3. **Looks from a class function** when the part should look like a component: an anchor that looks like a Button, an editor that looks like a Textarea, a suggestion list that looks like a Menu. See [Class functions](#class-functions).
 4. **Otherwise, from the public classes and tokens.** Size the part with a size row class and read the [row variables](#row-variables); give it a surface with a [surface class](depth.md); set text with a [type class](typography.md); color it with `var(--mu-<token>)` or the [Tailwind utilities](#tailwind-css).
-5. **Check it like a component.** It works in Light and Dark and under reduced motion; text keeps 4.5:1 contrast; focus shows on `:focus-visible` (`mu-focus`); touch targets reach 44px (`mu-hit`) with enough layout space that neighboring targets never overlap; icon-only controls have an `aria-label` and a [Tooltip](components/tooltip.md).
+5. **Check it like a component.** It works in Light and Dark and under reduced motion; text keeps 4.5:1 contrast; focus shows on `:focus-visible` (`mu-focus`); geometry, text and hit boundaries stay the same for mouse and touch input; icon-only controls have an `aria-label` and a [Tooltip](components/tooltip.md).
 
 ## Class functions
 
@@ -70,7 +70,6 @@ Apply these classes to an app's own elements. Don't override their rules; see [S
 | `mu-popup-motion` | The popup fade and rise, none under reduced motion | A popup Base UI opens |
 | `mu-positioner` | The popup layer | A popup's positioner |
 | `mu-focus` | Recolors the existing 1px border on `:focus-visible`; use its `--mu-control-border-width` for border and compensating padding | Anything focusable |
-| `mu-hit` | A 44px minimum touch target on `pointer: coarse`, reserving layout space | Anything pressable smaller than 44px |
 | `mu-icon` | Icon size and stroke from the nearest size row, 16px outside one | A Lucide icon inside an app's own row |
 | `mu-icon-xs` | A 12px icon with a 1.25px stroke | A Lucide icon beside 11px or 13px text, outside a control |
 | `mu-icon-sm` | A 14px icon with a 1.25px stroke | A Lucide icon beside 13px or 14px text, outside a control |
@@ -105,7 +104,7 @@ A size row class sets these variables on its element, and children inherit them.
 | `--mu-row-icon-stroke` | 1.25px | 1.25px | 1.25px |
 | `--mu-row-check-box` | 14px | 16px | 18px |
 
-`--mu-row-padding-icon` is the padding on the side of a control that starts or ends with an icon. Floating-list items use their [fixed 8px spacing](layout.md#floating-list-items) instead of these control-padding values; `menuClasses().item` supplies it for app-built rows too. Inside `mu-compact`, the md `--mu-row-height` is 28px. `--mu-row-field-font-size` and `--mu-row-field-line-height` are for text people type; on touch screens they are 16px and 20px at every size, so iOS Safari does not zoom in when a field takes focus.
+`--mu-row-padding-icon` is the padding on the side of a control that starts or ends with an icon. Floating-list items use their [fixed 8px spacing](layout.md#floating-list-items) instead of these control-padding values; `menuClasses().item` supplies it for app-built rows too. Inside `mu-compact`, the md `--mu-row-height` is 28px. `--mu-row-field-font-size` and `--mu-row-field-line-height` are for text people type; they follow the size row on every input device.
 
 ```css
 .app-tag-input-chip {

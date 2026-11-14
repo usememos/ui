@@ -44,8 +44,3 @@
 .mu-select-scroll-arrow { display: grid; place-items: center; height: var(--mu-space-4); color: var(--mu-text-secondary); }
 
 .mu-select-trigger[data-disabled] :where(.mu-select-value, .mu-select-icon) { color: var(--mu-text-disabled); }
-
-@media (pointer: coarse) {
-  .mu-select-trigger { min-width: var(--mu-hit-area); }
-  .mu-select-item { min-height: var(--mu-hit-area); }
-}

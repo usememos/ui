@@ -33,4 +33,4 @@ Wraps Base UI's [Switch](https://base-ui.com/react/components/switch) root with 
 
 - A pill well with a round knob and a quiet `edge` at rest; the well fills with `primary` when on. The track keeps its quiet boundary and fill on hover. Keyboard focus uses a fine 1px contrasting boundary.
 - Height = checkbox box + 2px; width = height × 1.7.
-- The knob is flat `text`, inset 2px; `on-primary` when on. Only its position slides with `ease-settle` when the state changes, without growing on press; all colors change immediately. Under reduced motion it has no transition. Disabled switches keep the knob position, but use a quiet `edge` and a `text-disabled` knob. On touch screens margins reserve a 44px target without enlarging the mark.
+- The knob is flat `text`, inset 2px; `on-primary` when on. Only its position slides with `ease-settle` when the state changes, without growing on press; all colors change immediately. Under reduced motion it has no transition. Disabled switches keep the knob position, but use a quiet `edge` and a `text-disabled` knob. The track keeps the same dimensions and margins for mouse and touch input.

@@ -24,7 +24,7 @@ Base UI and native props are inherited APIs. Verify that our wrappers preserve c
 ## Where cases live
 
 - **Unit:** `packages/ui/test/components/<component>.test.tsx`. All props for one component live together, including features added later. Shared size boundaries live in `composition.test.tsx`; class-function parity and token/CSS constraints remain shared suites.
-- **Browser:** `e2e/` verifies real interaction and layout: keyboard paths, focus restoration, label/error associations, sizing, text roles, forced colors, reduced motion and touch targets. Shared contracts stay in `consistency`, `icons`, `surfaces`, `touch` and `interop` suites instead of being duplicated in every component.
+- **Browser:** `e2e/` verifies real interaction and layout: keyboard paths, focus restoration, label/error associations, sizing, text roles, forced colors, reduced motion and size parity across input devices. Shared contracts stay in `consistency`, `icons`, `surfaces`, `touch` and `interop` suites instead of being duplicated in every component.
 - **Visual fixture:** `playground/sections/<component>.tsx` shows supported appearances and relevant states. Small reusable fixtures in `playground/fixtures/` belong to the components that render them. No settings-page, timeline or empty-page mockups.
 - **Visual baseline:** `e2e/visual.spec.ts` captures each component section in Light/Dark and every supported size, and on a coarse pointer. It also captures the overlay cases defined in that file. Generated baselines come from Linux CI only.
 

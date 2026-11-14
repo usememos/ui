@@ -51,5 +51,5 @@ Base UI's props pass through: `value`, `defaultValue`, `onValueChange` on the ro
 ## Style
 
 - Shares the quiet well and selected key with a single-choice ToggleGroup. Selection and label changes update immediately, without a slide or color fade. Normal selection uses a `key` fill without a visible border; hover only changes label and icon contrast. Focus reuses `mu-focus`, independently of selection. In forced colors the selected key retains its text-colored border. Use the standard sm and md size rows and the shared inset and radius tokens.
-- Tabs are sized to their labels and wrap when space is narrow; the well and key grow to fit. On touch screens each tab is at least 44px tall and wide. The key re-measures when a label changes width.
+- Tabs are sized to their labels and wrap when space is narrow; the well and key grow to fit. Tabs keep the same dimensions and hit boundaries for mouse and touch input. The key re-measures when a label changes width.
 - Selected and hovered labels `text`, others `text-secondary`. Weight never changes, so labels don't shift.

@@ -37,6 +37,6 @@ Wraps Base UI's [Input](https://base-ui.com/react/components/input), so inside a
 ## Style
 
 - Enabled fields use flat `surface` with a quiet 1px `edge` border. A gray well is reserved for the disabled state.
-- Typed text weight 400; placeholder `text-secondary`. On touch screens typed text is 16px at every size, so iOS Safari does not zoom in on focus; the field keeps its height.
+- Typed text weight 400; placeholder `text-secondary`. Typed text follows the size row on every input device: 13px at sm and 14px at md.
 - Hover, focus and press keep the same `edge` border and `surface` fill. The caret or text selection indicates typing focus; there is no focus border change, ring or animation. Invalid fields retain their `danger` edge while focused. Disabled fields use `well`, a quiet `edge` and `text-disabled` text. Forced colors uses a 2px system focus edge. See [boundary contrast](../depth.md#rules) for the resting edge's contrast tradeoff.
 - The side with a prefix or suffix has 2px less padding.

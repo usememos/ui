@@ -69,9 +69,3 @@
 
 .mu-combobox-group-label { padding: var(--mu-space-2) var(--mu-space-2) var(--mu-space-1); color: var(--mu-text-secondary); }
 .mu-combobox-separator { height: 1px; margin: calc(var(--mu-radius-xl) - var(--mu-radius-md)) calc(1px + var(--mu-radius-md) - var(--mu-radius-xl)); background-color: var(--mu-line); }
-
-@media (pointer: coarse) {
-  .mu-combobox-item { min-height: var(--mu-hit-area); }
-  .mu-combobox-row > .mu-combobox-item { width: var(--mu-hit-area); }
-  .mu-combobox-trigger { width: var(--mu-hit-area); min-height: var(--mu-hit-area); }
-}

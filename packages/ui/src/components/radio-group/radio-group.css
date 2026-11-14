@@ -27,7 +27,3 @@
   border-radius: var(--mu-radius-full);
   background-color: var(--mu-on-primary);
 }
-
-@media (pointer: coarse) {
-  .mu-radio { min-width: 0; min-height: 0; margin: calc((var(--mu-hit-area) - var(--mu-row-check-box)) / 2); }
-}

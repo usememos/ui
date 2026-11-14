@@ -35,7 +35,7 @@ export interface ButtonClassesOptions {
  * that should look like an action: `<a className={buttonClasses({ variant: 'primary' })} href="/start">`.
  */
 export function buttonClasses({ variant = 'neutral', size = 'md', shape = 'default', iconOnly = false }: ButtonClassesOptions = {}) {
-  return cx('mu-button', `mu-button-${variant}`, shape === 'pill' && 'mu-button-pill', iconOnly && 'mu-button-icon', 'mu-base', `mu-s-${size}`, 'mu-focus', 'mu-hit');
+  return cx('mu-button', `mu-button-${variant}`, shape === 'pill' && 'mu-button-pill', iconOnly && 'mu-button-icon', 'mu-base', `mu-s-${size}`, 'mu-focus');
 }
 
 /** Starts an action. A flat control with shared pressed feedback. */

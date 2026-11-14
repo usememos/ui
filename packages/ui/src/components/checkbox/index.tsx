@@ -17,7 +17,7 @@ export interface CheckboxProps extends BaseCheckbox.Root.Props {
 export const Checkbox = forwardRef<HTMLElement, CheckboxProps>(function Checkbox({ size, className, ...props }, ref) {
   const resolved = useSize(size);
   return (
-    <BaseCheckbox.Root ref={ref} {...props} className={withClass(`mu-checkbox mu-s-${resolved} mu-focus mu-hit`, className)}>
+    <BaseCheckbox.Root ref={ref} {...props} className={withClass(`mu-checkbox mu-s-${resolved} mu-focus`, className)}>
       <BaseCheckbox.Indicator
         className="mu-checkbox-indicator"
         render={(indicatorProps, state) => (

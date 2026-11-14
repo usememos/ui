@@ -65,7 +65,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 
 Compose Popover, Toggle and Button; the library does not ship a ReactionPicker. The app owns counts, user identity, requests, pending/disabled state and whether a successful choice closes the popup. Both places read the same controlled `pressed` values; do not give the picker a separate selection state. This example keeps the popup open so several choices can be toggled.
 
-On desktop the strip is 24px high (`sm`): soft pills, 14px emoji, 13px counts and 4px between them. The ghost add button is circular and the same height. The picker uses `mu-compact` for 28px cells, 2px between cells and 8px total inset (including its border). It sizes to its contents and Base UI anchors it to the add button. The default eight choices form one row; narrow viewports and coarse pointers use four columns. On coarse pointers all controls actually reserve at least 44px in the layout, so adjacent hit areas never overlap. Text and emoji stay the same size.
+The strip is 24px high (`sm`) on every input device: soft pills, 14px emoji, 13px counts and 4px between them. The ghost add button is circular and the same height. The picker uses `mu-compact` for 28px cells, 2px between cells and 8px total inset (including its border). It sizes to its contents and Base UI anchors it to the add button. The default eight choices form one row; narrow viewports use four columns regardless of input device. Neither the strip nor the picker expands its hit areas. Text and emoji stay the same size.
 
 `icon` remains a Lucide slot. An emoji is content in `children`, with its own type class; the small layout class below makes an emoji-only Toggle square without depending on undocumented icon-slot behavior or internal `mu-*` classes. This is a CSS grid of ordinary toggles, not an ARIA grid or menu: Tab reaches each choice, Space/Enter toggles it, Escape dismisses an open Tooltip first, then the popup and restores trigger focus. Give each emoji a localized accessible name and a matching Tooltip. The popup is named with `aria-label` because this compact example has no visible title.
 
@@ -152,7 +152,7 @@ The remaining CSS describes content and layout, not control colors, borders, foc
 .reaction-popup { width: max-content; padding: calc(var(--mu-space-2) - 1px); }
 .reaction-options { display: grid; grid-auto-flow: column; gap: var(--mu-inset); max-height: var(--mu-list-height); overflow-y: auto; }
 .reaction-option { width: var(--mu-row-height); padding: 0; }
-@media (max-width: 639px), (pointer: coarse) {
+@media (max-width: 639px) {
   .reaction-options { grid-auto-flow: row; grid-template-columns: repeat(4, max-content); }
 }
 ```

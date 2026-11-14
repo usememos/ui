@@ -35,4 +35,4 @@ Base UI has no textarea part, so this renders Base UI's `Field.Control` as a `<t
 ## Style
 
 - Looks like [Input](input.md), including an unchanged border and surface under mouse and keyboard focus. The caret or text selection identifies the active field; state changes have no animation. Resizes vertically only.
-- On touch screens typed text is 16px on a 20px line at every size, like Input, so iOS Safari does not zoom in on focus.
+- Typed text follows the size row on every input device, like Input: 13px on an 18px line at sm and 14px on a 20px line at md.

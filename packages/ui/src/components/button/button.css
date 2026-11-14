@@ -59,7 +59,3 @@
 .mu-button[data-loading] { cursor: progress; }
 .mu-button[data-loading-visible] > :not(.mu-spinner) { opacity: 0; }
 .mu-button > .mu-spinner { position: absolute; inset: 0; margin: auto; }
-
-@media (pointer: coarse) {
-  .mu-button { min-width: var(--mu-hit-area); min-height: var(--mu-hit-area); }
-}

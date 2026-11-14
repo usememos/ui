@@ -2,7 +2,7 @@
 
 ## Control sizes
 
-The table gives desktop sizes. Touch targets reserve additional space as described below. Every control takes one `size` prop: `xs`, `sm` or `md` (the default). There is no `lg`. The size sets every value in its row together. Never mix rows in one component.
+The table applies to every input device. Visible dimensions, layout space and hit boundaries stay the same for a given size. Every control takes one `size` prop: `xs`, `sm` or `md` (the default). There is no `lg`. The size sets every value in its row together. Never mix rows in one component.
 
 | Size | Height | Padding | Icon | Icon gap | Text | Radius | Check box |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -10,11 +10,11 @@ The table gives desktop sizes. Touch targets reserve additional space as describ
 | sm | `control-sm` 24px | 8px | 14px | 4px | 13 / 18px | `radius-sm` 4px | 16px |
 | md (default) | `control-md` 32px | 12px | 16px | 6px | 14 / 20px | `radius-md` 6px | 18px |
 
-- Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding and sheets. A sidebar with 28px rows puts the `mu-compact` class on itself: md controls and rows inside are `control-compact` (28px) tall, with md text, icons, padding and radius (see [A sidebar navigation row](usage.md#a-sidebar-navigation-row)). It is the only height between sizes, and it is not a `size` value. Floating lists (Menu, Select and Combobox lists) use it for their sm rows too: an sm list has 28px rows with sm text and icons, because a 24px row is cramped inside a 12px-radius popup. Emphasis comes from the `primary` variant, not from a bigger control. On touch screens buttons, fields and option rows grow to at least 44px; checkboxes, radios and switches keep their small marks and reserve 44px of layout space around them.
+- Use `sm` for dense toolbars, table rows and filters inside panels, and `md` everywhere else, including marketing pages, onboarding and sheets. A sidebar with 28px rows puts the `mu-compact` class on itself: md controls and rows inside are `control-compact` (28px) tall, with md text, icons, padding and radius (see [A sidebar navigation row](usage.md#a-sidebar-navigation-row)). It is the only height between sizes, and it is not a `size` value. Floating lists (Menu, Select and Combobox lists) use it for their sm rows too: an sm list has 28px rows with sm text and icons, because a 24px row is cramped inside a 12px-radius popup. Emphasis comes from the `primary` variant, not from a bigger control.
 - Use `xs` for secondary actions beside 13px text: actions on a row or an entry, inline formatting, filters in a tight header, checkboxes in a dense list. It is the height of a Badge or a Kbd, so they line up. Don't use `xs` for forms, for navigation, or for the main action of a screen.
 - Only Button, Toggle, ToggleGroup, Checkbox, RadioGroup and Radio, Switch, Avatar, Spinner and Skeleton take `xs`. Text entry, menus, tabs and tables are too cramped at 20px, so their `size` is `sm | md`, and an `xs` inherited from a parent renders them at `sm`.
 - The icon side of a control has 2px less padding, so text and icon look centered. Floating-list items follow the separate contract below. Button and Toggle with `shape="pill"` instead keep equal size-row padding at both ends and use `radius-full`; an icon-only control is a circle. Heights, icon sizes and touch targets stay the same.
-- On touch screens (`pointer: coarse`), every control reserves at least `hit-area` (44px) in the layout. Buttons and option rows grow; checkboxes, radios and switches reserve margins around their visual marks. Adjacent hit areas must never overlap. A segmented group adds its 2px inset around 44px items.
+- Input capabilities never override a size row. Do not add touch-only minimum dimensions, margins, padding, text sizes or transparent hit-area extensions. A control uses its own boundary for hit testing; native labels keep their normal activation behavior. Responsive composition may follow available width, but touch input alone never changes geometry.
 
 ### Floating-list items
 
@@ -31,7 +31,7 @@ Menu, Select and Combobox list items, including inline Combobox lists and rows d
 - Leading icons keep the same 8px inset as text-only items; do not apply the control's 2px icon-side reduction. This keeps the row's content edge independent of its children.
 - A standalone trailing icon in a Menu row uses the control's shared 2px optical correction toward the inline end. This applies to built-in submenu arrows and app-supplied trailing icons alike. Icons keep their size-row square; do not add offsets for individual glyphs. Wrapped selection checks keep the ordinary 8px end inset.
 - Menu and Select popups, Combobox lists and list Popovers keep 6px outer padding, including the surface border. A list Popover's title and description use the same 8px inline padding as its rows. Separators retain their 6px block spacing and extend to the surface edges.
-- On coarse pointers rows grow to at least 44px; horizontal spacing stays the same. Combobox grid cells keep their square-cell layout instead of list-item padding.
+- Row heights and padding are the same for mouse and touch input. Combobox grid cells keep their square-cell layout instead of list-item padding.
 - Triggers, text fields, boxed List rows and panel Popovers keep their own spacing contracts. Apps reuse the list classes instead of adding another layer of horizontal padding.
 
 ### Measured insets
@@ -150,7 +150,6 @@ Ordinary controls use their size-row radius; inputs never use a pill. Badges alw
 | `control-md` | 32px | Default control height |
 | `control-compact` | 28px | md height inside `mu-compact`, for an app's sidebar; sm row height in menus, select lists and combobox lists |
 | `inset` | 2px | Well-to-key inset at every size |
-| `hit-area` | 44px | Minimum touch target on `pointer: coarse`, with non-overlapping space reserved in layout |
 | `focus-edge-width` | 1px | Normal focus edge width; 2px in forced-colors mode |
 | `icon-xs` | 12px | Icons in xs controls and badges |
 | `icon-sm` | 14px | Icons in sm controls |

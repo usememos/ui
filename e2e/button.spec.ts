@@ -145,13 +145,9 @@ test('delays only the spinner, keeps its width, and restores the label when work
 test.describe('on a touch screen', () => {
   test.use({ hasTouch: true, isMobile: true });
 
-  test('the hit area reaches 44px', async ({ page }) => {
+  test('sm keeps its 24px height without an expanded hit area', async ({ page }) => {
     await open(page, { size: 'sm' });
-    const after = await save(page).evaluate((element) => {
-      const style = getComputedStyle(element, '::after');
-      return [parseFloat(style.width), parseFloat(style.height)];
-    });
-    expect(after[0]).toBeGreaterThanOrEqual(44);
-    expect(after[1]).toBe(44);
+    expect((await save(page).boundingBox())!.height).toBe(24);
+    expect(await save(page).evaluate((element) => getComputedStyle(element, '::after').content)).toBe('none');
   });
 });

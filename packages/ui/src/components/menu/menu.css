@@ -58,8 +58,3 @@
 
 .mu-menu-group-label { padding: var(--mu-space-2) var(--mu-space-2) var(--mu-space-1); color: var(--mu-text-secondary); }
 .mu-menu-separator { height: 1px; margin: calc(var(--mu-radius-xl) - var(--mu-radius-md)) calc(1px + var(--mu-radius-md) - var(--mu-radius-xl)); background-color: var(--mu-line); }
-
-@media (pointer: coarse) {
-  .mu-menu-item { min-height: var(--mu-hit-area); }
-  .mu-menu-item:where(:has(> .mu-menu-text)) { min-height: var(--mu-hit-area); }
-}

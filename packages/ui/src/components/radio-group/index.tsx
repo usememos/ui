@@ -35,7 +35,7 @@ export interface RadioProps extends BaseRadio.Root.Props {
 export const Radio = forwardRef<HTMLElement, RadioProps>(function Radio({ size, className, ...props }, ref) {
   const resolved = useSize(size);
   return (
-    <BaseRadio.Root ref={ref} {...props} className={withClass(`mu-radio mu-s-${resolved} mu-focus mu-hit`, className)}>
+    <BaseRadio.Root ref={ref} {...props} className={withClass(`mu-radio mu-s-${resolved} mu-focus`, className)}>
       <BaseRadio.Indicator className="mu-radio-indicator" />
     </BaseRadio.Root>
   );

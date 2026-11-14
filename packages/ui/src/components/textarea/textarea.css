@@ -22,7 +22,3 @@
 .mu-textarea:is([data-disabled], [aria-disabled="true"]) { color: var(--mu-text-disabled); background-color: var(--mu-well); border-color: var(--mu-edge); cursor: not-allowed; }
 
 .mu-textarea:where([data-disabled], [aria-disabled="true"])::placeholder { color: var(--mu-text-disabled); }
-
-@media (pointer: coarse) {
-  .mu-textarea { min-height: var(--mu-hit-area); }
-}

@@ -60,8 +60,9 @@ test.describe('centered panels on coarse pointers', () => {
         expect(box.x + box.width).toBe(width - 16);
         const close = popup.getByRole('button', { name: 'Close', exact: true });
         const target = (await close.boundingBox())!;
-        expect(target.width).toBeGreaterThanOrEqual(44);
-        expect(target.height).toBeGreaterThanOrEqual(44);
+        expect(target.width).toBe(24);
+        expect(target.height).toBe(24);
+        await expect(popup.locator('.mu-dialog-title')).toHaveCSS('padding-inline-end', '24px');
         expect(target.x + target.width).toBeLessThanOrEqual(width);
         await close.tap();
         await expect(popup).toBeHidden();

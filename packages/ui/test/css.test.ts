@@ -77,6 +77,12 @@ describe('stylesheets', () => {
     }
   });
 
+  it('keeps geometry independent of pointer capabilities', () => {
+    for (const [name, source] of Object.entries({ foundationCss, focusCss, optionRowsCss, ...componentCss })) {
+      expect(stripComments(source), name).not.toMatch(/@media[^{]*\b(?:any-)?pointer\s*:\s*coarse/);
+    }
+  });
+
   it('import every component stylesheet into styles.css', () => {
     for (const path of Object.keys(componentCss)) {
       const file = path.replace('../src/', '../');

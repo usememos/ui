@@ -26,7 +26,7 @@ Change the owning rule first. An exception belongs beside that rule, with its re
 
 | App owns | Package owns |
 | --- | --- |
-| Placement, external margins, width constraints, flex/grid arrangement and responsive composition | Internal padding and gaps, height/minimum hit area, radius, type, icon geometry, semantic colors and state treatments |
+| Placement, external margins, width constraints, flex/grid arrangement and responsive composition | Internal padding and gaps, height/hit boundaries, radius, type, icon geometry, semantic colors and state treatments |
 | Choosing documented props and composing parts | The appearance and behavior promised by those props and parts |
 | Complete color/font themes through the documented theme tokens | All other token values and every shipped class rule |
 

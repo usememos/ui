@@ -7,7 +7,7 @@
 3. **One shared vocabulary.** Components and public classes carry the same roles across products. Solve visual problems in that contract instead of accumulating local overrides. Our [Linear reference](design-reference.md) explains the evidence and the choices we make from it.
 4. **Complete behavior, few visual treatments.** An interaction event is not a visual variant. Text entry stays stable through hover, focus and press; the caret or selection shows typing focus. Actions reuse one highlight, persistent choices retain a selected fill or mark, and errors, unavailable controls and waiting remain understandable.
 5. **Immediate feedback, minimal opening and closing.** Hover, press, focus and frequent selection update immediately. Tabs do not animate every navigation step. Keep short shared transitions when popups, dialogs and panels appear or disappear. Motion explains content visibility, useful position changes or progress. No press movement, scaling, brightness filters or decorative event fades. See [Motion](motion.md) for the shared timings and reduced-motion rules.
-6. **Dense and predictable.** Use the documented size rows, type scale, spacing ladder and icon system: controls default to 32px, on a 4px spacing scale. Components stay generic; products compose their screens from them and the shared patterns.
+6. **Dense and predictable.** Use the documented size rows, type scale, spacing ladder and icon system: controls default to 32px, on a 4px spacing scale. A given size keeps the same geometry, text and hit boundaries across mouse and touch input. Components stay generic; products compose their screens from them and the shared patterns.
 
 ## Voice and interface text
 

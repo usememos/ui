@@ -47,10 +47,6 @@
 .mu-toggle-soft[data-pressed] { background-color: var(--mu-selected); }
 .mu-toggle-soft:where([data-disabled]:not([data-pressed])) { background-color: var(--mu-well); }
 
-@media (pointer: coarse) {
-  .mu-toggle { min-width: var(--mu-hit-area); min-height: var(--mu-hit-area); }
-}
-
 @media (forced-colors: active) {
   .mu-toggle { forced-color-adjust: none; --mu-text: var(--mu-key); --mu-text-secondary: var(--mu-key); --mu-hover: transparent; --mu-well: transparent; --mu-selected: transparent; }
   .mu-toggle:where([data-pressed]) { border-color: var(--mu-key); }

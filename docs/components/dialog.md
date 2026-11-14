@@ -79,7 +79,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal`, `d
 ## Style
 
 - `mu-popup` with `radius-2xl`, `space-5` padding, `dialog-width` wide; children stack `space-4` apart, and the Footer sits `space-6` under them. The backdrop is `overlay`.
-- Title: `title`. Description: `body` in `text-secondary`, `space-1` under the title, so the two read as one header. The X is a small ghost Button at `space-4` from the corner. On touch screens it reserves 44px, and the title leaves room for that target.
+- Title: `title`. Description: `body` in `text-secondary`, `space-1` under the title, so the two read as one header. The X is a small ghost Button at `space-4` from the corner. The title leaves room for the same 24px close button on every input device.
 - Opening and closing use the shared [Motion](../motion.md) fade and `space-1` offset over `duration-settle`; the backdrop fades with the same timing. A sheet uses `space-6` from the bottom, with square bottom corners and full-width buttons stacked with the action on top. Opening and closing are immediate under reduced motion, including the backdrop.
 - Long content scrolls the viewport around the panel.
 - `bare`: no padding, no gap and no X; the content is clipped to the radius. Set the width with `className` when it differs from `dialog-width`.

@@ -68,10 +68,6 @@
 .mu-tabs-list { align-self: flex-start; }
 .mu-tabs-panel { border: var(--mu-focus-edge-width) solid transparent; border-radius: var(--mu-radius-sm); }
 
-@media (pointer: coarse) {
-  .mu-segmented-item, .mu-segmented > .mu-toggle { min-width: var(--mu-hit-area); min-height: var(--mu-hit-area); }
-}
-
 @media (forced-colors: active) {
   .mu-segmented { --mu-text: var(--mu-key); --mu-text-secondary: var(--mu-key); }
   /* Keep unselected borders transparent; the key and focus still use system colors. */

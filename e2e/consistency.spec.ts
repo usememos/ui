@@ -121,7 +121,7 @@ for (const theme of themes) {
 test.describe('narrow composed content', () => {
   test.use({ viewport: { width: 320, height: 800 }, isMobile: true, hasTouch: true });
   for (const theme of themes) {
-    test(`${theme}: long content fits without reducing text or touch targets`, async ({ page }) => {
+    test(`${theme}: long content fits while keeping its text and size rows`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await open(page, { theme });
       const filterFixture = page.locator('#combobox');
@@ -132,7 +132,7 @@ test.describe('narrow composed content', () => {
       await filterFixture.getByRole('button', { name: 'Filter collections', exact: true }).tap();
       await expect(page.locator('.mu-combobox-popup')).toBeVisible();
       for (const row of await page.locator('.mu-combobox-item').all()) {
-        expect((await row.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+        expect((await row.boundingBox())!.height).toBeGreaterThanOrEqual(32);
       }
       await page.keyboard.press('Escape');
       await expect(page.locator('.mu-combobox-popup')).toBeHidden();
@@ -140,7 +140,7 @@ test.describe('narrow composed content', () => {
       const popup = page.getByRole('menu');
       expect(await popup.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
       for (const row of await popup.locator('.mu-menu-item').all()) {
-        expect((await row.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+        expect((await row.boundingBox())!.height).toBeGreaterThanOrEqual(32);
         await expect(row).toHaveCSS('font-weight', '400');
       }
       await expectNoAxeViolations(page, '.mu-menu-popup');

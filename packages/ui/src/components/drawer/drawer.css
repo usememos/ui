@@ -57,10 +57,6 @@
 .mu-drawer-description { margin: calc(-1 * var(--mu-space-3)) 0 0; color: var(--mu-text-secondary); }
 .mu-drawer-x { position: absolute; top: var(--mu-space-4); inset-inline-end: var(--mu-space-4); }
 
-@media (pointer: coarse) {
-  .mu-drawer-popup:where(:has(> .mu-drawer-x)) > .mu-drawer-content > .mu-drawer-title { padding-inline-end: var(--mu-hit-area); }
-}
-
 /* Reduced motion keeps opening and closing immediate, including the backdrop. */
 @media (prefers-reduced-motion: reduce) {
   .mu-drawer-popup, .mu-drawer-backdrop { transition: none; }

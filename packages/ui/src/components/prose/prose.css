@@ -72,18 +72,6 @@
 }
 .mu-prose li:where(:has(> input[type="checkbox"]:first-child:checked)) { color: var(--mu-text-secondary); text-decoration: line-through; }
 
-@media (pointer: coarse) {
-  .mu-prose li:where(:has(> input[type="checkbox"]:first-child)) { padding-inline-start: calc(var(--mu-hit-area) - var(--mu-space-6)); }
-  .mu-prose li > input[type="checkbox"]:first-child:disabled { inset-inline-start: calc(-1 * var(--mu-space-6) + (var(--mu-hit-area) - var(--mu-space-4)) / 2); }
-  .mu-prose li:where(:has(> input[type="checkbox"]:first-child:not(:disabled))) {
-    box-sizing: border-box;
-    min-height: var(--mu-hit-area);
-    padding-block: calc((var(--mu-hit-area) - var(--prose-lh)) / 2);
-  }
-  .mu-prose li > input[type="checkbox"]:first-child:not(:disabled) { top: 0; width: var(--mu-hit-area); height: var(--mu-hit-area); }
-  .mu-prose li > input[type="checkbox"]:first-child:not(:disabled)::before { inset: calc((var(--mu-hit-area) - var(--mu-space-4)) / 2); }
-  .mu-prose li > input[type="checkbox"]:first-child:not(:disabled):checked::after { inset: calc((var(--mu-hit-area) - var(--mu-space-4)) / 2 + var(--mu-inset) + 1px); }
-}
 
 /* Code. */
 .mu-prose :where(code, kbd, samp, pre) { font-family: var(--mu-font-mono); font-size: 0.875em; }

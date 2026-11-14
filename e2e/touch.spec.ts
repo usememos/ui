@@ -1,7 +1,68 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Locator } from '@playwright/test';
 import { open, themes } from './helpers';
 
 test.use({ hasTouch: true, isMobile: true, viewport: { width: 390, height: 844 } });
+
+const geometry = (parts: Locator) => parts.evaluateAll((elements) => elements.map((element) => {
+  const { width, height } = element.getBoundingClientRect();
+  const style = getComputedStyle(element);
+  return {
+    className: element.getAttribute('class'), width, height,
+    padding: style.padding, margin: style.margin, gap: style.gap,
+    fontSize: style.fontSize, lineHeight: style.lineHeight, radius: style.borderRadius,
+    after: getComputedStyle(element, '::after').content,
+  };
+}));
+
+for (const theme of themes) {
+  for (const size of ['xs', 'sm', 'md'] as const) {
+    test(`${theme} ${size}: mouse and touch keep identical control and overlay geometry`, async ({ browser }) => {
+      const mouse = await browser.newContext({ viewport: { width: 1000, height: 800 }, hasTouch: false, reducedMotion: 'reduce' });
+      const touch = await browser.newContext({ viewport: { width: 1000, height: 800 }, hasTouch: true, reducedMotion: 'reduce' });
+      try {
+        const pages = [await mouse.newPage(), await touch.newPage()];
+        for (const [index, page] of pages.entries()) {
+          await open(page, { theme, size });
+          expect(await page.evaluate(() => matchMedia('(pointer: coarse)').matches)).toBe(index === 1);
+        }
+        const selectors = '.mu-button, .mu-input-root, .mu-input, .mu-textarea, .mu-select-trigger, .mu-combobox-trigger, .mu-checkbox, .mu-radio, .mu-switch, .mu-toggle, .mu-segmented, .mu-segmented-item, .mu-list-item-button, .mu-prose li, .mu-prose input[type="checkbox"]';
+        const desktop = await geometry(pages[0]!.locator(selectors));
+        expect(desktop.length).toBeGreaterThan(0);
+        expect(await geometry(pages[1]!.locator(selectors))).toEqual(desktop);
+        for (const page of pages) {
+          const input = page.locator('#input').getByRole('textbox', { name: 'Title', exact: true });
+          if (page === pages[1]) await input.tap();
+          else await input.click();
+          await expect(input).toHaveCSS('font-size', size === 'md' ? '14px' : '13px');
+        }
+        expect(await geometry(pages[1]!.locator(selectors))).toEqual(await geometry(pages[0]!.locator(selectors)));
+
+        for (const overlay of [
+          { section: '#menu', trigger: 'More actions', popup: '.mu-menu-popup' },
+          { section: '#select', trigger: 'Visibility', popup: '.mu-select-popup', role: 'combobox' },
+          { section: '#combobox', trigger: 'Choose icon', popup: '.mu-popover-popup' },
+          { section: '#popover', trigger: 'Add reaction', popup: '.reaction-popup' },
+          { section: '#dialog', trigger: 'Centered panel', popup: '.mu-dialog-popup' },
+          { section: '#drawer', trigger: 'Note details', popup: '.mu-drawer-popup' },
+        ] as const) {
+          for (const page of pages) {
+            await page.locator(overlay.section).getByRole(overlay.role ?? 'button', { name: overlay.trigger, exact: true }).click();
+            await expect(page.locator(overlay.popup)).toBeVisible();
+          }
+          const parts = `${overlay.popup}, ${overlay.popup} [class*="mu-"], ${overlay.popup} .reaction-options`;
+          expect(await geometry(pages[1]!.locator(parts)), overlay.trigger).toEqual(await geometry(pages[0]!.locator(parts)));
+          for (const page of pages) {
+            await page.keyboard.press('Escape');
+            await expect(page.locator(overlay.popup)).toBeHidden();
+          }
+        }
+      } finally {
+        await mouse.close();
+        await touch.close();
+      }
+    });
+  }
+}
 
 for (const size of ['xs', 'sm', 'md'] as const) {
   test(`touch: ${size} formatting controls receive their own taps`, async ({ page }) => {
@@ -10,8 +71,9 @@ for (const size of ['xs', 'sm', 'md'] as const) {
     for (const button of await group.getByRole('button').all()) {
       await button.scrollIntoViewIfNeeded();
       const box = (await button.boundingBox())!;
-      expect(box.width).toBeGreaterThanOrEqual(44);
-      expect(box.height).toBeGreaterThanOrEqual(44);
+      const height = { xs: 20, sm: 24, md: 32 }[size];
+      expect(box.width).toBe(height);
+      expect(box.height).toBe(height);
       const before = await group.getByRole('button').evaluateAll((buttons) => buttons.map((element) => element.getAttribute('aria-pressed')));
       const index = await button.evaluate((element) => [...element.parentElement!.querySelectorAll('button')].findIndex((button) => button === element));
       for (const x of [box.x + 1, box.x + box.width / 2, box.x + box.width - 1]) {
@@ -26,14 +88,14 @@ for (const size of ['xs', 'sm', 'md'] as const) {
 
 for (const theme of themes) {
   for (const size of ['sm', 'md'] as const) {
-    test(`Prose task targets reserve 44px without overlap at ${size} in ${theme}`, async ({ page }) => {
+    test(`Prose task targets keep their 16px size without overlap at ${size} in ${theme}`, async ({ page }) => {
       await open(page, { theme, size });
       const tasks = page.locator('#prose input[type="checkbox"]:not(:disabled)');
       const boxes = [];
       for (const task of await tasks.all()) {
         await task.scrollIntoViewIfNeeded();
         const box = (await task.boundingBox())!;
-        expect([box.width, box.height]).toEqual([44, 44]);
+        expect([box.width, box.height]).toEqual([16, 16]);
         const mark = await task.evaluate((element) => {
           const style = getComputedStyle(element, '::before');
           return [parseFloat(style.width), parseFloat(style.height)];
@@ -53,16 +115,16 @@ for (const theme of themes) {
       expect(await row.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
       const readOnly = page.locator('#prose input[type="checkbox"]:disabled');
       expect((await readOnly.boundingBox())!.height).toBe(16);
-      expect((await readOnly.boundingBox())!.x).toBeCloseTo((await tasks.first().boundingBox())!.x + 14, 0);
+      expect((await readOnly.boundingBox())!.x).toBeCloseTo((await tasks.first().boundingBox())!.x, 0);
     });
   }
 
-  test(`touch: option rows reserve 44px in ${theme}`, async ({ page }) => {
+  test(`touch: sm option rows stay 28px in ${theme}`, async ({ page }) => {
     await open(page, { theme, size: 'sm' });
     await page.locator('#menu').getByRole('button', { name: 'More actions', exact: true }).tap();
     await expect(page.getByRole('menu')).toBeVisible();
     for (const item of await page.getByRole('menuitem').all()) {
-      expect(Math.round((await item.boundingBox())!.height)).toBeGreaterThanOrEqual(44);
+      expect(Math.round((await item.boundingBox())!.height)).toBe(28);
       await expect(item).toHaveCSS('padding-inline-start', '8px');
       await expect(item).toHaveCSS('padding-inline-end', '8px');
     }
@@ -71,7 +133,7 @@ for (const theme of themes) {
     await page.locator('#select').getByRole('combobox', { name: 'Visibility', exact: true }).tap();
     await expect(page.getByRole('option').first()).toBeVisible();
     for (const item of await page.getByRole('option').all()) {
-      expect(Math.round((await item.boundingBox())!.height)).toBeGreaterThanOrEqual(44);
+      expect(Math.round((await item.boundingBox())!.height)).toBe(28);
       await expect(item).toHaveCSS('padding-inline-start', '8px');
       await expect(item).toHaveCSS('padding-inline-end', '8px');
     }
@@ -80,7 +142,7 @@ for (const theme of themes) {
     await page.getByRole('combobox', { name: 'Tag', exact: true }).fill('de');
     await expect(page.getByRole('option').first()).toBeVisible();
     for (const item of await page.getByRole('option').all()) {
-      expect(Math.round((await item.boundingBox())!.height)).toBeGreaterThanOrEqual(44);
+      expect(Math.round((await item.boundingBox())!.height)).toBe(28);
       await expect(item).toHaveCSS('padding-inline-start', '8px');
       await expect(item).toHaveCSS('padding-inline-end', '8px');
     }

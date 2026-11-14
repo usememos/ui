@@ -66,10 +66,6 @@
   .mu-dialog-sheet .mu-dialog-footer > * { width: 100%; }
 }
 
-@media (pointer: coarse) {
-  .mu-dialog-popup:where(:has(> .mu-dialog-x)) > .mu-dialog-title { padding-inline-end: var(--mu-hit-area); }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .mu-dialog-popup, .mu-dialog-backdrop { transition: none; }
   .mu-dialog-popup[data-starting-style], .mu-dialog-popup[data-ending-style],

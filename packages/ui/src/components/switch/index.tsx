@@ -16,7 +16,7 @@ export interface SwitchProps extends BaseSwitch.Root.Props {
 export const Switch = forwardRef<HTMLElement, SwitchProps>(function Switch({ size, className, ...props }, ref) {
   const resolved = useSize(size);
   return (
-    <BaseSwitch.Root ref={ref} {...props} className={withClass(`mu-switch mu-s-${resolved} mu-focus mu-hit`, className)}>
+    <BaseSwitch.Root ref={ref} {...props} className={withClass(`mu-switch mu-s-${resolved} mu-focus`, className)}>
       <BaseSwitch.Thumb className="mu-switch-thumb" />
     </BaseSwitch.Root>
   );

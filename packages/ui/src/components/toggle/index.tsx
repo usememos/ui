@@ -20,7 +20,7 @@ export interface ToggleProps extends BaseToggle.Props {
 export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(function Toggle({ size, variant = 'ghost', shape = 'default', icon, className, children, ...props }, ref) {
   const resolved = useSize(size);
   const iconOnly = icon !== undefined && (children === undefined || children === null || children === false);
-  const classes = cx('mu-toggle', variant === 'soft' && 'mu-toggle-soft', shape === 'pill' && 'mu-toggle-pill', iconOnly && 'mu-toggle-icon', 'mu-base', `mu-s-${resolved}`, 'mu-focus', 'mu-hit');
+  const classes = cx('mu-toggle', variant === 'soft' && 'mu-toggle-soft', shape === 'pill' && 'mu-toggle-pill', iconOnly && 'mu-toggle-icon', 'mu-base', `mu-s-${resolved}`, 'mu-focus');
   return (
     <BaseToggle ref={ref} {...props} className={withClass(classes, className)}>
       {icon}

@@ -2,7 +2,7 @@
 
 ## Rules
 
-- Font decisions follow Apple's [typography guidelines](https://developer.apple.com/design/human-interface-guidelines/typography): the system font, no weight lighter than Regular, hierarchy from color, weight and size, no text under its 11pt minimum for iPhone, and no added letter spacing. The package follows these rules; it does not copy Apple's size tables, which differ per platform (13pt text on Mac, 17pt on iPhone). One set of sizes serves every device, and text does not grow on touch screens, except typed text in fields (see the last rule).
+- Font decisions follow Apple's [typography guidelines](https://developer.apple.com/design/human-interface-guidelines/typography): the system font, no weight lighter than Regular, hierarchy from color, weight and size, no text under its 11pt minimum for iPhone, and no added letter spacing. The package follows these rules; it does not copy Apple's size tables, which differ per platform (13pt text on Mac, 17pt on iPhone). One set of sizes serves every device, including typed text in fields.
 - Use few sizes and few weights. App text uses four sizes (13, 14, 16 and 20px) and two weights (400 and 500); 11px is reserved for compact control labels, keyboard shortcuts and initials (see `label-xs` and `caption-xs`); user tags and status labels use 13px `caption` even inside a 20px Badge. Hierarchy comes from text color, spacing and grouping first, then from weight, and from size last.
 - Weight 500 names a control, setting or section: Field labels, including horizontal settings rows and labels around Checkbox, Switch or Radio, button and layout-toggle labels, titles and headings. Weight 400 is for entered or selected values, Menu/Select/Combobox items, running text, descriptions, metadata and badge text. A row's layout or control type never lowers its label's weight. The UI uses no 450, 600 or 700. The one exception is [Prose](components/prose.md): bold text and headings that people wrote are 600, because 500 does not read as bold in system fonts.
 - 20px (`heading`) is for the page title only, once per page. 32px (`display`) is for the hero headline on a website only, once per page. Nothing else in the UI is larger than 16px, and 16px is only for `title` and Prose text. Headings that people write inside Prose have their own sizes (see [Prose](#prose)).
@@ -16,7 +16,7 @@
 - Adding a size, a weight or a style needs a written reason in this page and the maintainer's sign-off.
 - The platform's UI font for everything (San Francisco on Apple, Segoe UI on Windows, Roboto on Android), smoothed with antialiasing. The package ships no font files.
 - Titles and headings (`title`, `heading`, `display`, and headings in Prose) use `text-wrap: balance`, so a heading that wraps does not leave one word on its last line. Prose paragraphs and list items use `text-wrap: pretty`. Browsers without these wrap as usual.
-- Typed text in fields is 16px on touch screens (`pointer: coarse`), whatever the field's size: below 16px, iOS Safari zooms the page in when a field takes focus. The field keeps its height; its label and placeholder layout do not change.
+- Typed text follows the field's size row on every device: 13px at sm and 14px at md, with no touch-only font or line-height override.
 
 ## Text roles
 

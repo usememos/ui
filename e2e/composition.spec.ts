@@ -5,15 +5,13 @@ const moreActions = (page: Page) => page.locator('#menu').getByRole('button', { 
 
 test.describe('on a touch screen', () => {
   test.use({ hasTouch: true, isMobile: true });
-  test('checkbox, switch and radio hit areas reach 44px', async ({ page }) => {
+  test('sm checkbox, switch and radio keep their size without extra margins or hit areas', async ({ page }) => {
     await open(page, { size: 'sm' });
-    for (const selector of ['#checkbox .mu-checkbox', '#switch .mu-switch', '#radio-group .mu-radio']) {
-      const after = await page.locator(selector).first().evaluate((element) => {
-        const style = getComputedStyle(element, '::after');
-        return [parseFloat(style.width), parseFloat(style.height)];
-      });
-      expect(after[0], selector).toBeGreaterThanOrEqual(44);
-      expect(after[1], selector).toBeGreaterThanOrEqual(44);
+    for (const [selector, height] of [['#checkbox .mu-checkbox', 16], ['#switch .mu-switch', 18], ['#radio-group .mu-radio', 16]] as const) {
+      const control = page.locator(selector).first();
+      expect((await control.boundingBox())!.height, selector).toBe(height);
+      await expect(control).toHaveCSS('margin', '0px');
+      expect(await control.evaluate((element) => getComputedStyle(element, '::after').content), selector).toBe('none');
     }
   });
 });

@@ -147,14 +147,13 @@ test.describe('touch reactions', () => {
   test.use({ hasTouch: true, isMobile: true, viewport: { width: 320, height: 844 } });
 
   for (const theme of themes) {
-    test(`four columns reserve independent 44px targets in ${theme}`, async ({ page }) => {
+    test(`narrow viewports keep 24px reactions and independent 28px picker cells in ${theme}`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await open(page, { theme, size: 'sm' });
       const strip = page.getByRole('group', { name: 'Reactions', exact: true });
       for (const control of await strip.getByRole('button').all()) {
         const box = (await control.boundingBox())!;
-        expect(box.width).toBeGreaterThanOrEqual(44);
-        expect(box.height).toBeGreaterThanOrEqual(44);
+        expect(box.height).toBe(24);
       }
       await strip.getByRole('button', { name: 'Add reaction', exact: true }).tap();
       const popup = page.getByRole('dialog', { name: 'Choose reactions', exact: true });
@@ -165,7 +164,7 @@ test.describe('touch reactions', () => {
       }));
       expect(new Set(boxes.map((box) => box.x)).size).toBe(4);
       expect(new Set(boxes.map((box) => box.y)).size).toBe(2);
-      expect(boxes.every((box) => box.width >= 44 && box.height >= 44)).toBe(true);
+      expect(boxes.every((box) => box.width === 28 && box.height === 28)).toBe(true);
       const panel = (await popup.boundingBox())!;
       expect(panel.x).toBeGreaterThanOrEqual(0);
       expect(panel.x + panel.width).toBeLessThanOrEqual(320);
