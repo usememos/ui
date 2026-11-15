@@ -13,5 +13,5 @@ export type ControlShape = 'default' | 'pill';
 /** Status tone for components that report a status, such as Badge and toasts. */
 export type Tone = 'neutral' | 'success' | 'warning' | 'danger';
 
-/** A Lucide icon element, such as `<Pin />` from lucide-react. Size and stroke come from the component. */
+/** An icon element. Controls use Lucide; collection rows also accept decorative emoji or identity marks. */
 export type IconElement = ReactElement;

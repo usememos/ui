@@ -59,6 +59,20 @@ describe('Select ghost trigger', () => {
   });
 });
 
+it('keeps a non-SVG identity in the decorative slot and out of the selected label', async () => {
+  render(
+    <Select.Root defaultOpen defaultValue="garden" items={{ garden: 'Garden' }}>
+      <Select.Trigger aria-label="Collection"><Select.Value /></Select.Trigger>
+      <Select.Popup><Select.Item value="garden" icon={<span>🌱</span>}>Garden</Select.Item></Select.Popup>
+    </Select.Root>,
+  );
+  await settle();
+  expect(document.querySelector('.mu-option-icon')!.textContent).toBe('🌱');
+  expect(document.querySelector('.mu-option-icon')!.getAttribute('aria-hidden')).toBe('true');
+  expect(document.querySelector('.mu-select-item-text')!.textContent).toBe('Garden');
+  expect(document.querySelector('.mu-select-value')!.textContent).toBe('Garden');
+});
+
 it('container, render, refs and native popup attributes reach the requested portal', async () => {
   const host = document.createElement('div');
   document.body.append(host);

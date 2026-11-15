@@ -60,7 +60,7 @@ interface Menu.ItemProps extends BaseMenu.Item.Props {
 // CheckboxItem and RadioItem take icon, shortcut and description too. SubmenuTrigger takes icon.
 
 function menuClasses(options?: { size?: "sm" | "md" }): {
-  popup: string; item: string; dangerItem: string; label: string; text: string; description: string;
+  popup: string; item: string; dangerItem: string; icon: string; label: string; text: string; description: string;
   shortcut: string; separator: string; groupLabel: string;
 };
 ```
@@ -70,6 +70,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 ## Rules
 
 - Act in `onClick`. Labels are verbs in sentence case.
+- Item and SubmenuTrigger `icon` slots accept a Lucide element, an emoji in a span or a noninteractive identity mark. The decorative slot owns the icon square. App-built rows use `menuClasses().icon` on an `aria-hidden` wrapper. See [Row anatomy](../layout.md#row-anatomy).
 - Put destructive items last, after a Separator, with `danger`. Confirm them with an [AlertDialog](dialog.md).
 - CheckboxItems and RadioItems stay open on click, so people can change several. A RadioItem that picks one setting and is done (a visibility picker) takes `closeOnClick`.
 - `description` explains a choice in a few words ("Only you can see it"). The item is named by its label and described by the description. Keep descriptions to one short line; they wrap when longer.

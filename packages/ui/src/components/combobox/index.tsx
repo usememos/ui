@@ -114,7 +114,7 @@ export const List = forwardRef<HTMLDivElement, ListProps>(function ComboboxList(
 });
 
 export interface ItemProps extends BaseCombobox.Item.Props {
-  /** A Lucide element before the label. */
+  /** A decorative element before the label, such as a Lucide icon, emoji or identity mark. */
   icon?: IconElement;
   children?: ReactNode;
 }
@@ -123,7 +123,7 @@ export interface ItemProps extends BaseCombobox.Item.Props {
 export const Item = forwardRef<HTMLDivElement, ItemProps>(function ComboboxItem({ icon, className, children, ...props }, ref) {
   return (
     <BaseCombobox.Item ref={ref} {...props} className={withClass('mu-combobox-item', className)}>
-      {icon}
+      {icon && <span className="mu-option-icon" aria-hidden>{icon}</span>}
       <span className="mu-combobox-item-text">{children}</span>
       <span className="mu-combobox-indicator">
         {/* The empty children replace Base UI's default "✔️" text inside the svg. */}

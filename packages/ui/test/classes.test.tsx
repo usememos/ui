@@ -6,6 +6,7 @@ import { act } from 'react';
 import { describe, expect, it } from 'vitest';
 import customDocs from '../../../docs/custom-components.md?raw';
 import foundationCss from '../src/styles/foundation.css?raw';
+import optionRowsCss from '../src/styles/option-rows.css?raw';
 import {
   Badge,
   badgeClasses,
@@ -23,7 +24,7 @@ import {
 import { render } from './render';
 
 const componentCss = import.meta.glob<string>('../src/components/*/*.css', { query: '?raw', import: 'default', eager: true });
-const allCss = [foundationCss, ...Object.values(componentCss)].join('\n').replace(/\/\*[\s\S]*?\*\//g, '');
+const allCss = [foundationCss, optionRowsCss, ...Object.values(componentCss)].join('\n').replace(/\/\*[\s\S]*?\*\//g, '');
 
 /** Classes of an element, as a sorted list. */
 const classesOf = (element: Element | null) => [...(element?.classList ?? [])].sort();
@@ -61,7 +62,7 @@ describe('class functions', () => {
         <Menu.Popup>
           <Menu.Group>
             <Menu.GroupLabel>Note</Menu.GroupLabel>
-            <Menu.Item shortcut="P">Pin</Menu.Item>
+            <Menu.Item icon={<span>🌱</span>} shortcut="P">Pin</Menu.Item>
           </Menu.Group>
           <Menu.Separator />
           <Menu.Item description="Moves it to the trash">Archive</Menu.Item>
@@ -78,6 +79,8 @@ describe('class functions', () => {
     expect(classesOf(items[1]!.querySelector('.mu-menu-description'))).toEqual(split(menu.description));
     expect(classesOf(items[2]!)).toEqual(split(menu.dangerItem));
     expect(classesOf(items[0]!.querySelector('.mu-menu-label'))).toEqual(split(menu.label));
+    expect(classesOf(items[0]!.querySelector('.mu-option-icon'))).toEqual(split(menu.icon));
+    expect(items[0]!.querySelector('.mu-option-icon')!.getAttribute('aria-hidden')).toBe('true');
     expect(classesOf(items[0]!.querySelector('.mu-menu-shortcut'))).toEqual(split(menu.shortcut));
     expect(classesOf(document.querySelector('[role="separator"]'))).toEqual(split(menu.separator));
     expect(classesOf(document.querySelector('.mu-menu-group-label'))).toEqual(split(menu.groupLabel));

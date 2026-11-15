@@ -12,12 +12,23 @@ async function expectColumns(rows: Locator, label: string) {
   const starts = await rows.locator(label).evaluateAll((labels) => labels.map((element) => element.getBoundingClientRect().left));
   expect(starts.length).toBeGreaterThan(1);
   expect(Math.max(...starts) - Math.min(...starts)).toBeLessThan(0.1);
+  for (const slot of await rows.locator('.mu-option-icon').all()) {
+    const geometry = await slot.evaluate((element) => {
+      const box = element.getBoundingClientRect();
+      const child = element.firstElementChild!.getBoundingClientRect();
+      return { width: box.width, height: box.height, expected: parseFloat(getComputedStyle(element).getPropertyValue('--mu-row-icon')), childWidth: child.width, childHeight: child.height };
+    });
+    expect(geometry.width).toBe(geometry.expected);
+    expect(geometry.height).toBe(geometry.expected);
+    expect(geometry.childWidth).toBeLessThanOrEqual(geometry.width);
+    expect(geometry.childHeight).toBeLessThanOrEqual(geometry.height);
+  }
 }
 
 async function expectUnavailableParts(row: Locator) {
   await expect(row).toHaveAttribute('data-disabled');
   const color = await row.evaluate((element) => getComputedStyle(element).color);
-  const parts = await row.locator('svg, [class*="label"], [class*="text"], [class*="description"], [class*="shortcut"], [class*="indicator"]').all();
+  const parts = await row.locator('svg, .mu-option-icon, [class*="label"], [class*="text"], [class*="description"], [class*="shortcut"], [class*="indicator"]').all();
   for (const part of parts) await expect(part).toHaveCSS('color', color);
   await expect(row).toHaveCSS('font-weight', '400');
   await row.hover({ force: true });
@@ -55,9 +66,12 @@ for (const theme of themes) {
       await expectUnavailableParts(archived);
       await expect(archived.locator('.mu-combobox-indicator svg')).toBeVisible();
       const filter = filterFixture.getByRole('combobox', { name: 'Filter collections' });
+      await filter.fill('Arch');
+      await expect(filtered).toHaveCount(1);
+      expect(await contentInset(filtered, filtered.locator('.mu-combobox-item-text'))).toBe(8 + (size === 'sm' ? 14 : 16) + 8);
       await filter.fill('Every');
       await expect(filtered).toHaveCount(1);
-      // Filtering away the only icon removes the unused leading column.
+      // Filtering away every icon removes the unused leading column.
       expect(await contentInset(filtered, filtered.locator('.mu-combobox-item-text'))).toBe(8);
       await filter.fill('');
       await expect(filtered).toHaveCount(3);

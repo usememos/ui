@@ -85,7 +85,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({
 });
 
 interface RowProps {
-  /** A Lucide element before the label. */
+  /** A decorative element before the label, such as a Lucide icon, emoji or identity mark. */
   icon?: IconElement;
   /** A keyboard shortcut at the end of the row, such as "⌘ D". */
   shortcut?: ReactNode;
@@ -105,7 +105,7 @@ function useRow({ icon, shortcut, description, children }: RowProps) {
   const label = <span className={classes.label}>{children}</span>;
   const content = (
     <>
-      {icon}
+      {icon && <span className={classes.icon} aria-hidden>{icon}</span>}
       {hasDescription ? (
         <span className={classes.text}>
           {label}

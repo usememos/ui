@@ -107,7 +107,7 @@ import { Ellipsis, Pin, Trash2 } from "lucide-react";
   - `checked` + `onCheckedChange`, or `defaultChecked` (Checkbox, Switch, Menu.CheckboxItem)
   - `pressed` + `onPressedChange`, or `defaultPressed` (Toggle)
   - `open` + `onOpenChange`, or `defaultOpen` (Menu, Dialog, AlertDialog, Popover, Tooltip, Collapsible, Select, Combobox)
-- **`icon`** takes a Lucide element (`icon={<Pin />}`), never a string name.
+- **`icon`** takes a Lucide element (`icon={<Pin />}`), never a string name. Collection item slots also accept decorative emoji or identity-mark elements; see [Icons](icons.md).
 - **`render`**, where the public prop type exposes it, swaps the rendered element through Base UI or `useRender`: a router's link in `Link`, a Button as a `Menu.Trigger`. Fixed native-element wrappers keep their documented element. Base UI doesn't render links through Button; a link that looks like a button is an anchor with `buttonClasses()` (see [Button](components/button.md#rules)).
 - **`className` and `style`** pass through to the part's element, after our classes, for layout and integration within [Styling ownership](consistency.md#styling-ownership).
 - **Accessible names.** A control without a visible label takes `aria-label`. Icon-only controls always do.

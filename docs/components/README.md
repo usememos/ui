@@ -70,7 +70,7 @@ The short version. [Using the components](../usage.md) has the full decision gui
 type Size = "xs" | "sm" | "md"; // xs only where a page says so; other components take "sm" | "md"
 type ControlShape = "default" | "pill"; // Button and Toggle; defaults keep size-row corners
 type Tone = "neutral" | "success" | "warning" | "danger";
-/** A Lucide icon element, such as <Pin /> from lucide-react. Size and stroke come from the component. */
+/** An icon element. Controls use Lucide; collection rows also accept decorative emoji or identity marks. */
 type IconElement = React.ReactElement;
 ```
 

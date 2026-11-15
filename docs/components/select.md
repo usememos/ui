@@ -62,6 +62,7 @@ Base UI's props pass through: `items`, `value`, `defaultValue`, `onValueChange`,
 
 - Pass `items` (value to label) to the root, so `Select.Value` shows the label, not the raw value.
 - Label it with a [Field](field.md), or `aria-label` on the trigger.
+- Item `icon` accepts a Lucide element, an emoji in a span or a noninteractive identity mark. The decorative slot owns the icon square; `children` holds only the label. See [Row anatomy](../layout.md#row-anatomy).
 - Use [RadioGroup](radio-group.md) for two or three options with room to show them, and [Combobox](combobox.md) for more than about 10 or when people type to find.
 - For actions, use [Menu](menu.md).
 - `variant="ghost"` draws the trigger as a row instead of a key, for a value people switch in place, such as the current space in a sidebar. In a sidebar with `mu-compact` it is 28px tall, like the rows around it. Put an icon before `Select.Value`. In a form, keep `neutral`.

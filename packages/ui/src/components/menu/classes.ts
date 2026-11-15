@@ -13,6 +13,8 @@ export interface MenuClasses {
   item: string;
   /** A destructive row: red text. */
   dangerItem: string;
+  /** The fixed leading square for a decorative icon, emoji or identity mark. */
+  icon: string;
   /** The text of a row, which truncates. */
   label: string;
   /** Stacks a row's label over its description. */
@@ -37,6 +39,7 @@ export function menuClasses({ size = 'md' }: MenuClassesOptions = {}): MenuClass
     popup: `mu-menu-popup mu-popup mu-popup-motion mu-base mu-s-${size}`,
     item: 'mu-menu-item',
     dangerItem: 'mu-menu-item mu-menu-item-danger',
+    icon: 'mu-option-icon',
     label: 'mu-menu-label',
     text: 'mu-menu-text',
     description: 'mu-menu-description mu-caption',

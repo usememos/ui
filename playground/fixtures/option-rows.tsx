@@ -1,8 +1,12 @@
 import { Button, Combobox, Field, Menu, Select } from '@usememos/ui';
-import { Pin } from 'lucide-react';
+import { Pin, Trash2 } from 'lucide-react';
 import type { RowSize } from '../sections';
 
 const choices = ['Pinned', 'Archived', 'Everything'];
+
+function IdentityMark() {
+  return <span style={{ display: 'grid', placeItems: 'center', width: 20, height: 20 }}><span>🌱</span></span>;
+}
 
 export function MenuRowParts({ size }: { size: RowSize; }) {
   return (
@@ -13,8 +17,8 @@ export function MenuRowParts({ size }: { size: RowSize; }) {
           <Menu.GroupLabel>Actions</Menu.GroupLabel>
           <Menu.Item icon={<Pin />} shortcut="P">Pin</Menu.Item>
           <Menu.Item shortcut="⇧⌘E" description="Exportieren Sie alle Einträge einschließlich ihrer Anhänge.">Export all entries with attachments</Menu.Item>
-          <Menu.CheckboxItem checked disabled shortcut="A" description="This saved choice is currently unavailable">Archived</Menu.CheckboxItem>
-          <Menu.Item danger disabled>Delete</Menu.Item>
+          <Menu.CheckboxItem icon={<IdentityMark />} checked disabled shortcut="A" description="This saved choice is currently unavailable">Archived</Menu.CheckboxItem>
+          <Menu.Item icon={<Trash2 />} danger disabled>Delete</Menu.Item>
         </Menu.Group>
         <Menu.Separator />
         <Menu.Group>
@@ -41,7 +45,7 @@ export function SelectDisabledChoice({ size }: { size: RowSize; }) {
         <Select.Group>
           <Select.GroupLabel>Collections</Select.GroupLabel>
           {choices.map((choice, index) => (
-            <Select.Item key={choice} value={choice} icon={index === 0 ? <Pin /> : undefined} disabled={choice === 'Archived'}>{choice}</Select.Item>
+            <Select.Item key={choice} value={choice} icon={index === 0 ? <Pin /> : index === 1 ? <IdentityMark /> : undefined} disabled={choice === 'Archived'}>{choice}</Select.Item>
           ))}
         </Select.Group>
         <Select.Group>
@@ -62,7 +66,7 @@ export function ComboboxMixedIcons({ size }: { size: RowSize; }) {
         <Combobox.Popup>
           <Combobox.List aria-label="Collection results">
             {(choice: string) => (
-              <Combobox.Item key={choice} value={choice} icon={choice === 'Pinned' ? <Pin /> : undefined} disabled={choice === 'Archived'}>{choice}</Combobox.Item>
+              <Combobox.Item key={choice} value={choice} icon={choice === 'Pinned' ? <Pin /> : choice === 'Archived' ? <span>🌱</span> : undefined} disabled={choice === 'Archived'}>{choice}</Combobox.Item>
             )}
           </Combobox.List>
         </Combobox.Popup>

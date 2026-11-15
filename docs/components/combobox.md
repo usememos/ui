@@ -27,6 +27,8 @@ const tags = ["book", "design", "travel"];
 
 ## Parts
 
+Item `icon` accepts a Lucide element, an emoji in a span or a noninteractive identity mark. The decorative slot owns the icon square; `children` holds the label. Grid pickers keep their glyph in `children`. See [Row anatomy](../layout.md#row-anatomy).
+
 | Part | Base UI part | Renders |
 | --- | --- | --- |
 | `Combobox.Root` | `Combobox.Root` | Nothing. Holds the value, the input text and a hidden input for forms. Takes `size` |

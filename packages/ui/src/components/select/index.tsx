@@ -88,7 +88,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function SelectPopup
 });
 
 export interface ItemProps extends BaseSelect.Item.Props {
-  /** A Lucide element before the label. */
+  /** A decorative element before the label, such as a Lucide icon, emoji or identity mark. */
   icon?: IconElement;
   children?: ReactNode;
 }
@@ -97,7 +97,7 @@ export interface ItemProps extends BaseSelect.Item.Props {
 export const Item = forwardRef<HTMLDivElement, ItemProps>(function SelectItem({ icon, className, children, ...props }, ref) {
   return (
     <BaseSelect.Item ref={ref} {...props} className={withClass('mu-select-item', className)}>
-      {icon}
+      {icon && <span className="mu-option-icon" aria-hidden>{icon}</span>}
       <BaseSelect.ItemText className="mu-select-item-text">{children}</BaseSelect.ItemText>
       <span className="mu-select-indicator">
         {/* The empty children replace Base UI's default "✔️" text inside the svg. */}
