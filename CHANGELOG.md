@@ -2,7 +2,9 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
-## Unreleased
+## 26.11.21
+
+Published 15 November 2026.
 
 - Menu, Select and Combobox items accept decorative emoji and identity marks in their existing `icon` slots. Leading content shares a fixed square and label column with SVG icons and rows without icons. App-built rows can use `menuClasses().icon` for the same layout.
 
