@@ -9,7 +9,7 @@ Behavioral states are complete, but they do not each require a different appeara
 | Pressed toggle (on) | Default: `well` and `text`. Soft: `selected` and `text`, retained on hover; the reserved border stays transparent |
 | Selected (one of several) | A flat `key` fill in a quiet well that updates immediately to the chosen item, with `text` for its label and icon; no visible group or selected-key border in normal colors. Hover only changes label and icon contrast; focus reuses `mu-focus` |
 | Checked | A flat `primary` fill with an `on-primary` mark |
-| Loading | The control becomes inert at once. After 300ms it hides its label and shows a Spinner without changing size; short waits keep the label |
+| Loading | The control becomes inert at once. After 300ms a Spinner replaces an icon or fills a reserved slot beside the original label. Text stays visible and dimensions stay fixed; short waits show no Spinner |
 | Disabled | `text-disabled` text, quiet borders and `well` on all Button variants and other filled controls; no whole-control opacity, hover or press response |
 | Invalid | A `danger` edge on the field, plus an error line with an icon under it |
 | Focus (field) | The caret or text selection identifies typing focus. Border and surface stay the same under mouse and keyboard focus, with no ring or animation. Invalid fields keep their danger edge; forced colors uses a 2px system edge |

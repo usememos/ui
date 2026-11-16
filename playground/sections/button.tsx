@@ -7,6 +7,10 @@ const variants: ButtonVariant[] = ['primary', 'neutral', 'ghost', 'danger'];
 
 export function ButtonSection({ size }: SectionProps) {
   const [saving, setSaving] = useState(false);
+  const save = () => {
+    setSaving(true);
+    setTimeout(() => setSaving(false), 1500);
+  };
   return (
     <>
       {variants.map((variant) => (
@@ -37,19 +41,25 @@ export function ButtonSection({ size }: SectionProps) {
         <Button shape="pill" size={size} disabled>Save</Button>
         <a className={buttonClasses({ shape: 'pill', size })} href="#button">Open docs</a>
       </div>
-      <div className="pg-row">
+      <div className="pg-row" data-loading-examples>
         <Button
+          data-loading-case="text"
           variant="primary"
           size={size}
           loading={saving}
           loadingLabel="Saving"
-          onClick={() => {
-            setSaving(true);
-            setTimeout(() => setSaving(false), 1500);
-          }}
+          onClick={save}
         >
           Save changes
         </Button>
+        <Button data-loading-case="leading" size={size} icon={<Plus />} loading={saving} onClick={save}>New note</Button>
+        <Button data-loading-case="trailing" size={size} iconEnd={<ArrowRight />} loading={saving} onClick={save}>Continue</Button>
+        <Button data-loading-case="both" size={size} icon={<Plus />} iconEnd={<ChevronDown />} loading={saving} onClick={save}>Create</Button>
+        <Button data-loading-case="icon" size={size} icon={<Plus />} aria-label="Add" loading={saving} onClick={save} />
+        <Button data-loading-case="icon-end" shape="pill" size={size} iconEnd={<ArrowRight />} aria-label="Next" loading={saving} onClick={save} />
+        <Button data-loading-case="long" shape="pill" size={size} loading={saving} onClick={save} style={{ maxWidth: 240 }}>Speichern und Änderungen veröffentlichen</Button>
+      </div>
+      <div className="pg-row">
         <a className={buttonClasses({ variant: 'neutral', size })} href="#button">
           Open docs
           <ArrowRight aria-hidden />

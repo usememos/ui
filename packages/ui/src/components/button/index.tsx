@@ -15,9 +15,9 @@ export interface ButtonProps extends BaseButton.Props {
   icon?: IconElement;
   /** A Lucide element after the label, such as a chevron or an arrow that says where the action leads. */
   iconEnd?: IconElement;
-  /** Ignores presses immediately; after 300ms, shows a Spinner without changing width. */
+  /** Ignores presses immediately; after 300ms, shows a Spinner beside the label or in place of an icon. Pass false while idle to reserve its space. */
   loading?: boolean;
-  /** The accessible name while loading, such as "Saving". */
+  /** Accessible loading feedback, such as "Saving": a description for text buttons, or a name for icon-only buttons. */
   loadingLabel?: string;
   children?: ReactNode;
 }
@@ -40,7 +40,7 @@ export function buttonClasses({ variant = 'neutral', size = 'md', shape = 'defau
 
 /** Starts an action. A flat control with shared pressed feedback. */
 export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
-  { variant = 'neutral', size, shape, icon, iconEnd, loading = false, loadingLabel, disabled, focusableWhenDisabled, className, children, ...props },
+  { variant = 'neutral', size, shape, icon, iconEnd, loading, loadingLabel, disabled, focusableWhenDisabled, className, children, ...props },
   ref,
 ) {
   const resolved = useSize(size);
@@ -56,11 +56,13 @@ export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
   const loadingVisible = loading && showSpinner;
   const noLabel = children === undefined || children === null || children === false;
   const iconOnly = noLabel && (icon !== undefined || iconEnd !== undefined);
+  const reserveSpinner = loading !== undefined && !noLabel && icon === undefined && iconEnd === undefined;
+  const spinner = <span className="mu-spinner" aria-hidden />;
   return (
     <BaseButton
       ref={ref}
       {...props}
-      {...(loading && loadingLabel ? { 'aria-label': loadingLabel } : null)}
+      {...(loading && loadingLabel ? (iconOnly ? { 'aria-label': loadingLabel } : { 'aria-description': loadingLabel }) : null)}
       disabled={disabled || loading}
       focusableWhenDisabled={loading || focusableWhenDisabled}
       aria-busy={loading || undefined}
@@ -68,10 +70,12 @@ export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
       data-loading-visible={loadingVisible ? '' : undefined}
       className={withClass(buttonClasses({ variant, size: resolved, shape, iconOnly }), className)}
     >
-      {icon}
+      {loadingVisible && icon !== undefined ? spinner : icon}
+      {reserveSpinner ? (
+        <span className={cx('mu-button-loading-slot', loadingVisible && 'mu-spinner')} aria-hidden />
+      ) : null}
       {iconOnly ? null : <span className="mu-button-label">{children}</span>}
-      {iconOnly && icon !== undefined ? null : iconEnd}
-      {loadingVisible ? <span className="mu-spinner" aria-hidden /> : null}
+      {iconOnly && icon !== undefined ? null : loadingVisible && iconEnd !== undefined && icon === undefined ? spinner : iconEnd}
     </BaseButton>
   );
 });

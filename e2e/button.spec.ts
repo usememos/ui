@@ -108,18 +108,18 @@ test('does not move under reduced motion', async ({ page }) => {
   await page.mouse.up();
 });
 
-test('stays focusable while loading, keeps its width and ignores presses', async ({ page }) => {
+test('stays focusable while loading and keeps the label visible', async ({ page }) => {
   await open(page);
   const row = page.locator('#button [data-variant="neutral"]');
   const loading = row.locator('button[data-loading]');
-  const idle = row.locator('button').first();
-  expect((await loading.boundingBox())?.width).toBe((await idle.boundingBox())?.width);
+  await expect(loading).toHaveAttribute('data-loading-visible', '');
+  await expect(loading.locator('.mu-button-label')).toHaveCSS('opacity', '1');
   await expect(loading).toHaveAttribute('aria-busy', 'true');
   await loading.focus();
   await expect(loading).toBeFocused();
 });
 
-test('delays only the spinner, keeps its width, and restores the label when work ends', async ({ page }) => {
+test('delays only the spinner and keeps the label visible when work ends', async ({ page }) => {
   await page.clock.install({ time: 0 });
   await open(page);
   await page.clock.pauseAt(60_000);
@@ -128,12 +128,14 @@ test('delays only the spinner, keeps its width, and restores the label when work
   await button.click();
   await expect(button).toHaveAttribute('aria-disabled', 'true');
   await expect(button).toHaveAttribute('aria-busy', 'true');
+  await expect(button).toHaveAccessibleName('Save changes');
+  await expect(button).toHaveAccessibleDescription('Saving');
   await page.clock.runFor(299);
   await expect(button.locator('.mu-spinner')).toHaveCount(0);
   await expect(button.locator('.mu-button-label')).toHaveCSS('opacity', '1');
   await page.clock.runFor(1);
   await expect(button.locator('.mu-spinner')).toHaveCount(1);
-  await expect(button.locator('.mu-button-label')).toHaveCSS('opacity', '0');
+  await expect(button.locator('.mu-button-label')).toHaveCSS('opacity', '1');
   expect((await button.boundingBox())!.width).toBe(before);
   await page.clock.runFor(1200);
   await expect(button).not.toHaveAttribute('aria-busy', 'true');
@@ -142,6 +144,70 @@ test('delays only the spinner, keeps its width, and restores the label when work
   expect((await button.boundingBox())!.width).toBe(before);
 });
 
+for (const theme of themes) {
+  for (const size of ['xs', 'sm', 'md'] as const) {
+    test(`loading preserves labels, icon slots and geometry in ${theme} ${size}`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: theme === 'dark' ? 'reduce' : 'no-preference' });
+      await page.clock.install({ time: 0 });
+      await open(page, { theme, size });
+      await page.clock.pauseAt(60_000);
+      const buttons = page.locator('#button [data-loading-case]');
+      const before = await buttons.evaluateAll((elements) => elements.map((element) => {
+        const box = element.getBoundingClientRect();
+        const label = element.querySelector('.mu-button-label');
+        const style = getComputedStyle(element);
+        const slot = element.querySelector('svg, .mu-button-loading-slot')!;
+        const slotBox = slot.getBoundingClientRect();
+        return { width: box.width, height: box.height, label: label?.getBoundingClientRect().toJSON(), text: label?.textContent, padding: style.padding, slot: slotBox.toJSON() };
+      }));
+      await buttons.first().click();
+      await page.clock.runFor(300);
+      for (const [index, button] of (await buttons.all()).entries()) {
+        const expected = before[index]!;
+        const box = (await button.boundingBox())!;
+        expect(box.width).toBe(expected.width);
+        expect(box.height).toBe(expected.height);
+        await expect(button).toHaveCSS('padding', expected.padding);
+        await expect(button).toHaveAttribute('aria-busy', 'true');
+        await expect(button).toHaveAttribute('aria-disabled', 'true');
+        const spinner = button.locator('.mu-spinner');
+        await expect(spinner).toHaveCount(1);
+        const slot = await spinner.evaluate((element) => {
+          const box = element.getBoundingClientRect();
+          const style = getComputedStyle(element);
+          const width = parseFloat(style.width);
+          const height = parseFloat(style.height);
+          return { x: box.x + (box.width - width) / 2, y: box.y + (box.height - height) / 2, width, height };
+        });
+        expect(slot.x).toBeCloseTo(expected.slot.x, 2);
+        expect(slot.y).toBeCloseTo(expected.slot.y, 2);
+        expect(slot.width).toBe(expected.slot.width);
+        expect(slot.height).toBe(expected.slot.height);
+        if (expected.label) {
+          const label = button.locator('.mu-button-label');
+          await expect(label).toHaveText(expected.text!);
+          await expect(label).toHaveCSS('opacity', '1');
+          expect(await label.boundingBox()).toEqual(expect.objectContaining({ x: expected.label.x, y: expected.label.y, width: expected.label.width, height: expected.label.height }));
+          expect(slot.x + slot.width <= expected.label.x || slot.x >= expected.label.right).toBe(true);
+        } else {
+          await expect(button).toHaveAccessibleName(index === 4 ? 'Add' : 'Next');
+          await expect(button.locator('svg')).toHaveCount(0);
+        }
+      }
+      await buttons.first().focus();
+      await page.keyboard.press('Enter');
+      await page.keyboard.press('Space');
+      await expect(buttons.first()).toBeFocused();
+      await page.clock.runFor(1200);
+      for (const [index, button] of (await buttons.all()).entries()) {
+        await expect(button).not.toHaveAttribute('aria-busy', 'true');
+        await expect(button.locator('.mu-spinner')).toHaveCount(0);
+        expect((await button.boundingBox())!.width).toBe(before[index]!.width);
+      }
+    });
+  }
+}
+
 test.describe('on a touch screen', () => {
   test.use({ hasTouch: true, isMobile: true });
 
@@ -149,5 +215,25 @@ test.describe('on a touch screen', () => {
     await open(page, { size: 'sm' });
     expect((await save(page).boundingBox())!.height).toBe(24);
     expect(await save(page).evaluate((element) => getComputedStyle(element, '::after').content)).toBe('none');
+  });
+
+  test('loading keeps text and icon actions fixed on a narrow screen', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 800 });
+    await page.clock.install({ time: 0 });
+    await open(page);
+    await page.clock.pauseAt(60_000);
+    const text = page.locator('#button [data-loading-case="long"]');
+    const icon = page.locator('#button [data-loading-case="icon"]');
+    await icon.scrollIntoViewIfNeeded();
+    const before = await Promise.all([text.boundingBox(), icon.boundingBox()]);
+    await icon.tap();
+    await page.clock.runFor(300);
+    expect(await text.boundingBox()).toEqual(before[0]);
+    expect(await icon.boundingBox()).toEqual(before[1]);
+    await expect(text.locator('.mu-button-label')).toHaveCSS('opacity', '1');
+    await expect(text.locator('.mu-spinner')).toBeVisible();
+    await expect(icon.locator('svg')).toHaveCount(0);
+    await expect(icon.locator('.mu-spinner')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
   });
 });

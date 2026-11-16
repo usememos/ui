@@ -73,7 +73,8 @@ describe('Button', () => {
     expect(button.getAttribute('aria-disabled')).toBe('true');
     expect(button.disabled).toBe(false);
     expect(button.hasAttribute('data-loading')).toBe(true);
-    expect(button.getAttribute('aria-label')).toBe('Saving');
+    expect(button.getAttribute('aria-label')).toBeNull();
+    expect(button.getAttribute('aria-description')).toBe('Saving');
     expect(button.querySelector('.mu-spinner')).toBeNull();
     unmount();
   });
@@ -104,12 +105,13 @@ describe('Button iconEnd', () => {
 });
 
 describe('Button loading feedback', () => {
-  it('blocks presses immediately, then replaces the label after 300ms', () => {
+  it('blocks presses immediately, then shows a spinner beside the original label after 300ms', () => {
     vi.useFakeTimers();
     let presses = 0;
     const { container, rerender, unmount } = render(<Button loading loadingLabel="Saving" onClick={() => presses++}>Save</Button>);
     try {
       const button = container.querySelector('button')!;
+      const label = button.querySelector('.mu-button-label');
       button.click();
       expect(presses).toBe(0);
       expect(button.getAttribute('aria-busy')).toBe('true');
@@ -119,10 +121,52 @@ describe('Button loading feedback', () => {
       act(() => vi.advanceTimersByTime(1));
       expect(button.hasAttribute('data-loading-visible')).toBe(true);
       expect(button.querySelector('.mu-spinner')?.getAttribute('aria-hidden')).toBe('true');
-      rerender(<Button>Save</Button>);
+      expect(button.querySelector('.mu-button-label')).toBe(label);
+      expect(label?.textContent).toBe('Save');
+      rerender(<Button loading={false}>Save</Button>);
       expect(button.hasAttribute('aria-busy')).toBe(false);
       expect(button.querySelector('.mu-spinner')).toBeNull();
       expect(button.textContent).toBe('Save');
+    } finally {
+      unmount();
+    }
+  });
+
+  it('reserves a spinner slot for text-only async actions even while idle', () => {
+    const { container, rerender } = render(<Button loading={false}>Save</Button>);
+    const button = container.querySelector('button')!;
+    expect(button.querySelector('.mu-button-loading-slot')).not.toBeNull();
+    expect(button.querySelector('.mu-spinner')).toBeNull();
+    expect(button.hasAttribute('data-loading')).toBe(false);
+    rerender(<Button>Save</Button>);
+    expect(button.querySelector('.mu-button-loading-slot')).toBeNull();
+  });
+
+  it.each(['leading', 'trailing', 'both', 'icon', 'icon-end'] as const)('replaces and restores the %s icon without removing the label', (placement) => {
+    vi.useFakeTimers();
+    const icon = placement === 'trailing' || placement === 'icon-end' ? undefined : <Pin />;
+    const iconEnd = placement === 'leading' || placement === 'icon' ? undefined : <ChevronDown />;
+    const children = placement === 'icon' || placement === 'icon-end' ? undefined : 'Save';
+    const view = (loading: boolean) => <Button icon={icon} iconEnd={iconEnd} loading={loading} loadingLabel="Saving" aria-label={children ? undefined : 'Save'}>{children}</Button>;
+    const { container, rerender, unmount } = render(view(false));
+    try {
+      const button = container.querySelector('button')!;
+      const originalIcons = button.querySelectorAll('svg').length;
+      const label = button.querySelector('.mu-button-label');
+      rerender(view(true));
+      act(() => vi.advanceTimersByTime(300));
+      expect(button.querySelectorAll('.mu-spinner')).toHaveLength(1);
+      expect(button.querySelectorAll('svg')).toHaveLength(originalIcons - 1);
+      expect(button.querySelector('.mu-button-loading-slot')).toBeNull();
+      expect(button.querySelector('.mu-button-label')).toBe(label);
+      expect(button.textContent).toBe(children ?? '');
+      expect(button.getAttribute('aria-label')).toBe(children ? null : 'Saving');
+      expect(button.getAttribute('aria-description')).toBe(children ? 'Saving' : null);
+      rerender(view(false));
+      expect(button.querySelector('.mu-spinner')).toBeNull();
+      expect(button.querySelectorAll('svg')).toHaveLength(originalIcons);
+      expect(button.getAttribute('aria-description')).toBeNull();
+      expect(button.getAttribute('aria-label')).toBe(children ? null : 'Save');
     } finally {
       unmount();
     }

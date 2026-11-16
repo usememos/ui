@@ -24,8 +24,8 @@
 }
 
 /* The icon side has 2px less padding, so text and icon look centered. An icon after the label is an end icon. */
-.mu-button:where(:has(> svg:first-child)) { padding-inline-start: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
-.mu-button:where(:has(> .mu-button-label + svg)) { padding-inline-end: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
+.mu-button:where(:has(> :is(svg, .mu-spinner, .mu-button-loading-slot):first-child)) { padding-inline-start: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
+.mu-button:where(:has(> .mu-button-label + :is(svg, .mu-spinner))) { padding-inline-end: calc(var(--mu-row-padding-icon) - var(--mu-control-border-width)); }
 .mu-button-pill { border-radius: var(--mu-radius-full); padding-inline: calc(var(--mu-row-padding) - var(--mu-control-border-width)); }
 .mu-button.mu-button-icon { width: var(--mu-row-height); padding: 0; }
 
@@ -55,7 +55,5 @@
 
 .mu-button[data-disabled]:not([data-loading]) { --mu-control-focus: var(--mu-focus); background-color: var(--mu-well); border-color: var(--mu-edge); color: var(--mu-text-disabled); cursor: not-allowed; }
 
-/* After the loading delay, keep the width: the content goes transparent (and stays named) under a centered Spinner. */
 .mu-button[data-loading] { cursor: progress; }
-.mu-button[data-loading-visible] > :not(.mu-spinner) { opacity: 0; }
-.mu-button > .mu-spinner { position: absolute; inset: 0; margin: auto; }
+.mu-button-loading-slot { flex: none; width: var(--mu-row-icon); height: var(--mu-row-icon); }
