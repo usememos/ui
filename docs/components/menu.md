@@ -28,7 +28,7 @@ import { Ellipsis, FolderInput, Pin, Trash2 } from "lucide-react";
 
 | Part | Base UI part | Renders |
 | --- | --- | --- |
-| `Menu.Root` | `Menu.Root` | Nothing. Groups a trigger and its popup. Takes `size` |
+| `Menu.Root` | `Menu.Root` | Nothing. Groups a trigger and its popup; no size option |
 | `Menu.Trigger` | `Menu.Trigger` | The control that opens it, usually a Button through `render` |
 | `Menu.Popup` | `Menu.Portal`, `Positioner`, `Popup` | The list, a `<div role="menu">` portaled to the body. Also a submenu's list |
 | `Menu.Item` | `Menu.Item` | One action. Takes `icon`, `shortcut`, `description`, `danger` |
@@ -44,9 +44,7 @@ import { Ellipsis, FolderInput, Pin, Trash2 } from "lucide-react";
 ## Props
 
 ```ts
-interface Menu.RootProps extends BaseMenu.Root.Props {
-  size?: "sm" | "md"; // row height: 28px (control-compact, sm text), 32px. An xs trigger still opens sm rows
-}
+interface Menu.RootProps extends BaseMenu.Root.Props {}
 interface Menu.PopupProps extends BaseMenu.Popup.Props {
   side?: Side; align?: Align; // Positioner props; default side "bottom"
   container?: HTMLElement | ShadowRoot | React.RefObject<HTMLElement | ShadowRoot | null> | null; // portal target
@@ -59,7 +57,7 @@ interface Menu.ItemProps extends BaseMenu.Item.Props {
 }
 // CheckboxItem and RadioItem take icon, shortcut and description too. SubmenuTrigger takes icon.
 
-function menuClasses(options?: { size?: "sm" | "md" }): {
+function menuClasses(): {
   popup: string; item: string; dangerItem: string; icon: string; label: string; text: string; description: string;
   shortcut: string; separator: string; groupLabel: string;
 };
@@ -69,6 +67,7 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 
 ## Rules
 
+- Use one fixed density for root menus and submenus, independent of the trigger and surrounding controls. Do not pass `size` to `Menu.Root` or `menuClasses()`, or add `mu-compact` to size a menu. See [Floating-list items](../layout.md#floating-list-items).
 - Act in `onClick`. Labels are verbs in sentence case.
 - Item and SubmenuTrigger `icon` slots accept a Lucide element, an emoji in a span or a noninteractive identity mark. The decorative slot owns the icon square. App-built rows use `menuClasses().icon` on an `aria-hidden` wrapper. See [Row anatomy](../layout.md#row-anatomy).
 - Put destructive items last, after a Separator, with `danger`. Confirm them with an [AlertDialog](dialog.md).
@@ -81,13 +80,13 @@ Base UI's props pass through: `open`, `defaultOpen`, `onOpenChange`, `modal` on 
 
 ## Style
 
-- `mu-popup` with 6px padding (`radius-xl` − `radius-md`, so md highlights are concentric with the corners). As wide as its longest row, at least `menu-width` (160px) and at most `menu-max-width` (280px), both clamped to the space available; labels truncate and descriptions wrap at the maximum. Scrolls when taller than the space available.
-- Rows are 28px at sm (`control-compact`, with sm text and icons) and 32px at md, text weight 400; icons in `text-secondary`; the shortcut right-aligned in `text-secondary`. Text starts at the start edge.
-- Rows and group labels use 8px inline padding at both sizes, with an 8px icon-to-label gap. Leading icons do not reduce the start padding. A standalone trailing icon gets the shared 2px end correction, including in app-built rows; wrapped checks keep the 8px end inset. See [Floating-list items](../layout.md#floating-list-items).
+- `mu-popup` with Menu's [fine edge and light depth](../depth.md#menu-layers). Root menus use `menu-depth`; nested and side-opening menus use `menu-nested-depth`. Keep the shared 6px outer inset (`radius-xl` − `radius-md`), including the actual perimeter edge. As wide as its longest row, at least `menu-width` (160px) and at most `menu-max-width` (280px), both clamped to the space available; labels truncate and descriptions wrap at the maximum. Scrolls when taller than the space available.
+- Single-line rows are always 28px (`control-compact`), with `caption` text (13 / 18px, weight 400), 14px icons (`icon-sm`) and 4px corners (`radius-sm`); icons in `text-secondary`; the shortcut right-aligned in `text-secondary`. Text starts at the start edge. No alternate density exists.
+- Rows and group labels use 8px inline padding, with an 8px icon-to-label gap. Leading icons do not reduce the start padding. A standalone trailing icon gets the shared 2px end correction, including in app-built rows; wrapped checks keep the 8px end inset. See [Floating-list items](../layout.md#floating-list-items).
 - A row with a description grows: the label, then the description in `caption` and `text-secondary`, with the row's vertical padding above and below. The icon and the check stay on the label's line.
 - A Separator has 6px above and below, the same as the popup padding, and runs edge to edge.
-- Rows keep their documented size on every input device; menus remain anchored floating lists, including submenus. The highlighted or keyboard-focused row uses `hover` with the row's radius (`radius-sm` at sm, `radius-md` at md), and so does a row whose menu is open (a SubmenuTrigger, or a `menuClasses().item` row that is a `Menu.Trigger`). Disabled rows and their icons use `text-disabled` without fading the whole row. `danger` rows use `danger`.
+- Rows keep their documented size on every input device; menus remain anchored floating lists, including submenus. The highlighted or keyboard-focused row uses `hover` with `radius-sm`, and so does a row whose menu is open (a SubmenuTrigger, or a `menuClasses().item` row that is a `Menu.Trigger`). Disabled rows and their icons use `text-disabled` without fading the whole row. `danger` rows use `danger`.
 - A ghost trigger keeps its `hover` background while the menu is open.
 - Opening and closing use the shared [Motion](../motion.md) fade and `space-1` offset over `duration-fade`. Both are immediate under reduced motion; item highlighting never animates.
-- A menu below or above its trigger sits 4px from it. A submenu opens beside its trigger row, its own padding (6px) from the row. The row sits the same 6px inside the parent menu, so the submenu's edge touches the parent's edge.
+- A menu below or above its trigger sits 4px from it. A submenu opens beside its trigger row with its outer edge overlapping the parent menu by `inset` (2px), regardless of opening side. Its offset from the row is the measured 6px outer inset minus that overlap. The same rule applies to a Menu opened from a row inside a list Popover. Keep the parent row highlighted while its menu is open; Base UI owns pointer intent and keyboard navigation across the overlap.
 - A menu that opens to the side of its trigger (`side` left, right, `inline-start` or `inline-end`; a submenu always does), aligned to `start` or `end`, moves along the trigger by its own top padding (6px, read when it is placed). Its first row lines up with the trigger. With no room below, it opens upward instead and its last row lines up with the trigger. A menu that opens above or below, or is centered, does not move.

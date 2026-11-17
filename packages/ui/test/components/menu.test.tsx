@@ -1,12 +1,12 @@
 // @vitest-environment happy-dom
 import { Lock, Pin } from 'lucide-react';
-import { describe, expect, it, vi } from 'vitest';
-import { Menu } from '../../src';
+import { describe, expect, expectTypeOf, it, vi } from 'vitest';
+import { Button, Menu, menuClasses, ToggleGroup } from '../../src';
 import { click, render, settle } from '../render';
 describe('Menu', () => {
-  it('passes the Root size to the popup, and builds rows with icon, label and shortcut', async () => {
+  it('uses fixed-density classes and builds rows with icon, label and shortcut', async () => {
     render(
-      <Menu.Root size="sm" defaultOpen>
+      <Menu.Root defaultOpen>
         <Menu.Trigger>More</Menu.Trigger>
         <Menu.Popup>
           <Menu.Item icon={<Pin />} shortcut="P">
@@ -21,12 +21,36 @@ describe('Menu', () => {
     const popup = document.querySelector('.mu-menu-popup')!;
     expect(popup.className).toContain('mu-s-sm');
     const [pin, remove, check] = popup.querySelectorAll('[role^="menuitem"]');
+    for (const row of [pin, remove, check]) {
+      expect(row!.classList.contains('mu-s-sm')).toBe(true);
+      expect(row!.classList.contains('mu-caption')).toBe(true);
+    }
     expect(pin!.querySelector('svg.lucide-pin')).not.toBeNull();
     expect(pin!.querySelector('.mu-menu-label')!.textContent).toBe('Pin');
     expect(pin!.querySelector('.mu-menu-shortcut')!.textContent).toBe('P');
     expect(remove!.className).toContain('mu-menu-item-danger');
     expect(check!.getAttribute('aria-checked')).toBe('true');
     expect(check!.querySelector('.mu-menu-indicator svg.lucide-check')).not.toBeNull();
+  });
+
+  it('exposes no size option on Root or the class function', () => {
+    expectTypeOf<'size' extends keyof Menu.RootProps ? true : false>().toEqualTypeOf<false>();
+    expectTypeOf<Parameters<typeof menuClasses>>().toEqualTypeOf<[]>();
+  });
+
+  it.each(['xs', 'sm', 'md'] as const)('keeps its density inside a %s context without resizing the trigger', async (size) => {
+    render(
+      <ToggleGroup multiple size={size} aria-label="Tools">
+        <Menu.Root defaultOpen>
+          <Menu.Trigger render={<Button>Actions</Button>} />
+          <Menu.Popup><Menu.Item>Pin</Menu.Item></Menu.Popup>
+        </Menu.Root>
+      </ToggleGroup>,
+    );
+    await settle();
+    expect(document.querySelector('.mu-menu-trigger')!.classList.contains(`mu-s-${size}`)).toBe(true);
+    expect(document.querySelector('.mu-menu-popup')!.classList.contains('mu-s-sm')).toBe(true);
+    expect(document.querySelector('.mu-menu-item')!.classList.contains('mu-s-sm')).toBe(true);
   });
 });
 

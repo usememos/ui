@@ -3,21 +3,22 @@
 // so this project runs in CI only: local browsers and fonts render a few
 // pixels differently.
 import { expect, test, type Locator, type Page } from '@playwright/test';
-import { open, themes } from './helpers';
+import { around, open, themes } from './helpers';
 
 const sizes = ['xs', 'sm', 'md'] as const;
 const options = { animations: 'disabled', maxDiffPixelRatio: 0.002 } as const;
 
 /** Each overlay: how to open it, and the element to capture (or, with `union`, the box around several). */
-const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (page: Page) => Locator; union?: boolean }[] = [
-  { name: 'menu-parts', open: (page) => page.getByRole('button', { name: 'Collection actions', exact: true }).click(), shot: (page) => page.getByRole('menu') },
+const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (page: Page) => Locator; union?: boolean; shadow?: boolean }[] = [
+  { name: 'menu-parts', shadow: true, open: (page) => page.getByRole('button', { name: 'Collection actions', exact: true }).click(), shot: (page) => page.getByRole('menu') },
   { name: 'select-disabled-selected', open: (page) => page.getByRole('combobox', { name: 'Collection choice', exact: true }).click(), shot: (page) => page.locator('.mu-select-popup') },
   { name: 'select-aligned', open: (page) => page.getByRole('combobox', { name: 'Value-aligned choice', exact: true }).click(), shot: (page) => page.locator('.mu-select-popup') },
   { name: 'combobox-mixed-icons', open: (page) => page.locator('#combobox').getByRole('button', { name: 'Filter collections', exact: true }).click(), shot: (page) => page.locator('.mu-combobox-popup') },
-  { name: 'menu', open: (page) => page.locator('#menu').getByRole('button', { name: 'More actions' }).click(), shot: (page) => page.getByRole('menu') },
+  { name: 'menu', shadow: true, open: (page) => page.locator('#menu').getByRole('button', { name: 'More actions' }).click(), shot: (page) => page.getByRole('menu') },
   // The submenu beside its trigger row: the two lists side by side, the first submenu row level with the trigger.
   {
     name: 'menu-submenu',
+    shadow: true,
     open: async (page) => {
       await page.locator('#menu').getByRole('button', { name: 'More actions' }).click();
       await page.getByRole('menuitem', { name: 'Move to' }).focus();
@@ -30,6 +31,7 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
   // A panel row's own Menu beside the panel: the first choice level with the row, like a submenu.
   {
     name: 'popover-list-menu',
+    shadow: true,
     open: async (page) => {
       await page.locator('#popover').getByRole('button', { name: 'Account' }).click();
       await page.locator('.mu-popover-popup').getByRole('button', { name: /Theme/ }).click();
@@ -38,7 +40,7 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
     shot: (page) => page.locator('.mu-popover-popup, .mu-menu-popup'),
     union: true,
   },
-  { name: 'menu-checkbox', open: (page) => page.locator('#menu').getByRole('button', { name: 'View' }).click(), shot: (page) => page.getByRole('menu') },
+  { name: 'menu-checkbox', shadow: true, open: (page) => page.locator('#menu').getByRole('button', { name: 'View' }).click(), shot: (page) => page.getByRole('menu') },
   { name: 'combobox', open: (page) => page.getByRole('combobox', { name: 'Tag', exact: true }).fill('de'), shot: (page) => page.locator('.mu-combobox-popup') },
   { name: 'select', open: (page) => page.locator('#select').getByRole('combobox').nth(1).click(), shot: (page) => page.locator('.mu-select-popup') },
   { name: 'collapsible', open: (page) => page.locator('#collapsible').getByRole('button', { name: 'Advanced settings' }).click(), shot: (page) => page.locator('#collapsible') },
@@ -52,7 +54,7 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
   { name: 'popover', open: (page) => page.locator('#popover').getByRole('button', { name: 'Share' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'popover-view', open: (page) => page.locator('#popover').getByRole('button', { name: 'View options' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'popover-list', open: (page) => page.locator('#popover').getByRole('button', { name: 'Account' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
-  { name: 'menu-description', open: (page) => page.locator('#menu').getByRole('button', { name: 'Visibility' }).click(), shot: (page) => page.getByRole('menu') },
+  { name: 'menu-description', shadow: true, open: (page) => page.locator('#menu').getByRole('button', { name: 'Visibility' }).click(), shot: (page) => page.getByRole('menu') },
   { name: 'dialog-bare', open: (page) => page.getByRole('button', { name: 'Quick find' }).click(), shot: (page) => page.getByRole('dialog') },
   { name: 'combobox-grid', open: (page) => page.locator('#combobox').getByRole('button', { name: 'Choose icon' }).click(), shot: (page) => page.locator('.mu-popover-popup') },
   { name: 'drawer', open: (page) => page.getByRole('button', { name: 'Note details' }).click(), shot: (page) => page.getByRole('dialog') },
@@ -89,17 +91,6 @@ const overlays: { name: string; open: (page: Page) => Promise<unknown>; shot: (p
   },
 ];
 
-/** The box around every element `locator` matches, with a little surrounding context. */
-async function around(locator: Locator) {
-  const boxes = (await Promise.all((await locator.all()).map((element) => element.boundingBox()))).filter((box) => box !== null);
-  const pad = 16;
-  const x = Math.max(0, Math.min(...boxes.map((box) => box.x)) - pad);
-  const y = Math.max(0, Math.min(...boxes.map((box) => box.y)) - pad);
-  const right = Math.max(...boxes.map((box) => box.x + box.width)) + pad;
-  const bottom = Math.max(...boxes.map((box) => box.y + box.height)) + pad;
-  return { x: Math.floor(x), y: Math.floor(y), width: Math.ceil(right - x), height: Math.ceil(bottom - y) };
-}
-
 test.describe('touch component props', () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
 
@@ -122,12 +113,13 @@ test.describe('touch component props', () => {
       await expect(page.locator('.reaction-popup')).toHaveScreenshot(`overlay-reactions-${theme}-mobile.png`, options);
       await page.keyboard.press('Escape');
       await page.locator('#menu').getByRole('button', { name: 'More actions', exact: true }).tap();
-      await expect(page.getByRole('menu')).toHaveScreenshot(`overlay-menu-${theme}-mobile.png`, options);
+      await expect(page).toHaveScreenshot(`overlay-menu-${theme}-mobile.png`, { ...options, clip: await around(page.getByRole('menu'), 32) });
       await page.keyboard.press('Escape');
       for (const name of ['menu-parts', 'select-disabled-selected', 'combobox-mixed-icons', 'dialog', 'dialog-centered', 'drawer', 'drawer-bare', 'drawer-bottom']) {
         const overlay = overlays.find((item) => item.name === name)!;
         await overlay.open(page);
-        await expect(overlay.shot(page)).toHaveScreenshot(`overlay-${name}-${theme}-mobile.png`, options);
+        if (overlay.shadow) await expect(page).toHaveScreenshot(`overlay-${name}-${theme}-mobile.png`, { ...options, clip: await around(overlay.shot(page), 32) });
+        else await expect(overlay.shot(page)).toHaveScreenshot(`overlay-${name}-${theme}-mobile.png`, options);
         await page.keyboard.press('Escape');
         await expect(overlay.shot(page)).toBeHidden();
       }
@@ -199,7 +191,7 @@ for (const theme of themes) {
           && element.getAnimations({ subtree: true }).every((animation) => !(animation instanceof CSSTransition) || animation.playState === 'finished' || animation.playState === 'idle'),
         ))).toBe(true);
         const name = `overlay-${overlay.name}-${theme}-${size}.png`;
-        if (overlay.union) await expect(page, overlay.name).toHaveScreenshot(name, { ...options, clip: await around(shot) });
+        if (overlay.union || overlay.shadow) await expect(page, overlay.name).toHaveScreenshot(name, { ...options, clip: await around(shot, overlay.shadow ? 32 : 16) });
         else await expect(shot, overlay.name).toHaveScreenshot(name, options);
       }
     });

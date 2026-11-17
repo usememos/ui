@@ -57,7 +57,7 @@ describe('class functions', () => {
 
   it('give each Menu part its own classes', async () => {
     render(
-      <Menu.Root size="sm" defaultOpen>
+      <Menu.Root defaultOpen>
         <Menu.Trigger>Open</Menu.Trigger>
         <Menu.Popup>
           <Menu.Group>
@@ -71,7 +71,7 @@ describe('class functions', () => {
       </Menu.Root>,
     );
     await settle();
-    const menu = menuClasses({ size: 'sm' });
+    const menu = menuClasses();
     const items = document.querySelectorAll('[role="menuitem"]');
     expect(classesOf(document.querySelector('[role="menu"]'))).toEqual(split(menu.popup));
     expect(classesOf(items[0]!)).toEqual(split(menu.item));

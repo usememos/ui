@@ -23,7 +23,11 @@ test('Popover list: rows drawn with menuClasses on a button and a link start the
   await expect(popup).toHaveCSS('row-gap', '0px');
   for (const row of [popup.getByRole('button', { name: 'Settings' }), popup.getByRole('link', { name: 'Sign out' })]) {
     await expect(row).toHaveCSS('text-align', 'start');
-    await expect(row).toHaveCSS('height', '32px');
+    await expect(row).toHaveCSS('height', '28px');
+    await expect(row).toHaveCSS('font-size', '13px');
+    await expect(row).toHaveCSS('line-height', '18px');
+    await expect(row).toHaveCSS('border-radius', '4px');
+    await expect(row.locator('svg')).toHaveCSS('width', '14px');
     const [rowBox, popupBox] = await Promise.all([row.boundingBox(), popup.boundingBox()]);
     expect(Math.round(rowBox!.width)).toBe(Math.round(popupBox!.width - 12));
   }
@@ -42,7 +46,7 @@ test('Popover list: a row that opens a Menu beside the panel lines its first cho
   await expect(menu).toHaveAttribute('data-align', 'start');
   const [rowBox, first, panel, menuBox] = await Promise.all([row.boundingBox(), menu.getByRole('menuitemradio').first().boundingBox(), page.locator('.mu-popover-popup').boundingBox(), menu.boundingBox()]);
   expect(first!.y).toBeCloseTo(rowBox!.y, 0);
-  expect(menuBox!.x).toBeCloseTo(panel!.x + panel!.width, 0); // The row keeps its highlight while its menu is open.
+  expect(menuBox!.x).toBeCloseTo(panel!.x + panel!.width - 2, 3); // The row keeps its highlight while its menu is open.
   await expect(row).toHaveAttribute('data-popup-open', '');
   expect(await row.evaluate((element) => getComputedStyle(element).backgroundColor)).not.toBe('rgba(0, 0, 0, 0)');
 });

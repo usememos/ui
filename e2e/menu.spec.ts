@@ -1,7 +1,45 @@
 import { expect, test, type Page } from '@playwright/test';
-import { open } from './helpers';
+import { open, themes } from './helpers';
 
 const moreActions = (page: Page) => page.locator('#menu').getByRole('button', { name: 'More actions' });
+
+for (const direction of ['ltr', 'rtl'] as const) {
+  test(`Menu: collision flipping keeps 2px overlap and row alignment in ${direction}`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto(`/?dir=${direction}`);
+    await page.addStyleTag({ content: '#menu [aria-label="More actions"] { position: fixed; top: 80px; right: 8px; }' });
+    await moreActions(page).click();
+    const move = page.getByRole('menuitem', { name: 'Move to' });
+    await move.focus();
+    await page.keyboard.press(direction === 'rtl' ? 'ArrowLeft' : 'ArrowRight');
+    const parent = page.getByRole('menu').first();
+    const child = page.getByRole('menu').nth(1);
+    const [outer, sub, trigger, first] = await Promise.all([parent.boundingBox(), child.boundingBox(), move.boundingBox(), child.getByRole('menuitem').first().boundingBox()]);
+    expect(sub!.x).toBeLessThan(outer!.x);
+    expect(sub!.x + sub!.width).toBeCloseTo(outer!.x + 2, 3);
+    expect(first!.y).toBeCloseTo(trigger!.y, 3);
+    await page.keyboard.press('Escape');
+    await expect(child).toBeHidden();
+    await expect(move).toBeFocused();
+  });
+}
+
+test('Menu: diagonal pointer travel keeps the parent open and reaches the submenu', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await open(page);
+  await moreActions(page).click();
+  const move = page.getByRole('menuitem', { name: 'Move to' });
+  await move.hover();
+  const reading = page.getByRole('menuitem', { name: 'Reading', exact: true });
+  await expect(reading).toBeVisible();
+  const box = (await reading.boundingBox())!;
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 12 });
+  await expect(page.getByRole('menu')).toHaveCount(2);
+  await expect(move).toHaveAttribute('data-popup-open', '');
+  await reading.click();
+  await expect(page.getByRole('menu')).toHaveCount(0);
+  await expect(moreActions(page)).toBeFocused();
+});
 
 test('Menu: keyboard opens it, moves through items, and returns focus on close', async ({ page }) => {
   await open(page);
@@ -34,7 +72,7 @@ test('Menu: a submenu opens to the side with ArrowRight', async ({ page }) => {
   expect(child!.x).toBeGreaterThan(parent!.x + parent!.width - 1);
 });
 
-test('Menu: a submenu touches its parent and its first row lines up with the trigger row', async ({ page }) => {
+test('Menu: a submenu overlaps its parent by 2px and its first row lines up with the trigger row', async ({ page }) => {
   // No rise on open, so the boxes are measured where they come to rest.
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await open(page);
@@ -48,7 +86,7 @@ test('Menu: a submenu touches its parent and its first row lines up with the tri
   await expect(submenu).toHaveAttribute('data-align', 'start');
   const [trigger, first, parentBox, subBox] = await Promise.all([moveTo.boundingBox(), inbox.boundingBox(), parentMenu.boundingBox(), submenu.boundingBox()]);
   expect(first!.y).toBeCloseTo(trigger!.y, 0);
-  expect(subBox!.x).toBeCloseTo(parentBox!.x + parentBox!.width, 0);
+  expect(subBox!.x).toBeCloseTo(parentBox!.x + parentBox!.width - 2, 3);
 });
 
 test('Menu: a submenu that opens upward lines its last row up with the trigger row', async ({ page }) => {
@@ -77,23 +115,46 @@ test('Menu: checkbox items stay open and toggle', async ({ page }) => {
   await expect(page.getByRole('menu')).toBeVisible();
 });
 
-test('Menu: rows are 28px at sm and 32px at md', async ({ page }) => {
-  for (const [size, height] of [['sm', 28], ['md', 32]] as const) {
-    await open(page, { size });
-    await moreActions(page).click();
-    // Measured once the popup has risen into place.
-    await expect.poll(async () => (await page.getByRole('menuitem', { name: /Pin/ }).boundingBox())?.height).toBe(height);
-  }
-});
+for (const theme of themes) {
+  test(`Menu: root menus and submenus keep one density across size contexts in ${theme}`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    for (const size of ['xs', 'sm', 'md'] as const) {
+      await open(page, { theme, size });
+      // Table.Root supplies a real inherited size context; the standalone menu has an explicitly sized trigger.
+      for (const trigger of [moreActions(page), page.locator('#table .mu-menu-trigger').first()]) {
+        await trigger.click();
+        const row = page.getByRole('menuitem').first();
+        await expect(row).toHaveCSS('height', '28px');
+        await expect(row).toHaveCSS('font-size', '13px');
+        await expect(row).toHaveCSS('line-height', '18px');
+        await expect(row).toHaveCSS('font-weight', '400');
+        await expect(row).toHaveCSS('border-radius', '4px');
+        await page.keyboard.press('Escape');
+      }
+      await moreActions(page).click();
+      await expect(page.getByRole('menuitem', { name: /Pin/ }).locator('svg')).toHaveCSS('width', '14px');
+      const move = page.getByRole('menuitem', { name: 'Move to' });
+      await expect(move.locator('svg').last()).toHaveCSS('width', '14px');
+      await move.focus();
+      await page.keyboard.press('ArrowRight');
+      const inbox = page.getByRole('menuitem', { name: 'Inbox' });
+      await expect(inbox).toHaveCSS('height', '28px');
+      await expect(inbox).toHaveCSS('font-size', '13px');
+      await expect(inbox).toHaveCSS('border-radius', '4px');
+      await page.keyboard.press('Escape');
+      await page.keyboard.press('Escape');
+    }
+  });
+}
 
 test('Menu: 6px padding and separators, row-radius highlights, and a width between menu-width and menu-max-width', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  for (const [size, radius] of [['sm', '4px'], ['md', '6px']] as const) {
+  for (const size of ['sm', 'md'] as const) {
     await open(page, { size });
     await moreActions(page).click();
     const menu = page.getByRole('menu');
     expect(await menu.evaluate((element) => { const style = getComputedStyle(element); return parseFloat(style.paddingTop) + parseFloat(style.borderTopWidth); })).toBe(6);
-    await expect(page.getByRole('menuitem', { name: /Pin/ })).toHaveCSS('border-radius', radius);
+    await expect(page.getByRole('menuitem', { name: /Pin/ })).toHaveCSS('border-radius', '4px');
     const separator = menu.getByRole('separator');
     await expect(separator).toHaveCSS('margin-top', '6px');
     await expect(separator).toHaveCSS('margin-bottom', '6px');
@@ -117,7 +178,9 @@ test('Menu: a row with a description grows, keeps the check on the label line, a
   const workspace = page.getByRole('menuitemradio', { name: 'Workspace' });
   await expect(workspace).toHaveAccessibleDescription('Members of this workspace');
   const box = await workspace.boundingBox();
-  expect(box!.height).toBeGreaterThan(40);
+  expect(box!.height).toBeGreaterThan(28);
+  const [label, indicator] = await Promise.all([workspace.locator('.mu-menu-label').boundingBox(), workspace.locator('.mu-menu-indicator').boundingBox()]);
+  expect(indicator!.y + indicator!.height / 2).toBeCloseTo(label!.y + label!.height / 2, 0);
   await workspace.click();
   await expect(page.getByRole('menu')).toBeHidden();
 });

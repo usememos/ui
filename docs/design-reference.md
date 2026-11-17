@@ -12,6 +12,8 @@ Linear's product interface is the reference for our hierarchy, restraint and int
 
 A signed-in browser inspection on 14 November 2026 checked Display options, Preferences and the workspace menu. Display-option and settings-page names were 500; Select values and options were 400; sampled workspace-menu text and helper descriptions were 450. Compact-panel names used a quieter color than values, while settings-page names used primary text with quieter descriptions. These are observations of those views, not a complete Linear type specification. Memos UI adopts the name/value distinction with its existing system fonts, 400/500 weights and size scale; it does not copy Linear's Inter Variable font, 450 weight or 12px panel text.
 
+A signed-in inspection on 17 November 2026 checked the Issue → Copy and workspace-switching cascades in Light. Both submenus overlapped their parent by 2px, kept 12px outer corners and a 0.5px edge on the sampled high-density display, and used a stronger shadow than the parent. The Copy submenu's first row aligned with its trigger. Memos UI adopts this menu-layer relationship through [Menu layers](depth.md#menu-layers), retaining its own colors and fixed 28px rows. Standard-density and forced-color edges are 1px; other overlay families keep their existing flat surfaces.
+
 ## How we apply this
 
 These are Memos UI decisions informed by those sources and product review, not claims about Linear's private CSS, tokens or animation timings. A screenshot of a focused composer does not establish how all of Linear's inputs or keyboard paths behave.

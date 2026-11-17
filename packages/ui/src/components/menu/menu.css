@@ -1,21 +1,23 @@
 /* Menu: actions for one thing, in a floating list. See docs/components/menu.md. */
 /* An app's own list (menuClasses) has no Positioner to set --available-width, so the width limits fall back to the viewport. */
 .mu-menu-popup {
+  --mu-row-height: var(--mu-control-compact);
+  --mu-popup-border-width: var(--mu-menu-edge-width);
+  box-shadow: var(--mu-menu-depth);
   box-sizing: border-box;
   min-width: min(var(--mu-menu-width), var(--available-width, 100vw));
   max-width: min(var(--mu-menu-max-width), var(--available-width, 100vw));
   max-height: var(--available-height);
   overflow-y: auto;
-  /* 6px: the popup's radius minus an md row's, so an md highlight is concentric with the corners. Separators take the same space. */
-  padding: calc(var(--mu-radius-xl) - var(--mu-radius-md) - 1px);
+  /* Shared 6px floating-list inset. Separators take the same space. */
+  padding: calc(var(--mu-radius-xl) - var(--mu-radius-md) - var(--mu-popup-border-width));
   outline: 0;
 }
-
-/* sm rows in a floating list are control-compact (28px) tall, with sm text and icons. */
-.mu-menu-popup.mu-s-sm { --mu-row-height: var(--mu-control-compact); }
+.mu-menu-popup:where([data-nested], [data-side="left"], [data-side="right"], [data-side="inline-start"], [data-side="inline-end"]) { box-shadow: var(--mu-menu-nested-depth); }
 
 /* A row can be a <button> or <a> too: it resets their width, border, fill, font and centered text. */
 .mu-menu-item {
+  --mu-row-height: var(--mu-control-compact);
   display: flex;
   align-items: center;
   gap: var(--mu-space-2);
@@ -28,7 +30,6 @@
   border-radius: var(--mu-row-radius);
   color: var(--mu-text);
   background-color: transparent;
-  font: inherit;
   font-weight: 400;
   text-align: start;
   text-decoration: none;
@@ -58,4 +59,4 @@
 .mu-menu-item > svg:last-child { margin-inline-end: calc(var(--mu-row-padding-icon) - var(--mu-row-padding)); }
 
 .mu-menu-group-label { padding: var(--mu-space-2) var(--mu-space-2) var(--mu-space-1); color: var(--mu-text-secondary); }
-.mu-menu-separator { height: 1px; margin: calc(var(--mu-radius-xl) - var(--mu-radius-md)) calc(1px + var(--mu-radius-md) - var(--mu-radius-xl)); background-color: var(--mu-line); }
+.mu-menu-separator { height: 1px; margin: calc(var(--mu-radius-xl) - var(--mu-radius-md)) calc(var(--mu-popup-border-width, 1px) + var(--mu-radius-md) - var(--mu-radius-xl)); background-color: var(--mu-line); }

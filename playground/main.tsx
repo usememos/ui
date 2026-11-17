@@ -3,6 +3,7 @@ import '@usememos/ui/styles.css';
 import './playground.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { DirectionProvider } from '@base-ui/react/direction-provider';
 import type { Size } from '@usememos/ui';
 import { Foundations } from './foundations';
 import { rowSize, sections } from './sections';
@@ -20,7 +21,9 @@ function readParam<T extends string>(name: string, allowed: T[], fallback: T): T
 
 const theme = readParam('theme', themes, 'light');
 const size = readParam('size', sizes, 'md');
+const direction = readParam('dir', ['ltr', 'rtl'], 'ltr');
 document.documentElement.dataset.theme = theme;
+document.documentElement.dir = direction;
 
 /** Component prop fixtures, then the token foundations. */
 function App() {
@@ -39,6 +42,6 @@ function App() {
 
 createRoot(document.getElementById('app')!).render(
   <StrictMode>
-    <App />
+    <DirectionProvider direction={direction}><App /></DirectionProvider>
   </StrictMode>,
 );

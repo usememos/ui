@@ -48,10 +48,15 @@ describe('stylesheets', () => {
     }
   });
 
-  it('has no shadows, sheen or visible outlines in the shipped CSS', () => {
+  it('limits shadows to the two Menu surface roles and has no sheen or visible outlines', () => {
     for (const [name, source] of Object.entries({ foundationCss, focusCss, optionRowsCss, ...componentCss })) {
       const css = stripComments(source);
-      expect(css, name).not.toMatch(/\b(?:box-shadow|text-shadow|drop-shadow|key-sheen)\b|outline-(?:color|offset|width)\s*:/);
+      expect(css, name).not.toMatch(/\b(?:text-shadow|drop-shadow|key-sheen)\b|outline-(?:color|offset|width)\s*:/);
+      const shadows = [...css.matchAll(/\bbox-shadow:\s*([^;]+);/g)].map(([, value]) => value?.trim());
+      expect(shadows, name).toEqual(name === '../src/components/menu/menu.css' ? ['var(--mu-menu-depth)', 'var(--mu-menu-nested-depth)'] : []);
+      for (const [, selector = '', declarations = ''] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+        if (/\bbox-shadow:/.test(declarations)) expect(selector.trim(), name).toMatch(/^\.mu-menu-popup(?::where\([^{}]+\))?$/);
+      }
       const outlines = [...css.matchAll(/\boutline(?:-style)?:\s*([^;]+);/g)].map(([, value]) => value?.trim());
       expect(outlines.filter((value) => value !== '0' && value !== 'none'), name).toEqual([]);
     }

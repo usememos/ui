@@ -152,7 +152,8 @@ test.describe('narrow composed content', () => {
       const popup = page.getByRole('menu');
       expect(await popup.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
       for (const row of await popup.locator('.mu-menu-item').all()) {
-        expect((await row.boundingBox())!.height).toBeGreaterThanOrEqual(32);
+        expect((await row.boundingBox())!.height).toBeGreaterThanOrEqual(28);
+        await expect(row).toHaveCSS('font-size', '13px');
         await expect(row).toHaveCSS('font-weight', '400');
       }
       await expectNoAxeViolations(page, '.mu-menu-popup');

@@ -303,7 +303,7 @@ The package ships no navigation component: the sidebar's rows are the app's link
 ```
 
 - `mu-compact` changes only md. sm (24px) and xs (20px) controls inside keep their heights, so an xs ghost Button for a row action still fits.
-- Popups opened from the sidebar (the Select's list, a Menu) mount outside it, at the normal 32px. To give a panel of rows the same 28px, put `mu-compact` on its popup: `<Popover.Popup variant="list" className="mu-compact">`.
+- Popups opened from the sidebar mount outside it. A Menu and rows drawn with `menuClasses().item` always use their [fixed density](layout.md#floating-list-items): 28px rows, 13px text and 14px icons, without `mu-compact`. A Select's list keeps its own size. Navigation rows retain the sidebar's md text and icons; matching height does not make them Menu rows.
 - `mu-s-md` gives the rows 14px text, 16px icons with a 1.25px stroke, and md padding and radius; `mu-base` sets the font. Never set the `--mu-row-*` variables or the size tokens yourself; `mu-compact` is the only way to change a row's height.
 - Navigation rows are weight 400 (`body`), like Menu and Select items. A column of navigation is content people scan; at 500 every row competes and the sidebar reads as bold. 500 is for a section title, the "New" Button's label and Field labels that name settings. The current navigation row stands out by its fill and `text` color, not by weight, so the text doesn't shift when the current page changes.
 - Mark the current page with `aria-current="page"`, not with color alone; the fill shows it too.
@@ -373,13 +373,13 @@ Use `Toggle variant="soft" shape="pill" size="sm"` for the display strip and a g
 
 ## Size
 
-- **Set `size` once, on the outermost part that takes it.** `Menu.Root`, `Select.Root`, `Combobox.Root`, `Tabs.Root`, `Collapsible.Root`, `Table.Root`, `Field.Root`, `Fieldset.Root`, `RadioGroup` and `ToggleGroup` pass their size to every part and every Button, Toggle, Checkbox or Input inside them. Don't repeat it on the parts.
-- **Pick by place, not by importance.** `md` everywhere by default, including dialogs, forms, onboarding, marketing pages and an app's sidebar. A sidebar with 28px rows puts `mu-compact` on itself, which makes md 28px inside it; see [A sidebar navigation row](#a-sidebar-navigation-row). `sm` for dense toolbars, table rows and filters inside panels. `xs` for secondary actions beside 13px text (entry footers, row actions). See [Control sizes](layout.md#control-sizes).
+- **Set `size` once, on the outermost part that takes it.** `Select.Root`, `Combobox.Root`, `Tabs.Root`, `Collapsible.Root`, `Table.Root`, `Field.Root`, `Fieldset.Root`, `RadioGroup` and `ToggleGroup` pass their size to their sized parts and controls inside them. Don't repeat it on the parts. Menu rows keep their fixed density.
+- **Pick by place, not by importance.** Sized controls use `md` by default, including dialogs, forms, onboarding, marketing pages and an app's sidebar. A sidebar with 28px rows puts `mu-compact` on itself, which makes md 28px inside it; see [A sidebar navigation row](#a-sidebar-navigation-row). `sm` for dense toolbars, table rows and filters inside panels. `xs` for secondary actions beside 13px text (entry footers, row actions). See [Control sizes](layout.md#control-sizes).
 - **Never make a control bigger to make it stronger.** Emphasis is the `primary` variant.
 - **Match peer control sizes in one row.** A Button beside an Input has the Input's size. Badge has its own [text-density sizes](layout.md#badge-sizes): its size name does not need to match the controls beside it. A sm Badge and an xs Button are both 20px tall.
 - **Dialogs and Popovers start at md.** Their panels are md wherever they are declared, so a Dialog inside a `Table.Root size="sm"` still has md Buttons and fields. Set `size` inside the panel only for a part that should differ.
-- **Menus follow their surroundings.** A Menu, Select or Combobox without its own `size` takes the size of the Root around it, so a menu opened from a sm toolbar has sm rows.
-- Text entry, menus, tabs and tables have no `xs`; an inherited `xs` renders them at `sm`.
+- **Menu has one density.** Root menus, submenus and rows drawn with `menuClasses()` always use 28px single-line rows, 13px text and 14px icons. Do not pass `size` or use `mu-compact` to size them. The trigger keeps its own size; see [Floating-list items](layout.md#floating-list-items).
+- Select and Combobox without their own `size` inherit the surrounding Root's size. Text entry, tabs and tables have no `xs`; an inherited `xs` renders them at `sm`.
 
 ### Badges beside text and actions
 
@@ -460,7 +460,7 @@ Run through it for every screen.
 | A button with negative margins to make a List row clickable | `List.ItemButton` |
 | `w-full` on a ToggleGroup and `flex-1` on its Toggles | `fullWidth` |
 | `h-dvh`, a `border-e` or your own Close on a bare Drawer's content | Nothing: bare does these; give your content `height: 100%` |
-| A 28px row class, or `--mu-row-height` set by hand | `mu-compact` on the sidebar or popup |
+| A 28px navigation row class, or `--mu-row-height` set by hand | `mu-compact` on the sidebar; Menu rows already have a fixed 28px height |
 | `mu-base` (weight 500) alone on sidebar navigation rows | `font-weight: 400` on the rows: they are `body` text, like Menu items |
 | A tag chip of your own in an entry's footer, or an inline content tag there | A `neutral` Badge with a `Hash` icon, in ink |
 | A tag in the user's color as text, or on a fill you mixed yourself | `<Badge color={tag.color}>`: a tint, with ink text |
@@ -469,7 +469,8 @@ Run through it for every screen.
 | `gap-1.5`, `px-2.5`, `py-7` or `gap-[6px]` between things | A step of the [spacing ladder](layout.md#spacing), picked by its job. `offLadderSpacing()` finds these in an app's tests |
 | A Spinner where a list will appear | Skeletons in the shape of the list |
 | `size="md"` or `"lg"` on a Button to emphasize it | `variant="primary"` at the row's size |
-| `size` on every part of a Menu or Select | `size` on its Root |
+| `size` on a Menu or `menuClasses()` | No size option: Menu uses one fixed density |
+| `size` on every part of a Select | `size` on its Root |
 | Two `primary` Buttons in one view | One `primary`, the rest `neutral` |
 | `danger` Button as the first click | A `danger` Menu item, then an AlertDialog |
 | A placeholder as the only label | `Field.Label`, or `aria-label` |

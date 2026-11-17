@@ -22,10 +22,14 @@ A class function returns the classes that make any element look like a component
 | `inputClasses({ size })` | A string | One-line field, such as a tag input around a native `<input>` |
 | `textareaClasses({ size })` | A string | Multi-line field, such as a content-editable editor |
 | `badgeClasses({ size, tone })` | A string | Label, such as a tag that is also a link; size is `xs \| sm`, default sm |
-| `menuClasses({ size })` | `popup`, `item`, `dangerItem`, `icon`, `label`, `text`, `description`, `shortcut`, `separator`, `groupLabel` | Floating list, such as an editor's suggestion list, or rows inside a Popover with `variant="list"`. Rows are 28px at sm and 32px at md, with fixed 8px inline padding; see [Floating-list items](layout.md#floating-list-items) |
+| `menuClasses()` | `popup`, `item`, `dangerItem`, `icon`, `label`, `text`, `description`, `shortcut`, `separator`, `groupLabel` | Floating list, such as an editor's suggestion list, or rows inside a Popover with `variant="list"`. One fixed density: 28px rows, 13px text, 14px icons and 8px inline padding; see [Floating-list items](layout.md#floating-list-items) |
 | `popoverClasses({ variant })` | `popup`, `title`, `description` | Floating panel, such as an emoji picker |
 
 Wrap a row's decorative leading content in an `aria-hidden` span with `menuClasses().icon`. It reserves the same square for SVG icons, emoji and identity marks and aligns labels with rows missing an icon. A direct leading SVG remains supported for existing class-function consumers.
+
+Menu rows keep their fixed density even when only `item` is used inside an md Popover; do not add a size class or change row variables to resize them.
+
+`menuClasses().popup` includes the [Menu surface treatment](depth.md#menu-layers): a fine edge and root-menu depth. A cascading list uses `data-nested` or its actual side (`data-side="left" | "right" | "inline-start" | "inline-end"`) for the front layer's depth. Keep its 6px outer inset, 2px overlap and row alignment; use Base UI for placement and pointer intent. The item classes alone do not add depth to a Popover or other container.
 
 State is set with attributes, never with extra classes:
 
@@ -42,7 +46,7 @@ import { badgeClasses, menuClasses, textareaClasses } from "@usememos/ui";
 
 <div className={textareaClasses()} contentEditable role="textbox" aria-multiline="true" aria-label="Note" />
 
-const menu = menuClasses({ size: "sm" });
+const menu = menuClasses();
 
 <div className={menu.popup} role="listbox">
   {matches.map((tag, index) => (

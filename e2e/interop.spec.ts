@@ -83,6 +83,22 @@ const styles = (page: Page, selector: string, properties: string[]) =>
 const box = ['background-color', 'border-top-color', 'border-top-width', 'border-top-left-radius', 'font-size', 'line-height', 'font-weight', 'color'];
 
 for (const theme of themes) {
+  test(`app-built menu rows ignore surrounding sizes and mu-compact in ${theme}`, async ({ page }) => {
+    await page.goto(`/interop.html?theme=${theme}`);
+    const popup = page.locator('#menu-custom');
+    const row = page.locator('#menu-custom-item');
+    for (const size of ['xs', 'sm', 'md'] as const) {
+      await popup.evaluate((element, size) => {
+        element.parentElement!.className = `app-custom mu-s-${size} mu-compact`;
+      }, size);
+      await expect(row).toHaveCSS('height', '28px');
+      await expect(row).toHaveCSS('font-size', '13px');
+      await expect(row).toHaveCSS('line-height', '18px');
+      await expect(row).toHaveCSS('border-radius', '4px');
+      await expect(row.locator('svg')).toHaveCSS('width', '14px');
+    }
+  });
+
   test(`class functions give an app's own parts the component's look in ${theme}`, async ({ page }) => {
     await page.goto(`/interop.html?theme=${theme}`);
     const same = async (component: string, custom: string, properties: string[]) => {

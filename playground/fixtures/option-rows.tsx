@@ -10,7 +10,7 @@ function IdentityMark() {
 
 export function MenuRowParts({ size }: { size: RowSize; }) {
   return (
-    <Menu.Root size={size}>
+    <Menu.Root>
       <Menu.Trigger render={<Button size={size}>Collection actions</Button>} />
       <Menu.Popup>
         <Menu.Group>

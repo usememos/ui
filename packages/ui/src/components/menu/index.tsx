@@ -3,26 +3,15 @@ import { Check, ChevronRight } from 'lucide-react';
 import { forwardRef, useCallback, useId, useRef, type ReactNode } from 'react';
 import { cx, withClass } from '../../internal/class-name';
 import { splitPositioner } from '../../internal/popup';
-import { SizeContext, useRowSize } from '../../internal/size';
-import type { IconElement, Size } from '../../types';
+import type { IconElement } from '../../types';
 import { menuClasses } from './classes';
 
 const classes = /* @__PURE__ */ menuClasses();
 
-export interface RootProps extends BaseMenu.Root.Props {
-  /** Row height of every item: 28 (sm) or 32px (md). */
-  size?: Exclude<Size, 'xs'>;
-}
+export interface RootProps extends BaseMenu.Root.Props {}
 
 /** Groups a trigger and its menu. */
-export function Root({ size, ...props }: RootProps) {
-  const resolved = useRowSize(size);
-  return (
-    <SizeContext.Provider value={resolved}>
-      <BaseMenu.Root {...props} />
-    </SizeContext.Provider>
-  );
-}
+export const Root = BaseMenu.Root;
 
 export interface TriggerProps extends BaseMenu.Trigger.Props {}
 
@@ -49,7 +38,6 @@ export interface PopupProps extends BaseMenu.Popup.Props, PositionerProps {
  * lines up with the trigger, or its last row when it opens upward.
  */
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({ container, className, ...props }, ref) {
-  const size = useRowSize();
   const popupRef = useRef<HTMLDivElement | null>(null);
   const setRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -67,18 +55,18 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function MenuPopup({
     const style = getComputedStyle(popup);
     return -(parseFloat(style.paddingTop) + parseFloat(style.borderTopWidth)) || 0;
   }, []);
-  // Beside its trigger, it sits its own padding away, so a submenu's edge meets its parent's edge.
+  // Side-opening menus overlap the parent's outer edge by inset (2px).
   const sideOffset = useCallback(({ side }: { side: string }) => {
     const popup = popupRef.current;
     if (!popup || side === 'top' || side === 'bottom') return 4;
     const style = getComputedStyle(popup);
-    return parseFloat(style.paddingTop) + parseFloat(style.borderTopWidth) || 4;
+    return parseFloat(style.paddingTop) + parseFloat(style.borderTopWidth) - parseFloat(style.getPropertyValue('--mu-inset'));
   }, []);
   const [positioner, rest] = splitPositioner(props);
   return (
     <BaseMenu.Portal container={container}>
       <BaseMenu.Positioner sideOffset={sideOffset} alignOffset={alignOffset} {...positioner} className="mu-positioner">
-        <BaseMenu.Popup ref={setRef} {...rest} className={withClass(menuClasses({ size }).popup, className)} />
+        <BaseMenu.Popup ref={setRef} {...rest} className={withClass(classes.popup, className)} />
       </BaseMenu.Positioner>
     </BaseMenu.Portal>
   );

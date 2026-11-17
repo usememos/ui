@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import agentsDocs from '../../../AGENTS.md?raw';
 import colorDocs from '../../../docs/color.md?raw';
 import customComponentsDocs from '../../../docs/custom-components.md?raw';
+import depthDocs from '../../../docs/depth.md?raw';
 import layoutDocs from '../../../docs/layout.md?raw';
 import motionDocs from '../../../docs/motion.md?raw';
 import typographyDocs from '../../../docs/typography.md?raw';
@@ -76,7 +77,7 @@ describe('tokens.css', () => {
   });
 
   it('matches the size, spacing, radius, layout, layer and motion tokens in the docs', () => {
-    const rows = [...tableRows(layoutDocs), ...tableRows(motionDocs)];
+    const rows = [...tableRows(layoutDocs), ...tableRows(motionDocs), ...tableRows(depthDocs)];
     expect(rows.length).toBeGreaterThan(30);
     for (const [name, value] of rows) {
       const token = `--mu-${unquote(name)}`;
@@ -105,7 +106,7 @@ describe('tokens.css', () => {
     expect(counts(colorDocs, /the custom property names of those (\d+) tokens/g), 'docs/color.md').toEqual([themeTokens.length]);
   });
 
-  it('has no shadow, sheen, ring or elevation tokens', () => {
+  it('has no generic shadow, sheen, ring or elevation tokens', () => {
     const names = [...new Set([...stripComments(tokensCss).matchAll(/(--mu-[\w-]+)\s*:/g)].map(([, name = '']) => name))];
     expect(names.filter((name) => /^--mu-(shadow|ring|elevation)(-|$)|^--mu-key-sheen$/.test(name))).toEqual([]);
   });

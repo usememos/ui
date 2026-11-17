@@ -1,13 +1,6 @@
-import type { Size } from '../../types';
-
-export interface MenuClassesOptions {
-  /** Row height of every item: 28 (sm) or 32px (md). */
-  size?: Exclude<Size, 'xs'>;
-}
-
 /** The classes of each part of a Menu. */
 export interface MenuClasses {
-  /** The floating list. Sets the row size its items read. */
+  /** The floating list, with Menu's fixed density. */
   popup: string;
   /** One row. Highlighted while it has `data-highlighted`; dimmed with `data-disabled`. */
   item: string;
@@ -34,11 +27,12 @@ export interface MenuClasses {
  * an editor's suggestion list. The app sets `data-highlighted` on the active
  * row. See docs/custom-components.md.
  */
-export function menuClasses({ size = 'md' }: MenuClassesOptions = {}): MenuClasses {
+export function menuClasses(): MenuClasses {
+  const item = 'mu-menu-item mu-s-sm mu-caption';
   return {
-    popup: `mu-menu-popup mu-popup mu-popup-motion mu-base mu-s-${size}`,
-    item: 'mu-menu-item',
-    dangerItem: 'mu-menu-item mu-menu-item-danger',
+    popup: 'mu-menu-popup mu-popup mu-popup-motion mu-base mu-s-sm',
+    item,
+    dangerItem: `${item} mu-menu-item-danger`,
     icon: 'mu-option-icon',
     label: 'mu-menu-label',
     text: 'mu-menu-text',

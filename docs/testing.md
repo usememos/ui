@@ -32,6 +32,10 @@ One fixture may support multiple assertions when it exercises the same props. Ke
 
 Size/tone fixtures show the supported API, not a recommendation for every use of that content. Keep usage examples separate when a component's recommended size depends on its text role. Badge's composition fixtures put 13px metadata, xs and default sm Badges, and an xs action together, with localized and long labels and multi-digit counts. Check alignment, wrapping and truncation as well as each part's computed size. The full-playground axe checks run in Light and Dark at xs, sm and md, so compact-only appearances are included.
 
+For Menu's [fixed density](components/menu.md), verify that xs, sm and md triggers and surrounding size contexts all open the same 28px rows with 13 / 18px text, 14px icons and 4px row corners. Cover root menus, submenus, `menuClasses()` popups and `menuClasses().item` rows inside list Popovers, including `mu-compact` ancestors. Description rows grow to fit content. Keep Select and Combobox size assertions separate; they still support sm and md.
+
+For [Menu layers](depth.md#menu-layers), measure the 2px overlap on both sides, after collision flipping and in RTL, and retain first-row alignment (last-row alignment when opening upward). At 1x and 2x display density, check the real edge width, 6px outer inset and separator bleed. Verify pointer travel into a submenu, keyboard focus return, root versus nested depth, unchanged flat surfaces in other families, and the forced-colors 1px edge with no shadow. Menu screenshots include 32px of surrounding page where the viewport permits, so the shadow and composed seam are visible; do not crop them to the popup's border box.
+
 ## Changing the API or fixtures
 
 1. Read the public prop type and its component guide. Add the case beside that component's existing cases, with an assertion about the caller-visible result.

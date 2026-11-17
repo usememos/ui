@@ -109,6 +109,9 @@
   --mu-sidebar-width: 240px;
   --mu-menu-width: 160px;
   --mu-menu-max-width: 280px;
+  --mu-menu-edge-width: 1px;
+  --mu-menu-depth: 0 6px 18px rgba(0,0,0,0.02), 0 3px 9px rgba(0,0,0,0.04), 0 1px 1px rgba(0,0,0,0.04);
+  --mu-menu-nested-depth: 0 9px 48px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.1), 0 1px 1px rgba(0,0,0,0.04);
   --mu-list-height: 240px;
   --mu-popover-width: 280px;
   --mu-tooltip-width: 240px;
@@ -129,8 +132,16 @@
   --mu-font-display: -apple-system, BlinkMacSystemFont, "Segoe UI (mu)", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mu-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
+@media (min-resolution: 2dppx) {
+  :where(:root, :host, .mu-root), [data-theme] {
+    --mu-menu-edge-width: 0.5px;
+  }
+}
 @media (forced-colors: active) {
   :where(:root, :host, .mu-root), [data-theme] {
+    --mu-menu-edge-width: 1px;
+    --mu-menu-depth: none;
+    --mu-menu-nested-depth: none;
     --mu-focus-edge-width: 2px;
     --mu-control-edge: ButtonText;
     --mu-text-disabled: GrayText;

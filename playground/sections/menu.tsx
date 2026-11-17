@@ -6,7 +6,7 @@ import type { RowSize, SectionProps } from '.';
 export function MenuSection({ size }: SectionProps<RowSize>) {
   return (
     <div className="pg-row">
-      <Menu.Root size={size}>
+      <Menu.Root>
         <Menu.Trigger render={<Button variant="ghost" size={size} icon={<Ellipsis />} aria-label="More actions" />} />
         <Menu.Popup>
           <Menu.Item icon={<Pin />} shortcut="P">
@@ -33,7 +33,7 @@ export function MenuSection({ size }: SectionProps<RowSize>) {
           </Menu.Item>
         </Menu.Popup>
       </Menu.Root>
-      <Menu.Root size={size}>
+      <Menu.Root>
         <Menu.Trigger render={<Button size={size}>View</Button>} />
         <Menu.Popup>
           <Menu.CheckboxItem defaultChecked>Show completed tasks</Menu.CheckboxItem>
@@ -48,7 +48,7 @@ export function MenuSection({ size }: SectionProps<RowSize>) {
           </Menu.Group>
         </Menu.Popup>
       </Menu.Root>
-      <Menu.Root size={size}>
+      <Menu.Root>
         <Menu.Trigger render={<Button size={size}>Visibility</Button>} />
         <Menu.Popup>
           <Menu.RadioGroup defaultValue="private">

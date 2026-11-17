@@ -4,6 +4,19 @@ import { expect, type Locator, type Page } from '@playwright/test';
 export const themes = ['light', 'dark'] as const;
 export type Theme = (typeof themes)[number];
 
+/** The union of parts and their surrounding page, including floating-surface shadows. */
+export async function around(locator: Locator, pad = 16) {
+  await expect(locator.first()).toBeVisible();
+  const parts = await locator.all();
+  for (const part of parts) await expect(part).toBeInViewport();
+  const boxes = (await Promise.all(parts.map((element) => element.boundingBox()))).filter((box) => box !== null);
+  const x = Math.max(0, Math.min(...boxes.map((box) => box.x)) - pad);
+  const y = Math.max(0, Math.min(...boxes.map((box) => box.y)) - pad);
+  const right = Math.max(...boxes.map((box) => box.x + box.width)) + pad;
+  const bottom = Math.max(...boxes.map((box) => box.y + box.height)) + pad;
+  return { x: Math.floor(x), y: Math.floor(y), width: Math.ceil(right - x), height: Math.ceil(bottom - y) };
+}
+
 /** Compare the complete stack after the browser normalizes platform aliases and quotes. */
 export async function expectSystemFont(locator: Locator) {
   const { actual, expected } = await locator.evaluate((element) => {

@@ -35,7 +35,7 @@ export function TableSection({ size }: SectionProps<RowSize>) {
               <Table.Cell muted>{token.created}</Table.Cell>
               <Table.Cell num>{token.uses.toLocaleString('en')}</Table.Cell>
               <Table.Cell num>
-                <Menu.Root size={size}>
+                <Menu.Root>
                   <Menu.Trigger render={<Button variant="ghost" size={size} icon={<Ellipsis />} aria-label={`Actions for ${token.name}`} />} />
                   <Menu.Popup align="end">
                     <Menu.Item>Rename</Menu.Item>

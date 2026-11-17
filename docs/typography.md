@@ -8,7 +8,7 @@
 - 20px (`heading`) is for the page title only, once per page. 32px (`display`) is for the hero headline on a website only, once per page. Nothing else in the UI is larger than 16px, and 16px is only for `title`. Product-owned rendered content and the editor define their own typography.
 - A section title inside a page or panel is `label` (14px, 500), set apart by space above it, not by a larger size. See [Page](patterns.md#page).
 - Secondary text (descriptions, helper text, metadata) is `caption` (13px) in `text-secondary`. No text is smaller than 13px, except `label-xs` and `caption-xs` inside 20px parts.
-- Control text scales with the control size: 11px at xs, 13px at sm, 14px at md.
+- Control text scales with the control size: 11px at xs, 13px at sm, 14px at md. Menu has no size option: item text is always `caption` (13 / 18px, 400), including submenus and app-built menu rows. See [Floating-list items](layout.md#floating-list-items).
 - Letter spacing is 0 for every style, `display` included. The system fonts set their own letter spacing at each size, so adding more makes text tighter or looser than the platform intends.
 - Use `font-variant-numeric: tabular-nums` wherever numbers change or line up: counts, times, tables.
 - Selected and unselected states never change weight, so labels don't shift.
@@ -52,9 +52,9 @@ Nine styles over six sizes. 11, 13 and 14px each have a 400 style for text and a
 | --- | --- | --- | --- |
 | `label-xs` | 11 / 16px | 500 | Labels inside xs controls: 20px parts you press. Never for running or secondary text. Use only for brief, familiar control labels and keyboard shortcuts. Do not shrink user content or status names to distinguish a size category. Platform minimum sizes are a lower bound, not a default for reading |
 | `caption-xs` | 11 / 16px | 400 | Brief counts and explicitly xs Badge labels inside 20px parts. Prefer `caption` for user tags and longer or important status names. Not for running or secondary text. See [Badge sizes](layout.md#badge-sizes) |
-| `caption` | 13 / 18px | 400 | Default sm Badge text; secondary text: field descriptions and errors, metadata, timestamps, toast and popover descriptions, table captions, sm table cells. Usually in `text-secondary` |
+| `caption` | 13 / 18px | 400 | Menu item text in `text`; default sm Badge text; secondary text: field descriptions and errors, metadata, timestamps, toast and popover descriptions, table captions, sm table cells. Secondary roles use `text-secondary` |
 | `label-sm` | 13 / 18px | 500 | Labels inside sm controls, tooltips, group labels in menus and lists, table heads |
-| `body` | 14 / 20px | 400 | Default running text in app UI; entered and selected values; dialog descriptions; Menu and Select items and sidebar navigation rows. Field and settings labels use `label` |
+| `body` | 14 / 20px | 400 | Default running text in app UI; entered and selected values; dialog descriptions; md Select and Combobox items and sidebar navigation rows. Field and settings labels use `label` |
 | `label` | 14 / 20px | 500 | Labels inside md controls, field labels, buttons, section titles, popover and toast titles. The default control text |
 
 ### Headings (`--mu-font-display`)

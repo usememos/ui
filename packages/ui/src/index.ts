@@ -17,7 +17,7 @@ export { Input, inputClasses, type InputClassesOptions, type InputProps } from '
 export { Link, type LinkProps } from './components/link';
 export * as List from './components/list';
 export * as Menu from './components/menu';
-export { menuClasses, type MenuClasses, type MenuClassesOptions } from './components/menu/classes';
+export { menuClasses, type MenuClasses } from './components/menu/classes';
 export * as Popover from './components/popover';
 export { popoverClasses, type PopoverClasses, type PopoverClassesOptions, type PopoverVariant } from './components/popover/classes';
 export { Radio, RadioGroup, type RadioGroupProps, type RadioProps } from './components/radio-group';

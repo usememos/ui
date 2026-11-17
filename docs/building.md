@@ -101,7 +101,7 @@ import { Ellipsis, Pin, Trash2 } from "lucide-react";
 
 ### Props
 
-- **`size`**: controls take `"xs" | "sm" | "md"`, default `"md"`. `xs` only on the controls listed in [Control sizes](layout.md#control-sizes); the rest take `"sm" | "md"`. Badge instead takes `"xs" | "sm"`, default `"sm"`, with its own [text-density sizes](layout.md#badge-sizes). There is no `lg`: a bigger control is not a stronger one, and apps hardly need it. One prop sets height, padding, text, icon size and radius together. On a namespace, set it on `Root`; every part reads it from context.
+- **`size`**: controls that offer sizes take `"xs" | "sm" | "md"`, default `"md"`. `xs` only on the controls listed in [Control sizes](layout.md#control-sizes); other sized controls take `"sm" | "md"`. Badge instead takes `"xs" | "sm"`, default `"sm"`, with its own [text-density sizes](layout.md#badge-sizes). Menu has no size option on `Root` or `menuClasses()` and ignores inherited size: its [fixed density](layout.md#floating-list-items) is independent of its trigger. There is no `lg`: a bigger control is not a stronger one, and apps hardly need it. One prop sets height, padding, text, icon size and radius together. On a sized namespace, set it on `Root`; every part reads it from context.
 - **Controlled or uncontrolled**, with Base UI's prop names:
   - `value` + `onValueChange`, or `defaultValue` (Select, Combobox, Tabs, ToggleGroup, RadioGroup)
   - `checked` + `onCheckedChange`, or `defaultChecked` (Checkbox, Switch, Menu.CheckboxItem)
@@ -139,7 +139,7 @@ Rendered content and avatars belong to the product. The editor (`@usememos/edito
 
 1. A reason: a screen in a product needs it, and no existing component or pattern covers it.
 2. A generic name and API that would make sense in any of our products.
-3. Tokens only: no raw colors or sizes; no shadows, sheen or visible outlines.
-4. Both sizes, all [states](states.md), both themes, and reduced motion.
+3. Tokens only: no raw colors or sizes. Only Menu surfaces use the [menu-depth roles](depth.md#menu-layers); no other shadows, sheen or visible outlines.
+4. Every documented size (Menu has one fixed density), all [states](states.md), both themes, and reduced motion.
 5. Keyboard and screen reader behavior from Base UI.
 6. A page in `docs/components/` and an entry in the [inventory](components/README.md).
