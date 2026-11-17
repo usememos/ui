@@ -26,6 +26,33 @@ describe('Badge primary', () => {
   });
 });
 
+describe('Badge size', () => {
+  it('defaults to sm with the original classes', () => {
+    const { container } = render(<Badge>reading</Badge>);
+    expect(container.firstElementChild!.className).toBe('mu-badge mu-badge-neutral mu-base mu-s-xs mu-caption');
+    expect(badgeClasses()).toBe(badgeClasses({ size: 'sm' }));
+    expectTypeOf<BadgeProps['size']>().toEqualTypeOf<'xs' | 'sm' | undefined>();
+  });
+
+  it.each(['xs', 'sm'] as const)('size=%s composes with tone, color, icon and a custom element', (size) => {
+    const ref = { current: null as HTMLSpanElement | null };
+    const { container } = render(
+      <Badge size={size} tone="neutral" color="#e5484d" icon={<Pin />} render={<a href="#badge" />} ref={ref} className="app">
+        New
+      </Badge>,
+    );
+    const badge = container.querySelector('a')!;
+    expect([...badge.classList].sort()).toEqual([...badgeClasses({ size, tone: 'neutral' }).split(' '), 'app'].sort());
+    expect(badge.classList.contains('mu-caption-xs')).toBe(size === 'xs');
+    expect(badge.classList.contains('mu-caption')).toBe(size === 'sm');
+    expect(badge.hasAttribute('size')).toBe(false);
+    expect(badge.style.getPropertyValue('--mu-badge-color')).toBe('#e5484d');
+    expect(badge.firstElementChild?.tagName.toLowerCase()).toBe('svg');
+    expect(badge.textContent).toBe('New');
+    expect(ref.current).toBe(badge);
+  });
+});
+
 describe('Badge color', () => {
   it('allows custom colors only on neutral tags in its public props', () => {
     expectTypeOf<{ color: string; }>().toMatchTypeOf<BadgeProps>();

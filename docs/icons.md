@@ -12,7 +12,7 @@ import { Pin, Trash2 } from "lucide-react";
 ## Rules
 
 - **Icons are elements, not names.** Components take `icon={<Pin />}`, never `icon="pin"`.
-- **Size comes from the control.** An icon inside a component is 12px at xs, 14px at sm and 16px at md (`icon-xs`, `icon-sm`, `icon-md`). Don't pass `size`.
+- **Size comes from the control.** An icon inside a control is 12px at xs, 14px at sm and 16px at md (`icon-xs`, `icon-sm`, `icon-md`). Badge keeps a 12px icon at both of its [text-density sizes](layout.md#badge-sizes). Don't pass `size` to the icon.
 - **One stroke, fixed in screen pixels.** Every icon, at every size and in badges, draws the `icon-stroke` token: 1.25px. The check in a checkbox is the one exception, at 2px. Apps don't change the token. At 1.25px a 16px outline glyph (calendar, paperclip, search) reads no heavier than the 14px weight-400 text beside it: an icon puts more ink in its box than a letter does, so matching the letters' stem width would read heavier. CSS applies `vector-effect: non-scaling-stroke`, which matches Lucide's `absoluteStrokeWidth`, so no props are needed. Don't pass `strokeWidth`.
 - **Color is `currentColor`.** Icons follow the text color: `text` in controls, `text-secondary` in menu rows, the tone color in toasts.
 - **Icons sit in a fixed square.** Collections reserve missing leading icons according to [Row anatomy](layout.md#row-anatomy). Independent controls do not reserve an absent icon. A loading text-only Button adds its Spinner before the label only after the loading delay.

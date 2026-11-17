@@ -5,6 +5,8 @@ import { cx } from '../../internal/class-name';
 import type { IconElement, Tone } from '../../types';
 
 export type BadgeProps = Omit<useRender.ComponentProps<'span'>, 'color'> & {
+  /** Text density: sm (default) keeps 13px text; xs uses 11px. Both are 20px tall. */
+  size?: 'xs' | 'sm';
   /** A Lucide element before the text, drawn at 12px. */
   icon?: IconElement;
 } & (
@@ -22,6 +24,7 @@ export type BadgeProps = Omit<useRender.ComponentProps<'span'>, 'color'> & {
 );
 
 export interface BadgeClassesOptions {
+  size?: BadgeProps['size'];
   tone?: BadgeProps['tone'];
 }
 
@@ -30,18 +33,18 @@ export interface BadgeClassesOptions {
  * own label, such as a tag that is also a link:
  * `<a className={badgeClasses()} href="/tags/work">work</a>`.
  */
-export function badgeClasses({ tone = 'neutral' }: BadgeClassesOptions = {}) {
-  return cx('mu-badge', `mu-badge-${tone}`, 'mu-base', 'mu-s-xs', 'mu-caption');
+export function badgeClasses({ tone = 'neutral', size = 'sm' }: BadgeClassesOptions = {}) {
+  return cx('mu-badge', `mu-badge-${tone}`, 'mu-base', 'mu-s-xs', size === 'xs' ? 'mu-caption-xs mu-badge-xs' : 'mu-caption');
 }
 
 /** A tag or status label: one or two words, in a pill. A label wider than its container ends in an ellipsis. */
-export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge({ tone = 'neutral', icon, color, render, children, ...props }, ref) {
+export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge({ tone = 'neutral', size = 'sm', icon, color, render, children, ...props }, ref) {
   const style = color ? ({ '--mu-badge-color': color } as CSSProperties) : undefined;
   return useRender({
     defaultTagName: 'span',
     render,
     ref,
-    props: mergeProps<'span'>({ className: badgeClasses({ tone }), style, children: (
+    props: mergeProps<'span'>({ className: badgeClasses({ tone, size }), style, children: (
           <>
             {icon}
             {children != null && <span className="mu-badge-label">{children}</span>}

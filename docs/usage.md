@@ -376,10 +376,30 @@ Use `Toggle variant="soft" shape="pill" size="sm"` for the display strip and a g
 - **Set `size` once, on the outermost part that takes it.** `Menu.Root`, `Select.Root`, `Combobox.Root`, `Tabs.Root`, `Collapsible.Root`, `Table.Root`, `Field.Root`, `Fieldset.Root`, `RadioGroup` and `ToggleGroup` pass their size to every part and every Button, Toggle, Checkbox or Input inside them. Don't repeat it on the parts.
 - **Pick by place, not by importance.** `md` everywhere by default, including dialogs, forms, onboarding, marketing pages and an app's sidebar. A sidebar with 28px rows puts `mu-compact` on itself, which makes md 28px inside it; see [A sidebar navigation row](#a-sidebar-navigation-row). `sm` for dense toolbars, table rows and filters inside panels. `xs` for secondary actions beside 13px text (entry footers, row actions). See [Control sizes](layout.md#control-sizes).
 - **Never make a control bigger to make it stronger.** Emphasis is the `primary` variant.
-- **Don't mix sizes in one row.** A Button beside an Input has the Input's size.
+- **Match peer control sizes in one row.** A Button beside an Input has the Input's size. Badge has its own [text-density sizes](layout.md#badge-sizes): its size name does not need to match the controls beside it. A sm Badge and an xs Button are both 20px tall.
 - **Dialogs and Popovers start at md.** Their panels are md wherever they are declared, so a Dialog inside a `Table.Root size="sm"` still has md Buttons and fields. Set `size` inside the panel only for a part that should differ.
 - **Menus follow their surroundings.** A Menu, Select or Combobox without its own `size` takes the size of the Root around it, so a menu opened from a sm toolbar has sm rows.
 - Text entry, menus, tabs and tables have no `xs`; an inherited `xs` renders them at `sm`.
+
+### Badges beside text and actions
+
+Choose Badge size independently from the surrounding controls. Prefer the default sm for user tags and longer or important status names; prefer xs for brief supporting labels and counts. These are recommendations, not restrictions on tones or content. A short status can use xs in a dense row when it remains readable. Check the actual language rather than shrinking text to make it fit.
+
+Use centered alignment to put 13px metadata, 20px Badges and xs actions on the same row. Both Badge sizes stay 20px tall; mixing them here does not create mismatched control heights. Keep related content `space-2` apart and allow wrapping. For example:
+
+```tsx
+import { Badge, Button } from "@usememos/ui";
+import { Lock } from "lucide-react";
+
+<div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "var(--mu-space-2)" }}>
+  <span className="mu-caption" style={{ color: "var(--mu-text-secondary)" }}>7 minutes ago</span>
+  <Badge size="xs" tone="primary">New</Badge>
+  <Badge tone="outline" icon={<Lock />}>Private</Badge>
+  <Button size="xs" variant="ghost">Open</Button>
+</div>
+```
+
+Keep changing counts in a child span with `font-variant-numeric: tabular-nums`; Badge does not assume its content is numeric. Keep long labels short where possible and provide the full text through `title` when truncation is needed. The Badge playground separates its size/tone coverage from these composition examples, including localized labels and multi-digit counts.
 
 ## Emphasis and color
 

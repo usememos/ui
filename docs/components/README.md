@@ -67,7 +67,8 @@ The short version. [Using the components](../usage.md) has the full decision gui
 ## Shared types
 
 ```ts
-type Size = "xs" | "sm" | "md"; // xs only where a page says so; other components take "sm" | "md"
+type Size = "xs" | "sm" | "md"; // control sizes; xs only where a page says so
+// Badge has its own "xs" | "sm" sizes and defaults to sm.
 type ControlShape = "default" | "pill"; // Button and Toggle; defaults keep size-row corners
 type Tone = "neutral" | "success" | "warning" | "danger";
 /** An icon element. Controls use Lucide; collection rows also accept decorative emoji or identity marks. */

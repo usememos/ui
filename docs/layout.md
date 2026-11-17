@@ -16,6 +16,17 @@ The table applies to every input device. Visible dimensions, layout space and hi
 - The icon side of a control has 2px less padding, so text and icon look centered. Floating-list items follow the separate contract below. Button and Toggle with `shape="pill"` instead keep equal size-row padding at both ends and use `radius-full`; an icon-only control is a circle. Heights, icon sizes and touch targets stay the same.
 - Input capabilities never override a size row. Do not add touch-only minimum dimensions, margins, padding, text sizes or transparent hit-area extensions. A control uses its own boundary for hit testing; native labels keep their normal activation behavior. Responsive composition may follow available width, but touch input alone never changes geometry.
 
+### Badge sizes
+
+Badge is a passive label, so its `size` follows text density rather than the control rows above. It takes `xs | sm`, defaults to `sm`, and does not inherit a surrounding control's size. Both sizes stay 20px tall so labels and xs actions align; the smaller text and inline padding make xs less prominent without changing that alignment.
+
+| Size | Height | Text | Inline inset | Icon | Icon gap | Radius |
+| --- | --- | --- | --- | --- | --- | --- |
+| xs | 20px | `caption-xs` 11 / 16px, 400 | 6px | 12px | 4px | `radius-full` |
+| sm (default) | 20px | `caption` 13 / 18px, 400 | 8px | 12px | 4px | `radius-full` |
+
+Inline inset is measured from the outside edge, including the 1px border. Both sizes read the xs control row for their geometry; sm adds half of `space-1` to each end. Prefer sm for user tags and longer or important status names, and xs for brief supporting labels such as New and counts. These are usage recommendations: either size supports every tone and user-chosen colors. Choose by the label's role and readability in context, not its tone. These are Badge-specific sizes, not new control rows. See [Badge](components/badge.md) and [Badge composition](usage.md#badges-beside-text-and-actions).
+
 ### Floating-list items
 
 Menu, Select and Combobox list items, including inline Combobox lists and rows drawn with `menuClasses().item`, share this contract. They do not inherit a button's horizontal padding: changing a list's size changes its height, type, icons and radius, while its content edges stay fixed.

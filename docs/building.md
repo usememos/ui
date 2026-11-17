@@ -101,7 +101,7 @@ import { Ellipsis, Pin, Trash2 } from "lucide-react";
 
 ### Props
 
-- **`size`**: `"xs" | "sm" | "md"`, default `"md"`. `xs` only on the components listed in [Control sizes](layout.md#control-sizes); the rest take `"sm" | "md"`. There is no `lg`: a bigger control is not a stronger one, and apps hardly need it. One prop sets height, padding, text, icon size and radius together. On a namespace, set it on `Root`; every part reads it from context.
+- **`size`**: controls take `"xs" | "sm" | "md"`, default `"md"`. `xs` only on the controls listed in [Control sizes](layout.md#control-sizes); the rest take `"sm" | "md"`. Badge instead takes `"xs" | "sm"`, default `"sm"`, with its own [text-density sizes](layout.md#badge-sizes). There is no `lg`: a bigger control is not a stronger one, and apps hardly need it. One prop sets height, padding, text, icon size and radius together. On a namespace, set it on `Root`; every part reads it from context.
 - **Controlled or uncontrolled**, with Base UI's prop names:
   - `value` + `onValueChange`, or `defaultValue` (Select, Combobox, Tabs, ToggleGroup, RadioGroup)
   - `checked` + `onCheckedChange`, or `defaultChecked` (Checkbox, Switch, Menu.CheckboxItem)

@@ -21,6 +21,9 @@ body { margin: 0; background: var(--mu-canvas); color: var(--mu-text); font-fami
 .pg-list-record { display: flex; align-items: center; justify-content: space-between; gap: var(--mu-space-3); }
 .pg-list-url { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pg-section h3.mu-label { margin: 0; color: var(--mu-text); }
+.pg-badge-context { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mu-space-2); min-width: 0; }
+.pg-badge-meta { color: var(--mu-text-secondary); }
+.pg-badge-long-label { display: inline-flex; min-width: 0; max-width: calc(var(--mu-space-8) * 4); }
 
 @media (max-width: 639.98px) {
   .pg-main { padding: var(--mu-space-4); }

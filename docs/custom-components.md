@@ -21,7 +21,7 @@ A class function returns the classes that make any element look like a component
 | `buttonClasses({ variant, size, shape, iconOnly })` | A string | Anchor that looks like an action |
 | `inputClasses({ size })` | A string | One-line field, such as a tag input around a native `<input>` |
 | `textareaClasses({ size })` | A string | Multi-line field, such as a content-editable editor |
-| `badgeClasses({ tone })` | A string | Label, such as a tag that is also a link |
+| `badgeClasses({ size, tone })` | A string | Label, such as a tag that is also a link; size is `xs \| sm`, default sm |
 | `menuClasses({ size })` | `popup`, `item`, `dangerItem`, `icon`, `label`, `text`, `description`, `shortcut`, `separator`, `groupLabel` | Floating list, such as an editor's suggestion list, or rows inside a Popover with `variant="list"`. Rows are 28px at sm and 32px at md, with fixed 8px inline padding; see [Floating-list items](layout.md#floating-list-items) |
 | `popoverClasses({ variant })` | `popup`, `title`, `description` | Floating panel, such as an emoji picker |
 
@@ -78,7 +78,7 @@ Apply these classes to an app's own elements. Don't override their rules; see [S
 | `mu-icon-md` | A 16px icon with a 1.25px stroke | A Lucide icon beside 14px or 16px text, outside a control |
 | `mu-visually-hidden` | Hidden on screen, read by screen readers | Text for screen readers only |
 | `mu-label-xs` | 11 / 16px, 500 | Labels of 20px controls |
-| `mu-caption-xs` | 11 / 16px, 400 | Initials and brief counts inside 20px parts; badges use `mu-caption` |
+| `mu-caption-xs` | 11 / 16px, 400 | Brief counts and explicitly xs Badge labels inside 20px parts; default sm badges use `mu-caption` |
 | `mu-caption` | 13 / 18px, 400 | Secondary text |
 | `mu-label-sm` | 13 / 18px, 500 | Small labels |
 | `mu-body` | 14 / 20px, 400 | Body text |

@@ -20,10 +20,12 @@ for (const theme of themes) {
     await expect(page.locator('body')).toHaveCSS('background-color', canvas[theme]);
   });
 
-  test(`has no axe violations in ${theme}`, async ({ page }) => {
-    await open(page, { theme });
-    await expectNoAxeViolations(page, 'main');
-  });
+  for (const size of ['xs', 'sm', 'md'] as const) {
+    test(`has no axe violations in ${theme} at ${size}`, async ({ page }) => {
+      await open(page, { theme, size });
+      await expectNoAxeViolations(page, 'main');
+    });
+  }
 }
 
 test('loads no web fonts: text uses the system UI font', async ({ page }) => {

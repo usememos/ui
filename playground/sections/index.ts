@@ -67,7 +67,7 @@ export const sections: (
   { name: 'popover', title: 'Popover', Section: PopoverSection },
   { name: 'tooltip', title: 'Tooltip', Section: TooltipSection },
   { name: 'toast', title: 'Toast', Section: ToastSection },
-  { name: 'badge', title: 'Badge', Section: BadgeSection },
+  { name: 'badge', xs: true, title: 'Badge', Section: BadgeSection },
   { name: 'separator', title: 'Separator', Section: SeparatorSection },
   { name: 'spinner', xs: true, title: 'Spinner', Section: SpinnerSection },
   { name: 'skeleton', xs: true, title: 'Skeleton', Section: SkeletonSection },

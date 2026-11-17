@@ -30,6 +30,8 @@ Base UI and native props are inherited APIs. Verify that our wrappers preserve c
 
 One fixture may support multiple assertions when it exercises the same props. Keep focused composed fixtures when they test a real seam, such as a list Popover containing a Menu, controls inside a panel, or a reaction picker. Remove a fixture only after migrating any unique assertion it supports.
 
+Size/tone fixtures show the supported API, not a recommendation for every use of that content. Keep usage examples separate when a component's recommended size depends on its text role. Badge's composition fixtures put 13px metadata, xs and default sm Badges, and an xs action together, with localized and long labels and multi-digit counts. Check alignment, wrapping and truncation as well as each part's computed size. The full-playground axe checks run in Light and Dark at xs, sm and md, so compact-only appearances are included.
+
 ## Changing the API or fixtures
 
 1. Read the public prop type and its component guide. Add the case beside that component's existing cases, with an assertion about the caller-visible result.
