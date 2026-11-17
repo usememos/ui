@@ -2,6 +2,10 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
+## Unreleased
+
+- Text-only Buttons no longer reserve an empty leading slot when `loading` is supplied: an idle `loading={false}` button looks like any other Button. After the 300ms delay, the Spinner appears before the label and the button widens by one icon until the work finishes. Buttons with icons still swap an icon for the Spinner without changing size.
+
 ## 26.11.22
 
 Published 16 November 2026.

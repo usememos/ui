@@ -133,10 +133,15 @@ test('delays only the spinner and keeps the label visible when work ends', async
   await page.clock.runFor(299);
   await expect(button.locator('.mu-spinner')).toHaveCount(0);
   await expect(button.locator('.mu-button-label')).toHaveCSS('opacity', '1');
+  expect((await button.boundingBox())!.width).toBe(before);
   await page.clock.runFor(1);
   await expect(button.locator('.mu-spinner')).toHaveCount(1);
   await expect(button.locator('.mu-button-label')).toHaveCSS('opacity', '1');
-  expect((await button.boundingBox())!.width).toBe(before);
+  // A text-only button has no icon to swap: the Spinner goes before the label and the button widens.
+  const spinner = (await button.locator('.mu-spinner').boundingBox())!;
+  const label = (await button.locator('.mu-button-label').boundingBox())!;
+  expect(spinner.x + spinner.width).toBeLessThanOrEqual(label.x);
+  expect((await button.boundingBox())!.width).toBeGreaterThan(before);
   await page.clock.runFor(1200);
   await expect(button).not.toHaveAttribute('aria-busy', 'true');
   await expect(button.locator('.mu-spinner')).toHaveCount(0);
@@ -151,14 +156,24 @@ for (const theme of themes) {
       await page.clock.install({ time: 0 });
       await open(page, { theme, size });
       await page.clock.pauseAt(60_000);
-      const buttons = page.locator('#button [data-loading-case]');
+      // Buttons with an icon swap it for the Spinner; text-only buttons are covered above. A text-only
+      // button widening moves its neighbors, so positions are measured from each button's own edge.
+      const buttons = page.locator('#button [data-loading-case]:not([data-loading-case="text"], [data-loading-case="long"])');
       const before = await buttons.evaluateAll((elements) => elements.map((element) => {
         const box = element.getBoundingClientRect();
         const label = element.querySelector('.mu-button-label');
         const style = getComputedStyle(element);
-        const slot = element.querySelector('svg, .mu-button-loading-slot')!;
+        const slot = element.querySelector('svg')!;
         const slotBox = slot.getBoundingClientRect();
-        return { width: box.width, height: box.height, label: label?.getBoundingClientRect().toJSON(), text: label?.textContent, padding: style.padding, slot: slotBox.toJSON() };
+        const labelBox = label?.getBoundingClientRect();
+        return {
+          width: box.width,
+          height: box.height,
+          label: labelBox && { x: labelBox.x - box.x, y: labelBox.y - box.y, width: labelBox.width, height: labelBox.height, right: labelBox.right - box.x },
+          text: label?.textContent,
+          padding: style.padding,
+          slot: { x: slotBox.x - box.x, y: slotBox.y - box.y, width: slotBox.width, height: slotBox.height },
+        };
       }));
       await buttons.first().click();
       await page.clock.runFor(300);
@@ -174,10 +189,11 @@ for (const theme of themes) {
         await expect(spinner).toHaveCount(1);
         const slot = await spinner.evaluate((element) => {
           const box = element.getBoundingClientRect();
+          const parent = element.parentElement!.getBoundingClientRect();
           const style = getComputedStyle(element);
           const width = parseFloat(style.width);
           const height = parseFloat(style.height);
-          return { x: box.x + (box.width - width) / 2, y: box.y + (box.height - height) / 2, width, height };
+          return { x: box.x - parent.x + (box.width - width) / 2, y: box.y - parent.y + (box.height - height) / 2, width, height };
         });
         expect(slot.x).toBeCloseTo(expected.slot.x, 2);
         expect(slot.y).toBeCloseTo(expected.slot.y, 2);
@@ -187,10 +203,16 @@ for (const theme of themes) {
           const label = button.locator('.mu-button-label');
           await expect(label).toHaveText(expected.text!);
           await expect(label).toHaveCSS('opacity', '1');
-          expect(await label.boundingBox()).toEqual(expect.objectContaining({ x: expected.label.x, y: expected.label.y, width: expected.label.width, height: expected.label.height }));
+          const labelBox = (await label.boundingBox())!;
+          expect({ x: labelBox.x - box.x, y: labelBox.y - box.y, width: labelBox.width, height: labelBox.height }).toEqual({
+            x: expected.label.x,
+            y: expected.label.y,
+            width: expected.label.width,
+            height: expected.label.height,
+          });
           expect(slot.x + slot.width <= expected.label.x || slot.x >= expected.label.right).toBe(true);
         } else {
-          await expect(button).toHaveAccessibleName(index === 4 ? 'Add' : 'Next');
+          await expect(button).toHaveAccessibleName(index === 3 ? 'Add' : 'Next');
           await expect(button.locator('svg')).toHaveCount(0);
         }
       }

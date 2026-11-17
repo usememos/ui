@@ -24,6 +24,8 @@ for (const theme of themes) {
         for (const [index, page] of pages.entries()) {
           await open(page, { theme, size });
           expect(await page.evaluate(() => matchMedia('(pointer: coarse)').matches)).toBe(index === 1);
+          // Text-only loading buttons widen when their delayed Spinner appears; measure both pages after it.
+          await expect(page.locator('.mu-button[data-loading]:not([data-loading-visible])')).toHaveCount(0);
         }
         const selectors = '.mu-button, .mu-input-root, .mu-input, .mu-textarea, .mu-select-trigger, .mu-combobox-trigger, .mu-checkbox, .mu-radio, .mu-switch, .mu-toggle, .mu-segmented, .mu-segmented-item, .mu-list-item-button';
         const desktop = await geometry(pages[0]!.locator(selectors));

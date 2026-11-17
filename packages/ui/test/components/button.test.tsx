@@ -132,14 +132,25 @@ describe('Button loading feedback', () => {
     }
   });
 
-  it('reserves a spinner slot for text-only async actions even while idle', () => {
-    const { container, rerender } = render(<Button loading={false}>Save</Button>);
-    const button = container.querySelector('button')!;
-    expect(button.querySelector('.mu-button-loading-slot')).not.toBeNull();
-    expect(button.querySelector('.mu-spinner')).toBeNull();
+  it('renders an idle text-only async action like a plain button', () => {
+    const plain = render(<Button>Save</Button>);
+    const idle = render(<Button loading={false}>Save</Button>);
+    const button = idle.container.querySelector('button')!;
+    expect(button.innerHTML).toBe(plain.container.querySelector('button')!.innerHTML);
     expect(button.hasAttribute('data-loading')).toBe(false);
-    rerender(<Button>Save</Button>);
-    expect(button.querySelector('.mu-button-loading-slot')).toBeNull();
+  });
+
+  it('puts the spinner before the label of a text-only button', () => {
+    vi.useFakeTimers();
+    const { container, unmount } = render(<Button loading>Save</Button>);
+    try {
+      act(() => vi.advanceTimersByTime(300));
+      const button = container.querySelector('button')!;
+      expect(button.firstElementChild?.className).toBe('mu-spinner');
+      expect(button.lastElementChild?.className).toBe('mu-button-label');
+    } finally {
+      unmount();
+    }
   });
 
   it.each(['leading', 'trailing', 'both', 'icon', 'icon-end'] as const)('replaces and restores the %s icon without removing the label', (placement) => {
@@ -157,7 +168,6 @@ describe('Button loading feedback', () => {
       act(() => vi.advanceTimersByTime(300));
       expect(button.querySelectorAll('.mu-spinner')).toHaveLength(1);
       expect(button.querySelectorAll('svg')).toHaveLength(originalIcons - 1);
-      expect(button.querySelector('.mu-button-loading-slot')).toBeNull();
       expect(button.querySelector('.mu-button-label')).toBe(label);
       expect(button.textContent).toBe(children ?? '');
       expect(button.getAttribute('aria-label')).toBe(children ? null : 'Saving');

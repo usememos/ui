@@ -15,7 +15,7 @@ export interface ButtonProps extends BaseButton.Props {
   icon?: IconElement;
   /** A Lucide element after the label, such as a chevron or an arrow that says where the action leads. */
   iconEnd?: IconElement;
-  /** Ignores presses immediately; after 300ms, shows a Spinner beside the label or in place of an icon. Pass false while idle to reserve its space. */
+  /** Ignores presses immediately; after 300ms, shows a Spinner in place of an icon, or before a label that has no icon. */
   loading?: boolean;
   /** Accessible loading feedback, such as "Saving": a description for text buttons, or a name for icon-only buttons. */
   loadingLabel?: string;
@@ -56,7 +56,8 @@ export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
   const loadingVisible = loading && showSpinner;
   const noLabel = children === undefined || children === null || children === false;
   const iconOnly = noLabel && (icon !== undefined || iconEnd !== undefined);
-  const reserveSpinner = loading !== undefined && !noLabel && icon === undefined && iconEnd === undefined;
+  // A text-only button has no icon to swap, so its Spinner goes before the label.
+  const leadingSpinner = loadingVisible && (icon !== undefined || (iconEnd === undefined && !noLabel));
   const spinner = <span className="mu-spinner" aria-hidden />;
   return (
     <BaseButton
@@ -70,10 +71,7 @@ export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
       data-loading-visible={loadingVisible ? '' : undefined}
       className={withClass(buttonClasses({ variant, size: resolved, shape, iconOnly }), className)}
     >
-      {loadingVisible && icon !== undefined ? spinner : icon}
-      {reserveSpinner ? (
-        <span className={cx('mu-button-loading-slot', loadingVisible && 'mu-spinner')} aria-hidden />
-      ) : null}
+      {leadingSpinner ? spinner : icon}
       {iconOnly ? null : <span className="mu-button-label">{children}</span>}
       {iconOnly && icon !== undefined ? null : loadingVisible && iconEnd !== undefined && icon === undefined ? spinner : iconEnd}
     </BaseButton>
