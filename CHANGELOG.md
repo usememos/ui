@@ -2,7 +2,9 @@
 
 Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"; when a release ships, that heading becomes its version (see "Releasing" in `AGENTS.md`). Breaking changes are also marked with `!` in their commit.
 
-## Unreleased
+## 26.11.24
+
+Published 17 November 2026.
 
 - Badge and `badgeClasses()` accept `size="xs" | "sm"`, defaulting to sm with the existing appearance. Explicit xs uses 11px text and a tighter 6px inline inset instead of sm's 13px text and 8px inset. Both keep the 20px pill height, 12px icons and regular weight.
 - Badge size guidance is based on readability in context: xs is recommended for brief supporting labels and counts, while sm is preferred for user tags and longer or important status names. Both sizes support every tone. The usage guide and playground show Badges beside metadata and xs actions, including localized labels and counts.
