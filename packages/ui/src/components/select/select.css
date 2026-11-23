@@ -7,18 +7,21 @@
 .mu-select-trigger.mu-button-ghost:not([data-disabled]) { color: var(--mu-text); }
 .mu-select-trigger[data-invalid] { border-color: var(--mu-danger); }
 
-.mu-select-positioner { outline: 0; }
+/* Keep the viewport limit on the positioner so apps can set their own max-height on the popup. */
+.mu-select-positioner:not([hidden]) { display: flex; flex-direction: column; max-height: var(--available-height); }
 .mu-select-popup {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   min-width: min(max(var(--mu-menu-width), var(--anchor-width)), var(--available-width));
   max-width: min(max(var(--mu-menu-max-width), var(--anchor-width)), var(--available-width));
-  max-height: var(--available-height);
+  min-height: 0;
   padding: calc(var(--mu-radius-xl) - var(--mu-radius-md) - 1px);
   outline: 0;
 }
 /* sm rows in a floating list are control-compact (28px) tall, with sm text and icons, as in a Menu. */
 .mu-select-popup.mu-s-sm { --mu-row-height: var(--mu-control-compact); }
-.mu-select-list { overflow-y: auto; max-height: var(--available-height); scroll-padding-block: calc(var(--mu-radius-xl) - var(--mu-radius-md)); outline: 0; }
+.mu-select-list { position: relative; overflow-y: auto; scroll-padding-block: calc(var(--mu-radius-xl) - var(--mu-radius-md)); outline: 0; }
 
 .mu-select-item {
   display: flex;
@@ -41,6 +44,6 @@
 
 .mu-select-group-label { padding: var(--mu-space-2) var(--mu-space-2) var(--mu-space-1); color: var(--mu-text-secondary); }
 .mu-select-separator { height: 1px; margin: calc(var(--mu-radius-xl) - var(--mu-radius-md)) calc(1px + var(--mu-radius-md) - var(--mu-radius-xl)); background-color: var(--mu-line); }
-.mu-select-scroll-arrow { display: grid; place-items: center; height: var(--mu-space-4); color: var(--mu-text-secondary); }
+.mu-select-scroll-arrow { display: grid; flex: none; place-items: center; height: var(--mu-space-4); color: var(--mu-text-secondary); }
 
 .mu-select-trigger[data-disabled] :where(.mu-select-value, .mu-select-icon) { color: var(--mu-text-disabled); }

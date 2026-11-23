@@ -4,6 +4,12 @@ Changes to `@usememos/ui` that an app can see. New entries go under "Unreleased"
 
 ## Unreleased
 
+- Long Select lists scroll inside the popup when an app sets a maximum height.
+
+## 26.11.25
+
+Published 17 November 2026.
+
 - Menus use a fine edge (0.5px on high-density screens, 1px otherwise) and light shadows. Submenus overlap their parent's edge by 2px, preserve first-row alignment and use stronger depth to show the front layer. A Menu opened beside a list Popover follows the same rule; other overlay surfaces stay flat. Forced colors keeps a 1px edge and removes menu shadows.
 
 - **Breaking:** Menu uses one fixed density: 28px single-line rows, 13px text, 14px icons and 4px row corners, independent of trigger size or surrounding size context. Remove `Menu.Root.size`, the size option from `menuClasses()` and the `MenuClassesOptions` type. App-built menu rows, including rows inside list Popovers, use the same density without `mu-compact`. Rows with descriptions still grow to fit their content. Select and Combobox keep their existing sizes.

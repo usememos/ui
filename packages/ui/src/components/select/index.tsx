@@ -78,9 +78,13 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(function SelectPopup
     <BaseSelect.Portal container={container}>
       <BaseSelect.Positioner sideOffset={4} align="start" alignItemWithTrigger={false} {...positioner} className="mu-positioner mu-select-positioner">
         <BaseSelect.Popup ref={ref} {...rest} className={withClass(`mu-select-popup mu-popup mu-popup-motion mu-base mu-s-${size}`, className)}>
-          <BaseSelect.ScrollUpArrow className="mu-select-scroll-arrow" render={(arrowProps) => <div {...arrowProps}><ChevronUp aria-hidden /></div>} />
+          <BaseSelect.ScrollUpArrow className="mu-select-scroll-arrow" style={{ position: 'static' }}>
+            <ChevronUp aria-hidden />
+          </BaseSelect.ScrollUpArrow>
           <BaseSelect.List className="mu-select-list">{children}</BaseSelect.List>
-          <BaseSelect.ScrollDownArrow className="mu-select-scroll-arrow" render={(arrowProps) => <div {...arrowProps}><ChevronDown aria-hidden /></div>} />
+          <BaseSelect.ScrollDownArrow className="mu-select-scroll-arrow" style={{ position: 'static' }}>
+            <ChevronDown aria-hidden />
+          </BaseSelect.ScrollDownArrow>
         </BaseSelect.Popup>
       </BaseSelect.Positioner>
     </BaseSelect.Portal>
